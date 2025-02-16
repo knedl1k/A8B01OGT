@@ -13,6 +13,7 @@ CTU FEE Subject Optimization and Game Theory
 <br />
 
 - moodle: <https://moodle.fel.cvut.cz/course/view.php?id=9314>
+- lectures: <https://www.youtube.com/watch?list=PLQL6z4JeTTQmbViFsZoQnUC0FjFZrzfjz&v=da8ogC0dtwM>
 
 ## License
 CC-BY-SA-4.0 license\
