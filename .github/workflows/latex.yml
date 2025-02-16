@@ -1,0 +1,30 @@
+name: Build LaTeX Document
+
+on:
+  push:
+    branches:
+      - main  #run on pushes to the main branch
+  pull_request:  #run on pull requests
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up LaTeX & Compile
+      uses: dante-ev/latex-action@latest
+      with:
+        root_file: main.tex
+        working_directory: .
+
+    - name: Upload PDF Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: sbirka.pdf
+        path: main.pdf
+        compression-level: 0
+        overwrite: true
+
