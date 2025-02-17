@@ -9,8 +9,8 @@
 \usepackage{multicol}
 \usepackage[shortlabels]{enumitem}
 \usepackage{utfsym} %for cross mark
-\usepackage{forest}
 \usepackage{soul}
+\usepackage{pgfplots}
 
 \usepackage{hyperref}
 
@@ -21,17 +21,17 @@
     pdfborder=0 0 0  %hide red boxes
 }
 
-\tikzset{
-->, % makes the edges directed
->=stealth', % makes the arrow heads bold
-auto,
-node distance=3cm, % specifies the minimum distance between two nodes. Change if necessary.
-every state/.style={thick, fill=gray!10}, % sets the properties for each ’state’ node
-initial text=$ $, % sets the text that appears on the start arrow
-between/.style args={#1 and #2}{
-         at = ($(#1)!0.5!(#2)$)
-    },
-}
+% \tikzset{
+% ->, % makes the edges directed
+% >=stealth', % makes the arrow heads bold
+% auto,
+% node distance=3cm, % specifies the minimum distance between two nodes. Change if necessary.
+% every state/.style={thick, fill=gray!10}, % sets the properties for each ’state’ node
+% initial text=$ $, % sets the text that appears on the start arrow
+% between/.style args={#1 and #2}{
+%          at = ($(#1)!0.5!(#2)$)
+%     },
+% }
 
 \newcommand\splitpage[2]{
       \begin{minipage}[t]{0.45\textwidth}#1
@@ -42,6 +42,10 @@ between/.style args={#1 and #2}{
 }
 
 \newcommand{\G}{\mathcal{G}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\ii}[1]{\textit{#1}} % italic 
 \newcommand{\bb}[1]{\textbf{#1}} % bold 
 \newcommand{\m}[1]{$\mathbf{#1}$}
@@ -54,3 +58,6 @@ between/.style args={#1 and #2}{
 \newcommand\setItemnumber[1]{\setcounter{enumi}{\numexpr#1-1\relax}}
 
 \newcommand{\xmark}{\usym{2613}}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
