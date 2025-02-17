@@ -18,7 +18,7 @@ jobs:
       uses: dante-ev/latex-action@latest
       with:
         root_file: main.tex
-        working_directory: .
+        working_directory: exercises
 
     - name: Upload PDF Artifact
       uses: actions/upload-artifact@v4
