@@ -65,13 +65,19 @@ Udělejme průnik definičního oboru funkce a podmínek: $(x \in (0, \infty)) \
       \quad Úvahou pak lze uhodnout $\underset{x \in M}{\argmax} \ln x = \bc{4}$.
 \end{multicols}
 
+\subsection{Uzavřená úsečka}
+Nechť $x, y \in \R^n$. Množina
+\[ [x,y] := \bc{\lambda x + (1-\lambda)y \mid 0 \leq \lambda \leq 1} \]
+se nazývá uzavřená úsečka s krajními body $x$ a $y$.
+
 \subsection{Je nadrovina konvexní?}
 Definice nadroviny: $H(y; \alpha) := \bc{x \in \R^n \mid \langle x, y \rangle = \alpha}$, $y \in \R^n$, $\alpha \in \R$.
 
 Důkaz.
 
 Ať $x,z \in H(y, \alpha), \lambda \in [0,1]$.\\
-Cíl: $\lambda x + (1-\lambda) z \in H(y, \alpha)$.
+Cíl: $\lambda x + (1-\lambda) z \in H(y, \alpha)$. Tedy chceme dokázat, že úsečka mezi dvěma libovolnými body z množiny
+také leží v množině. 
 
 $\langle \lambda x + (1-\lambda)z, y \rangle = \lambda \underbrace{\langle x,y \rangle}_{\alpha} + (1-\lambda) 
 \underbrace{\langle z,y \rangle}_{\alpha} = \lambda \alpha + (1-\lambda) \alpha = \alpha$.
@@ -86,7 +92,8 @@ Definice uzavřené koule: $B(a,r) = \bc{a \in \R^n \mid ||x -a || \leq r}$, o s
 Důkaz.
 
 Ať $x,y \in \R^n, \lambda \in [0,1]$.\\
-Cíl: $|| [\lambda x + (1-\alpha)y] - a || \leq r$.
+Cíl: $|| [\lambda x + (1-\alpha)y] - a || \leq r$. Tedy za $x$ z definice dosadíme úsečku mezi body $x$ a $y$, které jsme
+si vybrali a chceme ukázat, že i tato úsečka leží v uzavřené kouli.
 
 \[
     || [\lambda x + (1-\alpha)y] - a || = || \lambda x - (1-\lambda)a + (1-\lambda)y - \lambda a || = 
@@ -103,7 +110,8 @@ Definice okolí: $B(a,r) = \bc{a \in \R^n \mid ||x -a || < r}$, o středu $a \in
 Důkaz.
 
 Ať $x,y \in \R^n, \lambda \in [0,1]$.\\
-Cíl: $|| [\lambda x + (1-\alpha)y] - a || < r$.
+Cíl: $|| [\lambda x + (1-\alpha)y] - a || < r$. Tedy za $x$ z definice dosadíme úsečku mezi body $x$ a $y$, které jsme
+si vybrali a chceme ukázat, že i tato úsečka leží v okolí.
 
 \[
     || [\lambda x + (1-\alpha)y] - a || = || \lambda x - (1-\lambda)a + (1-\lambda)y - \lambda a || = 
@@ -159,8 +167,8 @@ Cíl: $\varphi(\alpha x) = \alpha \varphi(x)$.
 (2) Ať $x, y \in \R^n$.\\
 Cíl: $\varphi(x+y) = \varphi(x) + \varphi(y)$.
 \[
-    \varphi(x+y) = \varphi (2 (\frac{1}{2} (x+y))) \stackrel{(1)}{=} 2 \varphi (\frac{1}{2} (x+y)) = 
-    2 [f(\frac{1}{2}x + \frac{1}{2}y) - f(0)] = 2 [\frac{1}{2} f(x) + \frac{1}{2}f(y) - f(0) ] = 
+    \varphi(x+y) = \varphi \left(2 \left(\frac{1}{2} (x+y)\right)\right) \stackrel{(1)}{=} 2 \varphi \left(\frac{1}{2} (x+y)\right) = 
+    2 \left[f(\frac{1}{2}x + \frac{1}{2}y) - f(0)\right] = 2 \left[\frac{1}{2} f(x) + \frac{1}{2}f(y) - f(0) \right] = 
 \]
 \[
     f(x) + f(y) - f(0) - f(0) = \underbrace{f(x) - f(0)}_{\varphi(x)} + \underbrace{f(y) - f(0)}_{\varphi(y)} = 
@@ -168,7 +176,7 @@ Cíl: $\varphi(x+y) = \varphi(x) + \varphi(y)$.
 \]
 
 \subsection{Důkaz, že obraz konvexní množiny při afinním zobrazení je konvexní}
-Tvrzení.
+Tvrzení. 
 
 Je-li $f: \R^n \rightarrow \R^m$ afinní a $C \subseteq \R^n$ konvexní, pak $f(C)$ je konvexní.
 
