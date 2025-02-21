@@ -65,6 +65,9 @@ Udělejme průnik definičního oboru funkce a podmínek: $(x \in (0, \infty)) \
       \quad Úvahou pak lze uhodnout $\underset{x \in M}{\argmax} \ln x = \bc{4}$.
 \end{multicols}
 
+\section*{Konvexní množiny} \label{sec:konvex}
+Definice. Množina $C \subseteq \R^n$ se nazve konvexní, jestliže pro každé $x, y \in C$ je $[x,y] \in C$.
+
 \subsection{Uzavřená úsečka}
 Nechť $x, y \in \R^n$. Množina
 \[ [x,y] := \bc{\lambda x + (1-\lambda)y \mid 0 \leq \lambda \leq 1} \]
@@ -76,8 +79,7 @@ Definice nadroviny: $H(y; \alpha) := \bc{x \in \R^n \mid \langle x, y \rangle = 
 Důkaz.
 
 Ať $x,z \in H(y, \alpha), \lambda \in [0,1]$.\\
-Cíl: $\lambda x + (1-\lambda) z \in H(y, \alpha)$. Tedy chceme dokázat, že úsečka mezi dvěma libovolnými body z množiny
-také leží v množině. 
+Cíl: $\lambda x + (1-\lambda) z \in H(y, \alpha)$. Tedy dokazujeme podle \hyperref[sec:konvex]{definice}.
 
 $\langle \lambda x + (1-\lambda)z, y \rangle = \lambda \underbrace{\langle x,y \rangle}_{\alpha} + (1-\lambda) 
 \underbrace{\langle z,y \rangle}_{\alpha} = \lambda \alpha + (1-\lambda) \alpha = \alpha$.
@@ -93,7 +95,7 @@ Důkaz.
 
 Ať $x,y \in \R^n, \lambda \in [0,1]$.\\
 Cíl: $|| [\lambda x + (1-\alpha)y] - a || \leq r$. Tedy za $x$ z definice dosadíme úsečku mezi body $x$ a $y$, které jsme
-si vybrali a chceme ukázat, že i tato úsečka leží v uzavřené kouli.
+si vybrali a chceme ukázat, že i tato úsečka leží v uzavřené kouli, dle \hyperref[sec:konvex]{definice}.
 
 \[
     || [\lambda x + (1-\alpha)y] - a || = || \lambda x - (1-\lambda)a + (1-\lambda)y - \lambda a || = 
@@ -110,8 +112,7 @@ Definice okolí: $B(a,r) = \bc{a \in \R^n \mid ||x -a || < r}$, o středu $a \in
 Důkaz.
 
 Ať $x,y \in \R^n, \lambda \in [0,1]$.\\
-Cíl: $|| [\lambda x + (1-\alpha)y] - a || < r$. Tedy za $x$ z definice dosadíme úsečku mezi body $x$ a $y$, které jsme
-si vybrali a chceme ukázat, že i tato úsečka leží v okolí.
+Cíl: $|| [\lambda x + (1-\alpha)y] - a || < r$. Dle \hyperref[sec:konvex]{definice}.
 
 \[
     || [\lambda x + (1-\alpha)y] - a || = || \lambda x - (1-\lambda)a + (1-\lambda)y - \lambda a || = 
@@ -123,18 +124,59 @@ si vybrali a chceme ukázat, že i tato úsečka leží v okolí.
 \]
 
 \subsection{Je průnik množin konvexní?}
-Nechť $x,y \in \bigcap\limits_{i \in I} \mathbb{M}_{i}, \forall i \in I \implies [x, y] \in \mathbb{M}_i, \forall i \in I
-\implies [x,y] \subseteq \bigcap\limits_{i \in I} \mathbb{M}_{i}. \qed$
+Úvaha pro 2 množiny ve $\R^2$:
+
+\begin{multicols}{2}
+    Mějme jednu modrou ($y \geq 0$) a druhou červenou ($x \geq 0$) \hyperref[sec:konvex]{konvexní} množinu. Jejich průnik je pak nezáporný ortant,
+    tedy \\ 
+    $\R_+^n = \bc{(x_1, \dots, x_n)^T \in \R^n \mid x_1 \geq 0, \dots, x_n \geq 0}$.
+
+    Visuálně je průnik nekonvexní.
+
+    Důkaz.
+
+    Nechť ${x,y \in \bigcap\limits_{i \in I} \mathbb{M}_{i}, \forall i \in I \implies [x, y] \in \mathbb{M}_i, \forall i \in I
+    \implies [x,y] \subseteq \bigcap\limits_{i \in I} \mathbb{M}_{i}.}$
+    $\qed$
+
+\columnbreak
+
+    \begin{center}
+        \begin{tikzpicture}
+            % y > 0 ("/")
+            \fill[pattern=north east lines, pattern color=blue, opacity=0.6] (-2,0) rectangle (2,2);
+
+            % x > 0 ("\")
+            \fill[pattern=north west lines, pattern color=red, opacity=0.6] (0,-2) rectangle (2,2);
+
+            \draw[thick,->] (-2.2,0) -- (2.2,0) node[anchor=north] {\(x\)};
+            \draw[thick,->] (0,-2.2) -- (0,2.2) node[anchor=east] {\(y\)};
+
+            % \foreach \x in {-4,-3,-2,-1,1,2,3,4}
+            %     \draw[dashed, gray] (\x,-4) -- (\x,4);
+            % \foreach \y in {-4,-3,-2,-1,1,2,3,4}
+            %     \draw[dashed, gray] (-4,\y) -- (4,\y);
+
+            \node[anchor=north east] at (0,0) {\(0\)};
+        \end{tikzpicture}
+    \end{center}
+\end{multicols}
 
 \subsection{Důkaz, že rozdíl a sjednocení nezachovává konvexitu}
-% Mějme $\underbrace{[0,1]}_{\text{přímka}} \setminus \underbrace{(0,1)}_{\shortstack{\text{\scriptsize otevřený} \\ \text{\scriptsize interval}}} = \bc{0,1} = \bc{0} \cup \bc{1}$.
 Mějme $[0,1] \setminus (0,1) = \bc{0,1} = \bc{0} \cup \bc{1}$.
 
-$[0,1]$ a $(0,1)$ jsou konvexní množiny. Jejich rozdíl ale už konvexní není.\\
+$[0,1]$ a $(0,1)$ jsou \hyperref[sec:konvex]{konvexní} množiny. Jejich rozdíl ale už konvexní není.\\
 $\bc{0}$ a $\bc{1}$ jsou konvexní množiny. Jejich sjednocení ale už konvexní není.
 
+\section*{Afinní zobrazení} \label{sec:afin}
+Definice. Zobrazení $f: \R^n \rightarrow \R^m$ se nazývá afinní, existují-li $A \in \mathbb{M}_{m,n} (\R)$ a $b \in R^m$
+tak, že $f(x) = Ax + b$. 
+
 \subsection{Důkaz, že afinní zobrazení je konvexní}
-Tvrzení. $f: \R^n \rightarrow \R^m$, $f$ je afinní $\iff$ pro každé $x,y \in \R^n$ a každé $\lambda \in \R$ je
+Tvrzení. 
+
+Nechť $f: \R^n \rightarrow \R^m$. Pak $f$ je \hyperref[sec:afin]{afinní} $\iff$ pro každé $x,y \in \R^n$ a každé 
+$\lambda \in \R$ platí
 \[f(\lambda x + (1-\lambda) y) =\lambda f(x) + (1-\lambda) f(y)\text{.}\]
 
 Důkaz.
@@ -150,10 +192,13 @@ Ať $x, y \in \R^n, \lambda \in \R$.
     \lambda \underbrace{(Ax + b)}_{f(x)} + (1-\lambda)\underbrace{(Ay + b)}_{f(y)} = \lambda f(x) + (1-\lambda)f(y). \qed
 \]
 
-"$\Leftarrow$": Ať $\varphi(x) = f(x) - f(0)$.\\
+"$\Leftarrow$": 
+Cíl: Ukázat, že $f$ je \hyperref[sec:afin]{afinní}, tedy $f(x) = Ax + b$.\\
+Zvolme $\varphi(x) = f(x) - f(0)$.\\
+Pokud je $f$ \hyperref[sec:afin]{afinní}, pak zobrazení $\varphi$ by mělo být dáno jako $Ax$, tedy být lineární.\\
 Cíl: $\varphi$ je lineární zobrazení.
 
-Musíme ověřit uzavřenost na násobení a sčítání.
+Musíme ověřit uzavřenost na násobení a sčítání z definice.
 
 (1) Ať $x \in \R^n$, $\alpha \in R$.\\
 Cíl: $\varphi(\alpha x) = \alpha \varphi(x)$.
@@ -178,7 +223,8 @@ Cíl: $\varphi(x+y) = \varphi(x) + \varphi(y)$.
 \subsection{Důkaz, že obraz konvexní množiny při afinním zobrazení je konvexní}
 Tvrzení. 
 
-Je-li $f: \R^n \rightarrow \R^m$ afinní a $C \subseteq \R^n$ konvexní, pak $f(C)$ je konvexní.
+Je-li $f: \R^n \rightarrow \R^m$ \hyperref[sec:afin]{afinní} a $C \subseteq \R^n$ \hyperref[sec:konvex]{konvexní}, pak 
+$f(C)$ je konvexní.
 
 Důkaz.
 
@@ -187,11 +233,10 @@ Mějme $a, b \in f(C) \implies \exists x, y \in C: f(x)=a, f(y)=b$.
 Dle předpokladu je $C$ konvexní. $\implies [x, y] \subseteq C \implies \underbrace{f([x, y])}_{\subseteq f(C)} = 
 [\underbrace{f(x)}_a, \underbrace{f(y)}_b] \subseteq f(C). \qed$
 
-\newpage
 \subsection{Důkaz, že kartézský součin je konvexní}
 Tvrzení.
 
-Nechť $C_1 \subseteq \R^n$ a $C_2 \subseteq \R^m$. Pak $C_1$ a $C_2$ jsou konvexní množiny právě tehdy, když 
+Nechť $C_1 \subseteq \R^n$ a $C_2 \subseteq \R^m$. Pak $C_1$ a $C_2$ jsou \hyperref[sec:konvex]{konvexní} množiny právě tehdy, když 
 $C_1 \bigtimes C_2$ je konvexní množina.
 
 Důkaz.
@@ -216,7 +261,7 @@ $
 \begin{bmatrix}
     c \\
     d
-\end{bmatrix} \in C_1 \bigtimes C_2.$
+\end{bmatrix} \in C_1 \bigtimes C_2.$ Dle \hyperref[sec:konvex]{definice}.
 
 $
 \lambda \begin{bmatrix}
@@ -243,11 +288,12 @@ $
     \lambda b + (1-\lambda)d
 \end{bmatrix} \in C_1 \bigtimes C_2. \qed$
 
-"$\Leftarrow$": Definujme afinní zobrazení $f : \R^n \times \R^m \rightarrow \R^n$ předpisem
+"$\Leftarrow$": Definujme \hyperref[sec:afin]{afinní} zobrazení $f : \R^n \times \R^m \rightarrow \R^n$ předpisem
 \[ f(x,y) = x \text{.}\]
-Pak $f$ je afinní. Navíc $f(C_1 \bigtimes C_2) = C_1$. $\implies C_1$ je konvexní, protože afinní zobrazení zachovává
+Pak $f$ je afinní. Navíc $f(C_1 \bigtimes C_2) = C_1$. $\implies C_1$ je \hyperref[sec:konvex]{konvexní}, protože afinní zobrazení zachovává
 konvexitu.
 A důkaz bude obdobný pro $C_2$, zde zadefinujme afinní zobr. $g : \R^n \times \R^m \rightarrow \R^n$ předpisem
 \[ g(x,y) = y \text{.}\]
 Pak $g$ je afinní. Navíc $g(C_1 \bigtimes C_2) = C_2$. $\implies C_2$ je konvexní, protože afinní zobrazení zachovává
 konvexitu. $\qed$
+
