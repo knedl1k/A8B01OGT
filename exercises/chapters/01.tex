@@ -6,16 +6,16 @@ Tvrzení. Pro $f: D \rightarrow \R, M \subseteq D, \hat{x} \in M$ platí:
 
 \begin{enumerate}[(1)]
     \item $\hat{x} \in \underset{x \in M}{\argmin} f(x) \iff \hat{x} \in \underset{x \in M}{\argmax} (-f(x))$,
-    \item jesliže $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, pak $\underset{x \in M}{\min} f(x) = 
+    \item jesliže $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, pak $\underset{x \in M}{\min} f(x) =
     - \underset{x \in M}{\max} (-f(x))$.
 \end{enumerate}
 Důkaz.
 
-(1) $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, tj. $f(\hat{x}) \leq f(x), \forall x \in M \underset{\cdot (-1)}{\iff} 
+(1) $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, tj. $f(\hat{x}) \leq f(x), \forall x \in M \underset{\cdot (-1)}{\iff}
 -f(\hat{x}) \geq -f(x), \forall x \in M$, tj. $\hat{x} \in \underset{x \in M}{\argmax} (-f(x)). \qed$
 
 
-(2) Ať $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, pak $\underset{x \in M}{\min} f(x) = f(\hat{x}) = 
+(2) Ať $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, pak $\underset{x \in M}{\min} f(x) = f(\hat{x}) =
 - (- f(\hat{x})) \overset{(1)}{=} - \underset{x \in M}{\max} (-f(x)). \qed$
 
 \subsection{Hledání přípustných množin}
@@ -34,7 +34,7 @@ Upravíme podmínky a uděláme jejich průnik: $(x - 3 \geq 0) \land (x \in \N)
     \text{za podmínek } x \leq 5, \\
     \cos(\pi x) = 1.
 \end{align*}
-$D(f) = (0, \infty)$. 
+$D(f) = (0, \infty)$.
 
 Udělejme průnik definičního oboru funkce a podmínek: $(x \in (0, \infty)) \land (x \leq 5) \land (\cos(\pi x)=1)$.
 
@@ -73,8 +73,8 @@ aby celkový očekávaný měsíční výnos byl co největší?
 
 \subsection{Minimalisační úloha}
 Ve firmě potřebují nalézt rozměry otevřené krabice (tj. krabice bez horní stěny) se čtvercovou podstavou o objemu $10$
-d$\text{m}^3$ tak, aby obsah plochy jejího pláště byl co nejmenší. Formulujte odpovídající optimalisační úlohu za 
-předpokladu, že krabice je vyrobena z materiálu, jehož tloušťka je zanedbatelná. Tuto úlohu poté vyřešte. 
+d$\text{m}^3$ tak, aby obsah plochy jejího pláště byl co nejmenší. Formulujte odpovídající optimalisační úlohu za
+předpokladu, že krabice je vyrobena z materiálu, jehož tloušťka je zanedbatelná. Tuto úlohu poté vyřešte.
 
 \subsection{Maximalisační úloha}
 V továrně vyrábějí zboží různých druhů. Označme je $X_1, \dots, X_n$. Na jejich výrobu potřebují materiály $Y_1, \dots, Y_m$.
@@ -85,10 +85,10 @@ $\sigma_j$. Formulujte optimalisační úlohu problému nastavení množství v�
 
 \subsection{Optimalisační úloha s nadrovinami}
 V $\R^n$ jsou dány množiny bodů $A = \bc{a_1, \dots, a_k}$ a $B = \bc{b_1, \dots, b_t}$. Ať $w \in \R^n$ a $\lambda \in \R$.
-Předpokládejme, že $H$ je nadrovina o rovnici $\langle x,w \rangle + \lambda = 0$, $H_1$ je nadrovina o rovnici 
+Předpokládejme, že $H$ je nadrovina o rovnici $\langle x,w \rangle + \lambda = 0$, $H_1$ je nadrovina o rovnici
 $\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, w \rangle + \lambda = -1$.
 \begin{enumerate}[(a)]
-    \item Ukažte, že vzdálenost mezi nadrovinami $H_1$ a $H_2$ je $\frac{2}{||w||}$. Dále ukažte, že $\frac{1}{||w||}$ 
+    \item Ukažte, že vzdálenost mezi nadrovinami $H_1$ a $H_2$ je $\frac{2}{||w||}$. Dále ukažte, že $\frac{1}{||w||}$
     je vzdálenost $H$ od $H_1$ a také vzdálenost $H$ od $H_2$.
     \item Iterpretujte optimalisační úlohu
     \begin{align*}
@@ -96,7 +96,7 @@ $\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, 
         \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
                               & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
     \end{align*}
-    \item Ukažte, že $(\hat w,\hat \lambda)$ je řešením úlohy z předchozího bodu právě tehdy, když je řešením úlohy 
+    \item Ukažte, že $(\hat w,\hat \lambda)$ je řešením úlohy z předchozího bodu právě tehdy, když je řešením úlohy
     (kvadratického programování) ve tvaru
     \begin{align*}
         \text{minimalisujte } & h(w, \lambda) = \frac{1}{2} ||w||^2 \\
@@ -108,14 +108,14 @@ $\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, 
 \subsection{Optimalisační úloha se spojnicemi bodů}
 V rovině jsou dány body $P = (0,0)^T$ a $Q = (1,1)^T$.
 \begin{enumerate}[(a)]
-    \item Formulujte optimalisační úlohu problému nalezení nejkratší spojnice bodů $P$ a $Q$. Spojnicí rozumíme křivku 
+    \item Formulujte optimalisační úlohu problému nalezení nejkratší spojnice bodů $P$ a $Q$. Spojnicí rozumíme křivku
     danou grafem spojitě diferencovatelné funkce $f : [0,1] \rightarrow \R$.
-    \item Nalezněte řešení úlohy z předchozího bodu.\footnote{Nápověda: Ukažte, že $g(t) = t, t \in [0,1]$, je řešením 
-    úlohy. Využijte přitom toho, že pro dvě spojité funkce $f_1$ a $f_2$ na intervalu $[0,1]$ je $\int_0^1 \left(f_1(t), 
+    \item Nalezněte řešení úlohy z předchozího bodu.\footnote{Nápověda: Ukažte, že $g(t) = t, t \in [0,1]$, je řešením
+    úlohy. Využijte přitom toho, že pro dvě spojité funkce $f_1$ a $f_2$ na intervalu $[0,1]$ je $\int_0^1 \left(f_1(t),
     f_2(t) \right)^T \dif T := \left(\int_0^1 f_1 (t) \dif t, \int_a^b f_2 (t) \dif t \right)^T$ a platí \\
     $\left| \left| \int_0^1 (f_1 (t), f_2 (t))^T \dif t \right| \right| \leq \int_0^1 \left| \left| (f_1 (t), f_2 (t))^T \right| \right| \dif t$.
     K důkazu jednoznačnosti pak lze využít tvrzení, že rovnost v uvedené \uv{trojúhelníkové nerovnosti pro integrály}
-    nastává pávě tehdy, když existuje spojitá funkce $\lambda : [0,1] \rightarrow \R$ taková, že $(f_1 (t), f_2 (t))^T = 
+    nastává pávě tehdy, když existuje spojitá funkce $\lambda : [0,1] \rightarrow \R$ taková, že $(f_1 (t), f_2 (t))^T =
     \lambda (t) \int_0^1 (f_1 (t), f_2 (t))^T \dif t$.
     }
 \end{enumerate}
@@ -124,9 +124,9 @@ V rovině jsou dány body $P = (0,0)^T$ a $Q = (1,1)^T$.
 V rovině jsou dány body $P = (-1, 0)^T$ a $Q = (1,0)^T$. Ať $L$ je úsečka s krajními body $P$ a $Q$.
 \begin{enumerate} [(a)]
     \item Formulujte optimalisační plohu problému nalezení spojitě diferencovatelné funkce $y : [-1, 1] \rightarrow \R$,
-    jejíž graf má koncové body $P$ a $Q$, délku $l=3$, leží v horní polorovině a spolu s úsečkou $L$ ohraničuje část 
+    jejíž graf má koncové body $P$ a $Q$, délku $l=3$, leží v horní polorovině a spolu s úsečkou $L$ ohraničuje část
     roviny o největším obsahu.
-    \item Ať $(x_0, x_1, \dots, x_k)$ je ekvidistantní dělení intervalu $[-1, 1]$ (tj. $x_l = l \delta$, kde 
+    \item Ať $(x_0, x_1, \dots, x_k)$ je ekvidistantní dělení intervalu $[-1, 1]$ (tj. $x_l = l \delta$, kde
     $\delta = \frac{2}{k}$). Využitím tohoto dělení k aproximaci integrálu pomocí konečné sumy a derivace pomocí diferencí
     nalezněte optimalisační úlohu v $\R^{k+1}$, jejíž řešení aproximuje řešení úlohy z předchozího bodu.
 \end{enumerate}
@@ -153,7 +153,7 @@ Důkaz.
 Ať $x,z \in H(y, \alpha), \lambda \in [0,1]$.\\
 Cíl: $\lambda x + (1-\lambda) z \in H(y, \alpha)$. Tedy dokazujeme podle \hyperref[sec:konvex]{definice}.
 
-$\langle \lambda x + (1-\lambda)z, y \rangle = \lambda \underbrace{\langle x,y \rangle}_{\alpha} + (1-\lambda) 
+$\langle \lambda x + (1-\lambda)z, y \rangle = \lambda \underbrace{\langle x,y \rangle}_{\alpha} + (1-\lambda)
 \underbrace{\langle z,y \rangle}_{\alpha} = \lambda \alpha + (1-\lambda) \alpha = \alpha$.
 
 $\Rightarrow \lambda x + (1-\lambda)z \in H(y, \alpha). \qed$
@@ -161,7 +161,7 @@ $\Rightarrow \lambda x + (1-\lambda)z \in H(y, \alpha). \qed$
 \subsection{Je uzavřený poloprostor konvexní?}
 
 \subsection{Je uzavřená koule konvexní?}
-Definice uzavřené koule: $B(a,r) = \bc{a \in \R^n \mid ||x -a || \leq r}$, o středu $a \in \R^n$ a poloměru $r > 0$. 
+Definice uzavřené koule: $B(a,r) = \bc{a \in \R^n \mid ||x -a || \leq r}$, o středu $a \in \R^n$ a poloměru $r > 0$.
 
 Důkaz.
 
@@ -170,16 +170,16 @@ Cíl: $|| [\lambda x + (1-\alpha)y] - a || \leq r$. Tedy za $x$ z definice dosad
 si vybrali a chceme ukázat, že i tato úsečka leží v uzavřené kouli, dle \hyperref[sec:konvex]{definice}.
 
 \[
-    || [\lambda x + (1-\alpha)y] - a || = || \lambda x - (1-\lambda)a + (1-\lambda)y - \lambda a || = 
-    || \lambda (x-a) + (1-\lambda)(y-a) || 
+    || [\lambda x + (1-\alpha)y] - a || = || \lambda x - (1-\lambda)a + (1-\lambda)y - \lambda a || =
+    || \lambda (x-a) + (1-\lambda)(y-a) ||
 \]
-\[ 
+\[
     \leq \lambda ||\underbrace{x-a}_{\leq r}|| +  (1-\lambda)||\underbrace{y-a}_{\leq r}|| \leq \lambda r + (1-\lambda)r
      = r. \qed
 \]
 
 \subsection{Je okolí konvexní?}
-Definice okolí: $B(a,r) = \bc{a \in \R^n \mid ||x -a || < r}$, o středu $a \in \R^n$ a poloměru $r > 0$. 
+Definice okolí: $B(a,r) = \bc{a \in \R^n \mid ||x -a || < r}$, o středu $a \in \R^n$ a poloměru $r > 0$.
 
 Důkaz.
 
@@ -187,10 +187,10 @@ Ať $x,y \in \R^n, \lambda \in [0,1]$.\\
 Cíl: $|| [\lambda x + (1-\alpha)y] - a || < r$. Dle \hyperref[sec:konvex]{definice}.
 
 \[
-    || [\lambda x + (1-\alpha)y] - a || = || \lambda x - (1-\lambda)a + (1-\lambda)y - \lambda a || = 
-    || \lambda (x-a) + (1-\lambda)(y-a) || 
+    || [\lambda x + (1-\alpha)y] - a || = || \lambda x - (1-\lambda)a + (1-\lambda)y - \lambda a || =
+    || \lambda (x-a) + (1-\lambda)(y-a) ||
 \]
-\[ 
+\[
     \leq \lambda ||\underbrace{x-a}_{< r}|| +  (1-\lambda)||\underbrace{y-a}_{< r}|| < \lambda r + (1-\lambda)r
      = r. \qed
 \]
@@ -200,7 +200,7 @@ Cíl: $|| [\lambda x + (1-\alpha)y] - a || < r$. Dle \hyperref[sec:konvex]{defin
 
 \begin{multicols}{2}
     Mějme jednu modrou ($y \geq 0$) a druhou červenou ($x \geq 0$) \hyperref[sec:konvex]{konvexní} množinu. Jejich průnik je pak nezáporný ortant,
-    tedy \\ 
+    tedy \\
     $\R_+^n = \bc{(x_1, \dots, x_n)^T \in \R^n \mid x_1 \geq 0, \dots, x_n \geq 0}$.
 
     Visuálně je průnik nekonvexní.
@@ -242,12 +242,12 @@ $\bc{0}$ a $\bc{1}$ jsou konvexní množiny. Jejich sjednocení ale už konvexn�
 
 \section*{Afinní zobrazení} \label{sec:afin}
 Definice. Zobrazení $f: \R^n \rightarrow \R^m$ se nazývá afinní, existují-li $A \in \mathbb{M}_{m,n} (\R)$ a $b \in R^m$
-tak, že $f(x) = Ax + b$. 
+tak, že $f(x) = Ax + b$.
 
 \subsection{Důkaz, že afinní zobrazení je konvexní}
-Tvrzení. 
+Tvrzení.
 
-Nechť $f: \R^n \rightarrow \R^m$. Pak $f$ je \hyperref[sec:afin]{afinní} $\iff$ pro každé $x,y \in \R^n$ a každé 
+Nechť $f: \R^n \rightarrow \R^m$. Pak $f$ je \hyperref[sec:afin]{afinní} $\iff$ pro každé $x,y \in \R^n$ a každé
 $\lambda \in \R$ platí
 \[f(\lambda x + (1-\lambda) y) =\lambda f(x) + (1-\lambda) f(y)\text{.}\]
 
@@ -257,14 +257,14 @@ Důkaz.
 
 Ať $x, y \in \R^n, \lambda \in \R$.
 \[
-    f(\lambda x + (1 - \lambda) y) = A [\lambda x + (1-\lambda) y] + b = \lambda A x + (1-\lambda)Ay + \lambda b + 
-    (1-\lambda)b = 
-\] 
-\[ 
+    f(\lambda x + (1 - \lambda) y) = A [\lambda x + (1-\lambda) y] + b = \lambda A x + (1-\lambda)Ay + \lambda b +
+    (1-\lambda)b =
+\]
+\[
     \lambda \underbrace{(Ax + b)}_{f(x)} + (1-\lambda)\underbrace{(Ay + b)}_{f(y)} = \lambda f(x) + (1-\lambda)f(y). \qed
 \]
 
-"$\Leftarrow$": 
+"$\Leftarrow$":
 Cíl: Ukázat, že $f$ je \hyperref[sec:afin]{afinní}, tedy $f(x) = Ax + b$.\\
 Zvolme $\varphi(x) = f(x) - f(0)$.\\
 Pokud je $f$ \hyperref[sec:afin]{afinní}, pak zobrazení $\varphi$ by mělo být dáno jako $Ax$, tedy být lineární.\\
@@ -284,36 +284,36 @@ Cíl: $\varphi(\alpha x) = \alpha \varphi(x)$.
 (2) Ať $x, y \in \R^n$.\\
 Cíl: $\varphi(x+y) = \varphi(x) + \varphi(y)$.
 \[
-    \varphi(x+y) = \varphi \left(2 \left(\frac{1}{2} (x+y)\right)\right) \stackrel{(1)}{=} 2 \varphi \left(\frac{1}{2} (x+y)\right) = 
-    2 \left[f(\frac{1}{2}x + \frac{1}{2}y) - f(0)\right] = 2 \left[\frac{1}{2} f(x) + \frac{1}{2}f(y) - f(0) \right] = 
+    \varphi(x+y) = \varphi \left(2 \left(\frac{1}{2} (x+y)\right)\right) \stackrel{(1)}{=} 2 \varphi \left(\frac{1}{2} (x+y)\right) =
+    2 \left[f(\frac{1}{2}x + \frac{1}{2}y) - f(0)\right] = 2 \left[\frac{1}{2} f(x) + \frac{1}{2}f(y) - f(0) \right] =
 \]
 \[
-    f(x) + f(y) - f(0) - f(0) = \underbrace{f(x) - f(0)}_{\varphi(x)} + \underbrace{f(y) - f(0)}_{\varphi(y)} = 
+    f(x) + f(y) - f(0) - f(0) = \underbrace{f(x) - f(0)}_{\varphi(x)} + \underbrace{f(y) - f(0)}_{\varphi(y)} =
     \varphi(x) + \varphi(y). \qed
 \]
 
 \subsection{Důkaz, že obraz konvexní množiny při afinním zobrazení je konvexní}
-Tvrzení. 
+Tvrzení.
 
-Je-li $f: \R^n \rightarrow \R^m$ \hyperref[sec:afin]{afinní} a $C \subseteq \R^n$ \hyperref[sec:konvex]{konvexní}, pak 
+Je-li $f: \R^n \rightarrow \R^m$ \hyperref[sec:afin]{afinní} a $C \subseteq \R^n$ \hyperref[sec:konvex]{konvexní}, pak
 $f(C)$ je konvexní.
 
 Důkaz.
 
 Mějme $a, b \in f(C) \implies \exists x, y \in C: f(x)=a, f(y)=b$.
 
-Dle předpokladu je $C$ konvexní. $\implies [x, y] \subseteq C \implies \underbrace{f([x, y])}_{\subseteq f(C)} = 
+Dle předpokladu je $C$ konvexní. $\implies [x, y] \subseteq C \implies \underbrace{f([x, y])}_{\subseteq f(C)} =
 [\underbrace{f(x)}_a, \underbrace{f(y)}_b] \subseteq f(C). \qed$
 
 \subsection{Důkaz, že kartézský součin je konvexní}
 Tvrzení.
 
-Nechť $C_1 \subseteq \R^n$ a $C_2 \subseteq \R^m$. Pak $C_1$ a $C_2$ jsou \hyperref[sec:konvex]{konvexní} množiny právě tehdy, když 
+Nechť $C_1 \subseteq \R^n$ a $C_2 \subseteq \R^m$. Pak $C_1$ a $C_2$ jsou \hyperref[sec:konvex]{konvexní} množiny právě tehdy, když
 $C_1 \bigtimes C_2$ je konvexní množina.
 
 Důkaz.
 
-"$\Rightarrow$": Mějme 
+"$\Rightarrow$": Mějme
 $
 \begin{bmatrix}
     a \\
@@ -323,7 +323,7 @@ $
     c \\
     d
 \end{bmatrix} \in C_1 \bigtimes C_2, \lambda \in [0,1]$\\
-Cíl: 
+Cíl:
 $
 \lambda \begin{bmatrix}
     a \\
@@ -355,17 +355,171 @@ $
     (1-\lambda)d
 \end{bmatrix}
 =
-\begin{bmatrix} % TODO: add overbrace? 
+\begin{bmatrix} % TODO: add overbrace?
     \lambda a + (1-\lambda)c \\
     \lambda b + (1-\lambda)d
 \end{bmatrix} \in C_1 \bigtimes C_2. \qed$
 
 "$\Leftarrow$": Definujme \hyperref[sec:afin]{afinní} zobrazení $f : \R^n \times \R^m \rightarrow \R^n$ předpisem
 \[ f(x,y) = x \text{.}\]
-Pak $f$ je afinní. Navíc $f(C_1 \bigtimes C_2) = C_1$. $\implies C_1$ je \hyperref[sec:konvex]{konvexní}, protože afinní zobrazení zachovává
-konvexitu.
+Pak $f$ je afinní. Navíc $f(C_1 \bigtimes C_2) = C_1$. $\implies C_1$ je \hyperref[sec:konvex]{konvexní}, protože afinní
+zobrazení zachovává konvexitu.
 A důkaz bude obdobný pro $C_2$, zde zadefinujme afinní zobr. $g : \R^n \times \R^m \rightarrow \R^n$ předpisem
 \[ g(x,y) = y \text{.}\]
 Pak $g$ je afinní. Navíc $g(C_1 \bigtimes C_2) = C_2$. $\implies C_2$ je konvexní, protože afinní zobrazení zachovává
 konvexitu. $\qed$
 
+\subsection{Práce s ortonormální bází a skalárním součinem}
+Uvažme lineární prostor $\mathbb{S}^n = \bc{A \in \mathbb{M}_n (\R) \mid A^ T = T}$ reálných symetrických $n \times n$
+matic se skalárním součinem $\langle A B \rangle _{\mathbb{S}_n} = Tr (AB)$.
+\begin{enumerate}[(a)]
+    \item Ukažte, že $
+    \begin{bmatrix}
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 0
+        \end{pmatrix},
+        & \frac{1}{\sqrt{2}}
+        \begin{pmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{pmatrix},
+        &
+        \begin{pmatrix}
+            0 & 0 \\
+            0 & 1
+        \end{pmatrix}
+    \end{bmatrix}$
+    je ortonormální báze na $\mathbb{S}^2$.
+    \item Ukažte, že zobrazení
+    \[ \varphi:
+    \begin{bmatrix}
+        a & b \\
+        b & c
+    \end{bmatrix} \in \mathbb{S}^2 \mapsto
+    \begin{bmatrix}
+        a \\
+        \sqrt{2}b \\
+        c
+    \end{bmatrix} \in \R^3
+    \]
+    je isomorfismus lineárního prostoru $\mathbb{S}^2$ na $\R^3$ zachovávající skalární součin (tj. \\ $\langle A, B \rangle _{\mathbb{S}_2} = \langle \varphi(A), \varphi(B) \rangle$ pro všechna $A,B \in
+    \mathbb{S}^2$, kde $\langle \dots \rangle$ je standardní skalární součin na $\R^3$)
+    \item Zobecněte výsledky bodů (a) a (b) do prostoru $\mathbb{S}^2 na \R^2$ zachovávající skalární součin.
+    \item Ať $\mathbb{S}^2_+$ je množina všech reálných symetrických $2 \times 2$ matic, které jsou navíc positivně
+    semidefinitní. Ukažte, že jestliže $\varphi$ je zobrazení z bodu (b), pak
+    \[\varphi(\mathbb{S}^2_+) = \bc{(x,y,z)^T \in \R^3 \mid x \geq 0, z \geq 0, 2xz - y^2 \geq 0} \text{.}\]
+\end{enumerate}
+
+\subsection{Bijekce mezi dvěma optimalisačními úlohami}
+Je dána úloha
+\begin{align*}
+    \text{minimalisujte } & \langle X, A \rangle _{\mathbb{S}_2} \\
+    \text{za podmínek }   & \langle X, \bb{1} \rangle _{\mathbb{S}_2} = 2, \\
+                          & X \in \mathbb{S}_+^2,
+\end{align*}
+kde $A = 
+    \begin{bmatrix}
+        3 & 1 \\
+        1 & 1
+    \end{bmatrix}
+$ a $\bb{1} = 
+    \begin{bmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{bmatrix}
+$. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že existuje bijekce mezi množinou všech jejich řešení a množinou všech řešení úlohy
+\begin{align*}
+    \text{minimalisujte } & 3x_1 + 2x_2 + x_3 \\
+    \text{za podmínek }   & x_1 + x_3 = 2, \\
+                          & x_1 x_3 - x_2^2 \geq 0,
+                          & x_1, x_3 \geq 0.
+\end{align*}
+
+\subsection{Bijekce mezi dvěma optimalisačními úlohami}
+Je dána úloha
+\begin{align*}
+    \text{minimalisujte } & \langle X, A \rangle _{\mathbb{S}_2} \\
+    \text{za podmínek }   & \langle X, B \rangle _{\mathbb{S}_2} = 0, \\
+                          & \langle X, \bb{1} \rangle _{\mathbb{S}_2} = 1, \\
+                          & X \in \mathbb{S}_+^2,
+\end{align*}
+kde $A = 
+    \begin{bmatrix}
+        2 & 0 \\
+        0 & -1
+    \end{bmatrix}
+$, $B = 
+    \begin{bmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{bmatrix}
+$ a $\bb{1} = 
+    \begin{bmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{bmatrix}
+$. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že existuje bijekce mezi množinou všech jejich řešení a množinou všech řešení úlohy
+\begin{align*}
+    \text{minimalisujte } & 2x-y \\
+    \text{za podmínek }   & x+y=1, \\
+                          & x, y \geq 0.
+\end{align*}
+
+\subsection{Určení definitnosti matic}
+Určete definitnost matice $A$, jestliže
+\begin{enumerate}[(a)]
+    \item     
+    $\begin{bmatrix}
+        9 & 6 \\
+        6 & 4
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        15 & 3 & 2 \\
+        3 & 1 & 0 \\
+        2 & 0 & 1 
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        4 & 2 & 2 \\
+        2 & 1 & 1 \\
+        2 & 1 & 0 
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        3 & 2 & 1 \\
+        2 & 1 & 1 \\
+        1 & 1 & 0 
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        -1 & 0 & 1 \\
+        0 & -2 & 2 \\
+        1 & 2 & -3 
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        1 & 2 & 0 \\
+        2 & 5 & 1 \\
+        0 & 1 & 1 
+    \end{bmatrix}$.
+\end{enumerate}
+
+\subsection{Existence matice}
+Ať $A \in \mathbb{M}_n (\R)$.
+\begin{enumerate}[(a)]
+    \item Ukažte, že $\langle Ax, y \rangle = \langle x, A^T y \rangle$ pro všechna $x, y \in \R^n$.
+    \item Ukažte, že existují matice $B, C \in \mathbb{M}_n (\R)$ takové, že $B^T = B$, $C^T = -C$ a $A = B + C$. Jsou 
+    matice $B$ a $C$ určeny jednoznačně?
+    \item Ukažte, že existuje symetrická matice $B \in \mathbb{M}_n (\R)$ taková, že $\langle Ax, x \rangle = 
+    \langle Bx, x \rangle$.
+\end{enumerate}
+
+\subsection{Gradient vektorového součinu}
+Nalezněte $\nabla f(x)$ a $\nabla^2 f(x)$, jestliže
+\begin{enumerate}[(a)]
+    \item $f(x) = \langle x,c \rangle$, kde $c \in \R^n$;
+    \item $f(x) = \langle Ax, x \rangle$, kde $A \in \mathbb{M}_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f (x)$ za
+    dodatečného předpokladu, že $A$ je symetrická matice.
+\end{enumerate}
