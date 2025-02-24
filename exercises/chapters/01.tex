@@ -207,8 +207,8 @@ Cíl: $|| [\lambda x + (1-\alpha)y] - a || < r$. Dle \hyperref[sec:konvex]{defin
 
     Důkaz.
 
-    Nechť ${x,y \in \bigcap\limits_{i \in I} \mathbb{M}_{i}, \forall i \in I \implies [x, y] \in \mathbb{M}_i, \forall i \in I
-    \implies [x,y] \subseteq \bigcap\limits_{i \in I} \mathbb{M}_{i}.}$
+    Nechť ${x,y \in \bigcap\limits_{i \in I} \M_{i}, \forall i \in I \implies [x, y] \in \M_i, \forall i \in I
+    \implies [x,y] \subseteq \bigcap\limits_{i \in I} \M_{i}.}$
     $\qed$
 
 \columnbreak
@@ -241,7 +241,7 @@ $[0,1]$ a $(0,1)$ jsou \hyperref[sec:konvex]{konvexní} množiny. Jejich rozdíl
 $\bc{0}$ a $\bc{1}$ jsou konvexní množiny. Jejich sjednocení ale už konvexní není.
 
 \section*{Afinní zobrazení} \label{sec:afin}
-Definice. Zobrazení $f: \R^n \rightarrow \R^m$ se nazývá afinní, existují-li $A \in \mathbb{M}_{m,n} (\R)$ a $b \in R^m$
+Definice. Zobrazení $f: \R^n \rightarrow \R^m$ se nazývá afinní, existují-li $A \in \M_{m,n} (\R)$ a $b \in R^m$
 tak, že $f(x) = Ax + b$.
 
 \subsection{Důkaz, že afinní zobrazení je konvexní}
@@ -253,7 +253,7 @@ $\lambda \in \R$ platí
 
 Důkaz.
 
-"$\Rightarrow$": Ať $f(x) = Ax + b$, kde $A \in \mathbb{M}_{m,n} (\R)$, $b \in \R^n$.
+"$\Rightarrow$": Ať $f(x) = Ax + b$, kde $A \in \M_{m,n} (\R)$, $b \in \R^n$.
 
 Ať $x, y \in \R^n, \lambda \in \R$.
 \[
@@ -370,8 +370,8 @@ Pak $g$ je afinní. Navíc $g(C_1 \bigtimes C_2) = C_2$. $\implies C_2$ je konve
 konvexitu. $\qed$
 
 \subsection{Práce s ortonormální bází a skalárním součinem}
-Uvažme lineární prostor $\mathbb{S}^n = \bc{A \in \mathbb{M}_n (\R) \mid A^ T = T}$ reálných symetrických $n \times n$
-matic se skalárním součinem $\langle A B \rangle _{\mathbb{S}_n} = Tr (AB)$.
+Uvažme lineární prostor $\S^n = \bc{A \in \M_n (\R) \mid A^ T = T}$ reálných symetrických $n \times n$
+matic se skalárním součinem $\langle A B \rangle _{\S_n} = Tr (AB)$.
 \begin{enumerate}[(a)]
     \item Ukažte, že $
     \begin{bmatrix}
@@ -390,40 +390,40 @@ matic se skalárním součinem $\langle A B \rangle _{\mathbb{S}_n} = Tr (AB)$.
             0 & 1
         \end{pmatrix}
     \end{bmatrix}$
-    je ortonormální báze na $\mathbb{S}^2$.
+    je ortonormální báze na $\S^2$.
     \item Ukažte, že zobrazení
     \[ \varphi:
     \begin{bmatrix}
         a & b \\
         b & c
-    \end{bmatrix} \in \mathbb{S}^2 \mapsto
+    \end{bmatrix} \in \S^2 \mapsto
     \begin{bmatrix}
         a \\
         \sqrt{2}b \\
         c
     \end{bmatrix} \in \R^3
     \]
-    je isomorfismus lineárního prostoru $\mathbb{S}^2$ na $\R^3$ zachovávající skalární součin (tj. \\ $\langle A, B \rangle _{\mathbb{S}_2} = \langle \varphi(A), \varphi(B) \rangle$ pro všechna $A,B \in
-    \mathbb{S}^2$, kde $\langle \dots \rangle$ je standardní skalární součin na $\R^3$)
-    \item Zobecněte výsledky bodů (a) a (b) do prostoru $\mathbb{S}^2 na \R^2$ zachovávající skalární součin.
-    \item Ať $\mathbb{S}^2_+$ je množina všech reálných symetrických $2 \times 2$ matic, které jsou navíc positivně
+    je isomorfismus lineárního prostoru $\S^2$ na $\R^3$ zachovávající skalární součin (tj. \\ $\langle A, B \rangle _{\S_2} = \langle \varphi(A), \varphi(B) \rangle$ pro všechna $A,B \in
+    \S^2$, kde $\langle \dots \rangle$ je standardní skalární součin na $\R^3$)
+    \item Zobecněte výsledky bodů (a) a (b) do prostoru $\S^2 na \R^2$ zachovávající skalární součin.
+    \item Ať $\S^2_+$ je množina všech reálných symetrických $2 \times 2$ matic, které jsou navíc positivně
     semidefinitní. Ukažte, že jestliže $\varphi$ je zobrazení z bodu (b), pak
-    \[\varphi(\mathbb{S}^2_+) = \bc{(x,y,z)^T \in \R^3 \mid x \geq 0, z \geq 0, 2xz - y^2 \geq 0} \text{.}\]
+    \[\varphi(\S^2_+) = \bc{(x,y,z)^T \in \R^3 \mid x \geq 0, z \geq 0, 2xz - y^2 \geq 0} \text{.}\]
 \end{enumerate}
 
 \subsection{Bijekce mezi dvěma optimalisačními úlohami}
 Je dána úloha
 \begin{align*}
-    \text{minimalisujte } & \langle X, A \rangle _{\mathbb{S}_2} \\
-    \text{za podmínek }   & \langle X, \bb{1} \rangle _{\mathbb{S}_2} = 2, \\
-                          & X \in \mathbb{S}_+^2,
+    \text{minimalisujte } & \langle X, A \rangle _{\S_2} \\
+    \text{za podmínek }   & \langle X, \bb{1} \rangle _{\S_2} = 2, \\
+                          & X \in \S_+^2,
 \end{align*}
-kde $A = 
+kde $A =
     \begin{bmatrix}
         3 & 1 \\
         1 & 1
     \end{bmatrix}
-$ a $\bb{1} = 
+$ a $\bb{1} =
     \begin{bmatrix}
         1 & 0 \\
         0 & 1
@@ -439,22 +439,22 @@ $. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že e
 \subsection{Bijekce mezi dvěma optimalisačními úlohami}
 Je dána úloha
 \begin{align*}
-    \text{minimalisujte } & \langle X, A \rangle _{\mathbb{S}_2} \\
-    \text{za podmínek }   & \langle X, B \rangle _{\mathbb{S}_2} = 0, \\
-                          & \langle X, \bb{1} \rangle _{\mathbb{S}_2} = 1, \\
-                          & X \in \mathbb{S}_+^2,
+    \text{minimalisujte } & \langle X, A \rangle _{\S_2} \\
+    \text{za podmínek }   & \langle X, B \rangle _{\S_2} = 0, \\
+                          & \langle X, \bb{1} \rangle _{\S_2} = 1, \\
+                          & X \in \S_+^2,
 \end{align*}
-kde $A = 
+kde $A =
     \begin{bmatrix}
         2 & 0 \\
         0 & -1
     \end{bmatrix}
-$, $B = 
+$, $B =
     \begin{bmatrix}
         0 & 1 \\
         1 & 0
     \end{bmatrix}
-$ a $\bb{1} = 
+$ a $\bb{1} =
     \begin{bmatrix}
         1 & 0 \\
         0 & 1
@@ -469,7 +469,7 @@ $. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že e
 \subsection{Určení definitnosti matic}
 Určete definitnost matice $A$, jestliže
 \begin{enumerate}[(a)]
-    \item     
+    \item
     $\begin{bmatrix}
         9 & 6 \\
         6 & 4
@@ -478,41 +478,41 @@ Určete definitnost matice $A$, jestliže
     $\begin{bmatrix}
         15 & 3 & 2 \\
         3 & 1 & 0 \\
-        2 & 0 & 1 
+        2 & 0 & 1
     \end{bmatrix}$;
     \item
     $\begin{bmatrix}
         4 & 2 & 2 \\
         2 & 1 & 1 \\
-        2 & 1 & 0 
+        2 & 1 & 0
     \end{bmatrix}$;
     \item
     $\begin{bmatrix}
         3 & 2 & 1 \\
         2 & 1 & 1 \\
-        1 & 1 & 0 
+        1 & 1 & 0
     \end{bmatrix}$;
     \item
     $\begin{bmatrix}
         -1 & 0 & 1 \\
         0 & -2 & 2 \\
-        1 & 2 & -3 
+        1 & 2 & -3
     \end{bmatrix}$;
     \item
     $\begin{bmatrix}
         1 & 2 & 0 \\
         2 & 5 & 1 \\
-        0 & 1 & 1 
+        0 & 1 & 1
     \end{bmatrix}$.
 \end{enumerate}
 
 \subsection{Existence matice}
-Ať $A \in \mathbb{M}_n (\R)$.
+Ať $A \in \M_n (\R)$.
 \begin{enumerate}[(a)]
     \item Ukažte, že $\langle Ax, y \rangle = \langle x, A^T y \rangle$ pro všechna $x, y \in \R^n$.
-    \item Ukažte, že existují matice $B, C \in \mathbb{M}_n (\R)$ takové, že $B^T = B$, $C^T = -C$ a $A = B + C$. Jsou 
+    \item Ukažte, že existují matice $B, C \in \M_n (\R)$ takové, že $B^T = B$, $C^T = -C$ a $A = B + C$. Jsou
     matice $B$ a $C$ určeny jednoznačně?
-    \item Ukažte, že existuje symetrická matice $B \in \mathbb{M}_n (\R)$ taková, že $\langle Ax, x \rangle = 
+    \item Ukažte, že existuje symetrická matice $B \in \M_n (\R)$ taková, že $\langle Ax, x \rangle =
     \langle Bx, x \rangle$.
 \end{enumerate}
 
@@ -520,6 +520,6 @@ Ať $A \in \mathbb{M}_n (\R)$.
 Nalezněte $\nabla f(x)$ a $\nabla^2 f(x)$, jestliže
 \begin{enumerate}[(a)]
     \item $f(x) = \langle x,c \rangle$, kde $c \in \R^n$;
-    \item $f(x) = \langle Ax, x \rangle$, kde $A \in \mathbb{M}_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f (x)$ za
+    \item $f(x) = \langle Ax, x \rangle$, kde $A \in \M_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f (x)$ za
     dodatečného předpokladu, že $A$ je symetrická matice.
 \end{enumerate}
