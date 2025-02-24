@@ -65,6 +65,78 @@ Udělejme průnik definičního oboru funkce a podmínek: $(x \in (0, \infty)) \
       \quad Úvahou pak lze uhodnout $\underset{x \in M}{\argmax} \ln x = \bc{4}$.
 \end{multicols}
 
+\subsection{Maximalisační úloha}
+Banka nabízí dva investiční produkty. Očekávaný měsíční výnos prvního investičního produktu (v tis. Kč) při investici $x$
+(v tis. Kč) je $\frac{2x}{4x+25}$ a očekávaný měsíční výnos druhého invetičního produktu (v tis. Kč) při investici $x$
+(v tis. Kč) je $\frac{x}{x+50}$. Jakým způsobem má investor rozdělit částku $c = 100000$ Kč mezi uvedené dva produkty tak,
+aby celkový očekávaný měsíční výnos byl co největší?
+
+\subsection{Minimalisační úloha}
+Ve firmě potřebují nalézt rozměry otevřené krabice (tj. krabice bez horní stěny) se čtvercovou podstavou o objemu $10$
+d$\text{m}^3$ tak, aby obsah plochy jejího pláště byl co nejmenší. Formulujte odpovídající optimalisační úlohu za 
+předpokladu, že krabice je vyrobena z materiálu, jehož tloušťka je zanedbatelná. Tuto úlohu poté vyřešte. 
+
+\subsection{Maximalisační úloha}
+V továrně vyrábějí zboží různých druhů. Označme je $X_1, \dots, X_n$. Na jejich výrobu potřebují materiály $Y_1, \dots, Y_m$.
+Na skladě mají k dispozici množství $b_i$ materiálu $Y_i$ a na trhu ho nakupují za cenu $\gamma_i$. Na výrobu jednotkového
+množství zboží $X_j$ potřebují množství $a_{ij}$ materiálu $Y_i$. Jednotkové množství výrobku $X_j$ prodávají za cenu
+$\sigma_j$. Formulujte optimalisační úlohu problému nastavení množství výroby jednotlivých druhů produktů (předpokládejte,
+že hledaná množství nemusí být celočíselná) tak, aby celkový zisk z jejich prodeje byl co největší.
+
+\subsection{Optimalisační úloha s nadrovinami}
+V $\R^n$ jsou dány množiny bodů $A = \bc{a_1, \dots, a_k}$ a $B = \bc{b_1, \dots, b_t}$. Ať $w \in \R^n$ a $\lambda \in \R$.
+Předpokládejme, že $H$ je nadrovina o rovnici $\langle x,w \rangle + \lambda = 0$, $H_1$ je nadrovina o rovnici 
+$\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, w \rangle + \lambda = -1$.
+\begin{enumerate}[(a)]
+    \item Ukažte, že vzdálenost mezi nadrovinami $H_1$ a $H_2$ je $\frac{2}{||w||}$. Dále ukažte, že $\frac{1}{||w||}$ 
+    je vzdálenost $H$ od $H_1$ a také vzdálenost $H$ od $H_2$.
+    \item Iterpretujte optimalisační úlohu
+    \begin{align*}
+        \text{maximalisujte } & g(w, \lambda) = \frac{2}{||w||} \\
+        \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
+                              & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
+    \end{align*}
+    \item Ukažte, že $(\hat w,\hat \lambda)$ je řešením úlohy z předchozího bodu právě tehdy, když je řešením úlohy 
+    (kvadratického programování) ve tvaru
+    \begin{align*}
+        \text{minimalisujte } & h(w, \lambda) = \frac{1}{2} ||w||^2 \\
+        \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
+                              & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
+    \end{align*}
+\end{enumerate}
+
+\subsection{Optimalisační úloha se spojnicemi bodů}
+V rovině jsou dány body $P = (0,0)^T$ a $Q = (1,1)^T$.
+\begin{enumerate}[(a)]
+    \item Formulujte optimalisační úlohu problému nalezení nejkratší spojnice bodů $P$ a $Q$. Spojnicí rozumíme křivku 
+    danou grafem spojitě diferencovatelné funkce $f : [0,1] \rightarrow \R$.
+    \item Nalezněte řešení úlohy z předchozího bodu.\footnote{Nápověda: Ukažte, že $g(t) = t, t \in [0,1]$, je řešením 
+    úlohy. Využijte přitom toho, že pro dvě spojité funkce $f_1$ a $f_2$ na intervalu $[0,1]$ je $\int_0^1 \left(f_1(t), 
+    f_2(t) \right)^T \dif T := \left(\int_0^1 f_1 (t) \dif t, \int_a^b f_2 (t) \dif t \right)^T$ a platí \\
+    $\left| \left| \int_0^1 (f_1 (t), f_2 (t))^T \dif t \right| \right| \leq \int_0^1 \left| \left| (f_1 (t), f_2 (t))^T \right| \right| \dif t$.
+    K důkazu jednoznačnosti pak lze využít tvrzení, že rovnost v uvedené \uv{trojúhelníkové nerovnosti pro integrály}
+    nastává pávě tehdy, když existuje spojitá funkce $\lambda : [0,1] \rightarrow \R$ taková, že $(f_1 (t), f_2 (t))^T = 
+    \lambda (t) \int_0^1 (f_1 (t), f_2 (t))^T \dif t$.
+    }
+\end{enumerate}
+
+\subsection{Optimalisační úloha s úsečkami}
+V rovině jsou dány body $P = (-1, 0)^T$ a $Q = (1,0)^T$. Ať $L$ je úsečka s krajními body $P$ a $Q$.
+\begin{enumerate} [(a)]
+    \item Formulujte optimalisační plohu problému nalezení spojitě diferencovatelné funkce $y : [-1, 1] \rightarrow \R$,
+    jejíž graf má koncové body $P$ a $Q$, délku $l=3$, leží v horní polorovině a spolu s úsečkou $L$ ohraničuje část 
+    roviny o největším obsahu.
+    \item Ať $(x_0, x_1, \dots, x_k)$ je ekvidistantní dělení intervalu $[-1, 1]$ (tj. $x_l = l \delta$, kde 
+    $\delta = \frac{2}{k}$). Využitím tohoto dělení k aproximaci integrálu pomocí konečné sumy a derivace pomocí diferencí
+    nalezněte optimalisační úlohu v $\R^{k+1}$, jejíž řešení aproximuje řešení úlohy z předchozího bodu.
+\end{enumerate}
+
+\subsection{Vztah argmin}
+Ať $\varphi : X \rightarrow Y$ je bijekce, $D_f \subseteq X, D_g \subseteq Y, \varphi(D_f) \subseteq D_g, M \subseteq D_f$
+a $\hat x \in M$. Předpokládejme, že funkce $f : D_f \rightarrow \R$ a $g : D_g \rightarrow \R$ splňují $f = g \circ \varphi$.
+Ukažte, že $\hat x \in \argmin_{x \in M} f(x)$ právě tehdy, když $\varphi (\hat x) \in \argmin_{y \in \varphi (M)} g(y)$.
+
+\newpage
 \section*{Konvexní množiny} \label{sec:konvex}
 Definice. Množina $C \subseteq \R^n$ se nazve konvexní, jestliže pro každé $x, y \in C$ je $[x,y] \in C$.
 
