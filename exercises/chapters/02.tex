@@ -1,1 +1,62 @@
 \section{Druhý týden}
+
+\subsection{Věta o nejlepší aproximaci}
+Je-li $C \subseteq \R^n$ neprázdná uzavřená konvexní množina, pak pro každé $x \in \R^n$ existuje právě jeden bod 
+$\hat y \in C$ tak, že $\dist (x; C) = ||x-\hat y||$.
+
+Důkaz.
+
+1. Existence\\
+Cíl: Existuje bod minima\\
+Úvaha:
+\begin{multicols}{2}
+
+    \begin{tikzpicture}[fill=gray]
+        \begin{scope}
+            \clip (0,0) circle (2);
+            \clip (3,0) circle (2);
+            \fill[pattern=north east lines] (0,0) circle (2);
+        \end{scope}
+        
+        \draw (0,0) circle (2) node [text=black] {$M$};;
+        \draw (3,0) circle (2);
+    
+        \filldraw[black] (1, 0) circle (2pt) node[left] {$z$};
+        \filldraw[black] (2, 0) circle (2pt) node[right] {$y$};
+        \filldraw[black] (3, 0) circle (2pt) node[right] {$x$};
+    
+        \draw[->, thick] (2,-2) -- (1.8,-0.5) node[midway, above, sloped] {$C_z \not= \emptyset$}; % TODO upravit sipku
+    \end{tikzpicture}
+
+\columnbreak
+    $M$ je obecná konvexní množina.\\c x
+    $R = ||x-z||$,\\
+    $Cz = M \cap B (x, R) = M \cap \bc{a \in \R^n \mid ||z-a|| \leq R}$.\\
+    $\uparrow$\\
+    $\underbrace{\text{uzavřená, omezená}}_\text{kompakt}$, neprázdná
+
+    Tedy $a \mapsto ||x-a||$ je spojitá.
+
+    $\Rightarrow$ Spojitost na kompaktní mnoižině znamená, že $f$ nabývá na $C_z$ minima dle Weierstrassova kritéria.
+\end{multicols}
+Ať $y$ je bod minima. Všechny body v $M$ mají od $x$ vzdálenost $\geq ||x-y||. \qed$
+\\
+
+2. Jednoznačnost.\\
+Cíl: Pokud $a,b \in \R^n : ||x-a|| = ||x-b|| = \overbrace{\dist(x,M)}^\delta$, pak $a=b$.\\
+Lemma, rovnoběžníkové pravidlo: $u,v \in \R^n \Rightarrow ||u+v||^2 + ||u-v||^2 = 2\left(||u||^2 + ||v||^2\right)$.\\
+Důkaz lemma: 
+\[
+    ||u+v||^2 + ||u-v||^2 = \langle u+v, u+v \rangle + \langle u-v, u-v \rangle = ||u||^2 + 2 \langle u, v \rangle + 
+    ||v||^2 + ||u||^2 - 2 \langle u, v \rangle + ||v||^2
+\] 
+\[
+    = 2\left( ||u||^2 + ||v||^2 \right) \text{.} \qed
+\]
+Důkaz jednoznačnosti:\\
+Ať $y = \frac{1}{2}a + \frac{1}{2}b$. \\
+Pak $\delta^2 \leq ||x-y||^2 = ||x-\frac{1}{2}a - \frac{1}{2}b||^2 = ||\frac{1}{2}(x-a) + \frac{1}{2}(x-b)||^2 = 
+\frac{1}{4}||\underbrace{(x-a)}_{u} + \underbrace{(x-b)}_{v}||^2 \\ 
+\stackrel{lemma}{=} \frac{1}{4} \left[ 2 \left(\underbrace{||x-a||^2}_{\delta^2} + \underbrace{||x-b||^2}_{\delta^2}\right) 
+- \underbrace{||(x-a) + (x-b)||^2}_{b-a}\right] = \delta^2 - \frac{1}{4} ||b-a||^2 \Rightarrow \delta^2 \leq \delta^2 - 
+\underbrace{\frac{1}{4} ||b-a||^2}_{\leq 0 \Rightarrow a=b} \text{.}$
