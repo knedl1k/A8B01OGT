@@ -18,7 +18,7 @@ Cíl: Existuje bod minima\\
             \fill[pattern=north east lines] (0,0) circle (2);
         \end{scope}
         
-        \draw (0,0) circle (2) node [text=black] {$M$};;
+        \draw (0,0) circle (2) node [text=black] {$M$};
         \draw (3,0) circle (2);
     
         \filldraw[black] (1, 0) circle (2pt) node[left] {$z$};
@@ -33,11 +33,11 @@ Cíl: Existuje bod minima\\
     $R = ||x-z||$,\\
     $Cz = M \cap B (x, R) = M \cap \bc{a \in \R^n \mid ||z-a|| \leq R}$.\\
     $\uparrow$\\
-    $\underbrace{\text{uzavřená, omezená}}_\text{kompakt}$, neprázdná
+    $\underbrace{\text{uzavřená, omezená}}_\text{kompaktní}$, neprázdná
 
     Tedy $a \mapsto ||x-a||$ je spojitá.
 
-    $\Rightarrow$ Spojitost na kompaktní mnoižině znamená, že $f$ nabývá na $C_z$ minima dle Weierstrassova kritéria.
+    $\Rightarrow$ Spojitost na kompaktní množině znamená, že $f$ nabývá na $C_z$ minima dle Weierstrassova kritéria.
 \end{multicols}
 Ať $y$ je bod minima. Všechny body v $M$ mají od $x$ vzdálenost $\geq ||x-y||. \qed$
 \\
@@ -57,6 +57,80 @@ Důkaz jednoznačnosti:\\
 Ať $y = \frac{1}{2}a + \frac{1}{2}b$. \\
 Pak $\delta^2 \leq ||x-y||^2 = ||x-\frac{1}{2}a - \frac{1}{2}b||^2 = ||\frac{1}{2}(x-a) + \frac{1}{2}(x-b)||^2 = 
 \frac{1}{4}||\underbrace{(x-a)}_{u} + \underbrace{(x-b)}_{v}||^2 \\ 
-\stackrel{lemma}{=} \frac{1}{4} \left[ 2 \left(\underbrace{||x-a||^2}_{\delta^2} + \underbrace{||x-b||^2}_{\delta^2}\right) 
+\stackrel{\text{lemma}}{=} \frac{1}{4} \left[ 2 \left(\underbrace{||x-a||^2}_{\delta^2} + \underbrace{||x-b||^2}_{\delta^2}\right) 
 - \underbrace{||(x-a) + (x-b)||^2}_{b-a}\right] = \delta^2 - \frac{1}{4} ||b-a||^2 \Rightarrow \delta^2 \leq \delta^2 - 
 \underbrace{\frac{1}{4} ||b-a||^2}_{\leq 0 \Rightarrow a=b} \text{.}$
+
+\subsection{Projekce bodu a variační nerovnost}
+Nechť $C \subseteq \R^n$ je neprázdná uzavřená konvexní množina, $x \in \R^n$ a $y \in C$. Pak následující tvrzení jsou
+ekvivalentní:
+\begin{enumerate}[(1)]
+    \item $y = P_C (x)$, kde $P_C(x)$ je projekční operátor.
+    \item Pro každé $z \in C$ je $\langle x-y, z-y \rangle \leq 0$.
+\end{enumerate}
+
+Důkaz.
+
+$(1) \Rightarrow (2)$:\\
+Ať $v_\lambda = y + \lambda(z-y)$, $\lambda \in (0,1]$.\\
+Pak
+\[
+    ||x-y||^2 \leq ||x-v_\lambda||^2 = ||x-y-\lambda(z-y)||^2 = \langle (x-y) - \lambda(z-y), (x-y) - \lambda(z-y)\rangle 
+\]
+\[
+    ||x-y||^2 \leq ||x-y||^2 - 2 \lambda \langle x-y, z-y\rangle + \lambda^2 ||z-y||^2
+\]
+\[
+    \Rightarrow \langle x-y, z-y\rangle \leq \frac{\lambda}{2} ||z-y||^2 \rightarrow 0 \text{ pro } \lambda \rightarrow 0^+
+\]
+\[
+    \Rightarrow \langle x-y, z-y\rangle \leq 0 \text{.} \qed
+\]
+
+$(2) \Rightarrow (1)$:\\
+Ať $z \in C$.\\
+Pak
+\[
+    0 \geq \langle x-y, z-y \rangle = \langle x-y, (z-x)+(x-y) \rangle = \langle x-y, z-y \rangle + ||x-y||^2  
+\]
+\[
+    \langle x-y, z-y \rangle + ||x-y||^2 \geq  ||x-y||^2 - \underbrace{|\langle x-y, z-y\rangle|}_{\text{odhad shora}} \geq \star
+\]
+\[
+    \star = ||x-y||^2 - ||x-y|| \cdot ||z-x||.
+\]
+Je-li $x \not= y$, pak vydělíme: $||z-x|| \geq ||x-y||$.\\
+Je-li $x=y$, pak $y \in C : x \in C \dots$ triviální. $\qed$ 
+
+\subsection{Koule?} %TODO: co se tady počítá?
+
+
+\subsection{Věta o ortogonálním rozkladu}
+
+Nechť $L \subseteq \R^n$ je lineární podprostor. Potom platí:
+
+\begin{enumerate}[(1)]
+    \item $P_L : \R^n \rightarrow \R^n$ je lineární zobrazení.
+    \item Pro každé $x \in \R^n$ je $P_{L^\perp} (x) = x - P_L (x)$.
+    \item Pro každé $x \in \R^n$ existují jednoznačně určené body $y \in L$ a $z \in L^\perp$ tak, že $x=y + z$. Navíc 
+    $y = P_L(x) a z=P_{L^ \perp} (x)$.
+\end{enumerate}
+
+Důkaz.
+
+(1)\\
+Cíl: Dokázat vlastnosti lineárního zobrazení, tedy 
+\begin{enumerate}
+    \item $P_L (\alpha x) = \alpha \cdot P_L (x), \forall \alpha \in \R, x \in \R^n$.
+    \item $P_L (x + y) =   P_L (x) +  P_L (y), \forall x,y \in \R^n$.
+\end{enumerate}
+
+1. : Ať $z \in L$.
+Pak 
+\[
+    \langle \alpha x - \alpha P_L (x), z - \alpha P_L (x) \rangle = \alpha  \langle x - P_L (x), z - \alpha P_L (x)\rangle
+\]
+\[
+    \stackrel{\alpha \not= 0}{=} \underbrace{\alpha^2}_{> 0} \langle x - P_L (x), \underbrace{\frac{1}{\alpha} 
+    \cdot z}_{\in L} - P_L (x)\rangle
+\]
