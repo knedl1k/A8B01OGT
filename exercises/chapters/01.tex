@@ -71,10 +71,69 @@ Banka nabízí dva investiční produkty. Očekávaný měsíční výnos první
 (v tis. Kč) je $\frac{x}{x+50}$. Jakým způsobem má investor rozdělit částku $c = 100000$ Kč mezi uvedené dva produkty tak,
 aby celkový očekávaný měsíční výnos byl co největší?
 
+\begin{align*}
+    \text{maximalisujme } &\frac{x}{x+50} + \frac{2y}{4y + 25}\\
+    \text{za podmínek } &  x+y = 100, \\
+    & x,y \geq 0.
+\end{align*}
+
+Vyjádřeme si jednu proměnou v závislosti na druhé, například $x = 100 - y$. Následně dosadíme do úlohy a vyšetříme
+stacionární body pomocí první derivace.
+
+\[
+    \frac{\dif}{\dif y} \left(\frac{100-y}{150-y} + \frac{2y}{4y + 25}\right)= \frac{-50}{(150-y)^2} + \frac{50}{(4y + 25)^2}
+    \stackrel{!}{=}0
+\]
+Zbavme se zlomků:
+\begin{align*}
+    -50(4y + 25)^2 + 50(150-y)^2 &= 0 \\
+    (150-y)^2 - (4y + 25)^2 &= 0 \\
+    (150-y -4y - 25) - (150-y + 4y + 25) &=0\\
+    (125 - 5y) (175 + 3y) &=0 \\
+    y_1 = 25, y_2 \approx -58.3
+\end{align*}
+Tedy aby byly splněny všechny podmínky je jediné možné řešení $y = 25 \rightarrow x = 75$.
+
 \subsection{Minimalisační úloha}
 Ve firmě potřebují nalézt rozměry otevřené krabice (tj. krabice bez horní stěny) se čtvercovou podstavou o objemu $10$
 d$\text{m}^3$ tak, aby obsah plochy jejího pláště byl co nejmenší. Formulujte odpovídající optimalisační úlohu za
 předpokladu, že krabice je vyrobena z materiálu, jehož tloušťka je zanedbatelná. Tuto úlohu poté vyřešte.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw[dashed] (1,1) -- (1,3);
+        \draw[dashed] (1,1) -- (4,1);
+        \draw[dashed] (1,1) -- (0,0);
+
+        \draw[thick] (0,0) rectangle (3,2);
+        \draw[thick] (3,2) -- (4,3) -- (1,3) -- (0,2);
+        \draw[thick] (4,3) -- (4,1) -- (3,0);
+        \draw[thick] (0,2) -- (0,0);
+
+        \node at (1.5,-0.3) {\(x\)};
+        \node at (-0.3,1) {\(y\)};
+        \node at (3.7,0.4) {\(x\)};
+    \end{tikzpicture}
+\end{center}
+\begin{align*}
+    \text{minimalisujme } &4xy + x^2\\
+    \text{za podmínek } &  x^2 y = 10, \\
+    & x,y > 0.
+\end{align*}
+
+Vyjádřeme si jednu proměnou v závislosti na druhé, například $y = \frac{10}{x^2}$. Následně dosadíme do úlohy a vyšetříme
+stacionární body pomocí první derivace.
+
+\[
+    \frac{\dif}{\dif y} \left(4x \frac{10}{x^2} + x^2\right)= \frac{-40}{x^2} + 2x \stackrel{!}{=} 0
+\]
+Zbavme se zlomků:
+\begin{align*}
+    -40 + 2x^3 &= 0 \\
+    x^3 &= 20  \\
+    x &= \sqrt[3]{20}
+\end{align*}
+Tedy jediné možné řešení $x = \sqrt[3]{20} \rightarrow y = \frac{10}{\left(\sqrt[3]{20}\right)^2} =  \sqrt[3]{\frac{5}{2}}$.
 
 \subsection{Maximalisační úloha}
 V továrně vyrábějí zboží různých druhů. Označme je $X_1, \dots, X_n$. Na jejich výrobu potřebují materiály $Y_1, \dots, Y_m$.
@@ -83,58 +142,58 @@ množství zboží $X_j$ potřebují množství $a_{ij}$ materiálu $Y_i$. Jedno
 $\sigma_j$. Formulujte optimalisační úlohu problému nastavení množství výroby jednotlivých druhů produktů (předpokládejte,
 že hledaná množství nemusí být celočíselná) tak, aby celkový zisk z jejich prodeje byl co největší.
 
-\subsection{Optimalisační úloha s nadrovinami}
-V $\R^n$ jsou dány množiny bodů $A = \bc{a_1, \dots, a_k}$ a $B = \bc{b_1, \dots, b_t}$. Ať $w \in \R^n$ a $\lambda \in \R$.
-Předpokládejme, že $H$ je nadrovina o rovnici $\langle x,w \rangle + \lambda = 0$, $H_1$ je nadrovina o rovnici
-$\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, w \rangle + \lambda = -1$.
-\begin{enumerate}[(a)]
-    \item Ukažte, že vzdálenost mezi nadrovinami $H_1$ a $H_2$ je $\frac{2}{||w||}$. Dále ukažte, že $\frac{1}{||w||}$
-    je vzdálenost $H$ od $H_1$ a také vzdálenost $H$ od $H_2$.
-    \item Iterpretujte optimalisační úlohu
-    \begin{align*}
-        \text{maximalisujte } & g(w, \lambda) = \frac{2}{||w||} \\
-        \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
-                              & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
-    \end{align*}
-    \item Ukažte, že $(\hat w,\hat \lambda)$ je řešením úlohy z předchozího bodu právě tehdy, když je řešením úlohy
-    (kvadratického programování) ve tvaru
-    \begin{align*}
-        \text{minimalisujte } & h(w, \lambda) = \frac{1}{2} ||w||^2 \\
-        \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
-                              & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
-    \end{align*}
-\end{enumerate}
+% \subsection{Optimalisační úloha s nadrovinami}
+% V $\R^n$ jsou dány množiny bodů $A = \bc{a_1, \dots, a_k}$ a $B = \bc{b_1, \dots, b_t}$. Ať $w \in \R^n$ a $\lambda \in \R$.
+% Předpokládejme, že $H$ je nadrovina o rovnici $\langle x,w \rangle + \lambda = 0$, $H_1$ je nadrovina o rovnici
+% $\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, w \rangle + \lambda = -1$.
+% \begin{enumerate}[(a)]
+%     \item Ukažte, že vzdálenost mezi nadrovinami $H_1$ a $H_2$ je $\frac{2}{||w||}$. Dále ukažte, že $\frac{1}{||w||}$
+%     je vzdálenost $H$ od $H_1$ a také vzdálenost $H$ od $H_2$.
+%     \item Iterpretujte optimalisační úlohu
+%     \begin{align*}
+%         \text{maximalisujte } & g(w, \lambda) = \frac{2}{||w||} \\
+%         \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
+%                               & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
+%     \end{align*}
+%     \item Ukažte, že $(\hat w,\hat \lambda)$ je řešením úlohy z předchozího bodu právě tehdy, když je řešením úlohy
+%     (kvadratického programování) ve tvaru
+%     \begin{align*}
+%         \text{minimalisujte } & h(w, \lambda) = \frac{1}{2} ||w||^2 \\
+%         \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
+%                               & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
+%     \end{align*}
+% \end{enumerate}
 
-\subsection{Optimalisační úloha se spojnicemi bodů}
-V rovině jsou dány body $P = (0,0)^T$ a $Q = (1,1)^T$.
-\begin{enumerate}[(a)]
-    \item Formulujte optimalisační úlohu problému nalezení nejkratší spojnice bodů $P$ a $Q$. Spojnicí rozumíme křivku
-    danou grafem spojitě diferencovatelné funkce $f : [0,1] \rightarrow \R$.
-    \item Nalezněte řešení úlohy z předchozího bodu.\footnote{Nápověda: Ukažte, že $g(t) = t, t \in [0,1]$, je řešením
-    úlohy. Využijte přitom toho, že pro dvě spojité funkce $f_1$ a $f_2$ na intervalu $[0,1]$ je $\int_0^1 \left(f_1(t),
-    f_2(t) \right)^T \dif T := \left(\int_0^1 f_1 (t) \dif t, \int_a^b f_2 (t) \dif t \right)^T$ a platí \\
-    $\left| \left| \int_0^1 (f_1 (t), f_2 (t))^T \dif t \right| \right| \leq \int_0^1 \left| \left| (f_1 (t), f_2 (t))^T \right| \right| \dif t$.
-    K důkazu jednoznačnosti pak lze využít tvrzení, že rovnost v uvedené \uv{trojúhelníkové nerovnosti pro integrály}
-    nastává pávě tehdy, když existuje spojitá funkce $\lambda : [0,1] \rightarrow \R$ taková, že $(f_1 (t), f_2 (t))^T =
-    \lambda (t) \int_0^1 (f_1 (t), f_2 (t))^T \dif t$.
-    }
-\end{enumerate}
+% \subsection{Optimalisační úloha se spojnicemi bodů}
+% V rovině jsou dány body $P = (0,0)^T$ a $Q = (1,1)^T$.
+% \begin{enumerate}[(a)]
+%     \item Formulujte optimalisační úlohu problému nalezení nejkratší spojnice bodů $P$ a $Q$. Spojnicí rozumíme křivku
+%     danou grafem spojitě diferencovatelné funkce $f : [0,1] \rightarrow \R$.
+%     \item Nalezněte řešení úlohy z předchozího bodu.\footnote{Nápověda: Ukažte, že $g(t) = t, t \in [0,1]$, je řešením
+%     úlohy. Využijte přitom toho, že pro dvě spojité funkce $f_1$ a $f_2$ na intervalu $[0,1]$ je $\int_0^1 \left(f_1(t),
+%     f_2(t) \right)^T \dif T := \left(\int_0^1 f_1 (t) \dif t, \int_a^b f_2 (t) \dif t \right)^T$ a platí \\
+%     $\left| \left| \int_0^1 (f_1 (t), f_2 (t))^T \dif t \right| \right| \leq \int_0^1 \left| \left| (f_1 (t), f_2 (t))^T \right| \right| \dif t$.
+%     K důkazu jednoznačnosti pak lze využít tvrzení, že rovnost v uvedené \uv{trojúhelníkové nerovnosti pro integrály}
+%     nastává pávě tehdy, když existuje spojitá funkce $\lambda : [0,1] \rightarrow \R$ taková, že $(f_1 (t), f_2 (t))^T =
+%     \lambda (t) \int_0^1 (f_1 (t), f_2 (t))^T \dif t$.
+%     }
+% \end{enumerate}
 
-\subsection{Optimalisační úloha s úsečkami}
-V rovině jsou dány body $P = (-1, 0)^T$ a $Q = (1,0)^T$. Ať $L$ je úsečka s krajními body $P$ a $Q$.
-\begin{enumerate} [(a)]
-    \item Formulujte optimalisační plohu problému nalezení spojitě diferencovatelné funkce $y : [-1, 1] \rightarrow \R$,
-    jejíž graf má koncové body $P$ a $Q$, délku $l=3$, leží v horní polorovině a spolu s úsečkou $L$ ohraničuje část
-    roviny o největším obsahu.
-    \item Ať $(x_0, x_1, \dots, x_k)$ je ekvidistantní dělení intervalu $[-1, 1]$ (tj. $x_l = l \delta$, kde
-    $\delta = \frac{2}{k}$). Využitím tohoto dělení k aproximaci integrálu pomocí konečné sumy a derivace pomocí diferencí
-    nalezněte optimalisační úlohu v $\R^{k+1}$, jejíž řešení aproximuje řešení úlohy z předchozího bodu.
-\end{enumerate}
+% \subsection{Optimalisační úloha s úsečkami}
+% V rovině jsou dány body $P = (-1, 0)^T$ a $Q = (1,0)^T$. Ať $L$ je úsečka s krajními body $P$ a $Q$.
+% \begin{enumerate} [(a)]
+%     \item Formulujte optimalisační plohu problému nalezení spojitě diferencovatelné funkce $y : [-1, 1] \rightarrow \R$,
+%     jejíž graf má koncové body $P$ a $Q$, délku $l=3$, leží v horní polorovině a spolu s úsečkou $L$ ohraničuje část
+%     roviny o největším obsahu.
+%     \item Ať $(x_0, x_1, \dots, x_k)$ je ekvidistantní dělení intervalu $[-1, 1]$ (tj. $x_l = l \delta$, kde
+%     $\delta = \frac{2}{k}$). Využitím tohoto dělení k aproximaci integrálu pomocí konečné sumy a derivace pomocí diferencí
+%     nalezněte optimalisační úlohu v $\R^{k+1}$, jejíž řešení aproximuje řešení úlohy z předchozího bodu.
+% \end{enumerate}
 
-\subsection{Vztah argmin}
-Ať $\varphi : X \rightarrow Y$ je bijekce, $D_f \subseteq X, D_g \subseteq Y, \varphi(D_f) \subseteq D_g, M \subseteq D_f$
-a $\hat x \in M$. Předpokládejme, že funkce $f : D_f \rightarrow \R$ a $g : D_g \rightarrow \R$ splňují $f = g \circ \varphi$.
-Ukažte, že $\hat x \in \argmin_{x \in M} f(x)$ právě tehdy, když $\varphi (\hat x) \in \argmin_{y \in \varphi (M)} g(y)$.
+% \subsection{Vztah argmin}
+% Ať $\varphi : X \rightarrow Y$ je bijekce, $D_f \subseteq X, D_g \subseteq Y, \varphi(D_f) \subseteq D_g, M \subseteq D_f$
+% a $\hat x \in M$. Předpokládejme, že funkce $f : D_f \rightarrow \R$ a $g : D_g \rightarrow \R$ splňují $f = g \circ \varphi$.
+% Ukažte, že $\hat x \in \argmin_{x \in M} f(x)$ právě tehdy, když $\varphi (\hat x) \in \argmin_{y \in \varphi (M)} g(y)$.
 
 \newpage
 \section*{Konvexní množiny} \label{sec:konvex}
@@ -369,157 +428,157 @@ A důkaz bude obdobný pro $C_2$, zde zadefinujme afinní zobr. $g : \R^n \times
 Pak $g$ je afinní. Navíc $g(C_1 \bigtimes C_2) = C_2$. $\implies C_2$ je konvexní, protože afinní zobrazení zachovává
 konvexitu. $\qed$
 
-\subsection{Práce s ortonormální bází a skalárním součinem}
-Uvažme lineární prostor $\S^n = \bc{A \in \M_n (\R) \mid A^ T = T}$ reálných symetrických $n \times n$
-matic se skalárním součinem $\langle A B \rangle _{\S_n} = Tr (AB)$.
-\begin{enumerate}[(a)]
-    \item Ukažte, že $
-    \begin{bmatrix}
-        \begin{pmatrix}
-            1 & 0 \\
-            0 & 0
-        \end{pmatrix},
-        & \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            0 & 1 \\
-            1 & 0
-        \end{pmatrix},
-        &
-        \begin{pmatrix}
-            0 & 0 \\
-            0 & 1
-        \end{pmatrix}
-    \end{bmatrix}$
-    je ortonormální báze na $\S^2$.
-    \item Ukažte, že zobrazení
-    \[ \varphi:
-    \begin{bmatrix}
-        a & b \\
-        b & c
-    \end{bmatrix} \in \S^2 \mapsto
-    \begin{bmatrix}
-        a \\
-        \sqrt{2}b \\
-        c
-    \end{bmatrix} \in \R^3
-    \]
-    je isomorfismus lineárního prostoru $\S^2$ na $\R^3$ zachovávající skalární součin (tj. \\ $\langle A, B \rangle _{\S_2} = \langle \varphi(A), \varphi(B) \rangle$ pro všechna $A,B \in
-    \S^2$, kde $\langle \dots \rangle$ je standardní skalární součin na $\R^3$)
-    \item Zobecněte výsledky bodů (a) a (b) do prostoru $\S^2 na \R^2$ zachovávající skalární součin.
-    \item Ať $\S^2_+$ je množina všech reálných symetrických $2 \times 2$ matic, které jsou navíc positivně
-    semidefinitní. Ukažte, že jestliže $\varphi$ je zobrazení z bodu (b), pak
-    \[\varphi(\S^2_+) = \bc{(x,y,z)^T \in \R^3 \mid x \geq 0, z \geq 0, 2xz - y^2 \geq 0} \text{.}\]
-\end{enumerate}
+% \subsection{Práce s ortonormální bází a skalárním součinem}
+% Uvažme lineární prostor $\S^n = \bc{A \in \M_n (\R) \mid A^ T = T}$ reálných symetrických $n \times n$
+% matic se skalárním součinem $\langle A B \rangle _{\S_n} = Tr (AB)$.
+% \begin{enumerate}[(a)]
+%     \item Ukažte, že $
+%     \begin{bmatrix}
+%         \begin{pmatrix}
+%             1 & 0 \\
+%             0 & 0
+%         \end{pmatrix},
+%         & \frac{1}{\sqrt{2}}
+%         \begin{pmatrix}
+%             0 & 1 \\
+%             1 & 0
+%         \end{pmatrix},
+%         &
+%         \begin{pmatrix}
+%             0 & 0 \\
+%             0 & 1
+%         \end{pmatrix}
+%     \end{bmatrix}$
+%     je ortonormální báze na $\S^2$.
+%     \item Ukažte, že zobrazení
+%     \[ \varphi:
+%     \begin{bmatrix}
+%         a & b \\
+%         b & c
+%     \end{bmatrix} \in \S^2 \mapsto
+%     \begin{bmatrix}
+%         a \\
+%         \sqrt{2}b \\
+%         c
+%     \end{bmatrix} \in \R^3
+%     \]
+%     je isomorfismus lineárního prostoru $\S^2$ na $\R^3$ zachovávající skalární součin (tj. \\ $\langle A, B \rangle _{\S_2} = \langle \varphi(A), \varphi(B) \rangle$ pro všechna $A,B \in
+%     \S^2$, kde $\langle \dots \rangle$ je standardní skalární součin na $\R^3$)
+%     \item Zobecněte výsledky bodů (a) a (b) do prostoru $\S^2 na \R^2$ zachovávající skalární součin.
+%     \item Ať $\S^2_+$ je množina všech reálných symetrických $2 \times 2$ matic, které jsou navíc positivně
+%     semidefinitní. Ukažte, že jestliže $\varphi$ je zobrazení z bodu (b), pak
+%     \[\varphi(\S^2_+) = \bc{(x,y,z)^T \in \R^3 \mid x \geq 0, z \geq 0, 2xz - y^2 \geq 0} \text{.}\]
+% \end{enumerate}
 
-\subsection{Bijekce mezi dvěma optimalisačními úlohami}
-Je dána úloha
-\begin{align*}
-    \text{minimalisujte } & \langle X, A \rangle _{\S_2} \\
-    \text{za podmínek }   & \langle X, \bb{1} \rangle _{\S_2} = 2, \\
-                          & X \in \S_+^2,
-\end{align*}
-kde $A =
-    \begin{bmatrix}
-        3 & 1 \\
-        1 & 1
-    \end{bmatrix}
-$ a $\bb{1} =
-    \begin{bmatrix}
-        1 & 0 \\
-        0 & 1
-    \end{bmatrix}
-$. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že existuje bijekce mezi množinou všech jejich řešení a množinou všech řešení úlohy
-\begin{align*}
-    \text{minimalisujte } & 3x_1 + 2x_2 + x_3 \\
-    \text{za podmínek }   & x_1 + x_3 = 2, \\
-                          & x_1 x_3 - x_2^2 \geq 0,
-                          & x_1, x_3 \geq 0.
-\end{align*}
+% \subsection{Bijekce mezi dvěma optimalisačními úlohami}
+% Je dána úloha
+% \begin{align*}
+%     \text{minimalisujte } & \langle X, A \rangle _{\S_2} \\
+%     \text{za podmínek }   & \langle X, \bb{1} \rangle _{\S_2} = 2, \\
+%                           & X \in \S_+^2,
+% \end{align*}
+% kde $A =
+%     \begin{bmatrix}
+%         3 & 1 \\
+%         1 & 1
+%     \end{bmatrix}
+% $ a $\bb{1} =
+%     \begin{bmatrix}
+%         1 & 0 \\
+%         0 & 1
+%     \end{bmatrix}
+% $. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že existuje bijekce mezi množinou všech jejich řešení a množinou všech řešení úlohy
+% \begin{align*}
+%     \text{minimalisujte } & 3x_1 + 2x_2 + x_3 \\
+%     \text{za podmínek }   & x_1 + x_3 = 2, \\
+%                           & x_1 x_3 - x_2^2 \geq 0,
+%                           & x_1, x_3 \geq 0.
+% \end{align*}
 
-\subsection{Bijekce mezi dvěma optimalisačními úlohami}
-Je dána úloha
-\begin{align*}
-    \text{minimalisujte } & \langle X, A \rangle _{\S_2} \\
-    \text{za podmínek }   & \langle X, B \rangle _{\S_2} = 0, \\
-                          & \langle X, \bb{1} \rangle _{\S_2} = 1, \\
-                          & X \in \S_+^2,
-\end{align*}
-kde $A =
-    \begin{bmatrix}
-        2 & 0 \\
-        0 & -1
-    \end{bmatrix}
-$, $B =
-    \begin{bmatrix}
-        0 & 1 \\
-        1 & 0
-    \end{bmatrix}
-$ a $\bb{1} =
-    \begin{bmatrix}
-        1 & 0 \\
-        0 & 1
-    \end{bmatrix}
-$. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že existuje bijekce mezi množinou všech jejich řešení a množinou všech řešení úlohy
-\begin{align*}
-    \text{minimalisujte } & 2x-y \\
-    \text{za podmínek }   & x+y=1, \\
-                          & x, y \geq 0.
-\end{align*}
+% \subsection{Bijekce mezi dvěma optimalisačními úlohami}
+% Je dána úloha
+% \begin{align*}
+%     \text{minimalisujte } & \langle X, A \rangle _{\S_2} \\
+%     \text{za podmínek }   & \langle X, B \rangle _{\S_2} = 0, \\
+%                           & \langle X, \bb{1} \rangle _{\S_2} = 1, \\
+%                           & X \in \S_+^2,
+% \end{align*}
+% kde $A =
+%     \begin{bmatrix}
+%         2 & 0 \\
+%         0 & -1
+%     \end{bmatrix}
+% $, $B =
+%     \begin{bmatrix}
+%         0 & 1 \\
+%         1 & 0
+%     \end{bmatrix}
+% $ a $\bb{1} =
+%     \begin{bmatrix}
+%         1 & 0 \\
+%         0 & 1
+%     \end{bmatrix}
+% $. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že existuje bijekce mezi množinou všech jejich řešení a množinou všech řešení úlohy
+% \begin{align*}
+%     \text{minimalisujte } & 2x-y \\
+%     \text{za podmínek }   & x+y=1, \\
+%                           & x, y \geq 0.
+% \end{align*}
 
-\subsection{Určení definitnosti matic}
-Určete definitnost matice $A$, jestliže
-\begin{enumerate}[(a)]
-    \item
-    $\begin{bmatrix}
-        9 & 6 \\
-        6 & 4
-    \end{bmatrix}$;
-    \item
-    $\begin{bmatrix}
-        15 & 3 & 2 \\
-        3 & 1 & 0 \\
-        2 & 0 & 1
-    \end{bmatrix}$;
-    \item
-    $\begin{bmatrix}
-        4 & 2 & 2 \\
-        2 & 1 & 1 \\
-        2 & 1 & 0
-    \end{bmatrix}$;
-    \item
-    $\begin{bmatrix}
-        3 & 2 & 1 \\
-        2 & 1 & 1 \\
-        1 & 1 & 0
-    \end{bmatrix}$;
-    \item
-    $\begin{bmatrix}
-        -1 & 0 & 1 \\
-        0 & -2 & 2 \\
-        1 & 2 & -3
-    \end{bmatrix}$;
-    \item
-    $\begin{bmatrix}
-        1 & 2 & 0 \\
-        2 & 5 & 1 \\
-        0 & 1 & 1
-    \end{bmatrix}$.
-\end{enumerate}
+% \subsection{Určení definitnosti matic}
+% Určete definitnost matice $A$, jestliže
+% \begin{enumerate}[(a)]
+%     \item
+%     $\begin{bmatrix}
+%         9 & 6 \\
+%         6 & 4
+%     \end{bmatrix}$;
+%     \item
+%     $\begin{bmatrix}
+%         15 & 3 & 2 \\
+%         3 & 1 & 0 \\
+%         2 & 0 & 1
+%     \end{bmatrix}$;
+%     \item
+%     $\begin{bmatrix}
+%         4 & 2 & 2 \\
+%         2 & 1 & 1 \\
+%         2 & 1 & 0
+%     \end{bmatrix}$;
+%     \item
+%     $\begin{bmatrix}
+%         3 & 2 & 1 \\
+%         2 & 1 & 1 \\
+%         1 & 1 & 0
+%     \end{bmatrix}$;
+%     \item
+%     $\begin{bmatrix}
+%         -1 & 0 & 1 \\
+%         0 & -2 & 2 \\
+%         1 & 2 & -3
+%     \end{bmatrix}$;
+%     \item
+%     $\begin{bmatrix}
+%         1 & 2 & 0 \\
+%         2 & 5 & 1 \\
+%         0 & 1 & 1
+%     \end{bmatrix}$.
+% \end{enumerate}
 
-\subsection{Existence matice}
-Ať $A \in \M_n (\R)$.
-\begin{enumerate}[(a)]
-    \item Ukažte, že $\langle Ax, y \rangle = \langle x, A^T y \rangle$ pro všechna $x, y \in \R^n$.
-    \item Ukažte, že existují matice $B, C \in \M_n (\R)$ takové, že $B^T = B$, $C^T = -C$ a $A = B + C$. Jsou
-    matice $B$ a $C$ určeny jednoznačně?
-    \item Ukažte, že existuje symetrická matice $B \in \M_n (\R)$ taková, že $\langle Ax, x \rangle =
-    \langle Bx, x \rangle$.
-\end{enumerate}
+% \subsection{Existence matice}
+% Ať $A \in \M_n (\R)$.
+% \begin{enumerate}[(a)]
+%     \item Ukažte, že $\langle Ax, y \rangle = \langle x, A^T y \rangle$ pro všechna $x, y \in \R^n$.
+%     \item Ukažte, že existují matice $B, C \in \M_n (\R)$ takové, že $B^T = B$, $C^T = -C$ a $A = B + C$. Jsou
+%     matice $B$ a $C$ určeny jednoznačně?
+%     \item Ukažte, že existuje symetrická matice $B \in \M_n (\R)$ taková, že $\langle Ax, x \rangle =
+%     \langle Bx, x \rangle$.
+% \end{enumerate}
 
-\subsection{Gradient vektorového součinu}
-Nalezněte $\nabla f(x)$ a $\nabla^2 f(x)$, jestliže
-\begin{enumerate}[(a)]
-    \item $f(x) = \langle x,c \rangle$, kde $c \in \R^n$;
-    \item $f(x) = \langle Ax, x \rangle$, kde $A \in \M_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f (x)$ za
-    dodatečného předpokladu, že $A$ je symetrická matice.
-\end{enumerate}
+% \subsection{Gradient vektorového součinu}
+% Nalezněte $\nabla f(x)$ a $\nabla^2 f(x)$, jestliže
+% \begin{enumerate}[(a)]
+%     \item $f(x) = \langle x,c \rangle$, kde $c \in \R^n$;
+%     \item $f(x) = \langle Ax, x \rangle$, kde $A \in \M_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f (x)$ za
+%     dodatečného předpokladu, že $A$ je symetrická matice.
+% \end{enumerate}
