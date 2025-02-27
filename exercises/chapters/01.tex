@@ -135,34 +135,94 @@ Zbavme se zlomků:
 \end{align*}
 Tedy jediné možné řešení $x = \sqrt[3]{20} \rightarrow y = \frac{10}{\left(\sqrt[3]{20}\right)^2} =  \sqrt[3]{\frac{5}{2}}$.
 
-\subsection{Maximalisační úloha}
-V továrně vyrábějí zboží různých druhů. Označme je $X_1, \dots, X_n$. Na jejich výrobu potřebují materiály $Y_1, \dots, Y_m$.
-Na skladě mají k dispozici množství $b_i$ materiálu $Y_i$ a na trhu ho nakupují za cenu $\gamma_i$. Na výrobu jednotkového
-množství zboží $X_j$ potřebují množství $a_{ij}$ materiálu $Y_i$. Jednotkové množství výrobku $X_j$ prodávají za cenu
-$\sigma_j$. Formulujte optimalisační úlohu problému nastavení množství výroby jednotlivých druhů produktů (předpokládejte,
-že hledaná množství nemusí být celočíselná) tak, aby celkový zisk z jejich prodeje byl co největší.
+% \subsection{Maximalisační úloha}
+% V továrně vyrábějí zboží různých druhů. Označme je $X_1, \dots, X_n$. Na jejich výrobu potřebují materiály $Y_1, \dots, Y_m$.
+% Na skladě mají k dispozici množství $b_i$ materiálu $Y_i$ a na trhu ho nakupují za cenu $\gamma_i$. Na výrobu jednotkového
+% množství zboží $X_j$ potřebují množství $a_{ij}$ materiálu $Y_i$. Jednotkové množství výrobku $X_j$ prodávají za cenu
+% $\sigma_j$. Formulujte optimalisační úlohu problému nastavení množství výroby jednotlivých druhů produktů (předpokládejte,
+% že hledaná množství nemusí být celočíselná) tak, aby celkový zisk z jejich prodeje byl co největší.
+%
+\subsection{Optimalisační úloha s nadrovinami}
+V $\R^n$ jsou dány množiny bodů $A = \bc{a_1, \dots, a_k}$ a $B = \bc{b_1, \dots, b_t}$. Ať $w \in \R^n$ a $\lambda \in \R$.
+Předpokládejme, že $H$ je nadrovina o rovnici $\langle x,w \rangle + \lambda = 0$, $H_1$ je nadrovina o rovnici
+$\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, w \rangle + \lambda = -1$.
+\begin{enumerate}[(a)]
+    \item Ukažte, že vzdálenost mezi nadrovinami $H_1$ a $H_2$ je $\frac{2}{||w||}$. Dále ukažte, že $\frac{1}{||w||}$
+    je vzdálenost $H$ od $H_1$ a také vzdálenost $H$ od $H_2$.
+    \item Iterpretujte optimalisační úlohu
+    \begin{align*}
+        \text{maximalisujte } & g(w, \lambda) = \frac{2}{||w||} \\
+        \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
+                              & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
+    \end{align*}
+    \item Ukažte, že $(\hat w,\hat \lambda)$ je řešením úlohy z předchozího bodu právě tehdy, když je řešením úlohy
+    (kvadratického programování) ve tvaru
+    \begin{align*}
+        \text{minimalisujte } & h(w, \lambda) = \frac{1}{2} ||w||^2 \\
+        \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
+                              & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
+    \end{align*}
+\end{enumerate}
 
-% \subsection{Optimalisační úloha s nadrovinami}
-% V $\R^n$ jsou dány množiny bodů $A = \bc{a_1, \dots, a_k}$ a $B = \bc{b_1, \dots, b_t}$. Ať $w \in \R^n$ a $\lambda \in \R$.
-% Předpokládejme, že $H$ je nadrovina o rovnici $\langle x,w \rangle + \lambda = 0$, $H_1$ je nadrovina o rovnici
-% $\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, w \rangle + \lambda = -1$.
-% \begin{enumerate}[(a)]
-%     \item Ukažte, že vzdálenost mezi nadrovinami $H_1$ a $H_2$ je $\frac{2}{||w||}$. Dále ukažte, že $\frac{1}{||w||}$
-%     je vzdálenost $H$ od $H_1$ a také vzdálenost $H$ od $H_2$.
-%     \item Iterpretujte optimalisační úlohu
-%     \begin{align*}
-%         \text{maximalisujte } & g(w, \lambda) = \frac{2}{||w||} \\
-%         \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
-%                               & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
-%     \end{align*}
-%     \item Ukažte, že $(\hat w,\hat \lambda)$ je řešením úlohy z předchozího bodu právě tehdy, když je řešením úlohy
-%     (kvadratického programování) ve tvaru
-%     \begin{align*}
-%         \text{minimalisujte } & h(w, \lambda) = \frac{1}{2} ||w||^2 \\
-%         \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
-%                               & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
-%     \end{align*}
-% \end{enumerate}
+(a) 
+
+\begin{multicols}{2}
+    \begin{tikzpicture}[scale=1.0]
+        \draw[->] (-3,0) -- (6,0) node[right] {$x$};
+        \draw[->] (0,-2) -- (0,5) node[above] {$y$};
+      
+        \draw[thick,blue] (-2,0) -- (5,3.5) node[right, sloped] {$H$}; % midway
+      
+        \draw[dashed,red] (-2.22,0.45) -- (4.78,3.95) node[above, sloped] {$H_2$};
+        \draw[dashed,red] (-1.78,-0.45) -- (5.22,3.05) node[below, sloped] {$H_1$};
+      
+        \filldraw[black] (0.5,0.5) circle (2pt) node[below right] {$a_1$};
+        \filldraw[black] (2,0.7) circle (2pt) node[below right] {$a_2$};
+        \filldraw[black] (3,1.4) circle (2pt) node[below right] {$a_3$};
+      
+        \filldraw[black] (0.2,3) circle (2pt) node[above right] {$b_1$};
+        \filldraw[black] (1.7,3) circle (2pt) node[above] {$b_2$};
+        \filldraw[black] (3,3.5) circle (2pt) node[above right] {$b_3$};
+    
+        \draw[thick,green!70!black] (-2,4) -- (1,-2) node[below, sloped] {$\pi$};
+        \filldraw[black] (-0.18,0.35) circle (2pt) node[left] {$P$};
+        \filldraw[black] (-0.62,1.25) circle (2pt) node[above right] {$Q$};
+    
+        \filldraw[black] (0,0) circle(0pt) node[below left] {\tiny 0};
+    \end{tikzpicture}
+
+\columnbreak
+    \quad 
+    $\pi : x = t \cdot w, t \in \R$.
+
+    \quad Průsečík $Q$:
+
+    \quad $\underbrace{\langle tw, w\rangle}_{t ||w||^2} + \lambda = 1$ $\rightarrow t = \frac{1-\lambda}{||w||^2}$
+    $\Rightarrow Q = \frac{1-\lambda}{||w||^2} w$
+    \\
+    \\
+
+    \quad Průsečík $P$:
+
+    \quad $\underbrace{\langle tw, w\rangle}_{t ||w||^2} + \lambda = -1$ $\rightarrow t = \frac{-1-\lambda}{||w||^2}$
+    $\Rightarrow P = \frac{-1-\lambda}{||w||^2} w$
+\end{multicols}
+
+Pak vzdálenost mezi nadrovinami $H_1$ a $H_2$ je dána rozdílem průsečíků $P$ a $Q$ v normě. Tedy:
+\[
+    || Q - P || = \left\| \frac{1-\lambda}{||w||^2} w  + \frac{1 + \lambda}{||w||^2} w\right\| = 
+    \left\| \frac{2w}{||w||^2} \right\| = \frac{2}{||w||^2} ||w|| = \frac{2}{||w||} \text{.}
+\]
+To je príma, to jsme přesně chtěli. $\qed$
+
+(b) % TODO: dodělat
+
+(c) V úloze (b) maximalisujeme zlomek, kde se proměnná nachází ve jmenovateli. Tedy snažíme se najít co nejmenší možný
+jmenovatel, aby zlomek měl co největší hodnotu. Můžeme úlohu převrátit a minimalisovat samotný jmenovatel. Protože
+násobení je lineární a zachovává nám všechny nerovnosti, můžeme různě modifikovat jakou konstantou násobíme námi
+minimalisovanou proměnnou. Zároveň si můžeme dovolit umocnit normu, protože i to nám zachová všechny nerovnosti. Zde si 
+tedy chytře zvolíme násobení $\frac{1}{2}$, protože při následném hledání stacionárních bodů funkce nám vyskočí z kvadrátu 
+dvojka, jenž pěkně pokrátíme. Podmínky nám zůstaly stejné, není co řešit.
 
 % \subsection{Optimalisační úloha se spojnicemi bodů}
 % V rovině jsou dány body $P = (0,0)^T$ a $Q = (1,1)^T$.
@@ -525,45 +585,192 @@ konvexitu. $\qed$
 %                           & x, y \geq 0.
 % \end{align*}
 
-% \subsection{Určení definitnosti matic}
-% Určete definitnost matice $A$, jestliže
-% \begin{enumerate}[(a)]
-%     \item
-%     $\begin{bmatrix}
-%         9 & 6 \\
-%         6 & 4
-%     \end{bmatrix}$;
-%     \item
-%     $\begin{bmatrix}
-%         15 & 3 & 2 \\
-%         3 & 1 & 0 \\
-%         2 & 0 & 1
-%     \end{bmatrix}$;
-%     \item
-%     $\begin{bmatrix}
-%         4 & 2 & 2 \\
-%         2 & 1 & 1 \\
-%         2 & 1 & 0
-%     \end{bmatrix}$;
-%     \item
-%     $\begin{bmatrix}
+\subsection{Určení definitnosti matic}
+Určete definitnost matice $A$, jestliže
+\begin{enumerate}[(a)]
+    \item
+    $\begin{bmatrix}
+        9 & 6 \\
+        6 & 4
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        15 & 3 & 2 \\
+        3 & 1 & 0 \\
+        2 & 0 & 1
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        4 & 2 & 2 \\
+        2 & 1 & 1 \\
+        2 & 1 & 0
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        3 & 2 & 1 \\
+        2 & 1 & 1 \\
+        1 & 1 & 0
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        -1 & \phantom{-}0 & \phantom{-}1 \\
+        \phantom{-}0 & -2 & \phantom{-}2 \\
+        \phantom{-}1 & \phantom{-}2 & -3
+    \end{bmatrix}$;
+    \item
+    $\begin{bmatrix}
+        1 & 2 & 0 \\
+        2 & 5 & 1 \\
+        0 & 1 & 1
+    \end{bmatrix}$.
+\end{enumerate}
+
+Matice, u které chceme určovat definitnost, musí být $\underbrace{\text{symetrická}}_{Q = Q^T}$.
+
+Pak platí:
+\begin{align*}
+    \langle Qx , x\rangle & \geq 0 \forall x \in \R^n \iff Q \text{ je positivně semidefinitní.}\\
+    \langle Qx , x\rangle & > 0 \forall x \in \R^n \iff Q \text{ je positivně definitní.}
+\end{align*} 
+Analogicky pro negativně semidefinitní, respektive definitní. \\ Matice je indefitní pokud nesplňuje ani jednu možnost. 
+
+Pro symetrické matice také platí, že $Q$ je negativně (semi)defitní, jestliže $(-Q)$ je positivně (semi)defintní. \label{matiVlastnost}
+
+Pomocí Sylvesterova kritéria lze určit positivní, či negativní definitnost. Pro případy podezření na semidefinitnost 
+je potřeba navíc prozkoumat menší minory matice.
+
+(a) 
+$\begin{bmatrix}
+    9 & 6 \\
+    6 & 4
+\end{bmatrix}
+\rightarrow |9| = 9 > 0,
+\begin{vmatrix}
+    9 & 6 \\
+    6 & 4
+\end{vmatrix} = 36 - 36 = 0.
+\rightarrow$ podezření na positivní semidefinitnost.
+
+Hlavní minory jsou $Q_{\bc{1}}$ a $Q_{\bc{1,2}}$.\\
+Menší minory: $Q_I$, kde $I \subseteq \bc{1, \dots, n} \text{neprázdná}$. Aby matice byla positivně semidefinitní, tak 
+det$Q_I \geq 0$.
+
+Tedy: $Q_{\bc{2}} = 
+\begin{bmatrix}
+    4
+\end{bmatrix}$. det $Q_{\bc{2}} = 4 > 0$.
+
+Tedy matice
+$\begin{bmatrix}
+    9 & 6 \\
+    6 & 4
+\end{bmatrix}$ je positivně semidefinitní.
+
+(b) 
+$\begin{vmatrix}
+    15 & 3 & 2 \\
+    3 & 1 & 0 \\
+    2 & 0 & 1
+\end{vmatrix}
+\begin{array}{l}
+    R_1 - 2 R_3 \\
+    R_2 \\
+    R_3
+\end{array} = 
+\begin{vmatrix}
+    11 & 3 & 0 \\
+    3 & 1 & 0 \\
+    2 & 0 & 1
+\end{vmatrix} = 
+\begin{vmatrix}
+    11 & 3 \\
+    3 & 1 
+\end{vmatrix} = 11-9 = 2 >0.$ Matice je positivně definitní. 
+
+(c)
+$Q = \begin{bmatrix}
+    4 & 2 & 2 \\
+    2 & 1 & 1 \\
+    2 & 1 & 0
+\end{bmatrix}$
+
+Pozorování: Matice je lineárně závislá, tedy det$Q = 0$. \\
+$Q_{\bc{1}} = 4 > 0$,\\
+$Q_{\bc{2}} = 1 > 0$,\\
+$Q_{\bc{3}} = 0 = 0$.\\
+Tedy matice je jedině positivně semidefinitní, nebo indefinitní.
+
+Spočtěme tedy vedlejší minor, například vynechejme 1. řádek a 1. sloupec: 
+
+$\begin{vmatrix}
+    1 & 1 \\
+    1 & 0
+\end{vmatrix} = -1 < 0$. Aby matice $Q$ byla positivně semidefinitní, musely by i všechny vedlejší minory být $\geq 0$. 
+Protože jsme našli případ, kdy tomu tak není, matice $Q$ je indefinitní.
+
+% (d) % TODO: vyřešit definitnost
+% $\begin{bmatrix}
 %         3 & 2 & 1 \\
 %         2 & 1 & 1 \\
 %         1 & 1 & 0
-%     \end{bmatrix}$;
-%     \item
-%     $\begin{bmatrix}
-%         -1 & 0 & 1 \\
-%         0 & -2 & 2 \\
-%         1 & 2 & -3
-%     \end{bmatrix}$;
-%     \item
-%     $\begin{bmatrix}
-%         1 & 2 & 0 \\
-%         2 & 5 & 1 \\
-%         0 & 1 & 1
-%     \end{bmatrix}$.
-% \end{enumerate}
+% \end{bmatrix}$
+
+(e)
+$\begin{bmatrix}
+    -1 & \phantom{-}0 & \phantom{-}1 \\
+    \phantom{-}0 & -2 & \phantom{-}2 \\
+    \phantom{-}1 & \phantom{-}2 & -3
+\end{bmatrix}$
+
+Pozorování: matice může být negativně (semi)definitní, nebo indefinitní.
+
+Využijme tedy \hyperref[matiVlastnost]{vlastnosti} symetrických matic a určeme definitnost pro matici $(-Q)$.
+
+$-Q = \begin{bmatrix}
+    \phantom{-}1 & \phantom{-}0 & -1 \\
+    \phantom{-}0 & \phantom{-}2 & -2 \\
+    -1 & -2 & \phantom{-}3
+\end{bmatrix}$
+
+det$(-Q) = \begin{vmatrix}
+    \phantom{-}1 & \phantom{-}0 & -1 \\
+    \phantom{-}0 & \phantom{-}2 & -2 \\
+    -1 & -2 & \phantom{-}3
+\end{vmatrix}
+\begin{array}{l}
+    R_1 \\
+    R_2 \\
+    R_3 + R_1 + R_2
+\end{array} = 
+\begin{vmatrix}
+    1 & 0 & -1 \\
+    0 & 2 & -2 \\
+    0 & 0 & \phantom{-}0
+\end{vmatrix} = 0.$
+
+Tedy matice $(-Q)$ je positivně semidefinitní, nebo indefinitní.
+
+$\begin{vmatrix}
+    1 & 0 \\
+    0 & 2
+\end{vmatrix} = 2 \geq 0$.
+$\begin{vmatrix}
+    \phantom{-}2 & -2 \\
+    -2 & \phantom{-}3
+\end{vmatrix} = 2 \geq 0$.
+$\begin{vmatrix}
+    \phantom{-}1 & -1 \\
+    -1 & \phantom{-}3
+\end{vmatrix} = 2 \geq 0$.
+
+$\implies (-Q)$ je positivně semidefinitní $\iff Q$ je negativně semidefinitní.
+
+% (f) % TODO: vyřešit definitnost
+% $\begin{bmatrix}
+%     1 & 2 & 0 \\
+%     2 & 5 & 1 \\
+%     0 & 1 & 1
+% \end{bmatrix}$
 
 % \subsection{Existence matice}
 % Ať $A \in \M_n (\R)$.
