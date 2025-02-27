@@ -77,7 +77,7 @@ aby celkový očekávaný měsíční výnos byl co největší?
     & x,y \geq 0.
 \end{align*}
 
-Vyjádřeme si jednu proměnou v závislosti na druhé, například $x = 100 - y$. Následně dosadíme do úlohy a vyšetříme
+Vyjádřeme si jednu proměnnou v závislosti na druhé, například $x = 100 - y$. Následně dosadíme do úlohy a vyšetříme
 stacionární body pomocí první derivace.
 
 \[
@@ -121,7 +121,7 @@ předpokladu, že krabice je vyrobena z materiálu, jehož tloušťka je zanedba
     & x,y > 0.
 \end{align*}
 
-Vyjádřeme si jednu proměnou v závislosti na druhé, například $y = \frac{10}{x^2}$. Následně dosadíme do úlohy a vyšetříme
+Vyjádřeme si jednu proměnnou v závislosti na druhé, například $y = \frac{10}{x^2}$. Následně dosadíme do úlohy a vyšetříme
 stacionární body pomocí první derivace.
 
 \[
@@ -772,15 +772,51 @@ $\implies (-Q)$ je positivně semidefinitní $\iff Q$ je negativně semidefinitn
 %     0 & 1 & 1
 % \end{bmatrix}$
 
-% \subsection{Existence matice}
-% Ať $A \in \M_n (\R)$.
-% \begin{enumerate}[(a)]
-%     \item Ukažte, že $\langle Ax, y \rangle = \langle x, A^T y \rangle$ pro všechna $x, y \in \R^n$.
-%     \item Ukažte, že existují matice $B, C \in \M_n (\R)$ takové, že $B^T = B$, $C^T = -C$ a $A = B + C$. Jsou
-%     matice $B$ a $C$ určeny jednoznačně?
-%     \item Ukažte, že existuje symetrická matice $B \in \M_n (\R)$ taková, že $\langle Ax, x \rangle =
-%     \langle Bx, x \rangle$.
-% \end{enumerate}
+\subsection{Existence matice}
+Ať $A \in \M_n (\R)$.
+\begin{enumerate}[(a)]
+    \item Ukažte, že $\langle Ax, y \rangle = \langle x, A^T y \rangle$ pro všechna $x, y \in \R^n$.
+    \item Ukažte, že existují matice $B, C \in \M_n (\R)$ takové, že $B^T = B$, $C^T = -C$ a $A = B + C$. Jsou
+    matice $B$ a $C$ určeny jednoznačně?
+    \item Ukažte, že existuje symetrická matice $B \in \M_n (\R)$ taková, že $\langle Ax, x \rangle =
+    \langle Bx, x \rangle$.
+\end{enumerate}
+
+Zadefinujme si vlastnost skalárního součinu: $\langle a, b\rangle = b^T a$, kde $b^T = 
+\begin{pmatrix}
+    b_1, \dots, b_n
+\end{pmatrix}, a = 
+\begin{pmatrix}
+    a_1 \\
+    \vdots \\
+    a_n
+\end{pmatrix}$. \label{skalVlastnost}
+
+(a)Využijme zmíněné \hyperref[skalVlastnost]{vlastnosti}. \label{aExistence}
+
+$\langle Ax, y\rangle = y^T Ax = \underbrace{y^T (A^T)^T}_{(A^T y)^T} x = (A^T y)^T x = \langle x, A^T y\rangle. \qed$
+
+(b) Pozorování: Matice $B$ je symetrická a matice $C$ je antisymetrická.
+
+Zvolme:
+$\begin{rcases}
+    &B = \frac{1}{2} (A + A^T) \\
+    &C = \frac{1}{2} (A - A^T)
+\end{rcases}
+B+C = A.$
+
+$C^T = \frac{1}{2} (A-A^T)^T = \frac{1}{2} (A^T - A) = -\frac{1}{2} (A-A^T) = -C. \checkmark$
+
+$B^T = \frac{1}{2} (A+A^T)^T = \frac{1}{2} (A^T + A) = \frac{1}{2} (A+A^T) = B. \checkmark \qed$
+
+
+(c) $\langle C x, x\rangle \stackrel{?}{=} 0$
+
+\[
+    \langle Cx, x\rangle \stackrel{\hyperref[aExistence]{(a)}}{=} \langle x, C^T x\rangle \stackrel{-C = C^T}{=} 
+    - \langle x, Cx\rangle = - \langle Cx, x\rangle = 0.
+\]
+Matice $C$ tedy nijak nepřispívá do výsledku. Takže platí $\langle Ax, x\rangle = \langle Bx, x\rangle. \qed$
 
 % \subsection{Gradient vektorového součinu}
 % Nalezněte $\nabla f(x)$ a $\nabla^2 f(x)$, jestliže
