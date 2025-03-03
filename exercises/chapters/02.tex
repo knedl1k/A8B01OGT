@@ -61,12 +61,12 @@ Pak $\delta^2 \leq ||x-y||^2 = ||x-\frac{1}{2}a - \frac{1}{2}b||^2 = ||\frac{1}{
 - \underbrace{||(x-a) + (x-b)||^2}_{b-a}\right] = \delta^2 - \frac{1}{4} ||b-a||^2 \Rightarrow \delta^2 \leq \delta^2 - 
 \underbrace{\frac{1}{4} ||b-a||^2}_{\leq 0 \Rightarrow a=b} \text{.}$
 
-\subsection{Projekce bodu a variační nerovnost}
+\subsection{Projekce bodu a variační nerovnost}\label{varNer}
 Nechť $C \subseteq \R^n$ je neprázdná uzavřená konvexní množina, $x \in \R^n$ a $y \in C$. Pak následující tvrzení jsou
 ekvivalentní:
 \begin{enumerate}[(1)]
     \item $y = P_C (x)$, kde $P_C(x)$ je projekční operátor.
-    \item Pro každé $z \in C$ je $\langle x-y, z-y \rangle \leq 0$.
+    \item Pro každé $z \in C$ je $\langle x-y, z-y \rangle \leq 0$. 
 \end{enumerate}
 
 Důkaz.
@@ -109,16 +109,16 @@ Je-li $x=y$, pak $y \in C : x \in C \dots$ triviální. $\qed$
 
 Nechť $L \subseteq \R^n$ je lineární podprostor. Potom platí:
 
-\begin{enumerate}[(1)]
+\begin{enumerate}[(a)]
     \item $P_L : \R^n \rightarrow \R^n$ je lineární zobrazení.
     \item Pro každé $x \in \R^n$ je $P_{L^\perp} (x) = x - P_L (x)$.
     \item Pro každé $x \in \R^n$ existují jednoznačně určené body $y \in L$ a $z \in L^\perp$ tak, že $x=y + z$. Navíc 
-    $y = P_L(x) a z=P_{L^ \perp} (x)$.
+    $y = P_L(x)$ a $z=P_{L^ \perp} (x)$.
 \end{enumerate}
 
 Důkaz.
 
-(1)\\
+(a)\\
 Cíl: Dokázat vlastnosti lineárního zobrazení, tedy 
 \begin{enumerate}
     \item $P_L (\alpha x) = \alpha \cdot P_L (x), \forall \alpha \in \R, x \in \R^n$.
@@ -133,4 +133,70 @@ Pak
 \[
     \stackrel{\alpha \not= 0}{=} \underbrace{\alpha^2}_{> 0} \langle x - P_L (x), \underbrace{\frac{1}{\alpha} 
     \cdot z}_{\in L} - P_L (x)\rangle
+\]
+Tedy $P_L(\alpha x) = \alpha P_L(x), \forall \alpha \not= 0$. Pro $\alpha =0$ zřejmě plyne z lineárnosti zobrazení.
+
+2. : Ať $z \in L$.
+
+\[
+    \langle \underbrace{x + y - (P_L(x) + P_L(y))}_{(x-P_L(x)) + (y - P_L(y))}, z - (P_L (x) + P_L(y)) \rangle
+\]
+\[
+    \underbrace{\langle x - P_L(x), \underbrace{(z - P_L(y))}_{\in L} - P_L(x)\rangle}_{\leq 0} + 
+    \underbrace{\langle y - P_L(y), \underbrace{(z - P_L(x))}_{\in L}  - P_L (y)\rangle}_{\leq 0} \leq 0.
+\]
+
+Z \hyperref[varNer]{variační nerovnosti} tedy plyne, že $P_L$ je nutně lineární. $\qed$
+\\
+
+\begin{multicols}{2}
+    (b) Pro každé $x \in \R^n$ je $P_{L^\perp} (x) = x - P_L (x)$.
+
+    L $\dots$ lineární podprostor $\R^n$,\\
+    $L^\perp = \bc{x \in \R^n \mid \langle x, y\rangle = 0, \forall y \in L}$.
+
+    Důkaz.\\
+    Cíl: $P_{L^\perp} (x) = x - P_L(x)$.\\
+    Ať $x \in \R^n, z \in L^\perp$. Pak
+
+\columnbreak
+
+    \begin{tikzpicture}
+        \draw[->] (-2,0) -- (2,0) node[right] {\(x\)};
+        \draw[->] (0,-2) -- (0,2) node[above] {\(y\)};
+        
+        \draw[blue, thick] (-1.5,-1.5) -- (1.5,1.5) node[above] {\(L\)};
+        \draw[red, thick] (-1.5,1.5) -- (1.5,-1.5) node[below] {\(L^\perp\)};
+
+        \draw[black!60!green, dashed] (0.5,0.5) -- (0,1);
+        \draw[black!60!green, dashed] (-0.5,0.5) -- (0,1);
+        \draw[->][black!60!green, thick] (0,0) -- (0,1) node[right] {$x$};
+    \end{tikzpicture}
+\end{multicols}
+
+
+\[
+    \langle x - (x - P_L(x)), z - (x - P_L(x))\rangle = \langle \underbrace{P_L(x)}_{\in L}, z - (x - P_L(x))\rangle
+\]
+\[
+    = \underbrace{\langle P_L (x), z\rangle}_0 - \langle P_L (x), x-P_L(x)\rangle = \langle x - P_L (x), 0 - P_L(x)\rangle \leq 0. \qed
+\]
+% TODO: doplnit zdůvodnění
+
+(c) Pro každé $x \in \R^n$ existují jednoznačně určené body $y \in L$ a $z \in L^\perp$ tak, že $x=y + z$. Navíc 
+$y = P_L(x)$ a $z=P_{L^ \perp} (x)$.
+
+Ať $x \in \R^n$.
+
+Důkaz existence.\\
+Pak  $x = \underbrace{P_L (x)}_{\in L} + \underbrace{(x - P_L (x))}_{\in L^\perp}. \qed$
+
+Důkaz jednoznačnosti.\\
+Ať $a \in L, b \in L^\perp$ takové, že $x = a+b$.\\
+Cíl: $a = P_L (x)$
+
+Ať $z \in L$.
+\[
+    \langle x-a, z-a\rangle = \langle b, \underbrace{z-a}_{\in L}\rangle = 0 \leq 0 \implies a = P_L (x) \implies 
+    x - P_L(x) = b \stackrel{\hyperref[varNer]{(2)}}{\implies} P_{L^\perp} (x) = b. \qed
 \]
