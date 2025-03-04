@@ -202,3 +202,104 @@ $(A^T A)^{-1} = \frac{1}{6}
 \]
 
 \subsection{Věta o oddělitelnosti bodu a konvexní množiny}
+\begin{multicols}{2}
+    \begin{tikzpicture}  
+        \draw[blue, thick] (-0.5,-0.5) -- (2.5,2.5) node[below]{$M$};
+
+        \filldraw[red, thick] (2.05, -0.75) circle (2pt) node[right] {$x$};
+        \filldraw[red, thick] (0.75, 0.75) circle (1pt) node[right] {$P_L (x)$};
+        \draw[->][black!60!green, thick] (0.75, 0.75) -- (2.05, -0.75)node[below left]{$v$};
+        \draw[black, thick] (0, 1.45) circle (1);
+        \node at (0, 1.5) {$C$};
+    \end{tikzpicture}
+
+\columnbreak
+    \hspace*{-2cm}
+    $C \in \R^n$ je neprázdná uzavřená konvexní množina.
+    \\
+    \hspace*{-2cm}
+    $x \in \R^n \setminus C \implies \text{existuje } v \in \R^n \setminus \bc{0}$ a $\alpha \in \R$ tak, že
+    \\
+    $\langle y, v\rangle \leq \alpha < \langle x, v\rangle, \quad \forall y \in C.$
+\end{multicols}
+Důkaz.\\
+$v = x - P_L (x) \not=0$
+
+\[
+    \langle v, y\rangle = \langle v, P_L(x)\rangle \leq 0, \quad \forall y \in C.
+\]
+\[
+    \langle y, v\rangle \leq \langle v, P_L (x)\rangle, \quad \forall y \in C.
+\]
+Položme $\alpha = \langle v, P_L (x)\rangle$.
+\[
+    \langle y, v\rangle \leq \alpha, \quad \forall y \in C.
+\]
+\[
+    \langle x, v\rangle - \underbrace{\overbrace{\langle v, P_L (x)\rangle}^{\alpha}}_{\langle P_L(x), v\rangle} = 
+    \langle \underbrace{x - P_L (x)}_{v}, v\rangle = \| v\|^2 > 0. \implies \alpha < \langle x, v\rangle. \qed
+\]
+
+\textbf{Důsledek:} Každá uzavřená konvexní množina v $\R^n$ je průnikem všech poloprostorů, které ji obsahují.
+
+Důkaz sporem.
+
+Ať neplatí: tj. existuje $C \in \R^n$ uzavřená konvexní množina tak, že není průnikem $P$ všech poloprostorů 
+obsahujících $C$.
+
+Pak $x \in P$ tak, že $x \not\in C$. Z věty o oddělitelnosti bodu a konvexní množiny existuje poloprostor $M$ takový,
+že $C \subseteq M$ a $x \not= M$. Ale to je ve sporu s tím, že $x \in P. \qed$
+
+\subsection{Příklad na použití věty o oddělitelnosti nadrovinou}
+Nechť $A = 
+\begin{bmatrix}
+    1 & 1 \\
+    2 & -1    
+\end{bmatrix}$ a $b\in \R^2$. Označme
+\begin{align*}
+    C &= \bc{Ax \,\middle\vert\, x \in \R^2_+} = \bc{\alpha 
+    \begin{bmatrix}
+        1\\
+        2    
+    \end{bmatrix} + \beta
+    \begin{bmatrix}
+        \phantom{-}1\\
+        -1
+    \end{bmatrix} \mid \alpha, \beta \geq 0} \\
+    K &= \bc{y \in \R^2 \mid A^T y \leq 0} \\
+    &= \bc{y \in \R^2 \mid \left\langle 
+    \begin{bmatrix}
+        1 \\
+        2    
+    \end{bmatrix}, y\right\rangle \leq 0,
+    \left\langle 
+    \begin{bmatrix}
+        \phantom{-} 1 \\
+        -1
+    \end{bmatrix},y \right\rangle \leq 0}.
+\end{align*}
+
+\begin{tikzpicture}[scale=2]
+    \draw[->] (0,-2) -- (0,2) node[above] {\(y\)};
+    \fill[green, opacity=0.3, pattern=north west lines] (0,0) -- (1,2) -- (1,-2) -- cycle;
+    \fill[green, opacity=0.3, pattern=north west lines] (1,0) rectangle (2,2);
+    \fill[green, opacity=0.3, pattern=north west lines] (1,0) rectangle (2,-2);
+
+    \draw[black!40!yellow, semithick] (-0.5/4, 0.25/4) -- (-0.25/4, 0.75/4);
+    \draw[black!40!yellow, semithick] (0.25/4, 0.5/4) -- (-0.25/4-0.005, 0.75/4);
+
+    \draw[black!40!yellow, semithick] (-0.5/4, -0.25/4) -- (-0.25/4, -0.75/4);
+    \draw[black!40!yellow, semithick] (0.25/4, -0.5/4) -- (-0.25/4-0.005, -0.75/4);
+
+    \draw[black!30!blue, thick] (-2,-1) -- (2,1) node[above] {};
+    \draw[black!30!blue, thick] (-2,1) -- (2,-1) node[below] {};
+    \fill[blue, opacity=0.3, pattern=north east lines] (0,0) -- (-2,1) -- (-2,-1) -- cycle;
+    
+    \draw[->][black!40!green, thick] (0,0) -- (1,2) node[above] {};
+    \draw[->][black!40!green, thick] (0,0) -- (1,-2) node[below] {};
+
+
+
+    \draw[->] (-2,0) -- (2,0) node[right] {\(x\)};
+    
+\end{tikzpicture}
