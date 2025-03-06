@@ -257,7 +257,7 @@ Nechť $A =
     2 & -1    
 \end{bmatrix}$ a $b\in \R^2$. Označme
 \begin{align*}
-    C &= \bc{Ax \,\middle\vert\, x \in \R^2_+} = \bc{\alpha 
+    C &= \bc{Ax \middle| x \in \R^2_+} = \bc{\alpha 
     \begin{bmatrix}
         1\\
         2    
@@ -267,7 +267,7 @@ Nechť $A =
         -1
     \end{bmatrix} \mid \alpha, \beta \geq 0} \\
     K &= \bc{y \in \R^2 \mid A^T y \leq 0} \\
-    &= \bc{y \in \R^2 \mid \left\langle 
+    &= \left\{y \in \R^2 \,\middle|\, \left\langle 
     \begin{bmatrix}
         1 \\
         2    
@@ -276,7 +276,7 @@ Nechť $A =
     \begin{bmatrix}
         \phantom{-} 1 \\
         -1
-    \end{bmatrix},y \right\rangle \leq 0}.
+    \end{bmatrix},y \right\rangle \leq 0\right\}.
 \end{align*}
 
 \begin{tikzpicture}[scale=2]
@@ -298,8 +298,15 @@ Nechť $A =
     \draw[->][black!40!green, thick] (0,0) -- (1,2) node[above] {};
     \draw[->][black!40!green, thick] (0,0) -- (1,-2) node[below] {};
 
-
+    \draw[black!40!green, thick] (1.2,1.8) node{$C$}; 
+    \draw[black!30!blue, thick] (-1.8,0.7) node{$K$}; 
 
     \draw[->] (-2,0) -- (2,0) node[right] {\(x\)};
     
 \end{tikzpicture}
+
+Vždy nastane jeden z případů:
+\begin{enumerate}[(a)]
+    \item $b \in C$
+    \item $b \not\in C$
+\end{enumerate}
