@@ -1,1 +1,53 @@
 \section{Čtvrtý týden}
+
+\subsection{Konvexní funkce}
+Nechť $f : D \subseteq \R^n \rightarrow \R$ a $C \subseteq D$ je neprázdná konvexní množina. \\
+Řekněme, že $f$ je
+\begin{enumerate}[(a)]
+    \item konvexní na $C$, jestliže pro každé $x, y \in C$ a každé $\lambda \in [0,1]$ je 
+    \[
+        f(\lambda x + (1-\lambda) y) \leq \lambda f(x) + (1-\lambda)f(y).
+    \]
+    \item ryze konvexní na $C$, jestliže pro každé dva různé body $x, y \in C$ a $\lambda \in (0,1)$ je
+    \[
+        f(\lambda x + (1-\lambda) y) < \lambda f(x) + (1-\lambda)f(y).
+    \]
+    \item konkávní (resp. ryze konkávní) na $C$, jestliže $(-f)$ je konvexní (resp. ryze konvexní) na $C$.
+\end{enumerate}
+
+\begin{multicols}{2}
+    \begin{tikzpicture}[scale=2]
+        \draw[->] (-2,0) -- (2,0);
+        \draw[->] (0,-0.5) -- (0,3);
+        
+        \draw[thick, blue, domain=-1.5:1.5, smooth] plot (\x, {(\x)^2 + 0.5});
+        
+        \node at (1.2,2.3) [below right]{\small \textcolor{blue}{$f(x)$}};
+    
+        \draw[black!40!yellow, thick] (-1, 1.5) -- (0.5, 0.75);
+    
+        \draw[black!40!green, dashed] (-1,1.5) -- (-1, 0) node[below]{\small $x$};
+        \fill[black!40!green] (-1, 1.5) circle(1pt) node[left]{\small $(x, f(x))$};
+    
+        \draw[black!40!red, dashed] (0.5,0.75) -- (0.5, 0) node[below]{\small $y$};
+        \fill[black!40!red] (0.5, 0.75) circle(1pt) node[right]{\small $(y, f(y))$};
+    
+        \draw[yellow!40!red, dashed] (-0.25, 1/16 + 0.5) -- (-0.25, -0.05) node[below]{\small $C$};
+        \fill[yellow!40!red] (-0.25, 1/16 + 0.5) circle(1pt) node[below left]{\small $B$};
+        % \draw[yellow!40!red, <-] (-0.25 - 0.1, 1/16 + 0.5 + 0.03) -- (-0.75, 0.7) node[left]{\small $B$};
+    
+        \draw[yellow!40!red, dashed] (-0.25, 1/16 + 0.5) -- (-0.25, 1/16 + 1 + 1/16);
+        \fill[yellow!40!red] (-0.25, 1/16 + 1 + 1/16) circle(1pt) node[below left]{\small $A$};
+        % \draw[yellow!40!red, <-] (-0.25, 1/16 + 1 + 1/16 + 0.05) -- (-0.75, 1.7) node[left]{\small $A$};
+    
+    \end{tikzpicture}
+
+\columnbreak
+
+    \textcolor{yellow!40!red}{$A$} $= (\lambda x + (1-\lambda)y, \lambda f(x) + (1-\lambda)f(y))$\\
+    \textcolor{yellow!40!red}{$B$} $= (\lambda x + (1-\lambda)y, f(\lambda x + (1-\lambda)y))$\\
+    \textcolor{yellow!40!red}{$C$} $= \lambda x + (1-\lambda)y$
+\end{multicols}
+
+
+

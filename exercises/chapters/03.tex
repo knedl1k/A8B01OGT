@@ -201,7 +201,7 @@ $(A^T A)^{-1} = \frac{1}{6}
     \end{bmatrix}.
 \]
 
-\subsection{Věta o oddělitelnosti bodu a konvexní množiny}
+\subsection{Věta o oddělitelnosti bodu a konvexní množiny} \label{oddel}
 \begin{multicols}{2}
     \begin{tikzpicture}  
         \draw[blue, thick] (-0.5,-0.5) -- (2.5,2.5) node[below]{$M$};
@@ -279,7 +279,7 @@ Nechť $A =
     \end{bmatrix},y \right\rangle \leq 0\right\}.
 \end{align*}
 
-\begin{tikzpicture}[scale=2]
+\begin{tikzpicture}[scale=2] % TODO: dodělat vektor b, který je mezi K a C
     \draw[->] (0,-2) -- (0,2) node[above] {\(y\)};
     \fill[green, opacity=0.3, pattern=north west lines] (0,0) -- (1,2) -- (1,-2) -- cycle;
     \fill[green, opacity=0.3, pattern=north west lines] (1,0) rectangle (2,2);
@@ -291,8 +291,8 @@ Nechť $A =
     \draw[black!40!yellow, semithick] (-0.5/4, -0.25/4) -- (-0.25/4, -0.75/4);
     \draw[black!40!yellow, semithick] (0.25/4, -0.5/4) -- (-0.25/4-0.005, -0.75/4);
 
-    \draw[black!30!blue, thick] (-2,-1) -- (2,1) node[above] {};
-    \draw[black!30!blue, thick] (-2,1) -- (2,-1) node[below] {};
+    \draw[black!30!blue, thick] (-2,-1) -- (0,0) node[above] {};
+    \draw[black!30!blue, thick] (-2,1) -- (0,0) node[below] {};
     \fill[blue, opacity=0.3, pattern=north east lines] (0,0) -- (-2,1) -- (-2,-1) -- cycle;
     
     \draw[->][black!40!green, thick] (0,0) -- (1,2) node[above] {};
@@ -308,5 +308,119 @@ Nechť $A =
 Vždy nastane jeden z případů:
 \begin{enumerate}[(a)]
     \item $b \in C$
-    \item $b \not\in C$
+    \item $b \not\in C$ - existuje nenulový vektor $y \in K$ svírající s $b$ úhel $\varphi \in [0, \frac{\pi}{2})$.
 \end{enumerate}
+
+\subsection{Lemma neprázdné uzavřené konvexní}
+Jestliže $A \in \mathbb{M}_{m,n}(\R)$, pak $\bc{Ax \mid x \in \R_+^n}$ je neprázdná uzavřená konvexní množina.
+
+Důkaz.
+\begin{itemize}
+    \item neprázdná - vždy obsahuje alespoň $0$,
+    \item konvexní - lineární zobrazení (matice) zachovává konvexitu,
+    \item uzavřenost dokazovat nebudeme.
+\end{itemize}
+
+\subsection{Farkasovo lemma}
+Výslovnost [farkášovo].
+
+Je-li $A \in \mathbb{M}_{m,n}(\R)$ a $b \in \R^m$, pak platí právě jedno z následujících tvrzení:
+\begin{enumerate}[(a)]
+    \item Existuje $x \in \R^n$ tak, že $Ax = b$ a $x \geq 0$.
+    \item Existuje $y \in \R^m$ tak, že $A^Ty \leq 0$ a $\langle y, b\rangle > 0$.
+\end{enumerate}
+
+Důkaz.
+
+\enquote{$(a) \implies \lnot (b)$}:\\
+Ať $x \in \R^n_+$ a $y \in \R^m$ tak, že $Ax = b$ a $A^T y \leq 0$.
+\[
+    \langle y, b\rangle \stackrel{b= Ax}{=} \langle y, Ax\rangle = \langle \underbrace{A^Ty}_{\leq 0}, \underbrace{x}_{\geq 0}\rangle \leq 0. \qed 
+\]
+
+\enquote{$\lnot (a) \implies (b)$}:\\
+Ať $C = \bc{Ax \mid x \in \R^n_+} \implies b \not\in C$, $C \dots$ uzavřená neprázdná konvexní množina.
+
+$\stackrel{\text{\hyperref[oddel]{oddělitelnost}}}{\implies}$ existuje $y \in \R^m \setminus \bc{0}, \alpha \in \R$ tak, 
+že: $\langle Ax, y\rangle \leq \alpha < \langle b, y\rangle, \quad \forall x \in \R^n_+$.
+
+Začněme s $\alpha < \langle b, y\rangle$. Chceme, aby $\langle b, y\rangle$ byl kladný. Pak nám $y$ bude svírat ostrý 
+úhel s $b$. 
+
+Protože v $0 \in C$, je $0 \leq \alpha < \langle b,y \rangle$ (za $Ax$ dosadíme $0$, takže budeme mít $\langle 0, y\rangle$).
+
+Teď musíme dokázat, že $y$ skutečně řeší zadanou soustavu nerovnic.
+
+Víme tedy, že:
+\begin{align*}
+    \langle Ax, y\rangle \leq \alpha,  &\quad \forall x \in \R^n_+ \\
+    \langle x, A^T y\rangle \leq \alpha, &\quad \forall x \in \R^n_+
+\end{align*}
+Odtuď $\langle x, A^T y\rangle \leq 0, \quad \forall x \in \R^n_+$, neboť:
+
+Ať $\tilde x \in \R^n_+$ je takový, že $\langle \tilde x, A^T y\rangle > 0$.\\
+Pak $\langle \underbrace{\lambda \tilde x}_{\lambda > 0, \text{ tedy } \lambda \tilde x \in \R^n_+}, A^T y\rangle = 
+\lambda \underbrace{\langle \tilde x, A^T y\rangle}_{> 0} \rightarrow + \infty$, pro $\lambda \rightarrow + \infty$.
+Což je spor s $\langle x, A^T y\rangle \leq \alpha, \forall x \in \R^n_+$.
+
+Ať $e_1=
+\begin{bmatrix}
+    1 \\
+    0 \\
+    \vdots \\
+    0
+\end{bmatrix}, \dots, e_n = 
+\begin{bmatrix}
+    0 \\
+    \vdots \\
+    1
+\end{bmatrix}$. Pak $(A^T y)_i \leq 0, \quad \forall i \in \bc{1, \dots, n}$, neboť $(A^T y)_i = \langle e_i, A^T y\rangle. \qed$
+
+\subsection{Krajní body konvexní množiny}
+
+\begin{multicols*}{2}
+    \begin{tikzpicture}
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (5,0);
+        \coordinate (C) at (2.5,4);
+    
+        \draw[thick] (A) -- (B) -- (C) -- cycle;
+    
+        \coordinate (D) at (3, 2);
+        \coordinate (E) at (2, 3);
+    
+        \draw[thick] (D) -- (E);
+    
+        \draw (2.9, 1.9) -- (3.1,2.1);
+        \draw (1.9, 2.9) -- (2.1,3.1);
+    
+        \coordinate (M) at ($(D)!0.5!(E)$);
+        \fill[black] (M) circle (2pt);
+    
+        \fill[black!40!green] (B) circle(2pt);
+    \end{tikzpicture}
+
+\columnbreak
+    Mějme konvexní množinu. Když sestrojíme libovolnou nedegenerativní (tzn. netriviální = není to pouze bod) úsečku,
+    vždy nalezneme bod, který bude ležet přesně uprostřed této úsečky.
+
+    Co když ale vezmeme například \textcolor{black!40!green}{zelený bod} vyznačený na nákresu? V takovém případě nejsme
+    schopni sestroji nedegenerativní úsečku, na jejímž středu by ležel tento bod.
+\end{multicols*}
+Definujme: Krajní bod $x \in C$ konvexní množiny $C \subseteq \R^n$ je takový bod, pro který neexistují dva 
+\underline{různé} body $y, z$ tak, že
+\[
+    x = \frac{1}{2}y + \frac{1}{2}z \text{.}
+\]
+
+$\text{ext}(C) \dots$ množina všech krajních (extremálních) bodů
+
+\subsection{Kreinova-Milmanova věta}
+Jestliže $C \subseteq \R^n$ je kompaktní (tj. omezená a uzavřená) konvexní množina, pak $C = \text{conv}(\text{ext}(C))$.\\
+Důkaz vynecháme.
+
+Kompaktnost je důležitá.
+\begin{itemize}
+    \item Interval $(0,1)$ není uzavřený a ext$((0,1)) = \emptyset$.
+    \item Množina $\R_+^2$ není omezená a ext$(\R_+^2) = \bc{0}$.
+\end{itemize}
