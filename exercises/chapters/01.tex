@@ -231,7 +231,7 @@ dvojka, jenž pěkně pokrátíme. Podmínky nám zůstaly stejné, není co ře
 %     danou grafem spojitě diferencovatelné funkce $f : [0,1] \rightarrow \R$.
 %     \item Nalezněte řešení úlohy z předchozího bodu.\footnote{Nápověda: Ukažte, že $g(t) = t, t \in [0,1]$, je řešením
 %     úlohy. Využijte přitom toho, že pro dvě spojité funkce $f_1$ a $f_2$ na intervalu $[0,1]$ je $\int_0^1 \left(f_1(t),
-%     f_2(t) \right)^T \dif T := \left(\int_0^1 f_1 (t) \dif t, \int_a^b f_2 (t) \dif t \right)^T$ a platí \\
+%     f_2(t) \right)^T \dif T loneq \left(\int_0^1 f_1 (t) \dif t, \int_a^b f_2 (t) \dif t \right)^T$ a platí \\
 %     $\left| \left| \int_0^1 (f_1 (t), f_2 (t))^T \dif t \right| \right| \leq \int_0^1 \left| \left| (f_1 (t), f_2 (t))^T \right| \right| \dif t$.
 %     K důkazu jednoznačnosti pak lze využít tvrzení, že rovnost v uvedené \uv{trojúhelníkové nerovnosti pro integrály}
 %     nastává pávě tehdy, když existuje spojitá funkce $\lambda : [0,1] \rightarrow \R$ taková, že $(f_1 (t), f_2 (t))^T =
@@ -261,11 +261,11 @@ Definice. Množina $C \subseteq \R^n$ se nazve konvexní, jestliže pro každé 
 
 \subsection{Uzavřená úsečka}
 Nechť $x, y \in \R^n$. Množina
-\[ [x,y] := \bc{\lambda x + (1-\lambda)y \mid 0 \leq \lambda \leq 1} \]
+\[ [x,y] \coloneq \bc{\lambda x + (1-\lambda)y \mid 0 \leq \lambda \leq 1} \]
 se nazývá uzavřená úsečka s krajními body $x$ a $y$.
 
 \subsection{Je nadrovina konvexní?}
-Definice nadroviny: $H(y; \alpha) := \bc{x \in \R^n \mid \langle x, y \rangle = \alpha}$, $y \in \R^n$, $\alpha \in \R$.
+Definice nadroviny: $H(y; \alpha) \coloneq \bc{x \in \R^n \mid \langle x, y \rangle = \alpha}$, $y \in \R^n$, $\alpha \in \R$.
 
 Důkaz.
 
