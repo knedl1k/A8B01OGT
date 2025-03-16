@@ -424,3 +424,362 @@ Kompaktnost je důležitá.
     \item Interval $(0,1)$ není uzavřený a ext$((0,1)) = \emptyset$.
     \item Množina $\R_+^2$ není omezená a ext$(\R_+^2) = \bc{0}$.
 \end{itemize}
+
+\subsection{Výpočet gradientu skalárního součinu}
+Nalezněte $\nabla f(x)$ a $\nabla^2 f(x)$, jestliže
+\begin{enumerate} [(a)]
+    \item $f(x) = \langle x, c\rangle$, kde $c \in \R^n$;
+    \item $f(x) = \langle Ax, x\rangle$, kde $A \in \M_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f(x)$ za dodatečného
+    předpokladu, že $A$ je symetrická matice.
+\end{enumerate}
+
+(a) 
+\[ 
+    \frac{\partial f}{\partial x_k} = \frac{\partial}{\partial x_k} \sum_{i=1}^{n} x_i c_i \overset{\text{limita}}{=} 
+    \sum_{i=1}^{n} c_i \frac{\partial x_i}{\partial x_k} = \sum_{i=1}^{n}c_i \delta_{ik} \overset{\text{rozvoj}}{=} c_k
+\]
+$\implies \nabla f(x) = 
+\begin{bmatrix}
+    c_1 \\
+    \vdots \\
+    c_k    
+\end{bmatrix} = c$; $\implies \nabla^2 f(x) = 0$, kde $\delta_{ik} = 
+\begin{cases}
+    1, \text{ pokud } i = k, \\
+    0, \text{ pokud } i \not= k.
+\end{cases}$
+
+(b)
+\[ 
+    \frac{\partial f}{\partial x_k} = \frac{\partial}{\partial x_k} \sum_{i=1}^{n} 
+    \underbrace{\left[\sum_{j=1}^{n} a_{ij}x_j\right]}_{(Ax)_i}x_i = \sum_{i,j=1}^{n} a_{ij} 
+    \underbrace{\left( \frac{\partial x_i}{\partial x_k}x_j + x_i \frac{\partial x_j}{\partial x_k}\right)}_{\text{derivace součinu}}
+    = \sum_{i,j=1}^{n} a_{ij} (\delta_{ik} x_j + x_i \delta_{jk})
+\]
+\[
+    = \sum_{i,j=1}^{n} a_{ij}\delta_{ik}x_j + a_{ij}\delta_{jk}x_i = \underbrace{\sum_{j=1}^{n}a_{kj} x_j}_{(Ax)_k} + 
+    \underbrace{\sum_{i=1}^{n}a_{ik}x_i}_{(A^Tx)_k}
+\]
+$\implies \nabla f(x) = Ax + A^Tx$ (Speciálně: $\nabla f(x) = 2Ax$ pro $A = A^T$)\\
+\[
+    \frac{\partial^2 f}{\partial x_k x_l} = \sum_{j=1}^{n} a_{kj} \delta_{jl} + \sum_{i=1}^{n}a_{ik} \delta_{il} = 
+    a_{kl} + a_{lk}
+\]
+$\implies \nabla^2 f(x) = A + A^T$
+
+\newpage
+\subsection{Ověření konvexnosti množiny}
+\begin{multicols}{2}
+    Je množina $M = \bc{
+    \begin{bmatrix}
+        x \\
+        y
+    \end{bmatrix} \in \R^2 \mid |x| + |y| \leq 1} \text{konvexní?}$
+
+\columnbreak
+
+\hspace*{2cm}
+    \begin{tikzpicture}
+        \filldraw[fill=blue!30, draw=black] (-1,0) -- (0,-1) -- (1,0) -- (0,1) -- cycle node[above]{$M$};
+        \draw[->] (-1.5,0) -- (1.5,0) node[right] {$x$};
+        \draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
+    \end{tikzpicture}
+\end{multicols}
+
+1. způsob - dle definice
+\[
+    \lambda 
+    \begin{bmatrix}
+        x\\
+        y     
+    \end{bmatrix} + (1-\lambda)
+    \begin{bmatrix}
+        a\\
+        b
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        \lambda x  + (1-\lambda) a \\
+        \lambda y + (1-\lambda) b
+    \end{bmatrix} \overset{?}{\in} M, \lambda \in [0,1].
+\]
+\[
+    |\lambda x + (1-\lambda)a| + |\lambda y + (1-\lambda)b| \leq 
+    \underbrace{\lambda |x| + (1-\lambda)|a| + \lambda |y| + (1-\lambda)|b|}_{\lambda
+    \underbrace{(|x|+|y|)}_{\leq1} + (1-\lambda)\underbrace{(|a|+|b|)}_{\leq 1}} \leq \lambda + 1 - \lambda = 1 \qed
+\]
+$M$ je konvexní.
+
+2. způsob - úvaha nad vlastnostmi
+
+$|x|$ je konvexní, $|y|$ je konvexní. Součet zachovává konvexitu, tedy i $|x| + |y|$ je konvexní.
+
+\subsection{Práce s maticemi}
+Je dána matice $A \in \M_{m,n} (\R)$. Ať $L = \bc{Ax \mid x \in \R^n}$. 
+
+Ukažte, že $A$ má lineárně nezávislé sloupce $\iff$ $A^T A$ je invertibilní.
+
+Pomocný důkaz.\\
+Ukažme, že: $\ker(A) = \ker(A^T A)$\\
+Chci: $\ker(A) \subseteq \ker(A^TA)$
+\begin{flalign*}
+    x \in \ker(A) \Rightarrow  Ax &= 0 \quad / \cdot A^T& \\
+    A^TA &= 0 \Rightarrow x \in \ker(A^TA) \qed
+\end{flalign*}
+Chci: $\ker(A^TA) \subseteq \ker(A)$
+\begin{flalign*}
+    x \in \ker(A^TA) \Rightarrow  A^TAx = 0 \Rightarrow 0 &= \langle A^T A x, x\rangle& \\
+    &= \langle Ax , Ax\rangle &\\
+    &= \| Ax\|^2 \Rightarrow Ax = 0 \Rightarrow x \in \ker(A) \qed
+\end{flalign*}
+Konec pomocného důkazu.
+
+$A$ má lineárně nezávislé sloupce $\iff \bc{0} = \ker(A) = \ker(A^TA) \iff A^TA$ je invertibilní (protože $A^TA$ je 
+čtvercová a $A^TA$ je prosté).
+
+\newpage
+\subsection{Proložení bodů pomocí MNČ}
+Jsou dány body $a = 
+\begin{bmatrix}
+    -2 \\
+    -1
+\end{bmatrix}, b=
+\begin{bmatrix}
+    -1 \\
+    -2
+\end{bmatrix}, c=
+\begin{bmatrix}
+    0 \\
+    0
+\end{bmatrix}, d=
+\begin{bmatrix}
+    1 \\
+    2
+\end{bmatrix}$. Metodou nejmenších čtverců proložte těmito body graf
+\begin{enumerate}[(a)]
+    \item afinní funkce $f(x) = \alpha x + \beta$, kde $\alpha, \beta \in \R$;
+    \item funkce $f(x) = \alpha x^2 + \beta x + \gamma$, kde $\alpha, \beta, \gamma \in \R$.
+\end{enumerate}
+(a) 
+\begin{flalign*}
+    &\begin{aligned}
+        -2\alpha + \beta &= -1 \\
+        - \alpha + \beta &= -2 \\
+        0 \alpha + \beta &= 0 \\
+          \alpha + \beta &= 2
+    \end{aligned}
+    \iff 
+    \begin{aligned}
+        A 
+        \begin{bmatrix}
+            \alpha \\
+            \beta    
+        \end{bmatrix} = b, \text{ kde } A = 
+        \begin{bmatrix}
+            -2 & 1 \\
+            -1 & 1 \\
+            \phantom{-}0 & 1 \\
+            \phantom{-}1 & 1
+        \end{bmatrix}\text{, } b=
+        \begin{bmatrix}
+            -1 \\
+            -2 \\
+            \phantom{-}0 \\
+            \phantom{-}2
+        \end{bmatrix}.
+    \end{aligned}
+\end{flalign*}
+$A^T A 
+\begin{bmatrix}
+    \alpha \\
+    \beta
+\end{bmatrix} = A^T b$. $A$ má lineárně nezávislé sloupce $\Rightarrow$ $(A^T A)^{-1}$ existuje.\\
+Pak: $
+\begin{bmatrix}
+    \alpha \\
+    \beta    
+\end{bmatrix} = (A^TA)^{-1} A^Tb$.
+
+$A^T A = 
+\begin{bmatrix}
+    -2 & -1 & 0 & 1 \\
+    \phantom{-}1 & \phantom{-}1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    -2 & 1 \\
+    -1 & 1 \\
+    \phantom{-}0 & 1 \\
+    \phantom{-}1 & 1 
+\end{bmatrix} = 
+\begin{bmatrix}
+    \phantom{-}6 & -2 \\
+    -2 & \phantom{-}4
+\end{bmatrix} \Rightarrow (A^T A)^{-1} = \frac{1}{20}
+\begin{bmatrix}
+    4 & 2 \\
+    2 & 6
+\end{bmatrix}$.
+
+$\begin{bmatrix}
+    \alpha \\
+    \beta
+\end{bmatrix} = \frac{1}{10}
+\begin{bmatrix}
+    2 & 1 \\
+    1 & 3
+\end{bmatrix}
+\begin{bmatrix}
+    -2 & -1 & 0 & 1 \\
+    \phantom{-}1 & \phantom{-}1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    -1 \\
+    -2 \\
+    \phantom{-}0 \\
+    \phantom{-}2
+\end{bmatrix} = \frac{1}{10}
+\begin{bmatrix}
+    2 & 1 \\
+    1 & 3
+\end{bmatrix}
+\begin{bmatrix}
+    \phantom{-}6 \\
+    -1
+\end{bmatrix} = \frac{1}{10}
+\begin{bmatrix}
+    11 \\
+    3
+\end{bmatrix}$
+$\Rightarrow \alpha = \frac{11}{10}$; $\beta = \frac{3}{10}$.
+
+(b)
+\begin{flalign*}
+    &\begin{aligned}
+        4\alpha           - 2\beta           + \gamma &= -1 \\
+        \phantom{0}\alpha - \phantom{0}\beta + \gamma &= -2 \\
+        0\alpha           + 0\beta           + \gamma &= 0 \\
+        \phantom{0}\alpha + \phantom{0}\beta + \gamma &= 2
+    \end{aligned}
+    \iff 
+    \begin{aligned}
+        A 
+        \begin{bmatrix}
+            \alpha \\
+            \beta    
+        \end{bmatrix} = b, \text{ kde } A = 
+        \begin{bmatrix}
+            4 & -2 & 1 \\
+            1 & -1 & 1\\
+            0 & \phantom{-}0 & 1\\
+            1 & \phantom{-}1 & 1
+        \end{bmatrix}\text{, } b=
+        \begin{bmatrix}
+            -1 \\
+            -2 \\
+            \phantom{-}0 \\
+            \phantom{-}2
+        \end{bmatrix}.
+    \end{aligned}
+\end{flalign*}
+$A$ má lineárně nezávislé sloupce $\Rightarrow$ $A^TA$ je invertibilní.
+
+$A^T A = 
+\begin{bmatrix}
+    \phantom{-}4 & \phantom{-}1 & 0 & 1\\
+    -2           & -1           & 0 & 1 \\
+    \phantom{-}1 & \phantom{-}1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    4 & -2 & 1 \\
+    1 & -1 & 1\\
+    0 & \phantom{-}0 & 1\\
+    1 & \phantom{-}1 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+    \phantom{-}18 & -8           & \phantom{-}6 \\
+    -8            & \phantom{-}6 & -2 \\
+    \phantom{-}6  & -2           & \phantom{-}4
+\end{bmatrix} \Rightarrow (A^T A)^{-1} = \frac{1}{20}
+\begin{bmatrix}
+    \phantom{-}5 &  \phantom{-}5 & -5\\
+    \phantom{-}5 &  \phantom{-}9 & -3\\
+    -5           & -3            &  \phantom{-}11
+\end{bmatrix}$.
+
+$\begin{bmatrix}
+    \alpha \\
+    \beta \\
+    \gamma
+\end{bmatrix} = \frac{1}{20}
+\begin{bmatrix}
+    \phantom{-}5 &  \phantom{-}5 & -5\\
+    \phantom{-}5 &  \phantom{-}9 & -3\\
+    -5           & -3            &  \phantom{-}11
+\end{bmatrix}
+\begin{bmatrix}
+    4 \\
+    2 \\
+    1
+\end{bmatrix} = \frac{1}{20} 
+\begin{bmatrix}
+    \phantom{-}25\\
+    \phantom{-}35\\
+    -15
+\end{bmatrix} = \frac{1}{4}
+\begin{bmatrix}
+    \phantom{-}5\\
+    \phantom{-}7\\
+    -3
+\end{bmatrix}$ $\Rightarrow \alpha = \frac{5}{4}$; $\beta = \frac{7}{4}$; $\gamma = \frac{-3}{4}$.
+
+\newpage
+\subsection{Formulace úlohy MNČ}
+Ať závislost výstupního signálu $(y_n)_{n=0}^\infty$ systému na vstupním signálu $(x_n)_{n=0}^\infty$ je dána konvolucí
+posloupnosti $(x_n)_{n=0}^\infty$ s posloupností $(h_n)_{n=0}^\infty$ ($(h_n)_{n=0}^\infty$ popisuje odezvu systému
+na jednotkový impuls), tj.  $y_n = \sum_{i=0}^{n}h_i x_{n-i}$. Předpokládejte dále, že $h_n = 0$ pro všechna $n \geq 4$.
+Měřením byla zjištěna hodnota koeficientů $y_0, \dots, y_{20}$ výstupního signálu, když na vstupu byl signál s počátečními
+koeficienty $x_0, \dots, x_{20}$. Formulujte úlohu nejmenších čtverců pro nalezení koeficientů $h_0, h_1, h_2, h_3$.
+
+\begin{multicols}{2}
+    \begin{tikzpicture}
+        \node[draw, rectangle, minimum width=2cm, minimum height=1cm] (box) 
+            {\(\left( h_n \right)_{n=0}^{\infty}\)};
+    
+        \draw[->] (-2,0) node[left] {\(\left( x_n \right)_{n=0}^{\infty}\)}
+            -- (box.west);
+    
+        \draw[->] (box.east) -- (2,0) node[right] {\(\left( y_n \right)_{n=0}^{\infty}\)};
+    \end{tikzpicture}
+
+    $y_k = \sum_{l=0}^k h_l x_{k-l} = h_0 x_k + \dots + h_k x_0$
+
+    předpokládejme: $h_l = 0 \, \forall l \geq 4$. 
+\columnbreak
+
+    \begin{align*}
+        y_0 &= h_0 x_0 \\
+        y_1 &= h_1 x_0 + h_0 x_1 \\
+        y_2 &= h_2 x_0 + h_1 x_1 + h_0 x_2 \\
+        y_3 &= h_3 x_0 + h_2 x_1 + h_1 x_2 + h_0 x_3 \\
+        y_4 &= h_3 x_1 + h_2 x_2 + h_3 x_3 + h_0 x_4 \\
+        & \vdots \\
+        y_{20} &= h_3 x_{17} + h_2 x_{18} + h_1 x_{19} + h_0 x_{20}
+    \end{align*}
+\end{multicols}
+
+\[
+    A = 
+    \begin{bmatrix}
+        x_0 & 0 & 0 & 0 \\
+        x_1 & x_0 & 0 & 0 \\
+        x_2 & x_1 & x_0 & 0 \\
+        x_3 & x_2 & x_1 & x_0 \\
+        \vdots & \vdots & \vdots & \vdots \\
+        x_{20} & x_{19} & x_{18} & x_{17}
+    \end{bmatrix}\text{; } b = 
+    \begin{bmatrix}
+        y_0 \\
+        y_1 \\
+        \vdots \\
+        y_{20}
+    \end{bmatrix}
+\]
