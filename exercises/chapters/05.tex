@@ -156,7 +156,7 @@ Důkaz.\\
     \text{ pro všechna } \alpha < 0 \text{ dostatečně malá.}
 \]
 
-\subsection{Fermatova věta - nutná podmínka optimality}
+\subsection{Fermatova věta - nutná podmínka optimality}\label{fermat}
 Nechť $\Omega \subseteq \R^n$ je otevřená množina, $M \subseteq \Omega$ a $\hat x \in M$ je bodem lokálního minima
 funkce $f \in C^1(\Omega)$ na $M$. Potom platí:
 \begin{enumerate}[(a)]
@@ -235,3 +235,351 @@ $\implies f $ je nutně (ryze) konvexní.
     -2x + 6y = \phantom{-}2
     \end{matrix} \rightarrow y = \frac{1}{4} \Rightarrow x = -\frac{1}{4}.
 \]
+
+\subsection{Věta o podmínkách optimality 2. řádu}\label{podOpt2}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $M \subseteq \Omega$, $\hat x \in \Int(M)$ a $f \in C^2 (\Omega)$.
+Potom platí:
+\begin{enumerate}[(a)]
+    \item Jestliže $\hat x$ je bod lokálního minima funkce $f$ na $M$, pak $\nabla^2 f(\hat x)$ je positivně
+    semidefinitní.
+    \item Jestliže $\nabla f(\hat x) = 0$ a $\nabla^2 f(\hat x)$ je positivně definitní, pak $\hat x$ je bod ostrého
+    lokálního minima.
+\end{enumerate}
+Důkaz vynecháme.
+
+\subsection{Příklad použití věty o podmínkách optimality 2. řádu}
+Je dána funkce
+\[
+    f(x, y) = \frac{1}{3}x^3 + \frac{1}{2}y^2 + xy + 2y.
+\]
+Určete lokální extrémy funkce.
+
+\[
+    0 = \nabla f(x, y) =
+    \begin{bmatrix}
+        x^2 + y \\
+        y + x + 2
+    \end{bmatrix} \rightarrow
+    \begin{matrix}
+        x^2 + y = 0 \\
+        y + x + 2 = 0
+    \end{matrix} \rightarrow x^2 - x - 2 = 0 \rightarrow (x+1)(x-2) = 0
+\]
+Podezřelé body jsou:
+\begin{itemize}
+    \item $x = -1 \implies y = -1$
+    \item $x = 2 \implies y = -4$
+\end{itemize}
+\[
+    \nabla^2 f(x, y) =
+    \begin{bmatrix}
+        2x & 1 \\
+        1 & 1
+    \end{bmatrix}
+\]
+$\nabla^2 f(-1, -1) =
+\begin{bmatrix}
+    -2 & 1 \\
+    \phantom{-}1 & 1
+\end{bmatrix} \dots$ dle Sylvesterova kritéria není positivně semidefinitní, není ani negativně semidefinitní, je
+indefinitní. Dle věty \hyperref[podOpt2]{o podmínkách optimality 2. řádu} není lokálním minimem ani maximem.\\
+$\nabla^2 f(2, -4) =
+\begin{bmatrix}
+    4 & 1 \\
+    1 & 1
+\end{bmatrix} \dots$ dle Sylvesterova kritéria je positivně definitní. V bodě $(2, -4)$ se tedy nachází (ostré) lokální
+minimum, nikoliv však globální.
+
+\subsection{Omezení ve tvaru nerovnosti - aproximace \texorpdfstring{$\F(M;\hat x)$}{F(M;x)}}
+Ať $g_1, \dots, g_k$ jsou reálné funkce definované na množině $\Omega \subseteq \R^n$,
+$M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$ a $x \in M$.
+Označme si:
+\begin{itemize}
+    \item Množina $\I \left((g_i)_{i=1}^k;x\right)\coloneq \bc{i \in \bc{1, \dots, k} \mid g_i(x) = 0}$ se nazývá
+    indexová množina aktivních omezení v bodě $x$.
+    \item Jestliže $i \in \I \left((g_i)_{i=1}^k;x\right)$, pak $g_i(x) \leq 0$ se nazve \textbf{aktivní} omezení (ve
+    tvaru nerovnosti) v bodě $x$.
+    \item Jestliže $i \not\in \I \left((g_i)_{i=1}^k;x\right)$, pak $g_i(x) \leq 0$ se nazve \textbf{neaktivní} omezení
+    (ve tvaru nerovnosti) v bodě $x$.
+\end{itemize}
+Poznámka. V textu dále se obvykle bude uvádět pouze $\I(x) = \bc{i \in \bc{1, \dots, k} \mid g_i(x) = 0}$. Když
+přeindexujeme funkce $g_i(x)$, znamenalo by to něco jiného, proto se u $\I$ uvádí $\left((g_i)_{i=1}^k;x\right)$, ale my
+většinou přeindexovávat nebudeme.
+
+Definice.
+
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $g_1, \dots, g_k \in C^1(\Omega)$, $x \in M$ a $M = \bc{x \in \Omega
+\mid g_1(x) \leq 0, \dots, g_k (x) \leq 0}$. Definujme množinu
+\begin{align*}
+    \G \left( (g_i)_{i=1}^k; x\right) \coloneq& \bc{d \in \R^n \, \middle| \, \langle \nabla g_i(x), d \rangle \leq 0 \quad \forall i \in \I (x)} \\
+    =& \bigcap_{i \in \I(x)} \bc{d \in \R^n \, \middle| \, \langle \nabla g_i (x), d\rangle \leq 0}
+\end{align*}
+jako aproximaci $\F(M; \hat x)$.
+
+% TODO: nákres
+
+\subsection{Příklad výpočtu \texorpdfstring{$\G$}{G} a \texorpdfstring{$\F$}{F}}
+Je dána množina
+\[
+    M = \bc{(x, y)^T \in \R^2 \mid y - x^3 \leq 0, -y \leq 0}
+\] a bod $\hat x = (0, 0)^T$. Určete množiny $\F(M; \hat x)$ a $\G((g_i)_{i=1}^k; \hat x)$.
+
+\begin{multicols}{2}
+    Nákres množiny.
+
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines=middle,
+            axis on top,
+            xlabel={$x$},
+            ylabel={$y$},
+            xmin=-1.2, xmax=2.2,
+            ymin=-1.5, ymax=9,
+            samples=100,
+            domain=-1:2,
+            thick,
+            xticklabels={},
+            yticklabels={}
+        ]
+            \addplot[name path=f, blue, thick, domain=0:2] {x^3} node[left] {$f(x) = x^3$};
+            \path[name path=x] (0,0) -- (2,0);
+            \addplot[gray!50, on background layer] fill between[of=f and x];
+            \addplot[blue, thick, domain=-1.1:0] {x^3};
+        \end{axis}
+    \end{tikzpicture}
+
+\columnbreak
+
+    Výpočet $\F(M; \hat x)$.
+
+    ? $0 + \alpha d \in M \quad \forall \alpha > 0$ dostatečně malé.
+    \begin{flalign}
+        \alpha d_2 - \alpha^3 d_1^3 &\leq 0 &\\
+        - \alpha d_2 &\leq 0 \quad \forall \alpha > 0 \text{ dostatečně malé.}&
+    \end{flalign}
+    \begin{flalign*}
+        (4) &\implies d_2 \geq 0 &\\
+        (3) &\implies d_2 \leq \alpha^2 d_1^3 \quad \forall \alpha > 0 \text{ dostatečně malé.}&
+    \end{flalign*}
+
+\end{multicols}
+$d_2 \geq 0 \implies d_1 \geq 0$ a protože to platí $\forall \alpha >0$ dostatečně malá, pak $d_2 = 0$, protože si můžu
+vzít libovolné malé, tedy i limitně blízké nule, $\alpha$. \\
+$\implies \F(M; (0, 0)) = \bc{
+    \begin{bmatrix}
+        d_1 \\
+        0
+    \end{bmatrix} \in \R^2 \, \middle| \, d_1 \geq 0}$.
+\newpage
+Výpočet $G\left( (g_i)_{i=1}^k; \hat x\right)$.
+
+Označme si $g_1(x, y) = y-x^3$ a $g_2(x, y) = -y$.\\
+Pak: 
+\[
+    \begin{rcases*}
+        \langle \nabla g_1(0), d \rangle = \left\langle 
+        \begin{bmatrix}
+            0 \\
+            1
+        \end{bmatrix},
+        \begin{bmatrix}
+            d_1 \\
+            d_2
+        \end{bmatrix}\right\rangle = d_2 \leq 0\\
+        \langle \nabla g_1(0), d \rangle = \left\langle 
+        \begin{bmatrix}
+            \phantom{-}0 \\
+            -1
+        \end{bmatrix},
+        \begin{bmatrix}
+            d_1 \\
+            d_2
+        \end{bmatrix}\right\rangle = d_2 \geq 0
+    \end{rcases*} d_2 = 0
+\]
+$\implies \G((g_1, g_2), (0, 0)) = \bc{
+\begin{bmatrix}
+    d_1 \\
+    0    
+\end{bmatrix} \, \middle| \, d_1 \in \R}$ $\rightarrow$ $\G$ je větší jak $\F$. 
+
+Protože $\G$ je pouze aproximací $\F$, může a bude se stávat, že $\G$ bude větší jak $\F$.
+
+Přidejme si další, fakticky zbytečnou, podmínku navíc.
+
+$M = \{(x, y)^T \in \R^2 \mid \underbrace{y - x^3}_{g_1(x, y)} \leq 0, \underbrace{-y}_{g_2(x,y)} \leq 0, 
+\underbrace{-x -y}_{g_3(x,y)} \leq 0\}$
+
+\[
+    \langle \nabla g_3(0), d\rangle = \left\langle 
+    \begin{bmatrix}
+        -1 \\
+        -1
+    \end{bmatrix},
+    \begin{bmatrix}
+        d_1 \\
+        d_2
+    \end{bmatrix}
+    \right\rangle = -d_1 - \underbrace{d_2}_{=0} \leq 0 \implies -d_1 \leq 0
+\]
+$\implies \G((g_1, g_2, g_3), (0,0)) = \bc{
+\begin{bmatrix}
+    d_1 \\
+    d_2    
+\end{bmatrix} \mid d_1 \geq 0}$. Což odpovídá přesně množině $\F$.
+
+Je tedy očividné, že $\G$ závisí na popisu množiny.
+
+\subsection{Ukázka, že aproximací \texorpdfstring{$\F$}{F} lze zkazit prázdnost průniku}
+Mějme optimalisační úlohu
+\begin{align*}
+    \text{minimalisujte } x + y \\
+    \text{za podmínek } y - x^3 &\leq 0, \\
+     - y &\leq 0.
+\end{align*}
+Pak
+\begin{align*}
+    \D_0(f; 0) &= \bc{d \in \R^n \mid \langle \nabla f(0), d\rangle < 0} \\
+    &\hspace*{-1.8em}\underset{\nabla f(0) = (1, 1)}{=} \bc{
+    \begin{bmatrix}
+        d_1 \\
+        d_2
+    \end{bmatrix} \mid d_1 + d_2 < 0} \dots \text{ například } 
+    \begin{bmatrix}
+        -1 \\
+        \phantom{-}0
+    \end{bmatrix} \in \D_0(f; 0), \text{ ale } 
+    \begin{bmatrix}
+        -1 \\
+        \phantom{-}0
+    \end{bmatrix} \in \G(x)!
+\end{align*}
+Tedy $\G(\hat x) \cap \D_0(f; \hat x) \not= \emptyset$ $\implies$ nahrazením podmínek optimality můžeme zkazit prázdnost 
+průniku, protože $\G$ může být větší jak $\F$.
+\newpage
+\subsection{Věta o nutných KKT podmínkách}\label{KKT}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $f, g_1, \dots, g_k \in C^1 (\Omega)$,
+\[
+    M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}
+\]
+a $\hat x \in M$. Jestliže $\overline{\F(M; \hat x)} = \G(\hat x)$ a $\hat x$ je bod lokálního minima na $f$ na $M$, 
+pak existuje ${(\mu_1, \dots, \mu_k)^T \in \R^k}$ tak, že 
+\begin{align*}
+    \nabla f(\hat x) + \Sigma_{i=1}^k \mu_i \nabla g_i(\hat x) &= 0, \\
+    \mu_i g_i(\hat x) &= 0 \text{ pro všechna } i \in \bc{1, \dots, k}, \\
+    \mu_i &\geq 0 \text{ pro všechna } i \in \bc{1, \dots, k}.
+\end{align*}
+
+Důkaz.
+
+\begin{itemize}
+    \item $\I(\hat x) = \emptyset \implies \hat x \in \Int(M) \implies \nabla f(\hat x) = 0$ z 
+    \hyperref[fermat]{Fermatovy věty}. \\
+    $\rightarrow$ volba $\mu_1 = \dots = \mu_k = 0$. Pak KKT podmínky splněny.
+    \item $\emptyset \not= \I(\hat x) = \bc{1, \dots, l}$\\
+    Víme, že máme bod lokálního minima ($\hat x$) $\underset{\text{\hyperref[fermat]{věta}}}
+    {\overset{\text{\hyperref[fermat]{Fermatova}}}{\implies}} \F(M; \hat x) \cap \D_0(f; \hat x) = \emptyset$, \\
+    tj. $\langle \nabla f(\hat x), d\rangle \geq 0 \quad \forall d \in \F(M; \hat x)$. 
+
+    Teď chceme dokázat, že platí $\langle \nabla f(\hat x), d\rangle \geq 0 \quad \forall d \in \G(\hat x)$. 
+
+    Protože $\overline{\F(M; \hat x)}$ koinciduje s $\G(\hat x)$ a ze spojitosti skalárního součinu plyne, že \\ 
+    $\langle \nabla f(\hat x), d\rangle \geq 0 \quad \forall d \in \underbrace{\overline{\F(M; \hat x)}}_{\G(\hat x)}$.
+
+    To tedy znamená $\langle \nabla f(\hat x), d\rangle \geq 0 \quad \forall d \in \G(\hat x)$. Z toho plyne, že
+    neexistuje $d \in \R^n$, pro který platí:
+    \begin{equation*}
+        \settowidth{\mylen}{$\displaystyle \langle \nabla g_1(\hat x), d \rangle \leq {}$\,}
+        \begin{aligned}
+            \langle \nabla f(\hat x), d \rangle &< 0 \, \dots \text{ tj. } \langle -\nabla f(\hat x), d\rangle > 0 \\
+            &\phantom{{}<{}}
+            \hspace*{-\dimexpr\mylen+\nulldelimiterspace}
+              \left.\begin{aligned}
+                  \langle \nabla g_1(\hat x), d \rangle &\leq 0 \\
+                  & \vdots \\
+                  \langle \nabla g_l(\hat x), d \rangle &\leq 0
+              \end{aligned}\right\}
+              A^T d \leq 0, \text{ kde } A = (\nabla g_1(\hat x), \dots, \nabla g_l(\hat x))
+        \end{aligned}
+      \end{equation*}
+    No a z \hyperref[farkas]{Farkasova lemma} tedy nutně platí: ex. $\mu = (\mu_1, \dots, \mu_l)^T \in \R^l_+ : 
+    \underbrace{A \mu}_{\hspace*{-2em}\sum_{i=1}^l \mu_i \nabla g_i} = - \nabla f(\hat x)$.\\
+    $\rightarrow$ volme dále $\mu_{l+1}, \dots, \mu_k = 0$. Pak
+    \begin{align*}
+        - \nabla f(\hat x) &= \sum_{i=1}^k \mu_i \nabla g_i(\hat x), \\
+        \mu_i \nabla g_i(\hat x) &= 0 \text{ pro všechna } i \in \bc{1, \dots, k}, \\
+        \mu_i &\geq 0 \text{ pro všechna } i \in \bc{1, \dots, k}.
+    \end{align*}
+    A to jsou přesně KKT podmínky. $\qed$
+\end{itemize}
+\newpage
+\subsection{Příklad použití KKT podmínek}
+\begin{align*}
+    \text{minimalisujte } &\underbrace{x + y}_{f(x,y)} \\
+    \text{za podmínek } &\underbrace{x}_{g_1(x,y)} \geq 0, \\
+    &\underbrace{y}_{g_2(x,y)} \geq 0.
+\end{align*}
+Určete KKT body.\\
+$\nabla f(x, y) = 
+\begin{bmatrix}
+    1 \\
+    1
+\end{bmatrix}$, $\nabla g_1(x,y) = 
+\begin{bmatrix}
+    -1 \\
+    \phantom{-}0
+\end{bmatrix}$, $\nabla g_2(x,y) = 
+\begin{bmatrix}
+    \phantom{-}0 \\
+    -1
+\end{bmatrix}$.
+
+KKT podmínky:
+\begin{align*}
+    1 + \mu_1 (-1) + \mu_2 (0)  &= 0 \quad \rightarrow \mu_1 = 1 \\
+    1 + \mu_1 (0) +  \mu_2 (-1) &= 0 \quad \rightarrow \mu_2 = 1 \\
+    \mu_1 (-x) &= 0 \\
+    \mu_2 (-y) &= 0 \\
+    \mu_1, \mu_2 &\geq 0
+\end{align*}
+Jediný KKT bod je tedy 
+$\hat x = \begin{bmatrix}
+    0 \\
+    0
+\end{bmatrix}$ a jedná se o bod minima.
+
+\subsection{Příklad, že KKT podmínky vždy nenaleznou všechny body}
+\begin{align*}
+    \text{minimalisujte } &x \\
+    \text{za podmínek } &x^2 + (y-1)^2 \leq 1, \\
+    &x^2 + (y+1)^2 \leq 1.
+\end{align*}
+
+\begin{multicols}{2}
+    Nákres.
+
+    \begin{tikzpicture}[scale=1.8]
+        \fill[blue!50, opacity=0.5] (0,1) circle (1);
+        \fill[red!50, opacity=0.5] (0,-1) circle (1);
+        
+        \draw[blue!50] (0,1) circle (1);
+        \draw[red!50] (0,-1) circle (1);
+        
+        \draw[->] (-1.5,0) -- (1.5,0) node[right] {$x$};
+        \draw[->] (0,-2.2) -- (0,2.2) node[above] {$y$};
+
+        \fill[green] (0,0) circle (2pt);
+    \end{tikzpicture}
+\columnbreak
+
+    \textcolor{green}{Přípustná} množina: $M = \bc{0} \rightarrow$ určitě konvexní množina.
+
+    KKT podmínky: 
+    \begin{align*}
+        1 + \mu_1 (2 \cdot 0) &+ \mu_2 (2 \cdot 0) = 0 \, \xmark \\
+        &\vdots
+    \end{align*}
+    $\Rightarrow (0,0)$ není KKT bod i když je úloha konvexní a bod $(0,0)$ je očividně bodem minima.
+\end{multicols}
+
+

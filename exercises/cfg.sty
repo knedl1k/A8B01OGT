@@ -1,6 +1,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
-\usetikzlibrary{patterns, positioning, arrows, calc, tikzmark}
+\usetikzlibrary{patterns, positioning, arrows, calc, tikzmark, intersections, backgrounds}
 \usepackage{amsmath,amsthm,amssymb,mathtools}
 \usepackage{tabularray}
 \usepackage{bm}
@@ -11,9 +11,10 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{utfsym} %for cross mark
 \usepackage{soul}
-\usepackage{pgfplots}
 \usepackage[autostyle]{csquotes}
 \usepackage{ marvosym }
+\usepackage{pgfplots}
+\usepgfplotslibrary{fillbetween}
 
 \usepackage{hyperref}
 
@@ -44,6 +45,7 @@
       \end{minipage}
 }
 
+\newcommand{\I}{\mathcal{I}}
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\G}{\mathcal{G}}
 \newcommand{\F}{\mathcal{F}}
@@ -82,3 +84,5 @@
 \DeclareMathOperator{\lev}{lev}
 \DeclareMathOperator{\Int}{int}
 % \newcommand{\inf}{\infty}
+
+\newlength{\mylen}
