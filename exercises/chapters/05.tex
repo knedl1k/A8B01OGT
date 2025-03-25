@@ -501,7 +501,7 @@ Důkaz.
               \end{aligned}\right\}
               A^T d \leq 0, \text{ kde } A = (\nabla g_1(\hat x), \dots, \nabla g_l(\hat x))
         \end{aligned}
-      \end{equation*}
+    \end{equation*}
     No a z \hyperref[farkas]{Farkasova lemma} tedy nutně platí: ex. $\mu = (\mu_1, \dots, \mu_l)^T \in \R^l_+ : 
     \underbrace{A \mu}_{\hspace*{-2em}\sum_{i=1}^l \mu_i \nabla g_i} = - \nabla f(\hat x)$.\\
     $\rightarrow$ volme dále $\mu_{l+1}, \dots, \mu_k = 0$. Pak
@@ -582,4 +582,103 @@ $\hat x = \begin{bmatrix}
     $\Rightarrow (0,0)$ není KKT bod i když je úloha konvexní a bod $(0,0)$ je očividně bodem minima.
 \end{multicols}
 
+\subsection{Věta o postačujících KKT podmínkách}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $f, g_1, \dots, g_k \in C^1(\Omega)$ jsou konvexní funkce na \\
+$C = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$. Jestliže $\hat x \in C$ je KKT bod, pak $\hat x$ je bod 
+minima funkce $f$ na $C$.
 
+Důkaz. Ať $x \ in C$. \\
+Cíl: $f(x) - f(\hat x) \geq 0$ ($= \hat x$ je minimum)
+
+Charakterisace pomocí tečné nadroviny: $f(\hat x) + \langle \nabla f(\hat x), x - \hat x\rangle \leq f(x) \quad x, 
+\hat x \in C$
+
+\[
+    f(x) - f(\hat x) \underset{\substack{\text{$f$ je konvexní } \\ \text{na $C \subseteq \Omega$}} }{\geq} \langle 
+    \nabla f(\hat x), x - \hat x\rangle \underset{\text{stacionarity}}{\overset{\text{podmínka}}{=}} \langle - \sum_{i=1}^{k} \mu_i \nabla g_i(\hat x), 
+    x - \hat x\rangle
+\]
+\[
+    = \sum_{i=1}^{k} - \langle \nabla g_i(\hat x), x - \hat x \rangle \mu_i = \sum_{i=1}^{n} (g_i(\hat x) - g_i(x)) \mu_i 
+    \underset{\text{komplementarity}}{\overset{\text{podmínka}}{=}} - \sum_{i=1}^{n}    
+    \underbrace{\mu_i}_{\substack{\text{podmínka}\\ \text{nezápornosti}}} \overbrace{g_i(x)}^{\leq 0 \, \forall x \in C}
+    \geq 0. \qed
+\]
+
+\subsection{Afinní podmínka regularity}\label{afinniPodm}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $g_1, \dots, g_k \in C^1 (\Omega)$ a 
+\[
+    M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}.
+\]
+Řekněme, že $(g_i)_{i=1}^k$ splňuje afinní podmínku regularity, jestliže $g_1, \dots, g_k$ jsou afinní.
+
+\subsection{Slaterova podmínka regularity}\label{slaterPodm}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $g_1, \dots, g_k \in C^1 (\Omega)$ a 
+\[
+    M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}.
+\]
+Řekněme, že $(g_i)_{i=1}^k$ splňuje Slaterovu podmínku regularity, jestliže $g_1, \dots, g_k$ jsou konvexní na $\Omega$
+a existuje $x \in \Omega$ tak, že pro každé $i \in \bc{1, \dots, k}$ je $g_i(x) < 0$.
+
+\subsection{Použití podmínek regularity k ověření KKT podmínek}
+\begin{align*}
+    \text{minimalisujte } 2x^2 + y^2 \\
+    \text{za podmínek } x^2 + y^2 - 1 &\leq 0, \\
+    -x &\leq 0.
+\end{align*}
+\hyperref[afinniPodm]{Afinní podmínka} splněna není, ověříme \hyperref[slaterPodm]{Slaterovu}. 
+
+% TODO: nakreslit množinu
+
+Množina je očividně konvexní a zároveň zvolme $x = 
+\begin{bmatrix}
+    \frac{1}{2} \\
+    0    
+\end{bmatrix} \in \Omega$. Pak $g_i (x) < 0$, Slaterova podmínka je tedy očividně splněna.
+
+$\nabla f (x) = 
+\begin{bmatrix}
+    4x \\
+    2y    
+\end{bmatrix}, \nabla g_1(x) =
+\begin{bmatrix}
+    2x \\
+    2y
+\end{bmatrix}, \nabla g_2(x) = 
+\begin{bmatrix}
+    -1\\
+    0
+\end{bmatrix}$.
+
+$\implies$ KKT podmínky:
+\begin{align*}
+    4x + \mu_1 2 x + \mu_2 (-1) &= 0 \leftrightarrow 2x (2+\mu_1) - \mu_2 = 0 \\
+    2y + \mu_1 2 y + \mu_2 0    &= 0 \Leftrightarrow 2y (1+\mu_1) = 0 \underset{\mu_1 \geq 0}{\implies} y = 0 \\
+    \mu_1(x^2 + y^2 - 1) &= 0 \\
+    \mu_2(-x) &= 0 \\
+    \mu_1, \mu_2 &\geq 0  
+\end{align*}
+
+$y=0$:
+\[
+    \begin{rcases*}
+        2x(2+ \mu_1) = \mu_2 \\
+        \mu_1(x^2 + 1) = 0 \\
+        \mu_2 x = 0 \\
+        \mu_1, \mu_2 \geq 0
+    \end{rcases*}
+    \begin{aligned}
+        &x \not= 0 \Rightarrow \mu_2 = 0 \Rightarrow 2 + \mu_1 = 0 \dots \text{ spor s } \mu_1 \geq 0.\\
+        &x = 0 \Rightarrow \mu_1 = 0 \Rightarrow \mu_2 = 0 \quad \checkmark
+    \end{aligned}
+\]
+
+Existuje bod $
+\begin{bmatrix}
+x \\
+y    
+\end{bmatrix} =
+\begin{bmatrix}
+    0 \\
+    0
+\end{bmatrix}$, pro který jsou splněny nutné a postačující KKT podmínky.
