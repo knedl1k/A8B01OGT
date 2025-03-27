@@ -1,1 +1,95 @@
 \section{Šestý týden}
+
+\subsection{Pomocný důkaz vlastnosti infima}
+\[
+    \inf_{(x, y)^T \in M \times N} (h_1(x) + h_2(y)) = \inf_{x\in M}h_1(x) + \inf_{y\in N}h_2(x)
+\]
+
+Důkaz.\\
+\enquote{$\geq$}:
+\begin{align*}
+    \inf_{x \in M} h_1(x) \leq h_1(t) \quad \forall t \in M \\
+    \inf_{y \in N} h_2(y) \leq h_2(t) \quad \forall t \in N
+\end{align*}
+\[
+    \implies \inf_{x\in M} h_1(x) + \inf_{y\in N}h_2(y) \leq \inf_{(x,y)^T \in M \times N}(h_1(x) + h_2(y)) \qed
+\]
+\enquote{$\leq$}:
+\[
+    \inf_{(x,y)^T \in M \times N}(h_1(x) + h_2(y)) \leq h_1(t) + h_2(s) \quad \forall 
+    \begin{bmatrix}
+        t \\
+        s    
+    \end{bmatrix} \in M \times N
+\]
+\[
+    \text{což lze upravit: } -h_2(s) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq h_1(t) \quad \forall t\in M, 
+    \forall s\in N.
+\]
+\[
+    \implies -h_2(s) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq \inf_{x\in M} h_1(x) \quad \forall s\in N.
+\]
+A to samé lze ukázat i pro $h_2$:
+\[
+    -h_1(t) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq h_2(s) \quad \forall t\in M, \forall s\in N.
+\]
+\[
+    \implies -h_1(t) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq \inf_{y\in N} h_2(y) \quad \forall t\in M.
+\]
+Teď sečtěme tyto dvě nerovnice:
+\[
+    -h_1(t) - h_2(s) + 2 \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq \inf_{x\in M} h_1(x) + \inf_{y\in N} h_2(y)
+    \quad \forall t\in M, \forall s\in N.
+\]
+Tedy stačí dokázat, že
+\begin{align*}
+    \inf_{(x,y)^T \in M \times N}(h_1(x) + h_2(y)) &\leq -h_1(t) - h_2(s) + 2 \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) 
+    \quad \forall t\in M, \forall s\in N.\\
+    0 &\leq -h_1(t) - h_2(s) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \quad \forall t\in M, \forall s\in N.\\
+    h_1(t) + h_2(s) &\leq \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \quad \forall t\in M, \forall s\in N.
+\end{align*}
+
+\subsection{Dualita - motivační příklad}
+Je dána úloha
+\begin{align*}
+    \text{minimalisujte } 2x+3y \\
+    \text{za podmínek } 1-x-y &\leq 0, \\
+    x,y &\in [0,2].
+\end{align*}
+
+Označme $f(x,y) = 2x + 3y$,
+$
+    M = \bc{
+    \begin{bmatrix}
+        x \\
+        y
+    \end{bmatrix} \in [0,2]^2 \, \middle| \, 1 - x - y \leq 0}
+$
+a $\hat f = \min_{x\in M} f(x)$.
+
+Odhadněme min funkce ze spoda. 
+
+Pro $(x, y)^T \in M$: \[f(x, y) \geq f(x,y) + g_1(x,y) = 2x + 3y + (1-x-y) = x+2y+1 \geq 1.\]
+A protože $\hat f = \min f(x)$, nutně musí platit $\hat f \geq 1$.
+
+Zkusme teď jiný odhad.
+\[f(x, y) \geq f(x,y) + 2g_1(x,y) = 2x + 3y + 2(1-x-y) = 2y + 1 \geq 2.\]
+Nalezli jsme lepší odhad: $\hat f \geq 2$. Jak tedy správně určit \enquote{nejlepší} možný dolní odhad $\hat f$?
+
+Definujme si
+\begin{align*}
+    L(x, y, \mu) &= 2x + 3y + \mu(1-x-y), \\
+    \varphi(\mu) &= \min_{(x, y)^T \in [0,2]^2}L(x, y, \mu).
+\end{align*}
+Pro každé $\mu \geq 0$ pak platí:
+\[
+    \varphi(\mu) = \min_{(x, y)^T \in \Omega}L(x, y, \mu) \leq \min_{(x, y)^T \in M}L(x, y, \mu) \leq \hat f
+\]
+\enquote{Optimální} dolní odhad $\hat f$ pomocí $\varphi$ vede na úlohu
+\begin{align*}
+    \text{maximalisujte } \varphi(\mu), \\
+    \text{za podmínek } \mu \geq 0.
+\end{align*}
+Tu budeme nazývat duální úlohou.
+
+Hodnota $\max \varphi(\mu)$ na $[0, +\infty]$ je $\hat \varphi \implies \hat \varphi \leq \hat f$.
