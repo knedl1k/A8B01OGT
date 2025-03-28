@@ -290,6 +290,60 @@ $\nabla^2 f(2, -4) =
 \end{bmatrix} \dots$ dle Sylvesterova kritéria je positivně definitní. V bodě $(2, -4)$ se tedy nachází (ostré) lokální
 minimum, nikoliv však globální.
 
+\subsection{Hledání bodu minima}
+Nalezněte, pokud existují, všechny body minima funkce
+\[f(x, y, z) = 2x^2 + y^2 + z^2 + xy - 2xz\]
+\[
+    \nabla^2 f(x, y, z) = 
+    \begin{bmatrix}
+        \phantom{-}4 & 1 & -2 \\
+        \phantom{-}1 & 2 & \phantom{-}0 \\
+        -2 & 0 & \phantom{-}2
+    \end{bmatrix}
+\]
+\[
+    \begin{rcases*}
+        \det \nabla^2 f(x, y, z) =
+        \begin{vmatrix}
+            \phantom{-}2 & 0 & 0 \\
+            \phantom{-}1 & 2 & 0 \\
+            -2 & 0 & 2
+        \end{vmatrix} = 2 
+        \begin{vmatrix}
+            2 & 1 \\
+            1 & 2
+        \end{vmatrix} = 6 >0 \\
+        \begin{vmatrix}
+            4 & 1 \\
+            1 & 2
+        \end{vmatrix} = 7 > 0\\
+        \begin{vmatrix}
+            4
+        \end{vmatrix} = 4 > 0
+    \end{rcases*} \text{positivně definitní} \implies f \text{ je ryze konvexní.}
+\]
+Protože $f$ je konvexní, body minima budou přesně stacionární body. A protože $f$ je ryze konvexní, tak bude mít právě 
+jeden bod minima.
+
+\begin{alignat*}{4}
+    4&x &+ \;& y &- 2&z &=\; 0 &\quad \Rightarrow 2z + y = 0 \Rightarrow z = -2y \\
+    &x &+ 2& y &  &  &=\; 0 &\quad \Rightarrow x = -2y \\
+   -2&x &  &  &+ 2&z &=\; 0 &\quad \Rightarrow x = z
+\end{alignat*}
+Jediný bod minima je tedy očividně 
+$
+\begin{bmatrix}
+    x \\
+    y \\
+    z
+\end{bmatrix}=
+\begin{bmatrix}
+    0 \\
+    0 \\
+    0
+\end{bmatrix}
+$.
+
 \subsection{Omezení ve tvaru nerovnosti - aproximace \texorpdfstring{$\F(M;\hat x)$}{F(M;x)}}
 Ať $g_1, \dots, g_k$ jsou reálné funkce definované na množině $\Omega \subseteq \R^n$,
 $M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$ a $x \in M$.
@@ -370,7 +424,7 @@ $\implies \F(M; (0, 0)) = \bc{
         d_1 \\
         0
     \end{bmatrix} \in \R^2 \, \middle| \, d_1 \geq 0}$.
-\newpage
+
 Výpočet $G\left( (g_i)_{i=1}^k; \hat x\right)$.
 
 Označme si $g_1(x, y) = y-x^3$ a $g_2(x, y) = -y$.\\

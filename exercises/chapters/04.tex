@@ -402,3 +402,82 @@ $\nabla^2 f(x, y) =
 $\nabla^2 f(x,y)$ positivně definitní.
 
 A podle bodu (c) \hyperref[konvDDeriv]{věty o konvexitě a druhé derivaci} můžeme říct, že funkce $f$ je ryze konvexní.
+\newpage
+\subsection{Příklad ověření konvexnosti funkce s parametrem}
+Mějme funkci $f(x) = \langle Ax, x\rangle$, kde
+\[
+A = \begin{bmatrix}
+    2 & 2 & 3 \\
+    1 & 3 & 1 \\
+    1 & 2 & \alpha
+\end{bmatrix}, \alpha \in \R \text{ je parametr.}
+\]
+Pro jaké $\alpha$ je funkce $f$ konvexní?
+\[
+    \nabla^2 f(x) = \overbrace{A + A^T}^{\text{ze symetrie}} = 
+    \begin{bmatrix}
+        4 & 3 & 4 \\
+        3 & 6 & 3 \\
+        4 & 3 & 2 \alpha
+    \end{bmatrix}
+\]
+\[
+    \det \nabla^2 f(x) = 
+    \begin{vmatrix}
+        4 & 3 & 4 \\
+        3 & 6 & 3 \\
+        4 & 3 & 2 \alpha
+    \end{vmatrix} \underset{R_3 - R_1}{=}
+    \begin{vmatrix}
+        4 & 3 & 4 \\
+        3 & 6 & 3 \\
+        0 & 0 & 2 \alpha - 4
+    \end{vmatrix} = (2 \alpha - 4)
+    \begin{vmatrix}
+        4 & 3 \\
+        3 & 6
+    \end{vmatrix} = 3 (2 \alpha - 4)
+    \begin{vmatrix}
+        4 & 3 \\
+        1 & 2 
+    \end{vmatrix} = 30 (\alpha - 2)
+\]
+Tedy aby $f$ byla konvexní funkce: $30 (\alpha - 2) \geq 0 \iff \alpha \geq 2$.
+
+Musíme vyšetřit menší minory matice.
+
+Vyškrtněme 3. řádek a 3. sloupec:
+\[
+    \begin{vmatrix}
+        4 & 3 \\
+        3 & 6
+    \end{vmatrix} = 15 > 0
+\]
+Vyškrtněme 2. řádek a 2. sloupec:
+\[
+    \begin{vmatrix}
+        4 & 4 \\
+        4 & 2 \alpha
+    \end{vmatrix} = 8
+    \begin{vmatrix}
+        1 & 1 \\
+        2 & \alpha
+    \end{vmatrix} = 8 (\alpha -2) \geq 0 \iff \alpha \geq 2 \dots \text{tuto podmínku již vyžadujeme.}
+\]
+Vyškrtněme 1. řádek a 1. sloupec:
+\[
+    \begin{vmatrix}
+        6 & 3 \\
+        3 & 2 \alpha
+    \end{vmatrix} = 3
+    \begin{vmatrix}
+        2 & 1 \\
+        3 & 2\alpha
+    \end{vmatrix} = 3 (4\alpha -3) \geq 0 \iff \alpha \geq \frac{3}{4} \dots \text{vyžadujeme již silnější podmínku.}
+\]
+A teď zbylé minoru po vyškrtání dvou řádků a sloupců:
+\[
+    4 \geq 0, \quad 6 \geq 0, \quad 2 \alpha \geq 0 \iff \alpha \geq 0 \dots \text{vyžadujeme již silnější podmínku.}
+\]
+
+$\implies$ Pokud $\alpha \geq 2$, pak je funkce $f$ konvexní. Při $\alpha > 2$ je ryze konvexní.
