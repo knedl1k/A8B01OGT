@@ -481,3 +481,61 @@ A teď zbylé minoru po vyškrtání dvou řádků a sloupců:
 \]
 
 $\implies$ Pokud $\alpha \geq 2$, pak je funkce $f$ konvexní. Při $\alpha > 2$ je ryze konvexní.
+
+\subsection{Příklad ověření konvexity množiny}
+Mějme množinu
+\[
+    M = \bc{
+        \begin{bmatrix}
+            x \\
+            y
+        \end{bmatrix} \in \R^2 \, \middle| \, x + 2e^{-x+y^2} \leq 4, \, -x^2 + 3xy - 3y^2 \geq -1
+    }.
+\] 
+Je $M$ konvexní?
+
+\begin{flalign*}
+    \text{Označme:} \quad &g_1(x, y) = x + 2 e^{-x+y^2} \dots M_1 = \bc{
+        \begin{bmatrix}
+            x \\
+            y
+        \end{bmatrix} \, \middle| \, g_1 (x, y) \leq 4}& \\
+        &g_2(x, y) = x^2 -3xy + 3y^2 \dots M_2 = \bc{
+            \begin{bmatrix}
+                x \\
+                y
+            \end{bmatrix} \, \middle| \, g_2 (x, y) \leq 1}
+\end{flalign*}
+$M = M_1 \cap M_2 \implies$ ukážeme konvexnost $M_1$ a $M_2$, protože průnik zachovává konvexitu.\\
+$\implies g_1$ a $g_2$ musí být konvexní.
+
+\begin{itemize}
+    \item $g_1$:
+        \begin{itemize}
+            \item $x$ je afinní funkce $\rightarrow$ konvexní.
+            \item součet zachovává konvexitu.
+            \item násobení zachovává konvexitu.
+            \item exponenciála je konvexní funkce (dokonce striktně rostoucí).
+            \item vnitřní funkce ($-x + y^2$) je také konvexní.
+        \end{itemize} 
+        $\implies g_1$ je konvexní funkce $\implies M_1$ je konvexní množina.
+    \item $g_2$: 
+        \begin{itemize}
+            \item kvadrát je konvexní.
+            \item je ale člen \enquote{$xy$} konvexní? Musíme se podívat na Hessovu matici.
+        \end{itemize}
+\end{itemize}
+\[  
+    \nabla^2 g_2(x, y) = 
+    \begin{bmatrix}
+        \phantom{-}2 & -3 \\
+        -3 & \phantom{-}6
+    \end{bmatrix}
+\]
+\[
+    \begin{rcases*}
+        \det \nabla^2 g_2(x, y) = 12 - 9 = 3 > 0 \\
+        2 \geq 0
+    \end{rcases*} g_2 \text{ je (ryze) konvexní funkce } \implies M_2 \text{ je konvexní množina.}
+\]
+Protože $M_1$ i $M_2$ jsou konvexní množiny, pak nutně i $M_1 \cap M_2 = M$ je konvexní množina.

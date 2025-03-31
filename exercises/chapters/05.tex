@@ -736,3 +736,143 @@ y
     0 \\
     0
 \end{bmatrix}$, pro který jsou splněny nutné a postačující KKT podmínky.
+
+\subsection{Určení nutných a postačujících podmínek optimality}
+Ať $A \in \M_{m,n} (\R), \, D \in \M_{r,n}(\R), \, b\in \R^m$ a $\lambda > 0$. Je dána úloha
+\[
+    \text{minimalisujte } f(x) = \| Ax - b\|^2 + \lambda \| Dx\|^2  \text{ na } \R^n.
+\]
+Jaké jsou nutnné a postačující podmínky optimality?
+\begin{align*}
+    f(x) &= \langle Ax - b, Ax - b\rangle + \lambda \langle Dx, Dx\rangle \\
+    &= \langle \underbrace{Ax, Ax}_{A^TAx, x}\rangle - 2\langle Ax, b\rangle + \| b\|^2 + \lambda \langle 
+        \underbrace{Dx, Dx}_{D^TDx, x}\rangle
+\end{align*}
+$\implies f(x) = \left\langle \left(A^TA + \lambda D^TD\right)x, x\right\rangle - 2 \left\langle x, A^T b\right\rangle 
++ \| b\|^2$\\
+Je $f$ konvexní?\\
+Ano, neboť $\nabla^2 f(x) = 2(A^TA + \lambda D^TD)$ je positivně semidefinitní, protože pro $x \in \R$:
+\begin{align*}
+    \left\langle 2\left(A^TA + \lambda D^TD\right)x, x\right\rangle &= 2 \left[ \langle Ax, Ax\rangle + \lambda 
+    \langle Dx, Dx\rangle\right] \\
+    &= 2 \left[ \|Ax\|^2 + \lambda \|Dx\|^2\right] \geq 0
+\end{align*}
+Tedy $f$ je konvexní $\implies$ stačí najít stacionární body.
+\begin{align*}
+    0 = \nabla^2 f(x) &= 2 (A^TA + \lambda D^TD)x - 2(A^Tb) + 0 \\
+    &= (A^TA + \lambda D^TD)x - A^Tb
+\end{align*}
+\[
+    \implies A^Tb = (A^TA + \lambda D^TD)x
+\]
+A to je nutná a postačující podmínka pro $x$, aby byl bodem minima $f$ na $\R^n$.
+    
+\subsection{Určení KKT podmínek}
+\begin{align*}
+    \text{minimalisujte } &x^4 + y^4 + 12 x^2 + 6 y^2 - xy - x - y \\
+    \text{za podmínek } &x + y \geq 6, \\
+    &2x-y \geq 3, \\
+    &x, y \geq 0.
+\end{align*}
+\begin{enumerate}[a)]
+    \item Napište KKT podmínky.
+    \item Jsou nutné a postačující?
+    \item Ukažte, že $(3, 3)^T$ je jediný bod minima.
+\end{enumerate}
+a) Mějme
+\begin{align*}
+    g_1(x,y) &= -x-y+6, \\
+    g_2(x,y) &= 2x-y+3, \\
+    g_3(x,y) &= -x, \\
+    g_4(x,y) &= -y, \\
+    f(x,y) &= x^4 + y^4 + 12 x^2 + 6 y^2 - xy - x - y.
+\end{align*}
+$\rightarrow$ použijeme \hyperref[afinniPodm]{afinní podmínku regularity} $\rightarrow g_i$ jsou affiní.
+
+KKT podmínky: 
+\begin{align*}
+    \nabla f(x, y) + \mu_1 \nabla g_1(x, y) + \mu_2 \nabla g_2(x, y) + \mu_3 \nabla g_3(x, y) + \mu_4 \nabla g_4(x, y) = 0 \\
+    \mu_i g_i (x,y) = 0, i = 1,2,\dots,\\
+    \mu_i \geq 0, i = 1,2,\dots.
+\end{align*}
+Tedy:
+\begin{align*}
+    4x^3 + 24x - y - 1 - \mu_1 - 2\mu_2 - \mu_3 = 0\phantom{,} \\
+    4y^3 + 12y - x - 1 - \mu_1 + \mu_2 - \mu_4 = 0\phantom{,} \\
+    \mu_1(-x-y+6) = 0, \\
+    \mu_2(x-2y+3) = 0, \\
+    x \mu_3 = 0, \\
+    y \mu_4 = 0, \\
+    \mu_1, \mu_2, \mu_3, \mu_4 \geq 0.
+\end{align*}
+Jsou postačující? Máme konvexní úlohu? Musíme ověřit konvexitu u $g_i$ a $f$.
+\begin{itemize}
+    \item $g_i$ jsou afinní $\implies$ jsou konvexní.
+    \item $f:$
+    \begin{itemize} % TODO: lepší argumentace
+        \item kvadráty jsou ryze konvexní
+        \item součet ryzích konvexních je ryzí konvexní
+    \end{itemize} 
+\end{itemize}
+\[h(x, y) = 12x^2 + 6y^2 - xy -x -y\]
+\[
+    \nabla^2 h (x, y) = 
+    \begin{bmatrix}
+        \phantom{-}24 & -1 \\
+        -1 & \phantom{-}12
+    \end{bmatrix} = 24 \cdot 12 - 1 > 0; \quad 24 > 0 \implies h(x, y)\text{ je positivně definitní.}
+\]
+$\implies h(x, y)$ je ryze konvexní.
+
+A proto je i $f(x, y)$ ryze konvexní, protože součet ryze konvexních dává ryze konvexní $\implies$ existuje právě jeden 
+bod minima.\\
+Ověříme $\begin{bmatrix} 3 \\ 3 \end{bmatrix}$. Ať $x=y=3$. Pak
+\begin{align*}
+    4 \cdot 27 + 24 \cdot 3 - 4 - \mu_1 + \mu_2 - \mu_3 = 0& \quad \text{(I.)} \\
+    4 \cdot + 12 \cdot 3 - 4 - \mu_1 - 2\mu_2 - \mu_4 = 0& \quad \text{(II.)}\\
+    \mu_1 \cdot 0 = 0& \\
+    \mu_2 \cdot 0 = 0& \\
+    3 \mu_3 = 0& \implies \mu_3 = 0\\
+    3 \mu_4 = 0& \implies \mu_4 = 0\\
+    \mu_1, \mu_2 \geq 0&
+\end{align*}
+I. $-$ II.: $24 \cdot 3 - 12 \cdot 3 - 3 \mu_2 = 0 \implies \mu_2 = \frac{1}{3} (24 \cdot 3 - 12 \cdot 3) > 0$.\\
+$\mu_1 = 4 \cdot 27 + 24 \cdot 3 - 4 - \frac{2}{3}(24 \cdot 3 - 36) > 0$.
+
+\subsection{Určení KKT podmínek}
+\begin{align*}
+    \text{minimalisujte } &\alpha x + y, \alpha \in \R \text{ je parametr.}\\
+    \text{za podmínek } &x^2 + y^2 - 25 \leq 0, \\
+    &x-y-1 \leq 0.
+\end{align*}
+Určete $\alpha$ tak, aby 
+$\begin{bmatrix}
+    4 \\
+    3
+\end{bmatrix}$ bylo řešení.
+
+KKT podmínky:
+\begin{align*}
+    \alpha + \mu_1 (2x) + \mu_2 \cdot 1 = 0\phantom{,} \\
+    1 + \mu_1 (2y) - \mu_2 = 0\phantom{,} \\
+    \mu_1(x^2 + y^2 - 25) = 0, \\
+    \mu_2(x - y - 1) = 0, \\
+    \mu_1, \mu_2 \geq 0.
+\end{align*}
+$g_i$ jsou konvexní, $f$ je konvexní $\implies$ KKT podmínky jsou postačující.\\
+\hyperref[slaterPodm]{Slaterova podmínka optimality} je splněna $\implies$ KKT podmínky jsou nutné.
+
+$x=4, y=3$:
+\begin{align*}
+    \alpha + 8 \mu_1 + \mu_2 = 0& \quad \text{(I.)}\\
+    1 + 6 \mu_1 - \mu_2 = 0&, \quad \text{(II.)}\\
+    \mu_1, \mu_2 \geq 0&.
+\end{align*}
+I.+II.: $\alpha + 1 + 14 \mu_1 = 0$\\
+$\mu_1 = \frac{-\alpha - 1}{14} \overset{!}{\geq} 0 \implies -1 \geq \alpha$. A tedy $\mu_2 = 1 + 6 \mu_1 \geq 0$.
+
+Tedy aby
+$\begin{bmatrix}
+    4 \\
+    3
+\end{bmatrix}$ bylo řešení této úlohy, musí platit $\alpha \leq -1$.
