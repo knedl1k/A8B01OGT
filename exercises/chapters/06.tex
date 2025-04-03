@@ -1,6 +1,6 @@
 \section{Šestý týden}
 
-\subsection{Pomocný důkaz vlastnosti infima}
+\subsection{Pomocný důkaz vlastnosti infima}\label{infPomoc}
 \[
     \inf_{(x, y)^T \in M \times N} (h_1(x) + h_2(y)) = \inf_{x\in M}h_1(x) + \inf_{y\in N}h_2(x)
 \]
@@ -90,8 +90,149 @@ Pro každé $\mu \geq 0$ pak platí:
     \text{maximalisujte } \varphi(\mu), \\
     \text{za podmínek } \mu \geq 0.
 \end{align*}
+Kde
+\begin{align*}
+    \varphi(\mu) &= \min_{(x, y)^T \in [0,2]^T} \left[(2-\mu)x + (3-\mu)y + \mu\right] \\
+    &= \mu + \min_{x \in [0,2]}(2-\mu)x + \min_{y \in [0,2]}(3-\mu)y \\
+    &= 
+    \begin{cases}
+        \mu & \mu < 2 \\
+        \mu + 4 - 2\mu & \mu \in [2, 3) \\
+        10 - 3\mu & \mu \in [3, \infty)
+    \end{cases}
+\end{align*}
 Tu budeme nazývat duální úlohou.
 
-Hodnota $\max \varphi(\mu)$ na $[0, +\infty]$ je $\hat \varphi \implies \hat \varphi \leq \hat f$.
+Hodnota $\max \varphi(\mu)$ na $[0, +\infty)$ je $\hat \varphi \implies \hat \varphi \leq \hat f$.
 
+\subsection{Tvrzení o konkávnosti duální úlohy}
+Jestliže $D_\varphi \not= \emptyset$, pak $\varphi$ je konkávní.
 
+Důkaz.\\
+Mějme $\mu, \nu \in D_\varphi$, $\lambda \in [0,1]$.
+\begin{align*}
+    \varphi(\lambda \mu + (1-\lambda)\nu) &\overset{\text{?}}{=} \inf_{x\in \Omega} \overbrace{f(x)}^{\lambda f(x) + 
+    (1-\lambda)f(x)} + \overbrace{\langle g(x), \lambda \mu + (1-\lambda)\nu\rangle}^{\lambda \langle g(x), \mu\rangle + 
+    (1-\lambda)\langle g(x), \nu\rangle} \\
+    &= \inf_{x\in \Omega} \lambda(f(x) + \langle g(x), \mu\rangle) + (1-\lambda)(f(x)+\langle g(x), \nu\rangle) \\
+    &\hspace*{-1.1em}\underset{\text{\hyperref[infPomoc]{infima}}}{\overset{\text{\hyperref[infPomoc]{vlastnost}}}{\geq}} 
+    \lambda \inf_{x\in \Omega} (f(x) + \langle g(x), \mu\rangle) + (1 - \lambda) \inf_{x\in \Omega} (f(x) + \langle g(x), 
+    \nu\rangle) \\
+    &= \lambda \varphi(\mu) + (1-\lambda) \varphi(\nu) > - \infty \implies \lambda \mu + (1-\lambda)\nu \in D_\varphi. \qed
+\end{align*}
+
+\subsection{Věta o slabé dualitě}\label{slabDual}
+\begin{enumerate}[(a)]
+    \item Pro každé $x \in M$ a $\mu \in N$ je $\varphi(\mu) \leq f(x)$.
+    \item $\hat \varphi \leq \hat f$.
+\end{enumerate}
+(a) Důkaz.\\
+Víme: $L(x, \mu) \leq f(x) \quad \forall x \in M, \forall \mu \geq 0$.
+\[
+    \varphi(\mu) = \inf_{y \in \Omega} L(y, \mu) \leq \inf_{y \in M} L(y, \mu) \leq L(x, \mu) \leq f(x) \quad 
+    \forall x \in M, \forall \mu \in N. \qed
+\]
+(b) Důkaz.\\
+Z (a) máme $\overbrace{\sup_{\mu \in N} \varphi(\mu)}^{\hat \varphi} \leq f(x) \quad \forall x \in M$.
+\[
+    \implies \hat \varphi \leq \inf_{x \in M}f(x) = \hat f. \qed
+\]
+
+\subsection{Důsledek věty o slabé dualitě}
+\begin{enumerate}[(a)]
+    \item Jestliže existují $\hat x \in M$ a $\hat \mu \in N$ splňující $\varphi(\hat \mu) = f(\hat x)$, pak
+    \[ \hat \mu \in \argmax_{\mu \in N} \varphi(\mu) \quad \text{ a } \quad \hat x \in \argmin_{x \in M}f(x). \]
+    \item Je-li $\hat f = - \infty$, pak $N = \emptyset$.
+    \item Je-li $\hat \varphi = + \infty$, pak $M = \emptyset$.
+\end{enumerate}
+Důkaz (a).\\
+Z \hyperref[slabDual]{věty o slabé dualitě} platí:
+\[
+    \varphi(\mu) \leq f(\hat x) \overset{\text{předpoklad}}{=} \varphi(\hat \mu) \quad \forall \mu \in N
+    \iff \hat \mu \in \argmax_{\mu \in N} \varphi(\mu).
+\]
+Analogicky:
+\[
+    f(\hat x) \overset{\text{předpoklad}}{=} \varphi(\hat \mu) \leq f(x) \quad \forall x \in M
+    \iff \hat x \in \argmin_{x \in M} f(x). \qed
+\]
+Důkaz (b).\\
+Sporem. Ať $N \not= \emptyset$. Volme $\mu \in N$.
+\[
+    \text{Pak } \underbrace{\varphi(\mu)}_{\in \R} \leq \hat \varphi \leq \hat f = - \infty \dots \text{ spor.} \qed
+\]
+Důkaz (C).\\
+Sporem. Ať $M \not= \emptyset$. Volme $x \in M, \mu \in N$.
+\[
+    \text{Pak } \varphi(\mu) \leq \hat \varphi = + \infty \leq \underbrace{f(x)}_{\in \R} \dots \text{ spor.} \qed
+\]
+
+\subsection{Ukázkový příklad na slabou dualitu}
+Je dána úloha 
+\begin{align*}
+    \text{minimalisujte } &-x^2 \\
+    \text{za podmínek } &2x - 1 \leq 0, \\
+    &x \in [0,1].
+\end{align*}
+Tedy:
+\[
+    L(x, \mu) = -x^2 + \mu(2x-1) = (-x^2 + 2x\mu) - \mu
+\]
+\[
+    \varphi(\mu) = \left[\min_{x \in [0,1]}(-x^2 + 2x\mu)\right] - \mu
+\]
+Pozorování. Minimalisovaná funkce je (ryze) konkávní. Nemůže tedy v žádném vnitřním bodě nabývat minima. Dosazení 
+krajních bodů intervalu:
+\[
+    \varphi(\mu) = \min \bc{0, 2\mu -1} - \mu = 
+    \begin{cases}
+        \mu -1 & \text{pro } \mu < \frac{1}{2}, \\
+        -\mu & \text{pro } \mu \geq \frac{1}{2}.
+    \end{cases}
+\]
+\begin{multicols}{2}
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines=middle,
+            xlabel={\(\mu\)},
+            ylabel={\(\varphi(\mu)\)},
+            xmin=-1.9, xmax=1.9,
+            ymin=-1.9, ymax=1.9,
+            samples=100,
+            domain=-2:2,
+            legend pos=north east,
+        ]
+            \addplot [blue, thick, domain=-2:0.5] {x - 1};
+            \addplot [blue, thick, domain=0.5:2] {-x};
+            \addlegendentry{\(\varphi(\mu)\)}
+    
+            \addplot [only marks, mark=*] coordinates {(0.5,-0.5)};
+            
+            \draw [dotted] (axis cs:0.5,-0.5) -- (axis cs:0.5,0);
+            \draw [dotted] (axis cs:0.5,-0.5) -- (axis cs:0,-0.5);
+            
+            \addplot [only marks, mark=*] coordinates {(0.5,0)};
+            \node [above right] at (axis cs:0.5,0) {\(\frac{1}{2}\)};
+            
+            \addplot [only marks, mark=*] coordinates {(0,-0.5)};
+            \node [above left] at (axis cs:0,-0.5) {\(-\frac{1}{2}\)};
+        \end{axis}
+    \end{tikzpicture}
+
+\columnbreak
+
+    Z grafu vyčteme: $\hat \varphi = - \frac{1}{2}$. A to samé uděláme pro $f$, kde výsledek bude $\hat f = - \frac{1}{4}$.
+
+    Tedy $\hat \varphi < \hat f$.
+\end{multicols}
+
+\subsection{Věta o silné dualitě}\label{silDual}
+Nechť $\hat f < \infty$ a cílová funkce $f : \R^n \rightarrow \R$ je konvexní. Předpokládejme, že platí alespoň jedna z 
+následujících podmínek:
+\begin{enumerate}[(a)]
+    \item Komponenty $g_1, \dots, g_k$ zobrazení $g$ splňují \hyperref[slaterPodm]{Slaterovu podmínku} regularity.
+    \item Zobrazení $g$ je afinní a $\Omega$ je konvexní polyedrická množina.
+\end{enumerate}
+Potom $\hat f = \hat \varphi$. Je-li navíc $\hat f \in \R$, pak existuje řešení úlohy ($D$).
+
+Důkaz vynecháme.
