@@ -1,1 +1,190 @@
 \section{Sedmý týden}
+\subsection{Ůvod do lineární programování}
+Úlohy lineárního programování jsou optimalisační úlohy, ve kterých je
+\begin{enumerate}[(a)]
+    \item cílová funkce afinní (bez újmy na obecnosti se můžeme omezit na lineární funkce)
+    \item přípustná množina je konvexní polyedrická množina (tj. lze popsat pomocí konečné soustavy lineárních rovnic a 
+    nerovnic)
+\end{enumerate}
+Příklad.
+
+Firma vyrábí 2 druhy výrobků $A$ a $B$. V tabulce je uvedeno množství materiálu (ve vhodných jednotkách) potřebný k 
+výrobě jednotkového množství daného druhu výrobku a také jeho prodejní cena.
+\begin{center}
+    \begin{tabular}{|c|c|c|l|}
+        \hline
+        & Materiál $X$ & Materiál $Y$ & Cena \\ \hline
+        Výrobek $A$ & 2 & 3 & 6000 Kč \\ \hline
+        Výrobek $B$ & 4 & 4 & 10000 Kč \\ \hline
+    \end{tabular}
+\end{center}
+Na skladu je jen 10 jednotek materiálu $X$ a 12 jednotek materiálu $Y$. Jak mají ve firmě nastavit výrobni proces, aby 
+celková cena za vyrobené množství výrobků byla co největší?
+
+Odpověď je přímo v zadání.
+\begin{flalign*}
+    x_1& \dots \text{množství výrobku } A& \\
+    x_2& \dots \text{množství výrobku } B&
+\end{flalign*}
+\begin{align*}
+    \text{maximalisujte } 6x_1 + 10x_2 \\
+    \text{za podmínek } 2x_1 + 4x_2 &\leq 10,\\
+    3x_1 + 4x_2 &\leq 12,\\
+    x_1, x_2 &\geq 0.
+\end{align*}
+
+\begin{multicols}{2}
+    \begin{tikzpicture}[scale=1]
+        \fill[blue!20,opacity=0.5]
+            (0,0) -- 
+            (0,2.5) -- 
+            (2,1.5) -- % 
+            (4,0) -- 
+            (0,0);
+        \node[black] at (1.5,0.5) {\large $M$};
+    
+        \draw[->] (0,0) -- (6,0) node[right] {$x_1$};
+        \draw[->] (0,0) -- (0,4) node[above] {$x_2$};
+    
+        \foreach \x in {0,1,2,3,4,5} \draw (\x,0) -- (\x,-0.1) node[below] {\x};
+        \foreach \y in {1,2,3} \draw (0,\y) -- (-0.1,\y) node[left] {\y};
+    
+        % 2x1 + 4x2 = 10  => x2 = (10 - 2x1)/4
+        \draw[thick,blue] (0,2.5) -- (5,0);
+    
+        % 3x1 + 4x2 = 12 => x2 = (12 - 3x1)/4
+        \draw[thick,red] (4,0) -- (0,3);
+    
+        \draw[step=1cm,gray!40,very thin] (0,0) grid (6,4);
+    
+        \begin{scope}[shift={(3,3.8)}, scale=0.5]
+            \draw[black] (-0.2,0.4) rectangle (6,-0.8); 
+            \draw[thick,blue] (0,0) -- (0.8,0);
+            \node[right] at (1,0) {\footnotesize $2x_1 + 4x_2 = 10$};
+    
+            \draw[thick,red] (0,-0.5) -- (0.8,-0.5);
+            \node[right] at (1,-0.5) {\footnotesize $3x_1 + 4x_2 = 12$};
+        \end{scope}
+    \end{tikzpicture}
+
+\columnbreak
+
+    Graficky lze nalézt, že maximum se nabývá v bodě $(2, \frac{3}{2})^T$. Maximum je $f(2, \frac{3}{2}) = 27$.
+\end{multicols}
+Pokračování příkladu.
+
+Obchodník chce od firmy koupit veškerý materiál ze skladu. Jaké ceny za materiál $X$ a $Y$ by měl firmě nabídnout, aby 
+zaplatil co nejmenší částku a firmě se přesto vyplatilo materiál prodat namísto výroby výrobků?
+
+\newpage
+Tato otázka vede na úlohu:
+\begin{flalign*}
+    y_1& \dots \text{cena za jednotkové množství materiálu } X& \\
+    y_2& \dots \text{cena za jednotkové množství materiálu } Y&
+\end{flalign*}
+\begin{align*}
+    \text{minimalisujte } 10y_1 + 12y_2 \\
+    \text{za podmínek } 2y_1 + 3y_2 &> 6, \\
+    4y_1 + 4y_2 &> 10,\\
+    y_1, y_2 &\geq 0. 
+\end{align*}
+Pozorování. Tyto dvě úlohy jsou navzájem duální.
+
+\subsection{Zápis úlohy lineárního programování}
+Je dána úloha
+\begin{align*}
+    \text{minimalisujte } x_1 - x_2 \\
+    \text{za podmínek } 2x_1 - 3x_2 &= 5, \\
+    -2 \leq x_2 &\leq 3, \\
+    x_1 &\leq 0. 
+\end{align*}
+Zapišme úlohu v kanonickém tvaru.\\
+Pomocné substituce: $y_1 = -x_1$, $x_2 = y_2 - y_3$, $y_2, y_3 \geq 0$.
+\begin{align*}
+    \text{minimalisujte } -y_1-y_2+y_3 \\
+    \text{za podmínek } -2y_1 - 3y_2 + 3y_3 &\geq 5, \\
+    2y_1 + 3y_2 - 3y_3 &\geq -5, \\
+    -y_2 + y_3 &\geq -3, \\
+    y_2 - y_3 &\geq -2,\\
+    y_1, y_2, y_3 &\geq 0.
+\end{align*}
+
+Zapišme úlohu ve standardním tvaru.
+\begin{align*}
+    \text{minimalisujte } -y_1-y_2+y_3 \\
+    \text{za podmínek } -2y_1 - 3y_2 + 3y_3 & = 5, \\
+    y_2 - y_3 - y_4 &= -2, \\
+    y_2 - y_3 + y_5 &= 3, \\
+    y_1, y_2, y_3, y_4, y_5 &\geq 0.
+\end{align*}
+
+\subsection{Basický přípustný bod}
+Bod $x \in M$ se nazve basický přípustný bod (BPB) úlohy lineárního programování, pokud existuje $m$-prvková množina 
+$B \subseteq \bc{1, \dots, n}$ taková, že 
+\begin{enumerate}[(a)]
+    \item $A_B$ je regulární,
+    \item $x_j = 0$ pro každé $j \in \N$.
+\end{enumerate}
+Množina $B$ z definice BPB se nazývá přípustná báse.
+
+\subsection{Příklad BPB}
+Nechť
+$A = 
+    \begin{bmatrix}
+        1 & 2 & 3 \\
+        0 & 2 & 3    
+    \end{bmatrix} 
+$ a $b = 
+    \begin{bmatrix}
+        5 \\
+        3
+    \end{bmatrix}
+$. Jaké jsou BPB?
+\begin{itemize}
+    \item $B = \bc{1,2} \dots A_B = 
+    \begin{bmatrix}
+        1 & 2 \\
+        0 & 2
+    \end{bmatrix}$. Evidentně invertibilní. \\
+    $x = 
+    \begin{bmatrix}
+    x_1 \\
+    x_2 \\
+    x_3    
+    \end{bmatrix} \dots \underbrace{Ax}_{A_B x_B +  A_N\underbrace{x_N}_{=0}}=b$. Tedy 
+    $\left[
+        \begin{array}{cc|c}
+        1 & 2 & 5 \\
+        0 & 2 & 3
+        \end{array}
+    \right]
+    \rightarrow x = \frac{1}{2}
+    \begin{bmatrix}
+        1 \\
+        3 \\
+        0
+    \end{bmatrix} \in M$ je BPB.
+    \item $B = \bc{1,3} \dots A_B = 
+    \begin{bmatrix}
+        1 & 3 \\
+        0 & 3
+    \end{bmatrix}$. Evidentně invertibilní. \\
+    Tedy 
+    $\left[
+        \begin{array}{cc|c}
+        1 & 3 & 5 \\
+        0 & 3 & 3
+        \end{array}
+    \right]
+    \rightarrow x =
+    \begin{bmatrix}
+        2 \\
+        0 \\
+        1
+    \end{bmatrix} \in M$ je BPB.
+    \item $B = \bc{2,3} \dots A_B = 
+    \begin{bmatrix}
+        2 & 3 \\
+        2 & 3
+    \end{bmatrix}$. Evidentně není regulární. Žádný bod nemůže být BPB.
+\end{itemize}
