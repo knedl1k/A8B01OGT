@@ -1,14 +1,14 @@
 \section{Sedmý týden}
-\subsection{Ůvod do lineární programování}
+\subsection{Úvod do lineární programování}
 Úlohy lineárního programování jsou optimalisační úlohy, ve kterých je
 \begin{enumerate}[(a)]
     \item cílová funkce afinní (bez újmy na obecnosti se můžeme omezit na lineární funkce)
-    \item přípustná množina je konvexní polyedrická množina (tj. lze popsat pomocí konečné soustavy lineárních rovnic a 
+    \item přípustná množina je konvexní polyedrická množina (tj. lze popsat pomocí konečné soustavy lineárních rovnic a
     nerovnic)
 \end{enumerate}
 Příklad.
 
-Firma vyrábí 2 druhy výrobků $A$ a $B$. V tabulce je uvedeno množství materiálu (ve vhodných jednotkách) potřebný k 
+Firma vyrábí 2 druhy výrobků $A$ a $B$. V tabulce je uvedeno množství materiálu (ve vhodných jednotkách) potřebný k
 výrobě jednotkového množství daného druhu výrobku a také jeho prodejní cena.
 \begin{center}
     \begin{tabular}{|c|c|c|l|}
@@ -18,7 +18,7 @@ výrobě jednotkového množství daného druhu výrobku a také jeho prodejní 
         Výrobek $B$ & 4 & 4 & 10000 Kč \\ \hline
     \end{tabular}
 \end{center}
-Na skladu je jen 10 jednotek materiálu $X$ a 12 jednotek materiálu $Y$. Jak mají ve firmě nastavit výrobni proces, aby 
+Na skladu je jen 10 jednotek materiálu $X$ a 12 jednotek materiálu $Y$. Jak mají ve firmě nastavit výrobni proces, aby
 celková cena za vyrobené množství výrobků byla co největší?
 
 Odpověď je přímo v zadání.
@@ -36,32 +36,32 @@ Odpověď je přímo v zadání.
 \begin{multicols}{2}
     \begin{tikzpicture}[scale=1]
         \fill[blue!20,opacity=0.5]
-            (0,0) -- 
-            (0,2.5) -- 
-            (2,1.5) -- % 
-            (4,0) -- 
+            (0,0) --
+            (0,2.5) --
+            (2,1.5) -- %
+            (4,0) --
             (0,0);
         \node[black] at (1.5,0.5) {\large $M$};
-    
+
         \draw[->] (0,0) -- (6,0) node[right] {$x_1$};
         \draw[->] (0,0) -- (0,4) node[above] {$x_2$};
-    
+
         \foreach \x in {0,1,2,3,4,5} \draw (\x,0) -- (\x,-0.1) node[below] {\x};
         \foreach \y in {1,2,3} \draw (0,\y) -- (-0.1,\y) node[left] {\y};
-    
+
         % 2x1 + 4x2 = 10  => x2 = (10 - 2x1)/4
         \draw[thick,blue] (0,2.5) -- (5,0);
-    
+
         % 3x1 + 4x2 = 12 => x2 = (12 - 3x1)/4
         \draw[thick,red] (4,0) -- (0,3);
-    
+
         \draw[step=1cm,gray!40,very thin] (0,0) grid (6,4);
-    
+
         \begin{scope}[shift={(3,3.8)}, scale=0.5]
-            \draw[black] (0,0.4) rectangle (6,-0.8); 
+            \draw[black] (0,0.4) rectangle (6,-0.8);
             \draw[thick,blue] (0.5,0) -- (1,0);
             \node[right] at (1,0) {\footnotesize $2x_1 + 4x_2 = 10$};
-    
+
             \draw[thick,red] (0.5,-0.5) -- (1,-0.5);
             \node[right] at (1,-0.5) {\footnotesize $3x_1 + 4x_2 = 12$};
         \end{scope}
@@ -73,7 +73,7 @@ Odpověď je přímo v zadání.
 \end{multicols}
 Pokračování příkladu.
 
-Obchodník chce od firmy koupit veškerý materiál ze skladu. Jaké ceny za materiál $X$ a $Y$ by měl firmě nabídnout, aby 
+Obchodník chce od firmy koupit veškerý materiál ze skladu. Jaké ceny za materiál $X$ a $Y$ by měl firmě nabídnout, aby
 zaplatil co nejmenší částku a firmě se přesto vyplatilo materiál prodat namísto výroby výrobků?
 
 \newpage
@@ -86,7 +86,7 @@ Tato otázka vede na úlohu:
     \text{minimalisujte } 10y_1 + 12y_2 \\
     \text{za podmínek } 2y_1 + 3y_2 &> 6, \\
     4y_1 + 4y_2 &> 10,\\
-    y_1, y_2 &\geq 0. 
+    y_1, y_2 &\geq 0.
 \end{align*}
 Pozorování. Tyto dvě úlohy jsou navzájem duální.
 
@@ -96,7 +96,7 @@ Je dána úloha
     \text{minimalisujte } x_1 - x_2 \\
     \text{za podmínek } 2x_1 - 3x_2 &= 5, \\
     -2 \leq x_2 &\leq 3, \\
-    x_1 &\leq 0. 
+    x_1 &\leq 0.
 \end{align*}
 Zapišme úlohu v kanonickém tvaru.\\
 Pomocné substituce: $y_1 = -x_1$, $x_2 = y_2 - y_3$, $y_2, y_3 \geq 0$.
@@ -119,8 +119,8 @@ Zapišme úlohu ve standardním tvaru.
 \end{align*}
 
 \subsection{Basický přípustný bod}\label{BPB}
-Bod $x \in M$ se nazve basický přípustný bod (BPB) úlohy lineárního programování, pokud existuje $m$-prvková množina 
-$B \subseteq \bc{1, \dots, n}$ taková, že 
+Bod $x \in M$ se nazve basický přípustný bod (BPB) úlohy lineárního programování, pokud existuje $m$-prvková množina
+$B \subseteq \bc{1, \dots, n}$ taková, že
 \begin{enumerate}[(a)]
     \item $A_B$ je regulární,
     \item $x_j = 0$ pro každé $j \in \N$.
@@ -129,29 +129,29 @@ Množina $B$ z definice BPB se nazývá přípustná báse.
 
 \subsection{Příklad BPB}
 Nechť
-$A = 
+$A =
     \begin{bmatrix}
         1 & 2 & 3 \\
-        0 & 2 & 3    
-    \end{bmatrix} 
-$ a $b = 
+        0 & 2 & 3
+    \end{bmatrix}
+$ a $b =
     \begin{bmatrix}
         5 \\
         3
     \end{bmatrix}
 $. Jaké jsou BPB?
 \begin{itemize}
-    \item $B = \bc{1,2} \dots A_B = 
+    \item $B = \bc{1,2} \dots A_B =
     \begin{bmatrix}
         1 & 2 \\
         0 & 2
     \end{bmatrix}$. Evidentně invertibilní. \\
-    $x = 
+    $x =
     \begin{bmatrix}
     x_1 \\
     x_2 \\
-    x_3    
-    \end{bmatrix} \dots \underbrace{Ax}_{A_B x_B +  A_N\underbrace{x_N}_{=0}}=b$. Tedy 
+    x_3
+    \end{bmatrix} \dots \underbrace{Ax}_{A_B x_B +  A_N\underbrace{x_N}_{=0}}=b$. Tedy
     $\left[
         \begin{array}{cc|c}
         1 & 2 & 5 \\
@@ -164,12 +164,12 @@ $. Jaké jsou BPB?
         3 \\
         0
     \end{bmatrix} \in M$ je BPB.
-    \item $B = \bc{1,3} \dots A_B = 
+    \item $B = \bc{1,3} \dots A_B =
     \begin{bmatrix}
         1 & 3 \\
         0 & 3
     \end{bmatrix}$. Evidentně invertibilní. \\
-    Tedy 
+    Tedy
     $\left[
         \begin{array}{cc|c}
         1 & 3 & 5 \\
@@ -182,7 +182,7 @@ $. Jaké jsou BPB?
         0 \\
         1
     \end{bmatrix} \in M$ je BPB.
-    \item $B = \bc{2,3} \dots A_B = 
+    \item $B = \bc{2,3} \dots A_B =
     \begin{bmatrix}
         2 & 3 \\
         2 & 3
@@ -193,18 +193,18 @@ $. Jaké jsou BPB?
 Nechť $x \in M$. Pak $x$ je BPB právě tehdy, když $\bc{a_j \mid j \in J(x)}$ je lineárně nezávislá množina.
 
 Důkaz.\\
-\enquote{$\Rightarrow$}: $x$ je BPB $\implies$ existuje $B \subseteq \bc{1, \dots, n}$ $m$-prvková tak, že 
-$\bc{a_j \mid j \in B}$ je lineárně nezávislá. Navíc $J(x) \subseteq B$, protože $J(x)$ obsahuje ty indexy, které 
-odpovídají kladným komponentám a všechny komponenty indexované mimo indexy z $B$ jsou nulové. 
+\enquote{$\Rightarrow$}: $x$ je BPB $\implies$ existuje $B \subseteq \bc{1, \dots, n}$ $m$-prvková tak, že
+$\bc{a_j \mid j \in B}$ je lineárně nezávislá. Navíc $J(x) \subseteq B$, protože $J(x)$ obsahuje ty indexy, které
+odpovídají kladným komponentám a všechny komponenty indexované mimo indexy z $B$ jsou nulové.
 
 Tedy $\bc{a_j \mid j \in J(x)}$ je lineárně nezávislá.
 
 \enquote{$\Leftarrow$}: Je-li $|J(x) = m|$, pak jasné ($B = J(x)$).\\
-Ať $|J(x)| < m$. Z předpokladu víme $\rank(A) = m$. Pak lze $J(x)$ doplnit do $m$-prvkové množiny 
+Ať $|J(x)| < m$. Z předpokladu víme $\rank(A) = m$. Pak lze $J(x)$ doplnit do $m$-prvkové množiny
 $B \subseteq \bc{1,\dots, n}$ tak, že $\bc{a_j \mid j \in B}$ je lineárně nezávislá. $\implies x$ je BPB. $\qed$
 
 \subsection{Tvrzení, že dva různé PBP musí mít různé množiny \texorpdfstring{$B$}{B}} \label{ruzneBPB}
-Pro každou $m$-prvkovou množinu $B \subseteq \bc{1, \dots, n}$ takovou, že $A_B$ je regulární, existuje nejvýše jedno 
+Pro každou $m$-prvkovou množinu $B \subseteq \bc{1, \dots, n}$ takovou, že $A_B$ je regulární, existuje nejvýše jedno
 $x \in M$ splňující $x_j = 0$ pro každé $j \in N$.
 
 Důkaz. Sporem.
@@ -226,13 +226,13 @@ Což je ale spor, protože $x$ a $y$ mají být různé. $\qed$
 Horní hranice počtu BPB úlohy LP je tedy $\binom{n}{m}$.
 
 \subsection{Příklad na degenerované BPB}
-Nechť 
+Nechť
 \[
-    A = 
+    A =
     \begin{bmatrix}
     1 & 0 & 1 & 1 \\
     1 & 1 & 0 & 1
-    \end{bmatrix} \quad \text{ a } \quad b = 
+    \end{bmatrix} \quad \text{ a } \quad b =
     \begin{bmatrix}
         1 \\
         1
@@ -241,36 +241,36 @@ Nechť
 Určete všechny basické přípustné body.
 
 \begin{itemize}
-    \item $B = \bc{1,2}$. Tedy $A_B = 
+    \item $B = \bc{1,2}$. Tedy $A_B =
         \begin{bmatrix}
             1 & 0 \\
             1 & 1
         \end{bmatrix}$ je určitě regulární.\\
         Pak očividně $\begin{bmatrix}1, 0, 0, 0\end{bmatrix}^T$ je BPB s přípustnou básí $B$.
-    \item $B = \bc{1,3}$. Tedy $A_B = 
+    \item $B = \bc{1,3}$. Tedy $A_B =
         \begin{bmatrix}
             1 & 1 \\
             1 & 0
         \end{bmatrix}$ je určitě regulární.\\
         Pak $\begin{bmatrix}1, 0, 0, 0\end{bmatrix}^T$ je BPB s přípustnou básí $B$.
-    \item $B = \bc{1,4}$. $A_B = 
+    \item $B = \bc{1,4}$. $A_B =
         \begin{bmatrix}
             1 & 1 \\
             1 & 1
         \end{bmatrix}$ je singulární, tedy není přípustnou básí BPB.
-    \item $B = \bc{2,3}$. Tedy $A_B = 
+    \item $B = \bc{2,3}$. Tedy $A_B =
         \begin{bmatrix}
             0 & 1 \\
             1 & 0
         \end{bmatrix}$ je určitě regulární.\\
         Pak $\begin{bmatrix}0, 1, 1, 0\end{bmatrix}^T$ je BPB s přípustnou básí $B$.
-    \item $B = \bc{2,4}$. Tedy $A_B = 
+    \item $B = \bc{2,4}$. Tedy $A_B =
         \begin{bmatrix}
             0 & 1 \\
             1 & 1
         \end{bmatrix}$ je určitě regulární.\\
         Pak $\begin{bmatrix}0, 0, 0, 1\end{bmatrix}^T$ je BPB s přípustnou básí $B$.
-    \item $B = \bc{3,4}$. Tedy $A_B = 
+    \item $B = \bc{3,4}$. Tedy $A_B =
         \begin{bmatrix}
             1 & 1 \\
             0 & 1
@@ -281,11 +281,11 @@ Určete všechny basické přípustné body.
 \subsection{Příklad na souvislost BPB a krajních bodů}
 Nechť
 \[
-    A = 
+    A =
     \begin{bmatrix}
     1 & 2 & 3 \\
     0 & 2 & 3
-    \end{bmatrix} \quad \text{ a } \quad b = 
+    \end{bmatrix} \quad \text{ a } \quad b =
     \begin{bmatrix}
         5 \\
         3
@@ -293,12 +293,12 @@ Nechť
 \]
 $M = \bc{x \in \R^3_+ \mid Ax = b}$.
 
-Již víme, že $x = 
+Již víme, že $x =
 \begin{bmatrix}
 2 \\
 0 \\
-1    
-\end{bmatrix}$ a $y = 
+1
+\end{bmatrix}$ a $y =
 \begin{bmatrix}
     2 \\
     \frac{3}{2} \\
@@ -306,7 +306,7 @@ Již víme, že $x =
 \end{bmatrix}$ jsou BPB.
 
 \[
-    Ax = b \dots 
+    Ax = b \dots
     \left[
         \begin{array}{ccc|c}
         1 & 2 & 3 & 5 \\
@@ -320,7 +320,7 @@ Již víme, že $x =
         \end{array}
     \right]
 \]
-Tedy řešení soustavy $z = 
+Tedy řešení soustavy $z =
 \begin{bmatrix}
 2 \\
 \frac{1}{2}(3-3t) \\
@@ -330,7 +330,7 @@ t
 Právě tehdy, když $t \geq 0$ a $1\geq t$, tedy $t \in [0,1]$.
 
 \[
-    z \in [x, y] \iff z = tx + (1-t)y = 
+    z \in [x, y] \iff z = tx + (1-t)y =
     \begin{bmatrix}
         2 \\
         \frac{3}{2} \\
@@ -340,7 +340,7 @@ Právě tehdy, když $t \geq 0$ a $1\geq t$, tedy $t \in [0,1]$.
         \phantom{-}0 \\
         -\frac{3}{2} \\
         \phantom{-}1
-    \end{bmatrix} = 
+    \end{bmatrix} =
     \begin{bmatrix}
         2 \\
         \frac{3}{2} (1-t) \\
@@ -361,16 +361,16 @@ Důkaz (a).
 
 Existují dva různé body $y, z \in M$ tak, že $x = \frac{y+z}{2}$. Ať $B$ je přípustná báse BPB $x$.
 
-Pak $y_j = z_j = 0$ pro každé $j \in N$. Navíc $A_B$ je regulární dle \hyperref[BPB]{definice BPB}. Ale dle této stejné 
+Pak $y_j = z_j = 0$ pro každé $j \in N$. Navíc $A_B$ je regulární dle \hyperref[BPB]{definice BPB}. Ale dle této stejné
 definice platí, že $y$ a $z$ jsou BPB s přípustnou básí $B$. Ale dle \hyperref[ruzneBPB]{tvrzení} nemohou mít dva různé
 BPB stejnou přípustnou bási. $\implies y = z$, což je spor.
 
 \enquote{$\Leftarrow$}: Sporem.
 
-Ať $x$ není BPB. Pak z \hyperref[charBPB]{charakterisace BPB} plyne, že $\bc{a_j \mid j \in J(x)}$ je lineárně závislá 
+Ať $x$ není BPB. Pak z \hyperref[charBPB]{charakterisace BPB} plyne, že $\bc{a_j \mid j \in J(x)}$ je lineárně závislá
 množina.
 
-$\rightarrow$ existují $d_j \in \R, j \in J(x)$, ne všechny nulové tak, že 
+$\rightarrow$ existují $d_j \in \R, j \in J(x)$, ne všechny nulové tak, že
 \[
     \sum_{j\in J(x)} d_j a_j = 0.
 \]
@@ -378,8 +378,8 @@ Definujme $d_j = 0$ pro každé $j \in \bc{1, \dots, n} \setminus J(x)$.
 
 Pak $A d = 0$. Odtud $A(x\pm \alpha d) = b \pm \alpha \underbrace{A d}_{=0} = b$ pro všechna $\alpha \in \R$.
 
-Pro dostatečně malé $\alpha > 0$ je $x \pm \alpha d \geq 0$. Pro takové $\alpha$ je $x \pm \alpha d \in M$. Pak 
-$x + \alpha d \not = x - \alpha d$ a navíc evidentně platí $x = \frac{(x+\alpha d) + (x - \alpha d)}{2}$. To je spor s 
+Pro dostatečně malé $\alpha > 0$ je $x \pm \alpha d \geq 0$. Pro takové $\alpha$ je $x \pm \alpha d \in M$. Pak
+$x + \alpha d \not = x - \alpha d$ a navíc evidentně platí $x = \frac{(x+\alpha d) + (x - \alpha d)}{2}$. To je spor s
 tvrzením, že máme krajní bod. $\qed$
 
 Důkaz (b). Vynecháme.
@@ -389,6 +389,170 @@ Důkaz (b). Vynecháme.
     \item Úloha LP má řešení právě tehdy, když $M$ je neprázdná a $\langle x, c\rangle$ je zdola omezená na $M$.
     \item Má-li LP řešení, pak existuje řešení úlohy LP, které je BPB.
 \end{enumerate}
+Důkaz (a).\\
+\enquote{$\Rightarrow$}: Když máme řešení, pak určitě leží v $M$ a je určitě zdola omezená, protože to je právě to ono
+řešení.
+
+\enquote{$\Leftarrow$}: \href{https://cs.wikipedia.org/wiki/Weierstrassova_v%C4%9Bta}{Weierstrassova věta}. $\qed$
+
+Důkaz (b). Ať $\hat x \in \argmax_{x \in M} \langle x,c\rangle$. Protože $M$ je kompaktní a konvexní, tak víme
+$\hat x \in \conv(\ext(M))$.
+
+$\ext(M) \dots$ konečná množina, tj. $\ext(M) = \bc{e_1, \dots, e_k}$.
+\[
+    \underset{\text{obal}}{\overset{\text{konvexní}}{\implies}} \hat x = \sum_{i=1}^{l} \lambda_i e_i \text{ pro nějaké }
+    \lambda_1, \dots, \lambda_l \geq 0 \text{ a } \sum \lambda_i = 1.
+\]
+Alespoň jeden krajní bod musí být mezi $e_i$.\\
+Ať $e_N \in \ext(M)$ splňuje $\langle e_N, c\rangle = \min_{i \in \bc{1, \dots, l}} \langle e_i, c\rangle$.
+
+\[
+    \langle \hat x, c\rangle = \sum_{i=1}^{l} \lambda_i \langle e_i, c\rangle \geq \left(\sum_{i=1}^{l} \lambda_i\right)
+    \langle e_N, c\rangle = \langle e_N, c\rangle \implies e_N \in \argmax_{x \in M} \langle x, c\rangle. \qed
+\]
+
+\subsection{Příklad na hledání duální úlohy}
+Mějme úlohu
+\begin{align*}
+    \text{minimalisujte } x_1 + 2x_2 \\
+    \text{za podmínek } x_1 + x_2 &\geq 1 \dots -x_1 -x_2 + 1 \leq 0, \\
+    x_1, x_2 &\geq 0.
+\end{align*}
+\begin{enumerate}[(a)]
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \geq 0$ je přímé omezení.
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \in \R$ je přímé omezení.
+\end{enumerate}
+(a) $L(x_1, x_2, \mu) = x_1 + 2x_2 + \mu(-x_1 -x_2 + 1)$
+\[
+    \varphi(\mu) = \inf_{(x_1, x_2) \in \R_+^2} L(x_1, x_2, \mu) = \inf_{(x_1, x_2) \in \R_+^2} (1-\mu)x_1 + \mu
+\]
+\[
+    \varphi(\mu) = \underbrace{\left[\inf_{x_1 \in \R_+} (1-\mu)x_1\right]}_{=
+    \begin{cases}
+        0 &\text{ pro } 1 \geq \mu, \\
+        - \infty &\text{ pro } 1 < \mu.
+    \end{cases}} + \underbrace{\left[\inf_{x_2 \in \R_+} (2-\mu)x_2\right]}_{=
+    \begin{cases}
+        0 &\text{ pro } 2 \geq \mu, \\
+        - \infty &\text{ pro } 2 < \mu.
+    \end{cases}} + \mu
+\]
+\[
+    \implies \varphi(\mu) =
+    \begin{cases}
+        \mu &\text{ pro } \mu \in [0,1], \\
+        -\infty &\text{ pro } \mu \not\in [0,1].
+    \end{cases}
+\]
+A tedy duální úloha je
+\begin{align*}
+    \text{maximalisujte }& \mu \\
+    \text{za podmínek }& \mu \in [0,1].
+\end{align*}
+
+(b) $L(x_1, x_2, \mu_1, \mu_2, \mu_3) = x_1 + 2x_2 + \mu_1(-x_1 -x_2 + 1) + \mu_2(-x_1) + \mu_3(-x_2)$
+\[
+    \varphi(\mu) = \inf_{(x_1, x_2) \in \R^2} L(x_1, x_2, \mu_1, \mu_2, \mu_3) = \inf_{(x_1, x_2) \in \R^2} 
+    (1-\mu_1 - \mu_2)x_1 + (2-\mu_1-\mu_3)x_2 + \mu_1
+\]
+\[
+    \varphi(\mu) = \underbrace{\left[\inf_{x_1 \in \R}(1-\mu_1-\mu_2)x_1\right]}_{=
+    \begin{cases}
+        0 & \text{ pro } 1-\mu_1-\mu_2 = 0, \\
+        -\infty & \text{ pro } 1-\mu_1-\mu_2 \not= 0.
+    \end{cases}} + \underbrace{\left[\inf_{x_2 \in \R}(2 - \mu_1 - \mu_3)x_2\right]}_{
+    \begin{cases}
+        0 & \text{ pro } 2-\mu_1-\mu_3 = 0, \\
+        -\infty & \text{ pro } 2-\mu_1-\mu_3 \not= 0.
+    \end{cases}} + \mu_1
+\]
+\[
+    \varphi(\mu_1, \mu_2, \mu_3) = 
+    \begin{cases}
+        \mu_1 &\text{ pro } D_\varphi = \bc{(\mu_1, \mu_2, \mu_3) \in \R^3_+ \quad \middle| \quad 1-\mu_1-\mu_2 = 0, 
+         2-\mu_1-\mu_3 = 0}, \\
+        - \infty & \text{ jinak.}
+    \end{cases}
+\]
+A tedy duální úloha je
+\begin{align*}
+    \text{maximalisujte } \mu_1 \\
+    \text{za podmínek } 1 - \mu_1 - \mu_2 &= 0, \\
+    2 - \mu_1 - \mu_3 &= 0, \\
+    \mu_1, \mu_2, \mu_3 &\geq 0.
+\end{align*}
+
+\subsection{Příklad na hledání duální úlohy}
+Mějme úlohu
+\optAs{min}{x_1^2 + x_2^2}{
+    -x_1 -x_2 + 4 &\leq 0, \\
+    x_1, x_2 &\geq 0.
+} 
+\begin{enumerate}[(a)]
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \geq 0$ je přímé omezení.
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \in \R$ je přímé omezení.
+\end{enumerate}
+% TODO: dodělat příklad
 
 \subsection{Tvrzení o množině všech řešení úlohy LP}
-Množina všech řešení úlohy LP je konvexní polyedrická množina. 
+Množina všech řešení úlohy LP je konvexní polyedrická množina.
+
+\subsection{Příkad na Simplexovu metodu}
+Je dána úloha
+\optAs{min}{-x_1 - 3x_2}{
+    2x_1 + 3x_2 + x_3 &= 6, \\
+    -x_1 + x_2 + x_4 &= 1, \\
+    x_1, x_2, x_3, x_4 &\geq 0.
+}
+\begin{equation*}
+    \begin{array}{c}
+        \\
+        z \\
+        x_3 \\
+        x_4 \\
+    \end{array}
+    \begin{bmatrix}
+        \begin{array}{cccc|c}
+            x_1 & x_2 & x_3 & x_4 & b \\ \hline
+            -1 & -3 & 0 & 0 & 0 \\ \hline
+            \phantom{-}2 & \phantom{-}3 & 1 & 0 & 6  \\
+            -1 & \phantom{-}1 & 0 & 1 & 1
+        \end{array}
+    \end{bmatrix}
+    \text{; BPB je }
+    \begin{bmatrix}
+        0 \\
+        0 \\
+        6 \\
+        1
+    \end{bmatrix}.
+\end{equation*}
+Vyměníme $x_2$ a $x_4$ v BPB.\\
+$x_2 = 1 + x_1 - x_4$\\
+$\rightarrow z = -x_1 - 3(1+x_1-x_4) = -4x_1 + 3x_4 - 3$\\
+$\rightarrow x_3 = 6 - 2x_1 - 3(1+x_1-x_4) = 3-5x_1+3x_4$
+
+
+\begin{equation*}
+    \begin{array}{c}
+        \\
+        z \\
+        x_3 \\
+        x_2 \\
+    \end{array}
+    \begin{bmatrix}
+        \begin{array}{cccc|c}
+            x_1 & x_2 & x_3 & x_4 & b \\ \hline
+            -4 & 0 & 0 & \phantom{-}3 & -3 \\ \hline
+            -5 & 0 & 0 & \phantom{-}3 & \phantom{-}3  \\
+            \phantom{-}1 & 0 & 0 & -1 & \phantom{-}1
+        \end{array}
+    \end{bmatrix}
+    \text{; BPB je }
+    \begin{bmatrix}
+        0 \\
+        1 \\
+        3 \\
+        0
+    \end{bmatrix}.
+\end{equation*}

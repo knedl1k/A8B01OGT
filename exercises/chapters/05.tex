@@ -876,3 +876,80 @@ $\begin{bmatrix}
     4 \\
     3
 \end{bmatrix}$ bylo řešení této úlohy, musí platit $\alpha \leq -1$.
+
+\subsection{Určení KKT podmínek s trikem}
+Mějme zadání
+\begin{align*}
+    \text{minimalisujte } \frac{x_1}{x_2} \\
+    \text{za podmínek } &\frac{1}{x_1} + x_2 \leq 2, \\
+    & x_1, x_2 > 0. 
+\end{align*}
+
+\begin{multicols}{2}
+    \begin{tikzpicture}[scale=1.5]
+        \begin{scope}
+            \clip (0,0) rectangle (2,2);
+            \fill[blue!20] plot[domain=0.1:2] (\x, {2 - 1/(\x)}) -- (2,0) -- (0.1,0) -- cycle;
+          \end{scope}
+    
+        \draw[domain=0.5:2, smooth, thick, red] 
+          plot(\x, {2 - 1/(\x)})
+          node[below right] {$\frac{1}{x_1} + x_2 = 2$};
+    
+        \draw[->] (0,0) -- (2.2,0) node[right] {$x_1$};
+        \draw[->] (0,0) -- (0,2.2) node[above] {$x_2$};
+    \end{tikzpicture}
+
+\columnbreak
+
+    Z nákresu množina vypadá konvexní, co ale minimalisovaná funkce?
+    \[
+        \nabla^2 f(x_1, x_2) = 
+        \begin{bmatrix}
+            0 & -\frac{1}{x^2_2} \\
+            -\frac{1}{x^2_2} & \frac{2x_1}{x^3_2}    
+        \end{bmatrix}
+    \]
+    \[
+        \det \nabla^2 f(x_1, x_2) = -\frac{1}{x^4_2} < 0 \dots \text{indefinitní}
+    \]
+    $\implies$ KKT podmínky jsou jen nutné, nikoliv postačující.
+\end{multicols}
+Využijeme trik, uděláme substituci: $x_1 = e^{y_1}$, $x_2 = e^{y_2}$ $\dots$ $\varphi(y_1, y_2) = (e^{y_1}, e^{y_2})$,
+$\varphi(\hat y_1, \hat y_2) = (\hat x_1, \hat x_2)$.\\
+A úlohu převedeme na:
+\begin{align*}
+    \text{minimalisujte } &e^{y_1} - e^{y_2}\\
+    \text{za podmínek } &e^{-y_1} + e^{y_2} \leq 2.
+\end{align*}
+\begin{align*}
+    e^{\hat y_1 - \hat y_2} &\leq e^{y_1 - y_2} \\
+    \underbrace{\frac{e^{\hat y_1}}{e^{\hat y_2}}}_{f(\varphi(\hat y_1, \hat y_2))} &\leq 
+    \underbrace{\frac{e^{y_1}}{e^{y_2}}}_{f(\varphi(y_1, y_2))} \\
+    f(\hat x_1, \hat x_2) &\leq f(x_1, x_2) \quad \forall (x_1, x_2) \in M.
+\end{align*}
+\hyperref[slaterPodm]{Slaterova podmínka} je splněna $\rightarrow (y_1, y_2) = (1, 0)$.\\
+$\implies$ KKT podmínky jsou nutné a postačující.
+\begingroup
+\setcounter{equation}{0}
+\renewcommand{\theequation}{\Roman{equation}}
+\begin{align}
+    e^{y_1 - y_2} + \mu(-e^{-y_1}) &= 0 \\
+    -e^{y_1 - y_2} + \mu e^{y_2} &= 0 \rightarrow \mu = \frac{e^{y_1 - y_2}}{e^{y_2}} = e^{y_1 - 2y_2} \\
+    \mu(e^{-y_1} + e^{y_2} - 2) &= 0 \\
+    \mu &\geq 0
+\end{align}
+\endgroup
+Očividně $\mu \not= 0 \implies e^{-y_1} + e^{y_2} - 2 = 0$ (III).
+\begin{align*}
+    \text{Dosazení (II) do (I): } e^{y_1 - y_2} - e^{-2y_2} &= 0. \\
+    e^{y_1 - y_2} &= e^{-2y_2} \\
+    y_1 - y_2 &= -2y_2 \\
+    y_1 &= -y_2
+\end{align*}
+Dosazením do (III) získáme $2e^{y_2} - 2 = 0 \Rightarrow e^{y_2} = 1 \Rightarrow y_2 = 0 = y_1$.\\
+Jediný bod minima je $[0,0]^T$.
+
+Teď zpětný chod na původní úlohu: $x_1 = e^0 = 1$, $x_2 = e^0 = 1$. 
+
+Původní úloha má řešení $[1, 1]^T$.
