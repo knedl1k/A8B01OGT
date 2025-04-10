@@ -15,6 +15,7 @@
 \usepackage{ marvosym }
 \usepackage{pgfplots}
 \usepgfplotslibrary{fillbetween}
+\usepackage{float}
 
 \usepackage{hyperref}
 
@@ -88,3 +89,22 @@
 % \newcommand{\inf}{\infty}
 
 \newlength{\mylen}
+
+\ExplSyntaxOn
+\newcommand\optAs[3]{%
+\begin{table}[H]
+\center
+\begin{tabular}{l l}
+  \str_case_e:nnF{#1}{
+    {min} {minimalisujte}
+    {max} {maximalisujte}
+  }{\PackageError{cfg}{%
+   '#1'\space key\space is\space not\space supported
+  }{}}        & $#2$ \\
+  za podmínek & {$\!\begin{aligned}[t]
+  #3
+\end{aligned}$}
+\end{tabular}%
+\end{table}
+}
+\ExplSyntaxOff
