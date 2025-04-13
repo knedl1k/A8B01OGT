@@ -1,111 +1,113 @@
-\usepackage[utf8]{inputenc}
-\usepackage{tikz}
-\usetikzlibrary{patterns, positioning, arrows, calc, tikzmark, intersections, backgrounds}
-\usepackage{amsmath,amsthm,amssymb,mathtools}
-\usepackage{tabularray}
-\usepackage{bm}
-\usepackage{ragged2e} 
-\usepackage{tabularx}
-\usepackage{nicematrix}
-\usepackage{multicol}
-\usepackage[shortlabels]{enumitem}
-\usepackage{utfsym} %for cross mark
-\usepackage{soul}
-\usepackage[autostyle]{csquotes}
-\usepackage{ marvosym }
-\usepackage{pgfplots}
-\usepgfplotslibrary{fillbetween}
-\usepackage{float}
+% ---------- ENCODING ----------
+\usepackage[utf8]{inputenc}       % UTF-8 encoding for source files
 
-\usepackage{hyperref}
+% ---------- FLOATING ENVIRONMENTS ----------
+\usepackage{float}                % for forcing float positions with [H]
 
+% ---------- TYPOGRAPHY & STYLE ----------
+\setlength{\parindent}{0mm}      % no paragraph indent
+\setlength{\parskip}{1.4ex}      % spacing between paragraphs
+
+% ---------- MATHEMATICS ----------
+\usepackage{amsmath, amsthm, amssymb, mathtools}  % core math packages
+\usepackage{bm}                  % bold math symbols
+\usepackage{nicematrix}          % cleaner matrix environments
+\usepackage{utfsym}              % symbols like ✗
+\usepackage{marvosym}            % more symbols (e.g., checkboxes)
+
+% ---------- TIKZ & GRAPHICS ----------
+\usepackage{tikz}                % core TikZ
+\usetikzlibrary{
+  patterns, positioning, arrows, calc, 
+  tikzmark, intersections, backgrounds
+}
+
+\usepackage{pgfplots}            % plotting and function visualization
+\usepgfplotslibrary{fillbetween} % filling areas between curves
+
+% ---------- TABLES & LAYOUT ----------
+\usepackage{tabularray}          % enhanced tables
+\usepackage{tabularx}            % tables with flexible column widths
+\usepackage{multicol}            % multiple columns layout
+
+% ---------- LISTS ----------
+\usepackage[shortlabels]{enumitem} % compact and customizable lists
+
+% ---------- TEXT FORMATTING ----------
+\usepackage{ragged2e}            % for \justifying and ragged alignment
+\usepackage{soul}                % text highlighting with \hl{}
+\usepackage[autostyle]{csquotes} % smart quote handling
+
+% ---------- HYPERLINKS ----------
+\usepackage{hyperref}            % clickable references and links
 \hypersetup{
-    colorlinks=true, %set true if you want colored links
-    linktoc=all,     %set to all if you want both sections and subsections linked
-    linkcolor=purple, %choose some color if you want links to stand out
-    pdfborder=0 0 0  %hide red boxes
+    colorlinks=true,
+    linktoc=all,                 % links in TOC for sections and subsections
+    linkcolor=purple,
+    pdfborder=0 0 0              % no red boxes around links
 }
 
-% \tikzset{
-% ->, % makes the edges directed
-% >=stealth', % makes the arrow heads bold
-% auto,
-% node distance=3cm, % specifies the minimum distance between two nodes. Change if necessary.
-% every state/.style={thick, fill=gray!10}, % sets the properties for each ’state’ node
-% initial text=$ $, % sets the text that appears on the start arrow
-% between/.style args={#1 and #2}{
-%          at = ($(#1)!0.5!(#2)$)
-%     },
-% }
-
-\newcommand\splitpage[2]{
-      \begin{minipage}[t]{0.45\textwidth}#1
-      \end{minipage}%
-      \hfill
-      \begin{minipage}[t]{0.45\textwidth}#2
-      \end{minipage}
-}
-
+% ---------- MATH SHORTCUTS ----------
+% Common sets
 \newcommand{\I}{\mathcal{I}}
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\G}{\mathcal{G}}
 \newcommand{\F}{\mathcal{F}}
 \newcommand{\M}{\mathbb{M}}
-\renewcommand{\S}{\mathbb{S}}
+\renewcommand{\S}{\mathbb{S}}   % overrides default § symbol
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
-\newcommand{\ii}[1]{\textit{#1}} % italic 
-\newcommand{\bb}[1]{\textbf{#1}} % bold 
-\newcommand{\m}[1]{$\mathbf{#1}$}
-\newcommand{\bc}[1]{\left\lbrace #1 \right\rbrace}  % \{\} 
-\def\eps{\varepsilon}
 
-\setlength{\parindent}{0mm} 
-\setlength{\parskip}{1.4ex}
+% Text formatting
+\newcommand{\ii}[1]{\textit{#1}}   % italic
+\newcommand{\bb}[1]{\textbf{#1}}   % bold
+\newcommand{\m}[1]{$\mathbf{#1}$}  % bold math
 
-\newcommand\setItemnumber[1]{\setcounter{enumi}{\numexpr#1-1\relax}}
+% Braced set notation
+\newcommand{\bc}[1]{\left\lbrace #1 \right\rbrace}
 
-\newcommand{\xmark}{\usym{2613}}
+% Misc
+\newcommand{\xmark}{\usym{2613}}  % ✗ symbol
+\newcommand*\dif{\mathop{}\!\mathrm{d}}  % differential 'd'
+\newcommand\restr[2]{\left.\kern-\nulldelimiterspace #1 \vphantom{\big|} \right|_{#2}} % function restriction
+\newlength{\mylen}  % custom length variable (you can use it for dynamic spacing or sizing)
 
+% Math operators
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\dist}{dist}
+\DeclareMathOperator*{\lev}{lev}
+\DeclareMathOperator*{\Int}{int}
+\DeclareMathOperator*{\rank}{rank}
+\DeclareMathOperator*{\ext}{ext}
+\DeclareMathOperator*{\conv}{conv}
 
-\newcommand*\dif{\mathop{}\!\mathrm{d}}
+% Custom item number reset
+\newcommand\setItemnumber[1]{\setcounter{enumi}{\numexpr#1-1\relax}}
 
-\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
-  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
-  #1 % the function
-  \vphantom{\big|} % pretend it's a little taller at normal size
-  \right|_{#2} % this is the delimiter
-}}
+% Two-column layout within a page
+\newcommand\splitpage[2]{%
+  \begin{minipage}[t]{0.45\textwidth}#1\end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.45\textwidth}#2\end{minipage}
+}
 
-\DeclareMathOperator{\lev}{lev}
-\DeclareMathOperator{\Int}{int}
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\ext}{ext}
-\DeclareMathOperator{\conv}{conv}
-% \newcommand{\inf}{\infty}
-
-\newlength{\mylen}
-
+% ---------- CUSTOM ENVIRONMENT FOR OPTIMIZATION PROBLEMS ----------
 \ExplSyntaxOn
 \newcommand\optAs[3]{%
 \begin{table}[H]
-\center
+\centering
 \begin{tabular}{l l}
   \str_case_e:nnF{#1}{
-    {min} {minimalisujte}
-    {max} {maximalisujte}
-  }{\PackageError{cfg}{%
-   '#1'\space key\space is\space not\space supported
-  }{}}        & $#2$ \\
-  za\space podmínek & {$\!\begin{aligned}[t]
-  #3
-\end{aligned}$}
-\end{tabular}%
+    {min} {minimize}
+    {max} {maximize}
+  }{
+    \PackageError{cfg}{'#1' is not a supported optimization target}{}
+  } & $#2$ \\
+  subject to & {$\!\begin{aligned}[t] #3 \end{aligned}$}
+\end{tabular}
 \end{table}
 }
 \ExplSyntaxOff
