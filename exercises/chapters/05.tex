@@ -676,41 +676,40 @@ a existuje $x \in \Omega$ tak, že pro každé $i \in \bc{1, \dots, k}$ je $g_i(
 
 \subsection{Použití podmínek regularity k ověření KKT podmínek}
 \begin{multicols}{2}
-\optAs{min}{2x^2 + y^2}{%
-   x^2 + y^2 - 1 &\leq 0, \\
-              -x &\leq 0.}
-\hyperref[afinniPodm]{Afinní podmínka} splněna není, ověříme \hyperref[slaterPodm]{Slaterovu}. 
+    \optAs{min}{2x^2 + y^2}{%
+    x^2 + y^2 - 1 &\leq 0, \\
+                -x &\leq 0.}
+    \hyperref[afinniPodm]{Afinní podmínka} splněna není, \\ ověříme \hyperref[slaterPodm]{Slaterovu}.
+
 \columnbreak
-% TODO: nakreslit množinu
-\begin{figure}[H]
-\scalebox{0.75}{
-  \begin{tikzpicture}
-    \begin{axis}[
-      axis lines=middle,
-      axis on top,
-      xlabel={$x$},
-      ylabel={$y$},
-      xmin=-2.5, xmax=2.5,
-      ymin=-2.5, ymax=2.5,
-      thick,
-      xticklabels={},
-      yticklabels={},
-      extra x ticks={1},
-      %legend pos=north west,
-      %legend style={nodes={scale=0.5, transform shape}},
-      legend pos=outer north east,
-      ]
-      \fill[red!50, opacity=0.5] (0,0) circle (1);
-      \draw[red!50] (0,0) circle (1);
-      \addlegendimage{area legend,red!50,fill=red!50,fill opacity=0.5}
-      \fill[blue!50, opacity=0.5] (0,-2.5) rectangle (2.5,2.5);
-      \addlegendimage{area legend,blue!50,fill=blue!50,fill opacity=0.5}
-      \addlegendentry{$x^2+y^2-1\leq0$}
-      \addlegendentry{$-x\leq0$}
-    \end{axis}
-  \end{tikzpicture}
-}
-\end{figure}
+
+    \begin{figure}[H]
+        \begin{tikzpicture}[scale=0.75]
+            \begin{axis}[
+            axis lines=middle,
+            axis on top,
+            xlabel={$x$},
+            ylabel={$y$},
+            xmin=-1.5, xmax=1.5,
+            ymin=-1.5, ymax=1.5,
+            thick,
+            xticklabels={},
+            yticklabels={},
+            extra x ticks={1},
+            %legend pos=north west,
+            %legend style={nodes={scale=0.5, transform shape}},
+            legend pos=outer north east,
+            ]
+            \fill[red!50, opacity=0.5] (0,0) circle (1);
+            \draw[red!50] (0,0) circle (1);
+            \addlegendimage{area legend,red!50,fill=red!50,fill opacity=0.5}
+            \fill[blue!50, opacity=0.5] (0,-2.5) rectangle (2.5,2.5);
+            \addlegendimage{area legend,blue!50,fill=blue!50,fill opacity=0.5}
+            \addlegendentry{$x^2+y^2-1\leq0$}
+            \addlegendentry{$-x\leq0$}
+            \end{axis}
+        \end{tikzpicture}
+    \end{figure}
 \end{multicols}
 
 Množina je očividně konvexní a zároveň zvolme $x = 
