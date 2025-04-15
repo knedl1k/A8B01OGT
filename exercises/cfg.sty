@@ -23,7 +23,9 @@
 }
 
 \usepackage{pgfplots}            % plotting and function visualization
+\pgfplotsset{compat=newest}
 \usepgfplotslibrary{fillbetween} % filling areas between curves
+
 
 % ---------- TABLES & LAYOUT ----------
 \usepackage{tabularray}          % enhanced tables
@@ -37,6 +39,7 @@
 \usepackage{ragged2e}            % for \justifying and ragged alignment
 \usepackage{soul}                % text highlighting with \hl{}
 \usepackage[autostyle]{csquotes} % smart quote handling
+\usepackage{minted}
 
 % ---------- HYPERLINKS ----------
 \usepackage{hyperref}            % clickable references and links
@@ -101,13 +104,15 @@
 \centering
 \begin{tabular}{l l}
   \str_case_e:nnF{#1}{
-    {min} {minimize}
-    {max} {maximize}
+    {min} {minimalisujte}
+    {max} {maximalisujte}
   }{
     \PackageError{cfg}{'#1' is not a supported optimization target}{}
   } & $#2$ \\
-  subject to & {$\!\begin{aligned}[t] #3 \end{aligned}$}
+  za \space podmínek & {$\!\begin{aligned}[t] #3 \end{aligned}$}
 \end{tabular}
 \end{table}
 }
 \ExplSyntaxOff
+
+

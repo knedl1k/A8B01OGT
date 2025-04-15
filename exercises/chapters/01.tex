@@ -19,21 +19,18 @@ Důkaz.
 - (- f(\hat{x})) \overset{(1)}{=} - \underset{x \in M}{\max} (-f(x)). \qed$
 
 \subsection{Hledání přípustných množin}
-\begin{align*}
-    \text{minimalizujte } x^2 + 1 \\
-    \text{za podmínek } \frac{3}{x} \leq 1, \\
-    x \in \N.
-\end{align*}
+\optAs{min}{x^2 + 1}{
+    \frac{3}{x} &\leq 1, \\
+    x &\in \N.}
 Upravíme podmínky a uděláme jejich průnik: $(x - 3 \geq 0) \land (x \in \N) \Rightarrow M = \N \setminus \bc{1,2}$.
 
 Úvahou pak lze uhodnout minimum - minimum leží v bodě $x=3$.
 
 \subsection{Hledání přípustných množin}
-\begin{align*}
-    \text{maximalizujte } \ln x \\
-    \text{za podmínek } x \leq 5, \\
-    \cos(\pi x) = 1.
-\end{align*}
+\optAs{max}{\ln x}{%
+    \cos(\pi x) &= 1,\\
+    x &\leq 5.
+}
 $D(f) = (0, \infty)$.
 
 Udělejme průnik definičního oboru funkce a podmínek: $(x \in (0, \infty)) \land (x \leq 5) \land (\cos(\pi x)=1)$.
@@ -71,11 +68,10 @@ Banka nabízí dva investiční produkty. Očekávaný měsíční výnos první
 (v tis. Kč) je $\frac{x}{x+50}$. Jakým způsobem má investor rozdělit částku $c = 100000$ Kč mezi uvedené dva produkty tak,
 aby celkový očekávaný měsíční výnos byl co největší?
 
-\begin{align*}
-    \text{maximalisujme } &\frac{x}{x+50} + \frac{2y}{4y + 25}\\
-    \text{za podmínek } &  x+y = 100, \\
-    & x,y \geq 0.
-\end{align*}
+\optAs{max}{\frac{x}{x+50} + \frac{2y}{4y + 25}}{%
+    x+y &= 100,\\
+    x,y &\geq 0.
+}
 
 Vyjádřeme si jednu proměnnou v závislosti na druhé, například $x = 100 - y$. Následně dosadíme do úlohy a vyšetříme
 stacionární body pomocí první derivace.
@@ -115,15 +111,12 @@ předpokladu, že krabice je vyrobena z materiálu, jehož tloušťka je zanedba
         \node at (3.7,0.4) {\(x\)};
     \end{tikzpicture}
 \end{center}
-\begin{align*}
-    \text{minimalisujme } &4xy + x^2\\
-    \text{za podmínek } &  x^2 y = 10, \\
-    & x,y > 0.
-\end{align*}
-
+\optAs{min}{4xy + x^2}{%
+    x^2 y &= 10, \\
+    x,y &> 0.
+}
 Vyjádřeme si jednu proměnnou v závislosti na druhé, například $y = \frac{10}{x^2}$. Následně dosadíme do úlohy a vyšetříme
 stacionární body pomocí první derivace.
-
 \[
     \frac{\dif}{\dif y} \left(4x \frac{10}{x^2} + x^2\right)= \frac{-40}{x^2} + 2x \stackrel{!}{=} 0
 \]
@@ -150,18 +143,16 @@ $\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, 
     \item Ukažte, že vzdálenost mezi nadrovinami $H_1$ a $H_2$ je $\frac{2}{||w||}$. Dále ukažte, že $\frac{1}{||w||}$
     je vzdálenost $H$ od $H_1$ a také vzdálenost $H$ od $H_2$.
     \item Iterpretujte optimalisační úlohu
-    \begin{align*}
-        \text{maximalisujte } & g(w, \lambda) = \frac{2}{||w||} \\
-        \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
-                              & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
-    \end{align*}
+    \optAs{max}{g(w, \lambda) = \frac{2}{||w||}}{%
+        &\langle a_i, w \rangle + \lambda \geq 1 &\text{pro všechna } i=1, \dots, k, \\
+        &\langle b_i, w \rangle + \lambda \leq -1 &\text{pro všechna } j=1, \dots, l.
+    }
     \item Ukažte, že $(\hat w,\hat \lambda)$ je řešením úlohy z předchozího bodu právě tehdy, když je řešením úlohy
     (kvadratického programování) ve tvaru
-    \begin{align*}
-        \text{minimalisujte } & h(w, \lambda) = \frac{1}{2} ||w||^2 \\
-        \text{za podmínek }   & \langle a_i, w \rangle + \lambda \geq 1 \text{ pro všechna } i=1, \dots, k, \\
-                              & \langle b_i, w \rangle + \lambda \leq -1 \text{ pro všechna } j=1, \dots, l.
-    \end{align*}
+    \optAs{min}{h(w, \lambda) = \frac{1}{2} ||w||^2}{%
+        &\langle a_i, w \rangle + \lambda \geq 1 &\text{ pro všechna } i=1, \dots, k, \\
+        &\langle b_i, w \rangle + \lambda \leq -1 &\text{ pro všechna } j=1, \dots, l.
+    }
 \end{enumerate}
 
 (a) 
