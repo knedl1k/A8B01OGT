@@ -11,12 +11,15 @@ Tvrzení. Pro $f: D \rightarrow \R, M \subseteq D, \hat{x} \in M$ platí:
 \end{enumerate}
 Důkaz.
 
-(1) $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, tj. $f(\hat{x}) \leq f(x), \forall x \in M \underset{\cdot (-1)}{\iff}
--f(\hat{x}) \geq -f(x), \forall x \in M$, tj. $\hat{x} \in \underset{x \in M}{\argmax} (-f(x)). \qed$
+\begin{enumerate}[(1)]
+
+\item $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, tj. $f(\hat{x}) \leq f(x), \forall x \in M \underset{\cdot (-1)}{\iff}
+-f(\hat{x}) \geq -f(x), \forall x \in M$,\\tj. $\hat{x} \in \underset{x \in M}{\argmax} (-f(x)). \qed$
 
 
-(2) Ať $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, pak $\underset{x \in M}{\min} f(x) = f(\hat{x}) =
+\item Ať $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, pak $\underset{x \in M}{\min} f(x) = f(\hat{x}) =
 - (- f(\hat{x})) \overset{(1)}{=} - \underset{x \in M}{\max} (-f(x)). \qed$
+\end{enumerate}
 
 \subsection{Hledání přípustných množin}
 \optAs{min}{x^2 + 1}{
@@ -36,30 +39,31 @@ $D(f) = (0, \infty)$.
 Udělejme průnik definičního oboru funkce a podmínek: $(x \in (0, \infty)) \land (x \leq 5) \land (\cos(\pi x)=1)$.
 
 \begin{multicols}{2}
-    \begin{tikzpicture}
-        \begin{axis}[
-            axis lines = middle,
-            xlabel = $x$,
-            ylabel = {$\cos(\pi x)$},
-            domain=0:5,
-            samples=1000,
-            %   xtick={0,1,2,3,4,5},
-            %   ytick={-1,-0.5,0,0.5,1},
-            enlargelimits,
-            grid=both,
-            minor grid style={dotted},
-            major grid style={dashed},
-            width=10cm, height=6cm,
+  \begin{figure}[H]
+    \center
+    \begin{tikzpicture}[scale=0.8]
+      \begin{axis}[
+        axis lines = middle,
+        xlabel = $x$,
+        ylabel = {$\cos(\pi x)$},
+        domain=0:5,
+        samples=1000,
+        %   xtick={0,1,2,3,4,5},
+        %   ytick={-1,-0.5,0,0.5,1},
+        enlargelimits,
+        grid=both,
+        minor grid style={dotted},
+        major grid style={dashed},
+        width=10cm, height=6cm,
         ]
-            \addplot[blue, thick] {cos(deg(x * pi))};
-            \addplot[only marks, red, mark=*] coordinates {(2,1) (4,1)};
-        \end{axis}
-      \end{tikzpicture}
+        \addplot[blue, thick] {cos(deg(x * pi))};
+        \addplot[only marks, red, mark=*] coordinates {(2,1) (4,1)};
+      \end{axis}
+    \end{tikzpicture}
+  \end{figure}
 \columnbreak
-
-      \quad Očividně tedy $M = \bc{2,4}$.
-
-      \quad Úvahou pak lze uhodnout $\underset{x \in M}{\argmax} \ln x = \bc{4}$.
+      Očividně tedy $M = \bc{2,4}$.\\
+      Úvahou pak lze uhodnout $\underset{x \in M}{\argmax} \ln x = \bc{4}$.
 \end{multicols}
 
 \subsection{Maximalisační úloha}
@@ -158,7 +162,9 @@ $\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, 
 (a) 
 
 \begin{multicols}{2}
-    \begin{tikzpicture}[scale=1.0]
+  \begin{figure}[H]
+    \center
+    \begin{tikzpicture}[scale=0.8]
         \draw[->] (-3,0) -- (6,0) node[right] {$x$};
         \draw[->] (0,-2) -- (0,5) node[above] {$y$};
       
@@ -181,21 +187,20 @@ $\langle x, w \rangle + \lambda = 1$ a $H_2$ je nadrovina o rovnici $\langle x, 
     
         \filldraw[black] (0,0) circle(0pt) node[below left] {\tiny 0};
     \end{tikzpicture}
+  \end{figure}
 
 \columnbreak
-    \quad 
-    $\pi : x = t \cdot w, t \in \R$.
+    $\pi : x = t \cdot w, t \in \R$. \\
 
-    \quad Průsečík $Q$:
+    Průsečík $Q$: \\
 
-    \quad $\underbrace{\langle tw, w\rangle}_{t ||w||^2} + \lambda = 1$ $\rightarrow t = \frac{1-\lambda}{||w||^2}$
+    $\underbrace{\langle tw, w\rangle}_{t ||w||^2} + \lambda = 1$ $\rightarrow t = \frac{1-\lambda}{||w||^2}$
     $\Rightarrow Q = \frac{1-\lambda}{||w||^2} w$
     \\
-    \\
 
-    \quad Průsečík $P$:
+    Průsečík $P$:
 
-    \quad $\underbrace{\langle tw, w\rangle}_{t ||w||^2} + \lambda = -1$ $\rightarrow t = \frac{-1-\lambda}{||w||^2}$
+    $\underbrace{\langle tw, w\rangle}_{t ||w||^2} + \lambda = -1$ $\rightarrow t = \frac{-1-\lambda}{||w||^2}$
     $\Rightarrow P = \frac{-1-\lambda}{||w||^2} w$
 \end{multicols}
 

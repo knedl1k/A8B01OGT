@@ -35,12 +35,6 @@
 % ---------- LISTS ----------
 \usepackage[shortlabels]{enumitem} % compact and customizable lists
 
-% ---------- TEXT FORMATTING ----------
-\usepackage{ragged2e}            % for \justifying and ragged alignment
-\usepackage{soul}                % text highlighting with \hl{}
-\usepackage[autostyle]{csquotes} % smart quote handling
-\usepackage{minted}
-
 % ---------- HYPERLINKS ----------
 \usepackage{hyperref}            % clickable references and links
 \hypersetup{
@@ -49,6 +43,12 @@
     linkcolor=purple,
     pdfborder=0 0 0              % no red boxes around links
 }
+
+% ---------- TEXT FORMATTING ----------
+\usepackage{ragged2e}            % for \justifying and ragged alignment
+\usepackage{soul}                % text highlighting with \hl{}
+\usepackage{minted}
+\usepackage[autostyle]{csquotes} % smart quote handling
 
 % ---------- MATH SHORTCUTS ----------
 % Common sets
@@ -109,10 +109,9 @@
   }{
     \PackageError{cfg}{'#1' is not a supported optimization target}{}
   } & $#2$ \\
-  za \space podmínek & {$\!\begin{aligned}[t] #3 \end{aligned}$}
+  za \space podmínek & {$\!\begin{array}[t]{@{}l@{}ll} #3 \end{array}$}
 \end{tabular}
 \end{table}
 }
 \ExplSyntaxOff
-
 
