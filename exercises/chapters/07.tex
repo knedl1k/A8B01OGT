@@ -532,7 +532,6 @@ $x_2 = 1 + x_1 - x_4$\\
 $\rightarrow z = -x_1 - 3(1+x_1-x_4) = -4x_1 + 3x_4 - 3$\\
 $\rightarrow x_3 = 6 - 2x_1 - 3(1+x_1-x_4) = 3-5x_1+3x_4$
 
-
 \begin{equation*}
     \begin{array}{c}
         \\
@@ -556,3 +555,207 @@ $\rightarrow x_3 = 6 - 2x_1 - 3(1+x_1-x_4) = 3-5x_1+3x_4$
         0
     \end{bmatrix}.
 \end{equation*}
+%TODO dodělat
+
+\subsection{Tvrzení o vztahu přípustné množiny a hodnoty cílové funkce}
+Přípustná množina $M$ úlohy LP je neprázdná právě tehdy, když v bodě minima 
+$\begin{bmatrix} \hat x \\ \hat y \end{bmatrix} \in \Omega$ úlohy $F_1$ tak, že $g(\hat x, \hat y) = 0$.
+V tomto případě je $\hat y = 0$.
+
+Důkaz.
+
+\enquote{$\Rightarrow$}: Ať $\hat x \in M$. Pak $v = \begin{bmatrix} \hat x \\ 0 \end{bmatrix}$ leží v $\Omega$ a 
+$g(v) = 0$ (tj. $v$ je řešení úlohy $(F_1)$ splňující $g(v) = 0$). A to jsme přesně chtěli dokázat. $\qed$
+
+\enquote{$\Leftarrow$}: Ať $\begin{bmatrix} \hat x \\ \hat y \end{bmatrix}$ je řešení úlohy ($F_1$), splňující 
+$g(\hat x, \hat y) = 0$. Pak $\hat y = 0$, a tedy $b = A \hat x + \hat y = A \hat x$. \\ A protože $\hat x \geq 0$, tak 
+$\hat x \in M$. $\qed$
+
+\subsection{Příklad dvoufázové Simplexové metody}
+Je dána úloha
+\optAs{min}{x_2}{%
+    &x_1 = 1, \\
+    x_1 - &x_2 = 2, \\
+    x_1, &x_2 \geq 0.
+}
+Sloupeček pravých stran je větší roven nule, takže můžeme použít dvoufázovou Simplexovu metodu.
+
+1. fáze:
+\begin{alignat*}{3}
+    \text{minimalisujte} &&  y_1 + y_2  &&      \\
+    \text{za podmínek } &\quad&  x_1 + y_1  && {}= 1, \\
+                        &\quad&  x_1 - x_2 + y_2 && {}= 2, \\
+                        &\quad&  x_1, x_2, y_1, y_2 && {}\geq 0.
+\end{alignat*}
+%TODO dodělat a vyřešit situaci s optAs - přednáška 10
+
+\subsection{Tvrzení o primární a duální úloze}
+Nechť $A \in \M_{m,n}(\R)$, $c \in \R^n$ a $b \in \R^m$. Duální úloha k úloze
+\[
+\left.\begin{aligned}
+    &\text{minimalizujte}&& \langle x, c \rangle \\
+    &\text{za podmínky}  && Ax \geq b, \\
+    &                    && x \geq 0.
+\end{aligned}
+\right\} (P)
+\]
+je
+\[
+\left.\begin{aligned}
+    &\text{maximalisujte}&& \langle y,b \rangle \\
+    &\text{za podmínky}  && A^Ty \geq c, \\
+    &                    && y \geq 0.
+\end{aligned}
+\right\} (D)
+\]
+Důkaz. 
+\[
+    L(x, y) = \langle x, c\rangle + \langle y, b- Ax\rangle = \langle x, c\rangle + \langle y, b\rangle - 
+    \underbrace{\langle y, Ax\rangle}_{\langle A^Ty, x\rangle} = \langle x, c-A^Ty\rangle + \langle y, b\rangle
+\]
+\[
+    \inf_{x\geq 0} L(x, y) = \langle y, b\rangle + \inf_{x\geq 0} \langle x, c-A^Ty\rangle =
+    \begin{cases}
+        \langle y, b\rangle & \text{je-li } c-A^Ty \geq 0, \\
+        - \infty & \text{jinak.}
+    \end{cases}
+\]
+Tedy duální úloha k $(P)$ je 
+\[
+\begin{aligned}
+    &\text{maximalisujte}&& \langle y,b \rangle \\
+    &\text{za podmínky}  && c-A^T y \geq 0, \rightarrow A^T y \leq c \\
+    &                    && y \geq 0.
+\end{aligned}
+\]
+$\qed$
+
+\subsection{Hledání duální úlohy k duální úloze}
+Mějme
+\[
+\left.\begin{aligned}
+    &\text{maximalisujte}&& \langle y,b \rangle \\
+    &\text{za podmínky}  && A^Ty \geq c, \\
+    &                    && y \geq 0.
+\end{aligned}
+\right\} (D)
+\]
+Přepíšeme:
+\[
+\begin{array}{r@{\quad}l@{\qquad}c@{\qquad}r@{\quad}l}
+\text{minimalisujte}& -\langle y, b \rangle&           &\text{minimalisujte}& \langle y, -b \rangle \\
+\text{za podmínky}  & A^T y \leq c,        & \text{tj.}&\text{za podmínky}  & (-A^T) y \geq -c, \\
+                    & y \geq 0.            &           &                    & y \geq 0.
+\end{array}
+\]
+Duální úloha po tom je:
+\[
+    \begin{array}{r@{\quad}l@{\qquad}c@{\qquad}r@{\quad}l}
+        \text{maximalisujte}& \langle x,-c \rangle&           & \text{minimalisujte}& \langle x,c \rangle \\
+        \text{za podmínky}  &(A^T)^Tx \leq -b,    & \text{tj.}&\text{za podmínky}   & Ax \geq b, \\
+                            & x \geq 0.           &           &                     & x \geq 0.
+    \end{array}
+\]
+
+\subsection{Věta o silné dualitě pro LP}
+Úloha $(P)$ má řešení právě tehdy, když má řešení úloha $(D)$. V takovém případě jsou hodnoty obou úloh stejné.
+
+Nechť $\hat f < \infty$ a cílová funkce $f : \R^n \rightarrow \R$ je konvexní. Předpokládejme, že platí alespoň jedna z 
+následujících podmínek
+\begin{enumerate}[(a)]
+    \item Komponenty $g_1, \dots, g_k$ zobrazení $g$ splňují \hyperref[slaterPodm]{Slaterovu podmínku} regularity.
+    \item Zobrazení $g$ je \hyperref[sec:afin]{afinní} a $\Omega$ je konvexní polyedrická množina.  
+\end{enumerate}
+Potom $\hat f = \hat \varphi$. Je-li navíc $\hat f \in \R$, pak existuje řešení úlohy $(D)$.
+
+Důkaz vynecháme.
+
+\subsection{Simplexová metoda a řešení duální úlohy}\label{simplDual}
+Do úlohy $(P)$ zaveďme doplňkové proměnné $y = (y_1, \dots, y_m)^T$. Tím dostaneme úlohu
+\[
+\left.\begin{aligned}
+    &\text{minimalizujte}&& \langle x, c \rangle \\
+    &\text{za podmínky}  && Ax -y \geq b, \\
+    &                    && x,y \geq 0.
+\end{aligned}
+\right\} (\widetilde{P})
+\]
+Je-li výsledná simplexová tabulka
+\[
+    \begin{array}{cccc cc|c}
+        \widetilde{c}_1 & \cdots & \widetilde{c}_n & \widetilde{c}_{n+1} & \cdots & \widetilde{c}_{n+m} & \cdots \\ \hline
+        \vdots      & \cdots & \vdots      & \vdots          & \cdots & \vdots          & \vdots \\
+    \end{array}
+\]
+kde $\widetilde{c_1}, \dots, \widetilde{c}_{m+n} \geq 0$ a sloupce na lévé straně odpovídají postupně proměnným 
+$x_1, \dots, x_n, y_1, \dots, y_m$. Pak $\hat y = \left(\widetilde{c}_{n+1},\dots, \widetilde{c}_{m+n}\right)^T$ je řešením 
+úlohy $(D)$.
+
+\subsection{Příklad řešení duální úlohy}
+Je dána dvojice vzájemně duálních úloh
+\[
+    \begin{array}{r@{\quad}l@{\qquad}c@{\qquad}r@{\quad}l}
+        \text{minimalisujte}& \langle x,c \rangle&           & \text{maximalisujte}& \langle y,b \rangle \\
+        \text{za podmínky}  & Ax \geq b,         & \text{tj.}&\text{za podmínky}   & A^Ty \leq c, \\
+                            & x \geq 0.          &           &                     & y \geq 0.
+    \end{array}
+\]
+kde $A = 
+\begin{bmatrix}
+    0 & 4 & 1 \\
+    1 & 1 & 0
+\end{bmatrix}$, $b = 
+\begin{bmatrix}
+    2 \\ 1
+\end{bmatrix}$, $c = 
+\begin{bmatrix}
+    1 \\ 2 \\ 4
+\end{bmatrix}$.
+
+Zaměřme se na primární úlohu.
+Tedy doplníme doplňkové proměnné dle \hyperref[simplDual]{předchozí poznámky}.
+\optAs{min}{\left\langle 
+\begin{bmatrix}
+    x_1 \\ x_2 \\ x_3
+\end{bmatrix}, 
+\begin{bmatrix}
+    1 \\ 2 \\ 4
+\end{bmatrix}\right\rangle}{%
+\begin{bmatrix}
+    0 & 4 & 1 & -1 & \phantom{-}0 \\
+    1 & 1 & 0 & \phantom{-}0 & -1
+\end{bmatrix}
+\begin{bmatrix}
+    x_1 \\ x_2 \\ x_3 \\ y_1 \\ y_2
+\end{bmatrix} \geq 
+\begin{bmatrix}
+    2 \\ 1
+\end{bmatrix} \\
+x_1, \dots, y_2 \geq 0
+}
+Simplexová tabulka:
+\[
+    \begin{array}{c|rrrrr|r}
+           &x_1 & x_2 & x_3 & y_1 & y_2 &  \\
+           & 1 & 2 & 4 & 0 & 0 & 0 \\ \hline
+        x_3& 0 & 4 & 1 &-1 & 0 & 2 \\
+        x_1& 1 & 1 & 0 & 0 &-1 & 1 \\
+           & 0 &-15& 0 & 4 & 1 & -9\\ \hline
+        x_3& 0 & 4 & 1 &-1 & 0 & 2 \\
+        x_1& 1 & 1 & 0 & 0 &-1 & 1
+    \end{array}
+\]
+Zafixujme si sloupec $x_2$, protože má v sobě záporný koeficient. Teď vhodně vybrat řádek $\rightarrow$ vezmeme pravou 
+stranou a podělíme ji koeficientem, tedy $\frac{2}{4}=\frac{1}{2}$ a $\frac{1}{1}=1$. Vybereme menší podíl.
+\[
+    \begin{array}{c|rrrrr|r}
+           &x_1 & x_2 & x_3 & y_1 & y_2 &  \\
+           & 0 & 0 & \frac{15}{4} & \frac{1}{4} & 1 & -9 + \frac{15}{2}\\ \hline
+        x_2& 0 & 1 & \frac{1}{4} &-\frac{1}{4} & 0 & \frac{1}{2} \\
+        x_1& 1 & 0 & -\frac{1}{4} & \frac{1}{4} &-1 & \frac{1}{2} \\
+    \end{array}
+\]
+Protože v levé části prvního řádku není žádný záporný koeficient, algoritmus končí.
+
+Úloha má řešení $\left(\frac{1}{2}, \frac{1}{2}, 0, 0, 0 \right)^T$. Tedy řešení původní primární úlohy je 
+$\left(\frac{1}{2}, \frac{1}{2}, 0\right)^T$. A když dosadíme, tak zjistíme, že toto je řešení i duální úlohy.

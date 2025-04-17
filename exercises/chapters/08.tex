@@ -1,1 +1,81 @@
 \section{Osmý týden}
+\subsection{Kvadratické programování}
+Úlohy kvadratického programování jsou optimalisační úlohy, ve kterých je
+\begin{enumerate}[(a)]
+    \item cílová funkce $f$ kvadratická, tj.
+    \[
+        f(x) = \langle Qx, x\rangle + \langle x,c\rangle + d,
+    \]
+    kde $Q \in \M_n (\R)$, $c \in \R^n$, $d \in \R$ (budeme předpokládat, že $Q$ je symetrická a $d=0$);
+    \item přípustná množina je konvexní polyedrická množina.
+\end{enumerate}
+Úloha kvadratického programování není obecně konvexní!
+\begin{itemize}
+    \item Pokud ale minimalisujeme kvadratickou funkci $f$, ve které je $Q$ positivně semidefitní matice, pak se jedná o 
+    konvexní úlohu.
+\end{itemize}
+Dále už budeme uvažovat jen úlohu kvadratického programování ve tvaru
+\[
+\left.\begin{aligned}
+    &\text{minimalisujte}&& \frac{1}{2}\langle Qx, x \rangle + \langle x,c\rangle \\
+    &\text{za podmínky}  && Ax \leq b, 
+\end{aligned}
+\right\} (QP)
+\]
+kde $Q \in \M_n(\R)$ je positivně \underline{definitní}, $A \in \M_{m,n}(\R)$, $b \in \R^m$ a $c \in \R^n$.
+
+Poznámka. $\frac{1}{2}$ v zápisu se nám zde zrovna hodí. Samozřejmě lze schovat přímo do matice $Q$, proto v původní 
+definici není vidět.
+
+Cílová funkce v $(QP)$ je ryze konvexní. Úloha tak má nejvýše jedno řešení. KKT podmínky
+\begin{align*}
+    Qx + c + A^T \mu = 0 \\
+    \langle Ax - b, \mu\rangle = 0 \\
+    \mu \geq 0
+\end{align*}
+jsou nutné a postačující.
+
+\subsection{Tvrzení o duální úloze kvadratického programování}
+Duální úloha k úloze $(QP)$ je
+\[
+\left.\begin{aligned}
+    &\text{maximalisujte}&& -\frac{1}{2}\langle By, y \rangle - \langle y,v\rangle - \frac{1}{2}\langle Q^{-1}c, c\rangle \\
+    &\text{za podmínky}  && y \geq 0, 
+\end{aligned}
+\right\} (DQP)
+\]
+kde $B = AQ^{-1}A^T$ a $v = AQ^{-1}c + b$.
+
+Důkaz.
+\begin{align*}
+    L(x,y) &= \frac{1}{2}\langle Qx, x\rangle + \langle x, c\rangle + \langle y, Ax-b\rangle\\
+    &= \frac{1}{2}\langle Qx, x\rangle + \langle x, c\rangle + \left\langle A^Ty, x\right\rangle - \langle y,b\rangle
+\end{align*}
+Ať $y \geq 0$. Pak funkce $x \mapsto L(x, y)$ je určitě (ryze) konvexní díky předpokladu na $Q$. Tedy $\hat x$ je bodem
+minima funkce $x \mapsto L(x, y) \iff \nabla_x L(x, y) = 0$.
+\[
+    \varphi(y) = \inf_{x \in \R^n} L(x, y) = \min_{x \in \R^n} L(x, y) = L(\hat x, y)
+\]
+\begin{align*}
+    \nabla_x L(x, y) = Q \hat x + c + A^Ty \overset{!}{=} 0 \\
+    \text{Tedy: } \hat x = -Q^{-1}(c + A^Ty)
+\end{align*}
+Dosaďme:
+\begin{align*}
+    \varphi(y) &= \frac{1}{2}\left\langle QQ^{-1}(c + A^Ty), Q^{-1}(c + A^Ty)\right\rangle - 
+    \left\langle Q^{-1}(c + A^Ty), c+A^Ty\right\rangle - \langle y,b\rangle \\
+    &= -\frac{1}{2}\left[\left\langle c, Q^{-1}c\right\rangle + 2\left\langle c, Q^{-1}A^Ty\right\rangle
+    + \left\langle A^Ty, Q^{-1}A^Ty\right\rangle\right] - \langle y, b\rangle \\
+    &= -\frac{1}{2}\left\langle y, AQ^{-1}A^Ty\right\rangle - \left\langle y, AQ^{-1}c+b\right\rangle
+    -\frac{1}{2}\left\langle c, Q^{-1}c\right\rangle \\
+    &= -\frac{1}{2}\left\langle AQ^{-1}A^Ty, y\right\rangle - \left\langle y, AQ^{-1}c+b\right\rangle
+    -\frac{1}{2}\left\langle Q^{-1}c, c\right\rangle
+\end{align*}
+Což je přesně duální úloha $(DQP)$. $\qed$
+
+Poznámka. Úlohy kvadratického programování nejsou vzájemně duální.
+
+\subsection{Věta o silné dualitě pro kvadratické programování}
+Úloha $(QP)$ má řešení právě tehdy, když $(DQP)$ má řešení. Má-li $(QP)$ řešení, pak se hodnoty obou úloh rovnají.
+
+Důkaz vynecháme.
