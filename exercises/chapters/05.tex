@@ -1,4 +1,4 @@
-\section{Pátý týden}
+\section{Podmínky optimality}
 
 \subsection{Kužel přípustných směrů}
 Nechť $M \subseteq \R^n$ a $x \in M$.
@@ -140,7 +140,7 @@ Důkaz.\\
     \frac{f(x + \alpha d) - f(x)}{\alpha} < 0 \text{ pro } \alpha > 0 \text{ dostatečně malé.}
 \]
 \[
-    \implies \underbrace{\lim_{x\rightarrow 0^+ } \frac{f(x+\alpha d - f(x))}{\alpha}}_{= \langle \nabla f(x), d\rangle}
+    \implies \underbrace{\lim_{x\rightarrow 0^+ } \frac{f(x+\alpha d) - f(x)}{\alpha}}_{= \langle \nabla f(x), d\rangle}
     \leq 0 \qed
 \]
 \newpage
@@ -511,6 +511,7 @@ Pak
 Tedy $\G(\hat x) \cap \D_0(f; \hat x) \not= \emptyset$ $\implies$ nahrazením podmínek optimality můžeme zkazit prázdnost 
 průniku, protože $\G$ může být větší jak $\F$.
 \newpage
+\section{KKT podmínky}
 \subsection{Věta o nutných KKT podmínkách}\label{KKT}
 Nechť $\Omega \subseteq \R^n$ je otevřená množina, $f, g_1, \dots, g_k \in C^1 (\Omega)$,
 \[
@@ -566,7 +567,7 @@ Důkaz.
     \end{align*}
     A to jsou přesně KKT podmínky. $\qed$
 \end{itemize}
-\newpage
+
 \subsection{Příklad použití KKT podmínek}
 \begin{align*}
     \text{minimalisujte } &\underbrace{x + y}_{f(x,y)} \\
