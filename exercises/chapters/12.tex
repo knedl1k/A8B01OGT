@@ -1,1 +1,40 @@
 \section{Maticové hry}
+Maticová hra je \hyperref[konecna]{konečná} hra dvou hráčů s nulovým součtem.
+
+Ať $G = (S_1, S_2, u)$ je maticová hra, kde $S_1 = \bc{\sigma_1, \dots, \sigma_m}$, $S_2 = \bc{\tau_1, \dots, \tau_n}$
+a $u : S_1 \times S_2 \rightarrow \R$.
+
+\begin{itemize}
+    \item Jednoznačná korespondence mezi $u$ a maticí $A = (a_{ij}) \in \M_{m,n}(\R)$, kde 
+    $a_{ij} = u(\sigma_i, \tau_j)$.
+    \item $A$ $\dots$ matice hry (výplatní matice, matice úžitku, \dots)
+    \item \hyperref[smisRoz]{Smíšené rozšíření} hry $G$ je hra $\Gamma(A) = (X, Y, U)$, kde
+    \begin{itemize}
+        \item $X = \bc{x \in \R_+^m \middle| \sum_{i=1}^{m} x_i=1}$
+        \item $Y = \bc{y \in \R_+^n \middle| \sum_{i=1}^{n} y_i=1}$
+        \item $U : X \times Y \rightarrow \R$ je dána předpisem
+        \[
+            U(x,y) = \sum_{j=1}^{m}\sum_{i=1}^{n}u(\sigma_i, \tau_j)x_iy_j = x^T Ay = \langle Ay, x\rangle.
+        \]
+    \end{itemize}
+\end{itemize}
+Značení a konvence:
+\begin{itemize}
+    \item $X, Y$ jsou neprázdné konvexní kompaktní množiny a $U$ je spojitá funkce na $X \times Y$.
+    \item Smíšené rozšíření maticové hry je plně určeno maticí $A$, neboť:
+    \begin{itemize}
+        \item počet řádků matice $A$ určuje $X$,
+        \item počet sloupců matice $A$ určuje $Y$,
+        \item funkce $U$ je dána maticí $A$.
+    \end{itemize}
+    \item $\Gamma(A)$ je hra dvou hráčů s nulovým součtem.
+    \item $\O_1 (A)$ $\dots$ množina všech optimálních strategií 1. hráče ve hře $\Gamma(A)$.
+    \item $\O_2 (A)$ $\dots$ množina všech optimálních strategií 2. hráče ve hře $\Gamma(A)$.
+    \item $\underline{V}(x) \coloneq \inf_{y\in Y}U(x,y) = \min_{y\in Y} \langle Ay, x\rangle$.
+    \item $\overline{V}(y)  \coloneq \sup_{x\in X}U(x,y) = \max_{x\in X} \langle Ay, x\rangle$.
+\end{itemize}
+
+\subsection{Věta o minimaxu}
+Cena hry $\Gamma(A)$ existuje a oba hráči mají alespoň jednu optimální strategii.
+
+Důkaz.
