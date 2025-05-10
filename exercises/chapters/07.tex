@@ -556,6 +556,32 @@ $\rightarrow x_3 = 6 - 2x_1 - 3(1+x_1-x_4) = 3-5x_1+3x_4$
 \end{equation*}
 %TODO dodělat
 
+\subsection{Příklad na Simplexovu metodu}
+\[
+\begin{aligned}
+\text{minimalisujte}\quad &2x_2 - x_4\\
+\text{za podmínek}\quad&
+  \begin{alignedat}{2}
+    x_1 + 3x_2 - x_4 &=&\;2,\\
+    x_2 + x_3 + 2x_4 &=&\;3,\\
+    x_1,x_2,x_3,x_4&\ge&\;0.
+   \end{alignedat}
+\end{aligned}
+\]
+
+\subsection{Příklad na Simplexovu metodu}
+\[
+\begin{aligned}
+\text{minimalisujte}\quad &4x_3 - 6x_4\\
+\text{za podmínek}\quad&
+  \begin{alignedat}{2}
+    x_2 - 6x_3 + 2x_4 &=&\;6,\\
+    x_1 + 2x_3 - x_4  &=&\;5,\\
+    x_1,x_2,x_3,x_4&\ge&\;0.
+   \end{alignedat}
+\end{aligned}
+\]
+
 \subsection{Tvrzení o vztahu přípustné množiny a hodnoty cílové funkce}
 Přípustná množina $M$ úlohy LP je neprázdná právě tehdy, když v bodě minima 
 $\begin{bmatrix} \hat x \\ \hat y \end{bmatrix} \in \Omega$ úlohy $F_1$ tak, že $g(\hat x, \hat y) = 0$.
@@ -758,3 +784,67 @@ Protože v levé části prvního řádku není žádný záporný koeficient, a
 
 Úloha má řešení $\left(\frac{1}{2}, \frac{1}{2}, 0, 0, 0 \right)^T$. Tedy řešení původní primární úlohy je 
 $\left(\frac{1}{2}, \frac{1}{2}, 0\right)^T$. A když dosadíme, tak zjistíme, že toto je řešení i duální úlohy.
+
+\subsection{Hledání duální úlohy}
+V $\R^n$ jsou daný množiny bodů $A = \bc{a_1, \dots, a_k}$ a $B = \bc{b_1, \dots, b_l}$. Ať $w \in \R^n$ a 
+$\lambda \in \R$. K úloze
+\optAs{min}{h(w,\lambda) = \frac{1}{2}\| w\|^2}{%
+    \langle a_i, w\rangle + \lambda \geq 1 & \text{ pro všechna } i = 1, \dots, k, \\
+    \langle b_j, w\rangle + \lambda \leq -1 & \text{ pro všechna } j = 1, \dots, l.
+}
+Zkonstruujte úlohu duální (přímé omezení je $w \in \R^n$, $\lambda \in \R$).
+\[
+    L(w, \lambda, y, z) = \frac{1}{2} \sum_{i=1}^{k}y_i \left[1-\langle a_i, w\rangle - \lambda\right] +
+    \sum_{j=1}^{l}z_j \left[1+ \langle b_j, w\rangle + \lambda\right]
+\]
+\[
+    \inf_{w \in \R^n, \lambda \in \R} L(w, \lambda, y, z) = ?
+\]
+Pro fixní $y \in \R^k, z \in \R^l$ je $(w, \lambda) \mapsto L(w, \lambda, y, z)$ konvexní funkce.
+\[
+    \underbrace{\nabla_w L(w, \lambda, y, z)}_{= \begin{bmatrix} \partial w_1 L \\ \vdots \\ \partial w_u L\end{bmatrix}} 
+    = w - \sum_{i=1}^{k}a_iy_i + \sum_{i=1}^{l}b_i z_i = 0
+\]
+\[
+    \implies w = \sum_{i=1}^{k} a_i y_i - \sum_{i=1}^{l}b_i z_i \implies \sum_{i=1}^{k}y_i = \sum_{i=1}^{l}z_i
+\]
+A tedy máme:
+\begin{align}
+    \varphi(y, z) &= \frac{1}{2} \left\langle \sum_{i=1}^{k}a_i y_i - \sum_{i=1}^{l}b_i z_i, 
+    \sum_{j=1}^{k}a_j y_j - \sum_{j=1}^{l}b_j z_j \right\rangle \\
+    &+ \sum_{i=1}^{k}y_i + \sum_{i=1}^{l}z_i - \sum_{i=1}^{k}y_i 
+    \left\langle a_i, \sum_{j=1}^{k}a_j y_j - \sum_{j=1}^{l}b_jk_j\right\rangle\\
+    &+ \sum_{i=1}^{l}z_i \left\langle b_i, \sum_{j=1}^{k}a_j y_i - \sum_{j=1}^{l}b_j z_j\right\rangle
+\end{align}
+Což upravíme:
+\begin{align}
+    \varphi(y, z) &= \frac{1}{2} \left[
+       \sum_{i=1}^{k} \sum_{j=1}^{l} z_i y_j \langle a_i, a_j \rangle
+     - \sum_{i=1}^{k} \sum_{j=1}^{l} y_i z_j \langle a_i, b_j \rangle
+     - \sum_{i=1}^{l} \sum_{j=1}^{k} z_i y_j \langle b_i, a_j \rangle
+     + \sum_{i=1}^{k} \sum_{j=1}^{l} z_i y_j \langle b_i, b_j \rangle
+    \right] \\
+    &+ \sum_{i=1}^{k} y_i + \sum_{i=1}^{l} z_i
+     - \sum_{i=1}^{k} \sum_{j=1}^{k} y_i y_j \langle a_i, a_j \rangle
+     + \sum_{i=1}^{k} \sum_{j=1}^{l} y_i y_j \langle a_i, b_j \rangle \\
+    &+ \sum_{i=1}^{k} \sum_{j=1}^{l} z_i y_j \langle b_j, a_j \rangle
+     - \sum_{i=1}^{l} \sum_{j=1}^{l} z_i z_j \langle b_i, b_j \rangle
+\end{align}
+\begin{multicols}{2}
+    A tedy:
+    \begin{align}
+        \varphi(y, z) &= -\frac{1}{2}\sum_{i=1}^{k}\sum_{j=1}^{k}y_i y_j \langle a_i, a_j\rangle \\
+        &+ \sum_{i=1}^{k}\sum_{j=1}^{l}y_i z_j \langle a_i, b_j\rangle \\
+        &- \frac{1}{2}\sum_{i=1}^{l}\sum_{j=1}^{l}y_i z_j \langle b_i, b_j\rangle \\
+        &+ \sum_{i=1}^{k}y_i + \sum_{i=1}^{l}z_i
+    \end{align}
+    
+    Hledaná duální úloha je:
+    \begin{align*}
+        \text{maximalisujte } \varphi(y, z) \\
+        \text{za podmínek } \sum_{i=1}^{k}y_i - \sum_{j=1}^{l}z_j = 0& \\
+        y, z \geq 0& 
+    \end{align*}
+\end{multicols}
+
+

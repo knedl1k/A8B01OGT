@@ -185,7 +185,7 @@ taková, že pro každé $(\sigma_1, \sigma_2) \in S_1 \times S_2$ je
     \[G = (S_1, S_2, u) \text{, kde } u = u_1.\]
 \end{itemize}
 
-\subsection{Definice ceny hry}
+\subsection{Definice ceny hry}\label{cenaHry}
 Ať $G = (S_1, S_2, u)$ je hra dvou hráčů s nulovým součtem.
 \begin{enumerate}[(a)]
     \item Dolní cena hry $G$ je číslo
@@ -318,7 +318,7 @@ jestliže pro každé $x \in M$ a každé $y \in N$ je
     f(x, \hat y) \leq f(\hat x, \hat y) \leq f(\hat x, y).
 \]
 \newpage
-\subsection{Vztah Nashova equilibria a sedlového bodu}
+\subsection{Vztah Nashova equilibria a sedlového bodu}\label{sedl}
 Ať $G = (S_1, S_2, u)$ je hra dvou hráčů s nulovým součtem a $(\hat \sigma, \hat \tau) \in S_1 \times S_2$. Potom 
 $(\hat \sigma, \hat \tau)$ je \hyperref[nash]{Nashovo equilibrium} hry $G$ právě tehdy, když $(\hat \sigma, \hat \tau)$
 je \hyperref[sedlmax]{sedlový bod} funkce $u$.
@@ -330,7 +330,8 @@ $(\hat \sigma, \hat \tau)$ je N. e., tj.
     u(\sigma, \hat \tau) &\leq u(\hat \sigma, \hat \tau) \quad \forall \sigma \in S_1 \\
     -u(\hat \sigma, \tau) &\leq -u(\hat \sigma, \hat \tau) \quad \forall \tau \in S_2 \\
     &\,\, \Big\Updownarrow \\
-    u(\sigma, \hat \tau) \leq u (\hat \sigma&, \hat \tau) \leq u(\hat \sigma, \tau) \quad \forall \sigma \in S_1, \tau \in S_2
+    u(\sigma, \hat \tau) \leq u (\hat \sigma&, \hat \tau) \leq u(\hat \sigma, \tau) \quad \forall \sigma \in S_1, 
+    \tau \in S_2
 \end{align*}
 Což je přesně \hyperref[sedlmax]{sedlový bod} funkce $u$. $\qed$
 
@@ -344,3 +345,37 @@ Nechť $G = (S_1, S_2, u)$ je hra dvou hráčů s nulovým součtem.
     \hyperref[optimalStrat]{optimální strategie} druhého hráče, pak 
     $v = u(\hat \sigma, \hat \tau)$ a $(\hat \sigma, \hat \tau)$ je \hyperref[nash]{Nashovo equilibrium}.
 \end{enumerate}
+Důkaz (a).
+
+$(\hat \sigma, \hat \tau)$ je N. e. $\implies$ 
+$\underbrace{u(\sigma, \hat \tau) \leq u(\hat \sigma, \hat \tau) \leq u(\hat\sigma, \tau) \quad \forall \sigma \in S_1, 
+\forall \tau \in S_2}_{(*)}$ $\dots$ N. e. je \hyperref[sedl]{sedlový bod} funkce $u$.
+\[
+    (*) \implies \overline{v} = \inf_{\tau \in S_2} \sup_{\sigma \in S_1} u(\sigma, \tau) \leq 
+    \sup_{\sigma \in S_1} u(\sigma, \hat \tau) \leq u(\hat \sigma, \hat \tau) \leq 
+    \inf_{\tau \in S_2} u(\hat\sigma, \tau) \leq
+    \sup_{\sigma \in S_1} \inf_{\tau \in S_2} u(\sigma, \tau) = \underline{v}
+\]
+Tedy $\overline{v} \leq \underline{v}$. Navíc již víme, že $\underline{v} \leq \overline{v}$. 
+Proto $\underline{v} = \overline{v}$.
+
+Odtud $v = \underline{v} = \overline{v} = u(\hat \sigma, \hat \tau)$, $\hat \sigma$ je optimální strategie 1. hráče a 
+$\hat \tau$ je optimální strategie 2. hráče. $\qed$
+
+Důkaz (b).
+
+Z předpokladu plyne: 
+\[  
+    \sup_{\sigma \in S_1} u(\sigma, \hat \tau) = v = \inf_{\tau \in S_2} u(\hat \sigma, \tau)
+\]
+Proto:
+\[
+    u(\sigma, \hat \tau) \leq v \leq u(\sigma, \hat \tau) \quad \forall \sigma \in S_1, \tau \in S_2
+\]
+A z toho nutně plyne $v = u(\hat \sigma, \hat \tau)$ když dosadíme $\sigma = \hat \sigma$ a $\tau = \hat \tau$. 
+
+Tedy platí 
+\[
+    u(\sigma, \hat \tau) \leq u(\hat \sigma, \hat \tau) \leq u(\hat\sigma, \tau) \quad \forall \sigma \in S_1, 
+    \forall \tau \in S_2 \implies (\hat \sigma, \hat \tau) \text{ je N. e. } \qed
+\]
