@@ -358,12 +358,13 @@ Označme si:
 \end{itemize}
 Poznámka. V textu dále se obvykle bude uvádět pouze $\I(x) = \bc{i \in \bc{1, \dots, k} \mid g_i(x) = 0}$. Když
 přeindexujeme funkce $g_i(x)$, znamenalo by to něco jiného, proto se u $\I$ uvádí $\left((g_i)_{i=1}^k;x\right)$, ale my
-většinou přeindexovávat nebudeme.
-
-Definice.
-
-Nechť $\Omega \subseteq \R^n$ je otevřená množina, $g_1, \dots, g_k \in C^1(\Omega)$, $x \in M$ a $M = \bc{x \in \Omega
-\mid g_1(x) \leq 0, \dots, g_k (x) \leq 0}$. Definujme množinu
+většinou přeindexovávat nebudeme.\\
+Definice. 
+Nechť $\Omega \subseteq \R^n$ je otevřená množina,
+\[
+  g_1, \dots, g_k \in C^1(\Omega), x \in M \text{ a } M = \bc{x \in \Omega\mid g_1(x) \leq 0, \dots, g_k (x) \leq 0}. 
+\]
+Definujme množinu
 \begin{align*}
     \G \left( (g_i)_{i=1}^k; x\right) \coloneq& \bc{d \in \R^n \, \middle| \, \langle \nabla g_i(x), d \rangle \leq 0 \quad \forall i \in \I (x)} \\
     =& \bigcap_{i \in \I(x)} \bc{d \in \R^n \, \middle| \, \langle \nabla g_i (x), d\rangle \leq 0}
@@ -515,9 +516,9 @@ průniku, protože $\G$ může být větší jak $\F$.
 \subsection{Věta o nutných KKT podmínkách}\label{KKT}
 Nechť $\Omega \subseteq \R^n$ je otevřená množina, $f, g_1, \dots, g_k \in C^1 (\Omega)$,
 \[
-    M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}
+  M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0} \text{ a } \hat{x}\in M.
 \]
-a $\hat x \in M$. Jestliže $\overline{\F(M; \hat x)} = \G(\hat x)$ a $\hat x$ je bod lokálního minima na $f$ na $M$, 
+Jestliže $\overline{\F(M; \hat x)} = \G(\hat x)$ a $\hat x$ je bod lokálního minima na $f$ na $M$, 
 pak existuje ${(\mu_1, \dots, \mu_k)^T \in \R^k}$ tak, že 
 \begin{align*}
     \nabla f(\hat x) + \Sigma_{i=1}^k \mu_i \nabla g_i(\hat x) &= 0, \\
