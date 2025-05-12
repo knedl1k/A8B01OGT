@@ -127,7 +127,7 @@ Nechť $\Omega \subseteq \R^n$ je otevřená množina, $x \in \Omega$ a $f \in C
 \end{itemize}
 Kužel $\D_0(f; x)$ je množina všech řešení lineární nerovnice \[\langle \nabla f(x), d\rangle < 0.\]
 $\D_0(f;x)$ je konvexní kužel.
-
+\newpage
 \subsection{Tvrzení o souvislosti přípustných směrů poklesu a jejich linearisaci}
 Nechť $\Omega \subseteq \R^n$ je otevřená množina, $x \in \Omega$ a $f \in C^1(\Omega)$. Potom platí:
 \begin{enumerate}[(a)]
@@ -143,7 +143,7 @@ Důkaz.\\
     \implies \underbrace{\lim_{x\rightarrow 0^+ } \frac{f(x+\alpha d) - f(x)}{\alpha}}_{= \langle \nabla f(x), d\rangle}
     \leq 0 \qed
 \]
-\newpage
+
 (b) Ať $\alpha > 0$.
 \[
     f(x+\alpha d) = f(x) + \alpha \langle \nabla f(x), d\rangle + \alpha \| d\|
@@ -152,8 +152,10 @@ Důkaz.\\
 \[
     \frac{f(x+\alpha d) - f(x)}{\alpha} = \underbrace{\langle \nabla f(x), d\rangle + \| d\| \omega (\alpha d)}_{
     \substack{\rightarrow \langle \nabla f(x), d\rangle \text{ pro } \alpha \rightarrow 0^+ \\ \text{a navíc }
-    \langle\nabla f(x), d \rangle < 0}} \implies \frac{f(x + \alpha d) - f(x)}{\alpha} < 0
-    \text{ pro všechna } \alpha < 0 \text{ dostatečně malá.}
+    \langle\nabla f(x), d \rangle < 0}} 
+\]
+\[
+    \implies \frac{f(x + \alpha d) - f(x)}{\alpha} < 0 \text{ pro všechna } \alpha < 0 \text{ dostatečně malá.}
 \]
 
 \subsection{Fermatova věta - nutná podmínka optimality}\label{fermat}
@@ -181,7 +183,7 @@ Ať $d = - \nabla f (\hat x)$.
 \[
     - \| \nabla f(\hat x)\|^2 \geq 0 \implies \nabla f(\hat x) = 0. \qed
 \]
-
+\newpage
 \subsection{Věta o nutných a postačujících podmínkách pro konvexní úlohu}\label{nutnePostacujiciKonv}
 Nechť $\Omega \subseteq \R^n$ je otevřená množina, $f \in C^1 (\Omega)$ je konvexní na $C \subseteq \Omega$ a
 $\hat x \in C$. Potom platí:
@@ -210,9 +212,10 @@ To je ale spor, protože byl předpoklad, že průnik je prázdný. My jsme ale 
 (b)\\
 \enquote{$\Rightarrow$} Víme.
 
-\enquote{$\Leftarrow$} Ať $\nabla f(\hat x) = 0$.\\
-Pak $\langle \nabla f(\hat x), d\rangle = 0 \quad \forall d \in \R^n = \F (C; \hat x)$. Nemáme tedy žádný směr poklesu
-$\overset{\hyperref[nutnePostacujiciKonv]{(a)}}{\implies} \hat x \in \argmin_{x \in C} f(x). \qed$
+\enquote{$\Leftarrow$} Ať $\nabla f(\hat x) = 0$.
+
+Pak $\langle \nabla f(\hat x), d\rangle = 0 \, \forall d \in \R^n = \F (C; \hat x)$. Nemáme žádný směr poklesu
+$\overset{\hyperref[nutnePostacujiciKonv]{(a)}}{\implies} \hat x \in \argmin_{x \in C} f(x).\qed$
 
 \subsection{Hledání bodu minima}
 $f(x, y) = x^2 + 3y^2 - 2xy + x - 2y$
@@ -345,8 +348,8 @@ $
 $.
 
 \subsection{Omezení ve tvaru nerovnosti - aproximace \texorpdfstring{$\F(M;\hat x)$}{F(M;x)}}
-Ať $g_1, \dots, g_k$ jsou reálné funkce definované na množině $\Omega \subseteq \R^n$,
-$M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$ a $x \in M$.
+Ať $g_1, \dots, g_k$ jsou reálné funkce definované na množině 
+$M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$, $\Omega \subseteq \R^n$ a $x \in M$.
 Označme si:
 \begin{itemize}
     \item Množina $\I \left((g_i)_{i=1}^k;x\right)\coloneq \bc{i \in \bc{1, \dots, k} \mid g_i(x) = 0}$ se nazývá

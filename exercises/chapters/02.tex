@@ -6,7 +6,7 @@ $\hat y \in C$ tak, že $\dist (x; C) = ||x-\hat y||$.
 
 Důkaz.
 
-1. Existence\\
+(a) Existence\\
 Cíl: Existuje bod minima\\
 Úvaha:
 \begin{multicols}{2}
@@ -28,22 +28,24 @@ Cíl: Existuje bod minima\\
         \draw[->, thick] (1,-2.5) -- (1.5,-1) node[midway, above, sloped] {$C_z \not= \emptyset$}; % TODO upravit sipku
     \end{tikzpicture}
 
-\columnbreak
-    $M$ je obecná konvexní množina.\\c x
-    $R = ||x-z||$,\\
-    $Cz = M \cap B (x, R) = M \cap \bc{a \in \R^n \mid ||z-a|| \leq R}$.\\
-    $\uparrow$\\
-    $\underbrace{\text{uzavřená, omezená}}_\text{kompaktní}$, neprázdná
+    \begin{adjustwidth}{-2em}{0pt}
+        $M$ je obecná konvexní množina.
 
-    Tedy $a \mapsto ||x-a||$ je spojitá.
+        $R = ||x-z||$,
 
-    $\Rightarrow$ Spojitost na kompaktní množině znamená, že $f$ nabývá na $C_z$ minima dle 
-    \href{https://cs.wikipedia.org/wiki/Weierstrassova_v%C4%9Bta}{Weierstrassovy věty}.
+        $Cz = M \cap B (x, R) = M \cap \bc{a \in \R^n \mid \|z-a\| \leq R}$.\\
+        $\uparrow$\\
+        $\underbrace{\text{uzavřená, omezená}}_\text{kompaktní}$, neprázdná
+
+        Tedy $a \mapsto ||x-a||$ je spojitá.
+
+        $\Rightarrow$ Spojitost na kompaktní množině znamená, že $f$ nabývá na $C_z$ minima dle 
+        \href{https://cs.wikipedia.org/wiki/Weierstrassova_v%C4%9Bta}{Weierstrassovy věty}.
+    \end{adjustwidth}
 \end{multicols}
 Ať $y$ je bod minima. Všechny body v $M$ mají od $x$ vzdálenost $\geq ||x-y||. \qed$
-\\
 
-2. Jednoznačnost.\\
+(b) Jednoznačnost.\\
 Cíl: Pokud $a,b \in \R^n : ||x-a|| = ||x-b|| = \overbrace{\dist(x,M)}^\delta$, pak $a=b$.\\
 Lemma, rovnoběžníkové pravidlo: $u,v \in \R^n \Rightarrow ||u+v||^2 + ||u-v||^2 = 2\left(||u||^2 + ||v||^2\right)$.\\
 Důkaz lemma: 
@@ -148,7 +150,6 @@ Tedy $P_L(\alpha x) = \alpha P_L(x), \forall \alpha \not= 0$. Pro $\alpha =0$ z�
 \]
 
 Z \hyperref[varNer]{variační nerovnosti} tedy plyne, že $P_L$ je nutně lineární. $\qed$
-\\
 
 \begin{multicols}{2}
     (b) Pro každé $x \in \R^n$ je $P_{L^\perp} (x) = x - P_L (x)$.
