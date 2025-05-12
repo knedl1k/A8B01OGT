@@ -38,3 +38,35 @@ Značení a konvence:
 Cena hry $\Gamma(A)$ existuje a oba hráči mají alespoň jednu optimální strategii.
 
 Důkaz.
+
+Dle \hyperref[nashV]{Nashovy věty} existuje \hyperref[nash]{Nashovo equilibrium} $(\hat x, \hat y)$ hry $\Gamma(A)$. 
+Tudíž ze \hyperref[nashOpt]{souvislosti Nashova equilibria a optimální strategie} platí $\hat x \in \O_1(A)$, 
+$\hat y \in \O_2(A)$, $v = U(\hat x, \hat y)$. $\qed$
+
+\newpage
+\subsection{Lemma o omezení na standardní bási}
+Značme
+\begin{itemize}
+    \item vektory standardní báse v $\R^m$ symboly $e_1, \dots, e_m$;
+    \item vektory standardní báse v $\R^n$ symboly $f_1, \dots, f_n$.
+\end{itemize}
+Pak
+\begin{align*}
+    \underline{V}(x) &= \min_{j\in\bc{1, \dots, n}}\langle Af_j, x\rangle, \\
+    \overline{V}(x)  &= \min_{i\in\bc{1, \dots, m}}\langle Ay, e_i\rangle
+\end{align*}
+Důkaz.
+
+$\underline{V}(x) = \min_{y \in Y}\langle Ay, x\rangle$, $Y = \conv \left(\bc{f_1, \dots, f_n}\right)$. 
+$\ext Y = \left(\bc{f_1, \dots, f_n}\right)$.
+
+Ať $x \in X$ je dáno. Pak $y \in Y \mapsto \langle Ay, x\rangle$ je lineární, a proto nějaký krajní bod je bodem minima.
+
+Obdobně $\overline{V}(x)$. $\qed$
+
+\subsection{Grafické řešení hry \texorpdfstring{$\Gamma(A)$}{Γ(A)} s maticí \texorpdfstring{$2 \times n$}{2 x n}}
+Je dána hra $\Gamma(A)$, kde $A = 
+\begin{bmatrix}
+    4 & 2 & 6 \\
+    1 & 5 & 0    
+\end{bmatrix}$.
