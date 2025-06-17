@@ -1,238 +1,516 @@
-\section{Dualita}
+\section{Podmínky optimality}
 
-\subsection{Pomocný důkaz vlastnosti infima}\label{infPomoc}
-\[
-    \inf_{(x, y)^T \in M \times N} (h_1(x) + h_2(y)) = \inf_{x\in M}h_1(x) + \inf_{y\in N}h_2(x)
-\]
+\subsection{Kužel přípustných směrů}
+Nechť $M \subseteq \R^n$ a $x \in M$.
+\begin{itemize}
+    \item Vektor $d \in \R^n$ se nazve přípustný směr množiny $M$ v bodě $x$, jestliže existuje $\delta > 0$ tak, že pro
+    každé $\alpha \in (0, \delta]$ je $x + \alpha d \in M$.
+    \item Množina $\F(M; x)$ všech přípustných směrů množiny $M$ v bodě $x$ se nazývá kužel přípustných směrů množiny
+    $M$ v bodě $x$.
+\end{itemize}
+$\F(M; x) \not = \emptyset$.\\
+Je-li $x \in \Int(M)$, pak $\F(M; x) = \R^n$.\\
+Je-li $M$ konečná (neprázdná), pak $\F(M;x) = \bc{0}$ pro každé $x \in M$.
 
-Důkaz.\\
-\enquote{$\geq$}:
-\begin{align*}
-    \inf_{x \in M} h_1(x) \leq h_1(t) \quad \forall t \in M \\
-    \inf_{y \in N} h_2(y) \leq h_2(t) \quad \forall t \in N
-\end{align*}
-\[
-    \implies \inf_{x\in M} h_1(x) + \inf_{y\in N}h_2(y) \leq \inf_{(x,y)^T \in M \times N}(h_1(x) + h_2(y)) \qed
-\]
-\enquote{$\leq$}:
-\[
-    \inf_{(x,y)^T \in M \times N}(h_1(x) + h_2(y)) \leq h_1(t) + h_2(s) \quad \forall 
-    \begin{bmatrix}
-        t \\
-        s    
-    \end{bmatrix} \in M \times N
-\]
-\[
-    \text{což lze upravit: } -h_2(s) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq h_1(t) \quad \forall t\in M, 
-    \forall s\in N.
-\]
-\[
-    \implies -h_2(s) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq \inf_{x\in M} h_1(x) \quad \forall s\in N.
-\]
-A to samé lze ukázat i pro $h_2$:
-\[
-    -h_1(t) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq h_2(s) \quad \forall t\in M, \forall s\in N.
-\]
-\[
-    \implies -h_1(t) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq \inf_{y\in N} h_2(y) \quad \forall t\in M.
-\]
-Teď sečtěme tyto dvě nerovnice:
-\[
-    -h_1(t) - h_2(s) + 2 \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \leq \inf_{x\in M} h_1(x) + \inf_{y\in N} h_2(y)
-    \quad \forall t\in M, \forall s\in N.
-\]
-Tedy stačí dokázat, že
-\begin{align*}
-    \inf_{(x,y)^T \in M \times N}(h_1(x) + h_2(y)) &\leq -h_1(t) - h_2(s) + 2 \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) 
-    \quad \forall t\in M, \forall s\in N.\\
-    0 &\leq -h_1(t) - h_2(s) + \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \quad \forall t\in M, \forall s\in N.\\
-    h_1(t) + h_2(s) &\leq \inf_{(x, y)^T \in M \times N}(h_1(x) + h_2(y)) \quad \forall t\in M, \forall s\in N.
-\end{align*}
-
-\subsection{Dualita - motivační příklad}
-Je dána úloha
-\begin{align*}
-    \text{minimalisujte } 2x+3y \\
-    \text{za podmínek } 1-x-y &\leq 0, \\ 
-    x,y &\in [0,2].
-\end{align*}
-
-Označme $f(x,y) = 2x + 3y$,
-$
-    M = \bc{
-    \begin{bmatrix}
-        x \\
-        y
-    \end{bmatrix} \in [0,2]^2 \, \middle| \, 1 - x - y \leq 0}
-$
-a $\hat f = \min_{x\in M} f(x)$.
-
-Odhadněme min funkce ze spoda. 
-
-Pro $(x, y)^T \in M$: \[f(x, y) \geq f(x,y) + g_1(x,y) = 2x + 3y + (1-x-y) = x+2y+1 \geq 1.\]
-A protože $\hat f = \min f(x)$, nutně musí platit $\hat f \geq 1$.
-
-Zkusme teď jiný odhad.
-\[f(x, y) \geq f(x,y) + 2g_1(x,y) = 2x + 3y + 2(1-x-y) = 2y + 1 \geq 2.\]
-Nalezli jsme lepší odhad: $\hat f \geq 2$. Jak tedy správně určit \enquote{nejlepší} možný dolní odhad $\hat f$?
-
-Definujme si
-\begin{align*}
-    L(x, y, \mu) &= 2x + 3y + \mu(1-x-y), \\
-    \varphi(\mu) &= \min_{(x, y)^T \in [0,2]^2}L(x, y, \mu).
-\end{align*}
-Pro každé $\mu \geq 0$ pak platí:
-\[
-    \varphi(\mu) = \min_{(x, y)^T \in \Omega}L(x, y, \mu) \leq \min_{(x, y)^T \in M}L(x, y, \mu) \leq \hat f
-\]
-\enquote{Optimální} dolní odhad $\hat f$ pomocí $\varphi$ vede na úlohu
-\begin{align*}
-    \text{maximalisujte } \varphi(\mu), \\
-    \text{za podmínek } \mu \geq 0.
-\end{align*}
-Kde
-\begin{align*}
-    \varphi(\mu) &= \min_{(x, y)^T \in [0,2]^T} \left[(2-\mu)x + (3-\mu)y + \mu\right] \\
-    &= \mu + \min_{x \in [0,2]}(2-\mu)x + \min_{y \in [0,2]}(3-\mu)y \\
-    &= 
-    \begin{cases}
-        \mu & \mu < 2 \\
-        \mu + 4 - 2\mu & \mu \in [2, 3) \\
-        10 - 3\mu & \mu \in [3, \infty)
-    \end{cases}
-\end{align*}
-Tu budeme nazývat duální úlohou.
-
-Hodnota $\max \varphi(\mu)$ na $[0, +\infty)$ je $\hat \varphi \implies \hat \varphi \leq \hat f$.
-
-\subsection{Tvrzení o konkávnosti duální úlohy}
-Jestliže $D_\varphi \not= \emptyset$, pak $\varphi$ je konkávní.
-
-Důkaz.\\
-Mějme $\mu, \nu \in D_\varphi$, $\lambda \in [0,1]$.
-\begin{align*}
-    \varphi(\lambda \mu + (1-\lambda)\nu) &\overset{\text{?}}{=} \inf_{x\in \Omega} \overbrace{f(x)}^{\lambda f(x) + 
-    (1-\lambda)f(x)} + \overbrace{\langle g(x), \lambda \mu + (1-\lambda)\nu\rangle}^{\lambda \langle g(x), \mu\rangle + 
-    (1-\lambda)\langle g(x), \nu\rangle} \\
-    &= \inf_{x\in \Omega} \lambda(f(x) + \langle g(x), \mu\rangle) + (1-\lambda)(f(x)+\langle g(x), \nu\rangle) \\
-    &\hspace*{-1.1em}\underset{\text{\hyperref[infPomoc]{infima}}}{\overset{\text{\hyperref[infPomoc]{vlastnost}}}{\geq}} 
-    \lambda \inf_{x\in \Omega} (f(x) + \langle g(x), \mu\rangle) + (1 - \lambda) \inf_{x\in \Omega} (f(x) + \langle g(x), 
-    \nu\rangle) \\
-    &= \lambda \varphi(\mu) + (1-\lambda) \varphi(\nu) > - \infty \implies \lambda \mu + (1-\lambda)\nu \in D_\varphi. \qed
-\end{align*}
-
-\subsection{Věta o slabé dualitě}\label{slabDual}
+\subsection{Přípustné směry poklesu}
+Mějme
 \begin{enumerate}[(a)]
-    \item Pro každé $x \in M$ a $\mu \in N$ je $\varphi(\mu) \leq f(x)$.
-    \item $\hat \varphi \leq \hat f$.
+    \item Je-li $M = S(0; 1)$, pak $\F(M;x) = \bc{0}$ pro každé $x \in M$.
+    \item Je-li $C = B(0; 1)$ a $\hat x = (1, 0)^T$, pak
+    \[
+        F(C; \hat x) = \bc{
+            \begin{bmatrix}
+                d_1 \\
+                d_2
+            \end{bmatrix} \in \R^2 \, \middle| \, d_1 < 0
+        } \cup \bc{
+            \begin{bmatrix}
+                0 \\
+                0
+            \end{bmatrix}
+        }
+    \]
 \end{enumerate}
-(a) Důkaz.\\
-Víme: $L(x, \mu) \leq f(x) \quad \forall x \in M, \forall \mu \geq 0$.
+(a) $M = S(0; 1) = \bc{x \in \R^2 \mid \| x\| = 1}$
+
+Úvaha: Polopřímka z bodu $(1,0)$ projde maximálně $2 \times$ skrz kružnici.
+\begin{tikzpicture}
+    \draw[thick] (0,0) circle(1);
+
+    \draw[->] (-1.5,0) -- (2,0) node[right] {\small $x$};
+    \draw[->] (0,-1.5) -- (0,2) node[left] {\small $y$};
+
+    \filldraw (1,0) circle(2pt) node[below right] {\small $(1,0)$};
+
+    \draw[thick,->, black!30!yellow] (1,0) -- (-1.5,1.5);
+\end{tikzpicture}
+
+Ať $d \not = 0 \in \R^2$
 \[
-    \varphi(\mu) = \inf_{y \in \Omega} L(y, \mu) \leq \inf_{y \in M} L(y, \mu) \leq L(x, \mu) \leq f(x) \quad 
-    \forall x \in M, \forall \mu \in N. \qed
+    1 = \| x + \alpha d\|^2 = \langle x + \alpha d , x + \alpha d\rangle = \underbrace{\| x\|^2}_{1} + 2 \alpha
+    \langle x, d\rangle + \alpha^2 \|d\|^2
 \]
-(b) Důkaz.\\
-Z (a) máme $\overbrace{\sup_{\mu \in N} \varphi(\mu)}^{\hat \varphi} \leq f(x) \quad \forall x \in M$.
 \[
-    \implies \hat \varphi \leq \inf_{x \in M}f(x) = \hat f. \qed
+    \rightarrow 0 = \alpha (2 \langle x, d\rangle + \alpha \| d\|^2) \implies \alpha =
+    - \frac{2 \langle x,d\rangle}{\|d\|^2} \implies \F(M;x) = \bc{0}
 \]
 
-\subsection{Důsledek věty o slabé dualitě}
+(b) Uvažujme kouli \\
+$M = S(0; 1) = \bc{x \in \R^2 \mid \| x\| \leq 1}$; $x =
+\begin{bmatrix}
+    1 \\
+    0
+\end{bmatrix}$
+\[
+    1 \geq \left\|
+    \begin{bmatrix}
+        1 \\
+        0
+    \end{bmatrix} + \alpha d\right\|^2 = \left\langle
+        \begin{bmatrix}
+        1 \\
+        0
+    \end{bmatrix} + \alpha d ,
+    \begin{bmatrix}
+        1 \\
+        0
+    \end{bmatrix} + \alpha d\right\rangle = \underbrace{\left\|
+    \begin{bmatrix}
+        1 \\
+        0
+    \end{bmatrix}\right\|^2}_{1} + 2 \alpha
+    \left\langle
+    \begin{bmatrix}
+        1 \\
+        0
+    \end{bmatrix}, d\right\rangle + \alpha^2 \|d\|^2
+\]
+\[
+    \rightarrow 0 \geq \alpha (2 d_1 + \alpha \| d\|^2) \implies \alpha =
+    - \frac{2 d_1}{\|d\|^2} \implies \F\left(M;
+    \begin{bmatrix}
+        1 \\
+        0
+    \end{bmatrix}\right) = \bc{
+    \begin{bmatrix}
+        d_1 \\
+        d_2
+    \end{bmatrix} \in \R^2 \, \middle| \, d_1 < 0
+    }.
+\]
+
+\subsection{Kužel směrů poklesu}
+Nechť $D \subseteq \R^n$, $x \in D$ a $f : D \rightarrow \R$.
+\begin{itemize}
+    \item Vektor $d \in \R^n$ se nazve směr poklesu funkce $f$ v bodě $x$, jestliže existuje $\delta >0$ tak, že pro
+    každé $\alpha \in (0, \delta]$ je $f(x + \alpha d) < f(x)$.
+    \item Množina $\D(f; x)$ všech směrů poklesu funkce $f$ v bodě $x$ se nazývá kužel směrů poklesu funkce $f$ v bodě
+    $x$.
+\end{itemize}
+Definice implicitně obsahuje podmínku $[x, x+\delta d] \subseteq D$.
+
+\subsection{Nutná geometrická podmínka lokálního extrému}
+Jestliže $x$ je bod lokálního minima funkce $f : D \subseteq \R^n \rightarrow \R$ na $M \subseteq D$, pak
+$\F(M; x) \cap D(f;x) = \emptyset$.
+
+Důkaz. Sporem. \\
+Ať ne, tj. existuje $d \in \F(M, x) \cap D(f, x)$.\\
+Pak: $f (x + \alpha d) < f(x)$ a $x + \alpha d \in M$ pro všechna $\alpha > 0$ dostatečně malá.\\
+Tedy spor s tím, že $x$ je bod lokálního minima $f$ na $M$. $\qed$
+
+\subsection{Silný směr poklesu - linearisace směru poklesu}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $x \in \Omega$ a $f \in C^{1}(\Omega)$.
+\begin{itemize}
+    \item Vektor $d \in \R^n$ se nazve silný směr poklesu funkce $f$ v bodě $x$, jestliže $\langle \nabla f(x), d\rangle < 0$.
+    \item Množina $\D_0(f; x)$ všech silných směrů poklesu funkce $f$ v bodě $x$ se nazývá kužel silných směrů poklesu
+    funkce $f$ v bodě $x$.
+\end{itemize}
+Kužel $\D_0(f; x)$ je množina všech řešení lineární nerovnice \[\langle \nabla f(x), d\rangle < 0.\]
+$\D_0(f;x)$ je konvexní kužel.
+\newpage
+\subsection{Tvrzení o souvislosti přípustných směrů poklesu a jejich linearisaci}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $x \in \Omega$ a $f \in C^1(\Omega)$. Potom platí:
 \begin{enumerate}[(a)]
-    \item Jestliže existují $\hat x \in M$ a $\hat \mu \in N$ splňující $\varphi(\hat \mu) = f(\hat x)$, pak
-    \[ \hat \mu \in \argmax_{\mu \in N} \varphi(\mu) \quad \text{ a } \quad \hat x \in \argmin_{x \in M}f(x). \]
-    \item Je-li $\hat f = - \infty$, pak $N = \emptyset$.
-    \item Je-li $\hat \varphi = + \infty$, pak $M = \emptyset$.
+    \item Je-li $d \in \D(f; x)$, potom $\langle \nabla f(x), d\rangle \leq 0$.
+    \item $\D_0(f;x) \subseteq \D(f;x)$ (tj. jestliže $\langle \nabla f(x), d\rangle < 0$, pak $d \in \D(f;x)$).
 \end{enumerate}
-Důkaz (a).\\
-Z \hyperref[slabDual]{věty o slabé dualitě} platí:
+Důkaz.\\
+(a) Ať $d \in D(f;x)$.
 \[
-    \varphi(\mu) \leq f(\hat x) \overset{\text{předpoklad}}{=} \varphi(\hat \mu) \quad \forall \mu \in N
-    \iff \hat \mu \in \argmax_{\mu \in N} \varphi(\mu).
+    \frac{f(x + \alpha d) - f(x)}{\alpha} < 0 \text{ pro } \alpha > 0 \text{ dostatečně malé.}
 \]
-Analogicky:
 \[
-    f(\hat x) \overset{\text{předpoklad}}{=} \varphi(\hat \mu) \leq f(x) \quad \forall x \in M
-    \iff \hat x \in \argmin_{x \in M} f(x). \qed
-\]
-Důkaz (b).\\
-Sporem. Ať $N \not= \emptyset$. Volme $\mu \in N$.
-\[
-    \text{Pak } \underbrace{\varphi(\mu)}_{\in \R} \leq \hat \varphi \leq \hat f = - \infty \dots \text{ spor.} \qed
-\]
-Důkaz (C).\\
-Sporem. Ať $M \not= \emptyset$. Volme $x \in M, \mu \in N$.
-\[
-    \text{Pak } \varphi(\mu) \leq \hat \varphi = + \infty \leq \underbrace{f(x)}_{\in \R} \dots \text{ spor.} \qed
+    \implies \underbrace{\lim_{x\rightarrow 0^+ } \frac{f(x+\alpha d) - f(x)}{\alpha}}_{= \langle \nabla f(x), d\rangle}
+    \leq 0 \qed
 \]
 
-\subsection{Ukázkový příklad na slabou dualitu}
-Je dána úloha 
+(b) Ať $\alpha > 0$.
+\[
+    f(x+\alpha d) = f(x) + \alpha \langle \nabla f(x), d\rangle + \alpha \| d\|
+    \overbrace{\omega (\alpha d)}^{\text{zbytek}}
+\]
+\[
+    \frac{f(x+\alpha d) - f(x)}{\alpha} = \underbrace{\langle \nabla f(x), d\rangle + \| d\| \omega (\alpha d)}_{
+    \substack{\rightarrow \langle \nabla f(x), d\rangle \text{ pro } \alpha \rightarrow 0^+ \\ \text{a navíc }
+    \langle\nabla f(x), d \rangle < 0}} 
+\]
+\[
+    \implies \frac{f(x + \alpha d) - f(x)}{\alpha} < 0 \text{ pro všechna } \alpha < 0 \text{ dostatečně malá.}
+\]
+
+\subsection{Fermatova věta - nutná podmínka optimality}\label{fermat}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $M \subseteq \Omega$ a $\hat x \in M$ je bodem lokálního minima
+funkce $f \in C^1(\Omega)$ na $M$. Potom platí:
+\begin{enumerate}[(a)]
+    \item $\F(M; \hat x) \cap \D_0(f; \hat x) = \emptyset$ (tj. $\langle \nabla f(\hat x), d\rangle \geq 0$ pro všechny
+    $d \in \F(M; \hat x)$).
+    \item Jestliže $\hat x \in \Int(M)$, pak $\nabla f(\hat x) = 0$.
+\end{enumerate}
+Důkaz.\\
+(a) Víme, že $\F(M; \hat x) \cap \D(f; \hat x) = \emptyset$.\\ \label{fermatA}
+Pak:
+\[
+    \D_0 (f, \hat x) \subseteq D(f, \hat x) \implies \F(M; \hat x) \cap \D_0(f, \hat x) = \emptyset. \qed
+\]
+(Tj. $\langle \nabla f(\hat x), d\rangle \geq 0 \quad \forall d \in \F(M, \hat x)$)
+
+(b)
+\[
+    \hat x \in \Int(M) \implies \F(M; \hat x) = \R^n \overset{\hyperref[fermatA]{(a)}}{\implies}
+    \langle \nabla f(\hat x), d\rangle \geq 0 \quad \forall d \in \R^n
+\]
+Ať $d = - \nabla f (\hat x)$.
+\[
+    - \| \nabla f(\hat x)\|^2 \geq 0 \implies \nabla f(\hat x) = 0. \qed
+\]
+\newpage
+\subsection{Věta o nutných a postačujících podmínkách pro konvexní úlohu}\label{nutnePostacujiciKonv}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $f \in C^1 (\Omega)$ je konvexní na $C \subseteq \Omega$ a
+$\hat x \in C$. Potom platí:
+\begin{enumerate}[(a)]
+    \item $\hat x \in \argmin_{x \in C} f(x)$ právě tehdy, když $\F(C; \hat x) \cap \D_0(f; \hat x) = \emptyset$.
+    \item Předpokládejme, že $\hat x \in \Int(C)$. Pak $\hat x \in \argmin_{x \in C}f(x)$ právě tehdy, když
+    $\nabla f(\hat x) = 0$.
+\end{enumerate}
+Důkaz.
+
+(a)\\
+\enquote{$\Rightarrow$}: Víme. Když máme bod minima, je určitě bodem lokálního minima $\implies$ průnik je prázdný.\\
+\enquote{$\Leftarrow$}: Sporem.\\
+Ať existuje $y \in C : \overbrace{f(y) < f(\hat x)}^{f(y) - f(\hat x) < 0}$.\\
+Ať $d = y - \hat x (\not = 0) \in \F(C, \hat x)$.\\
+Cíl: $d \in \F(C, \hat x) \cap \D_0(f, \hat x)$.
+
+\[
+    \underbrace{\hat x + \alpha}_{\hat x + \alpha (y- \hat x) = \alpha y + (1-\alpha) \hat x} \hspace*{-11.5mm}d \in C \quad \forall
+    \alpha \in [0, 1] \text{ z konvexity } C.
+\]
+$f$ je konvexní na $C \iff f(\hat x) + \langle \nabla f(\hat x), \overbrace{y - \hat x}^{d}\rangle \leq f(y)$.
+$\implies \langle \nabla f(\hat x), d\rangle \leq f(y) - f(\hat x) \underset{\text{z předp.}}{<} 0$.\\
+To je ale spor, protože byl předpoklad, že průnik je prázdný. My jsme ale ukázali, že není. $\qed$
+
+(b)\\
+\enquote{$\Rightarrow$} Víme.
+
+\enquote{$\Leftarrow$} Ať $\nabla f(\hat x) = 0$.
+
+Pak $\langle \nabla f(\hat x), d\rangle = 0 \, \forall d \in \R^n = \F (C; \hat x)$. Nemáme žádný směr poklesu
+$\overset{\hyperref[nutnePostacujiciKonv]{(a)}}{\implies} \hat x \in \argmin_{x \in C} f(x).\qed$
+
+\subsection{Hledání bodu minima}
+$f(x, y) = x^2 + 3y^2 - 2xy + x - 2y$
+
+$\nabla^2 f(x, y) =
+\begin{bmatrix}
+    \phantom{-}2 & -2 \\
+    -2 & \phantom{-}6
+\end{bmatrix} \dots$ dle Sylvesterova kritéria je positivně definitní. \\
+$\implies f $ je nutně (ryze) konvexní.
+
+\[
+    0 = \nabla f(x, y) =
+    \begin{bmatrix}
+        2x-2y + 1 \\
+        6y - 2x -2
+    \end{bmatrix} \rightarrow
+    \begin{matrix}
+    \phantom{-}2x - 2y = -1 \\
+    -2x + 6y = \phantom{-}2
+    \end{matrix} \rightarrow y = \frac{1}{4} \Rightarrow x = -\frac{1}{4}.
+\]
+
+\subsection{Věta o podmínkách optimality 2. řádu}\label{podOpt2}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $M \subseteq \Omega$, $\hat x \in \Int(M)$ a $f \in C^2 (\Omega)$.
+Potom platí:
+\begin{enumerate}[(a)]
+    \item Jestliže $\hat x$ je bod lokálního minima funkce $f$ na $M$, pak $\nabla^2 f(\hat x)$ je positivně
+    semidefinitní.
+    \item Jestliže $\nabla f(\hat x) = 0$ a $\nabla^2 f(\hat x)$ je positivně definitní, pak $\hat x$ je bod ostrého
+    lokálního minima.
+\end{enumerate}
+Důkaz vynecháme.
+
+\subsection{Příklad použití věty o podmínkách optimality 2. řádu}
+Je dána funkce
+\[
+    f(x, y) = \frac{1}{3}x^3 + \frac{1}{2}y^2 + xy + 2y.
+\]
+Určete lokální extrémy funkce.
+
+\[
+    0 = \nabla f(x, y) =
+    \begin{bmatrix}
+        x^2 + y \\
+        y + x + 2
+    \end{bmatrix} \rightarrow
+    \begin{matrix}
+        x^2 + y = 0 \\
+        y + x + 2 = 0
+    \end{matrix} \rightarrow x^2 - x - 2 = 0 \rightarrow (x+1)(x-2) = 0
+\]
+Podezřelé body jsou:
+\begin{itemize}
+    \item $x = -1 \implies y = -1$
+    \item $x = 2 \implies y = -4$
+\end{itemize}
+\[
+    \nabla^2 f(x, y) =
+    \begin{bmatrix}
+        2x & 1 \\
+        1 & 1
+    \end{bmatrix}
+\]
+$\nabla^2 f(-1, -1) =
+\begin{bmatrix}
+    -2 & 1 \\
+    \phantom{-}1 & 1
+\end{bmatrix} \dots$ dle Sylvesterova kritéria není positivně semidefinitní, není ani negativně semidefinitní, je
+indefinitní. Dle věty \hyperref[podOpt2]{o podmínkách optimality 2. řádu} není lokálním minimem ani maximem.\\
+$\nabla^2 f(2, -4) =
+\begin{bmatrix}
+    4 & 1 \\
+    1 & 1
+\end{bmatrix} \dots$ dle Sylvesterova kritéria je positivně definitní. V bodě $(2, -4)$ se tedy nachází (ostré) lokální
+minimum, nikoliv však globální.
+
+\subsection{Hledání bodu minima}
+Nalezněte, pokud existují, všechny body minima funkce
+\[f(x, y, z) = 2x^2 + y^2 + z^2 + xy - 2xz\]
+\[
+    \nabla^2 f(x, y, z) = 
+    \begin{bmatrix}
+        \phantom{-}4 & 1 & -2 \\
+        \phantom{-}1 & 2 & \phantom{-}0 \\
+        -2 & 0 & \phantom{-}2
+    \end{bmatrix}
+\]
+\[
+    \begin{rcases*}
+        \det \nabla^2 f(x, y, z) =
+        \begin{vmatrix}
+            \phantom{-}2 & 0 & 0 \\
+            \phantom{-}1 & 2 & 0 \\
+            -2 & 0 & 2
+        \end{vmatrix} = 2 
+        \begin{vmatrix}
+            2 & 1 \\
+            1 & 2
+        \end{vmatrix} = 6 >0 \\
+        \begin{vmatrix}
+            4 & 1 \\
+            1 & 2
+        \end{vmatrix} = 7 > 0\\
+        \begin{vmatrix}
+            4
+        \end{vmatrix} = 4 > 0
+    \end{rcases*} \text{positivně definitní} \implies f \text{ je ryze konvexní.}
+\]
+Protože $f$ je konvexní, body minima budou přesně stacionární body. A protože $f$ je ryze konvexní, tak bude mít právě 
+jeden bod minima.
+
+\begin{alignat*}{4}
+    4&x &+ \;& y &- 2&z &=\; 0 &\quad \Rightarrow 2z + y = 0 \Rightarrow z = -2y \\
+    &x &+ 2& y &  &  &=\; 0 &\quad \Rightarrow x = -2y \\
+   -2&x &  &  &+ 2&z &=\; 0 &\quad \Rightarrow x = z
+\end{alignat*}
+Jediný bod minima je tedy očividně 
+$
+\begin{bmatrix}
+    x \\
+    y \\
+    z
+\end{bmatrix}=
+\begin{bmatrix}
+    0 \\
+    0 \\
+    0
+\end{bmatrix}
+$.
+
+\subsection{Omezení ve tvaru nerovnosti - aproximace \texorpdfstring{$\F(M;\hat x)$}{F(M;x)}}
+Ať $g_1, \dots, g_k$ jsou reálné funkce definované na množině 
+$M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$, $\Omega \subseteq \R^n$ a $x \in M$.
+Označme si:
+\begin{itemize}
+    \item Množina $\I \left((g_i)_{i=1}^k;x\right)\coloneq \bc{i \in \bc{1, \dots, k} \mid g_i(x) = 0}$ se nazývá
+    indexová množina aktivních omezení v bodě $x$.
+    \item Jestliže $i \in \I \left((g_i)_{i=1}^k;x\right)$, pak $g_i(x) \leq 0$ se nazve \textbf{aktivní} omezení (ve
+    tvaru nerovnosti) v bodě $x$.
+    \item Jestliže $i \not\in \I \left((g_i)_{i=1}^k;x\right)$, pak $g_i(x) \leq 0$ se nazve \textbf{neaktivní} omezení
+    (ve tvaru nerovnosti) v bodě $x$.
+\end{itemize}
+Poznámka. V textu dále se obvykle bude uvádět pouze $\I(x) = \bc{i \in \bc{1, \dots, k} \mid g_i(x) = 0}$. Když
+přeindexujeme funkce $g_i(x)$, znamenalo by to něco jiného, proto se u $\I$ uvádí $\left((g_i)_{i=1}^k;x\right)$, ale my
+většinou přeindexovávat nebudeme.\\
+Definice. 
+Nechť $\Omega \subseteq \R^n$ je otevřená množina,
+\[
+  g_1, \dots, g_k \in C^1(\Omega), x \in M \text{ a } M = \bc{x \in \Omega\mid g_1(x) \leq 0, \dots, g_k (x) \leq 0}. 
+\]
+Definujme množinu
 \begin{align*}
-    \text{minimalisujte } &-x^2 \\
-    \text{za podmínek } &2x - 1 \leq 0, \\
-    &x \in [0,1].
+    \G \left( (g_i)_{i=1}^k; x\right) \coloneq& \bc{d \in \R^n \, \middle| \, \langle \nabla g_i(x), d \rangle \leq 0 \quad \forall i \in \I (x)} \\
+    =& \bigcap_{i \in \I(x)} \bc{d \in \R^n \, \middle| \, \langle \nabla g_i (x), d\rangle \leq 0}
 \end{align*}
-Tedy:
+jako aproximaci $\F(M; \hat x)$.
+
+% TODO: nákres
+
+\subsection{Příklad výpočtu \texorpdfstring{$\G$}{G} a \texorpdfstring{$\F$}{F}}
+Je dána množina
 \[
-    L(x, \mu) = -x^2 + \mu(2x-1) = (-x^2 + 2x\mu) - \mu
-\]
-\[
-    \varphi(\mu) = \left[\min_{x \in [0,1]}(-x^2 + 2x\mu)\right] - \mu
-\]
-Pozorování. Minimalisovaná funkce je (ryze) konkávní. Nemůže tedy v žádném vnitřním bodě nabývat minima. Dosazení 
-krajních bodů intervalu:
-\[
-    \varphi(\mu) = \min \bc{0, 2\mu -1} - \mu = 
-    \begin{cases}
-        \mu -1 & \text{pro } \mu < \frac{1}{2}, \\
-        -\mu & \text{pro } \mu \geq \frac{1}{2}.
-    \end{cases}
-\]
+    M = \bc{(x, y)^T \in \R^2 \mid y - x^3 \leq 0, -y \leq 0}
+\] a bod $\hat x = (0, 0)^T$. Určete množiny $\F(M; \hat x)$ a $\G((g_i)_{i=1}^k; \hat x)$.
+
 \begin{multicols}{2}
+    Nákres množiny.
+
     \begin{tikzpicture}
         \begin{axis}[
             axis lines=middle,
-            xlabel={\(\mu\)},
-            ylabel={\(\varphi(\mu)\)},
-            xmin=-1.9, xmax=1.9,
-            ymin=-1.9, ymax=1.9,
+            axis on top,
+            xlabel={$x$},
+            ylabel={$y$},
+            xmin=-1.2, xmax=2.2,
+            ymin=-1.5, ymax=9,
             samples=100,
-            domain=-2:2,
-            legend pos=north east,
+            domain=-1:2,
+            thick,
+            xticklabels={},
+            yticklabels={}
         ]
-            \addplot [blue, thick, domain=-2:0.5] {x - 1};
-            \addplot [blue, thick, domain=0.5:2] {-x};
-            % \addlegendentry{\(\varphi(\mu)\)}
-    
-            \addplot [only marks, mark=*] coordinates {(0.5,-0.5)};
-            
-            \draw [dotted] (axis cs:0.5,-0.5) -- (axis cs:0.5,0);
-            \draw [dotted] (axis cs:0.5,-0.5) -- (axis cs:0,-0.5);
-            
-            \addplot [only marks, mark=*] coordinates {(0.5,0)};
-            \node [above right] at (axis cs:0.5,0) {\(\frac{1}{2}\)};
-            
-            \addplot [only marks, mark=*] coordinates {(0,-0.5)};
-            \node [above left] at (axis cs:0,-0.5) {\(-\frac{1}{2}\)};
+            \addplot[name path=f, blue, thick, domain=0:2] {x^3} node[left] {$f(x) = x^3$};
+            \path[name path=x] (0,0) -- (2,0);
+            \addplot[gray!50, on background layer] fill between[of=f and x];
+            \addplot[blue, thick, domain=-1.1:0] {x^3};
         \end{axis}
     \end{tikzpicture}
 
 \columnbreak
 
-    Z grafu vyčteme: $\hat \varphi = - \frac{1}{2}$. A to samé uděláme pro $f$, kde výsledek bude $\hat f = - \frac{1}{4}$.
+    Výpočet $\F(M; \hat x)$.
 
-    Tedy $\hat \varphi < \hat f$.
+    ? $0 + \alpha d \in M \quad \forall \alpha > 0$ dostatečně malé.
+    \begin{flalign}
+        \alpha d_2 - \alpha^3 d_1^3 &\leq 0 &\\
+        - \alpha d_2 &\leq 0 \quad \forall \alpha > 0 \text{ dostatečně malé.}&
+    \end{flalign}
+    \begin{flalign*}
+        (4) &\implies d_2 \geq 0 &\\
+        (3) &\implies d_2 \leq \alpha^2 d_1^3 \quad \forall \alpha > 0 \text{ dostatečně malé.}&
+    \end{flalign*}
+
 \end{multicols}
+$d_2 \geq 0 \implies d_1 \geq 0$ a protože to platí $\forall \alpha >0$ dostatečně malá, pak $d_2 = 0$, protože si můžu
+vzít libovolné malé, tedy i limitně blízké nule, $\alpha$. \\
+$\implies \F(M; (0, 0)) = \bc{
+    \begin{bmatrix}
+        d_1 \\
+        0
+    \end{bmatrix} \in \R^2 \, \middle| \, d_1 \geq 0}$.
 
-\subsection{Věta o silné dualitě}\label{silDual}
-Nechť $\hat f < \infty$ a cílová funkce $f : \R^n \rightarrow \R$ je konvexní. Předpokládejme, že platí alespoň jedna z 
-následujících podmínek:
-\begin{enumerate}[(a)]
-    \item Komponenty $g_1, \dots, g_k$ zobrazení $g$ splňují \hyperref[slaterPodm]{Slaterovu podmínku} regularity.
-    \item Zobrazení $g$ je afinní a $\Omega$ je konvexní polyedrická množina.
-\end{enumerate}
-Potom $\hat f = \hat \varphi$. Je-li navíc $\hat f \in \R$, pak existuje řešení úlohy ($D$).
+Výpočet $G\left( (g_i)_{i=1}^k; \hat x\right)$.
 
-Důkaz vynecháme.
+Označme si $g_1(x, y) = y-x^3$ a $g_2(x, y) = -y$.\\
+Pak: 
+\[
+    \begin{rcases*}
+        \langle \nabla g_1(0), d \rangle = \left\langle 
+        \begin{bmatrix}
+            0 \\
+            1
+        \end{bmatrix},
+        \begin{bmatrix}
+            d_1 \\
+            d_2
+        \end{bmatrix}\right\rangle = d_2 \leq 0\\
+        \langle \nabla g_1(0), d \rangle = \left\langle 
+        \begin{bmatrix}
+            \phantom{-}0 \\
+            -1
+        \end{bmatrix},
+        \begin{bmatrix}
+            d_1 \\
+            d_2
+        \end{bmatrix}\right\rangle = d_2 \geq 0
+    \end{rcases*} d_2 = 0
+\]
+$\implies \G((g_1, g_2), (0, 0)) = \bc{
+\begin{bmatrix}
+    d_1 \\
+    0    
+\end{bmatrix} \, \middle| \, d_1 \in \R}$ $\rightarrow$ $\G$ je větší jak $\F$. 
+
+Protože $\G$ je pouze aproximací $\F$, může a bude se stávat, že $\G$ bude větší jak $\F$.
+
+Přidejme si další, fakticky zbytečnou, podmínku navíc.
+
+$M = \{(x, y)^T \in \R^2 \mid \underbrace{y - x^3}_{g_1(x, y)} \leq 0, \underbrace{-y}_{g_2(x,y)} \leq 0, 
+\underbrace{-x -y}_{g_3(x,y)} \leq 0\}$
+
+\[
+    \langle \nabla g_3(0), d\rangle = \left\langle 
+    \begin{bmatrix}
+        -1 \\
+        -1
+    \end{bmatrix},
+    \begin{bmatrix}
+        d_1 \\
+        d_2
+    \end{bmatrix}
+    \right\rangle = -d_1 - \underbrace{d_2}_{=0} \leq 0 \implies -d_1 \leq 0
+\]
+$\implies \G((g_1, g_2, g_3), (0,0)) = \bc{
+\begin{bmatrix}
+    d_1 \\
+    d_2    
+\end{bmatrix} \mid d_1 \geq 0}$. Což odpovídá přesně množině $\F$.
+
+Je tedy očividné, že $\G$ závisí na popisu množiny.
+
+\subsection{Ukázka, že aproximací \texorpdfstring{$\F$}{F} lze zkazit prázdnost průniku}
+Mějme optimalisační úlohu
+\begin{align*}
+    \text{minimalisujte } x + y \\
+    \text{za podmínek } y - x^3 &\leq 0, \\
+     - y &\leq 0.
+\end{align*}
+Pak
+\begin{align*}
+    \D_0(f; 0) &= \bc{d \in \R^n \mid \langle \nabla f(0), d\rangle < 0} \\
+    &\hspace*{-1.8em}\underset{\nabla f(0) = (1, 1)}{=} \bc{
+    \begin{bmatrix}
+        d_1 \\
+        d_2
+    \end{bmatrix} \mid d_1 + d_2 < 0} \dots \text{ například } 
+    \begin{bmatrix}
+        -1 \\
+        \phantom{-}0
+    \end{bmatrix} \in \D_0(f; 0), \text{ ale } 
+    \begin{bmatrix}
+        -1 \\
+        \phantom{-}0
+    \end{bmatrix} \in \G(x)!
+\end{align*}
+Tedy $\G(\hat x) \cap \D_0(f; \hat x) \not= \emptyset$ $\implies$ nahrazením podmínek optimality můžeme zkazit prázdnost 
+průniku, protože $\G$ může být větší jak $\F$.

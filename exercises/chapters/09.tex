@@ -1,166 +1,851 @@
-\section{Numerické metody optimalisace}
-
-\subsection{Newtonova metoda v jednorozměrné optimalisaci}
-Je dána rovnice $g(x) = 0$, kde $g \in C^1(\R)$. Nechť $x_0 \in \R$. Položme
-\[
-    x_{k-1} = x_k - \frac{g(x_k)}{g'(x_k)}\text{, } k \in \N_0.
-\]
-
-\begin{tikzpicture}[scale=1,>=latex]
-    \draw[->] (-0.5,0) -- (4,0) node[right] {};
-    \draw[->] (0,-1.5) -- (0,3) node[above] {};
-
-    \draw[domain=-0.5:4,samples=200,very thick]
-        plot(\x,{0.5*(\x-1)^2 - 0.5});
-
-    \draw[dashed,domain=-0.5:4]
-        plot(\x,{0.5*(\x-1.5) - 0.375});
-
-    \draw[] (1.5, 0.05) -- (1.5, -0.05);
-
-    \draw[densely dotted]
-        (1.5,0) -- (1.5,{0.5*(1.5-1)^2 - 0.5});
-
-    \draw[] (2.25, 0.05) -- (2.25, -0.05);
-
-    \node[above] at (1.5,0) {$x_0$};
-    \node[below] at (2.25,0) {$x_1$};
-    \node[above] at (2.6,1.4) {$g(x)$};
-    \node[right] at (3,0.8) {$y = g'(x_0)\,(x - x_0) + g(x_0)$};
-
-\end{tikzpicture}
-\begin{itemize}
-    \item Předpokládejme, že $g'(x_k) \not=0$ pro každé $k \in \N_0$.
-    \item Pokud $x_0$ je dostatečně blízko řešení $\hat x$ rovnice $g(x)$, pak $x_k \rightarrow \hat x$.
-\end{itemize}
-Je dána funkce $f \in C^2(\R)$. Hledejme stacionární body funkce $f$, tj. řešme rovnici $f'(x) = 0$. Z Newtonovy metody 
-pro řešení rovnic plyne, že
-\[
-    x_{k+1} = x_k - \frac{f'(x_k)}{f''(x_k)}
-\]
-\textbf{Algoritmus}
+\section{Lineární programování}
+Úlohy lineárního programování jsou optimalisační úlohy, ve kterých je
 \begin{enumerate}[(a)]
-    \item Zvolíme $\varepsilon > 0$ a $x_0 \in \R$. Položíme $k = 0$.
-    \item Vypočítáme $f'(x_k)$ a $f''(x_k)$.
-    \item Je-li $|f'(x_k)| < \varepsilon$, pak algoritmus končí a $x_k$ je hledaná aproximace stacionárního bodu. V 
-    opačném případě přejdeme na další krok.
-    \item Položíme
-    \[
-        x_{k+1} = x_k - \frac{f'(x_k)}{f''(x_k)}
-    \]
-    (nutno ověřit, že $f''(x_k) \not= 0$) hodnotu $k$ zvýšíme o 1 a jdeme na krok (b).
+    \item cílová funkce afinní (bez újmy na obecnosti se můžeme omezit na lineární funkce)
+    \item přípustná množina je konvexní polyedrická množina (tj. lze popsat pomocí konečné soustavy lineárních rovnic a
+    nerovnic)
 \end{enumerate}
-% \subsection{Příklad použití Newtonovy metody}
-% Je dána funkce $f(x) = x^4 - 4x^2 + 2$.
-% \begin{center}
-%     \begin{tikzpicture}
-%         \begin{axis}[
-%             domain=-2:2,
-%             samples=100,
-%             axis lines=middle,
-%             xlabel={$x$},
-%             ylabel={$f(x)$},
-%             width=10cm,
-%             height=8cm,
-%             enlargelimits=true,
-%         ]
-%         \addplot[
-%             blue,
-%             thick
-%         ] {x^4 - 4*x^2 + 2};
-%         \end{axis}
-%     \end{tikzpicture}
-% \end{center}
+Příklad.
 
-\subsection{Omezení na minimalisační úlohy}
-Chceme nalézt alespoň přibližně bod minima (alespoň lokálního) funkce $f: \R^n \rightarrow \R$.\\
-\textbf{Postup:}
-\begin{itemize}
-    \item Zvolíme $x_0$ a konstruujeme posloupnost, jejíž členy jsou dány \[ x_{k+1} = x_k + \alpha_k d_k,\] kde 
-    $\alpha_k \geq 0$ je \underline{délka} $k$-tého kroku a $d_k \in \R^n$ je \underline{směr} $k$-tého kroku.
-    \item Vhodnou volbou délky kroku a směru se snažíme dosáhnout toho, aby $f(x_{k+1}) < f(x_k)$.
-\end{itemize}
+Firma vyrábí 2 druhy výrobků $A$ a $B$. V tabulce je uvedeno množství materiálu (ve vhodných jednotkách) potřebný k
+výrobě jednotkového množství daného druhu výrobku a také jeho prodejní cena.
+\begin{center}
+    \begin{tabular}{|c|c|c|l|}
+        \hline
+        & Materiál $X$ & Materiál $Y$ & Cena \\ \hline
+        Výrobek $A$ & 2 & 3 & 6000 Kč \\ \hline
+        Výrobek $B$ & 4 & 4 & 10000 Kč \\ \hline
+    \end{tabular}
+\end{center}
+Na skladu je jen 10 jednotek materiálu $X$ a 12 jednotek materiálu $Y$. Jak mají ve firmě nastavit výrobni proces, aby
+celková cena za vyrobené množství výrobků byla co největší?
 
-\subsection{Nepodmíněná optimalisace - Metoda největšího spádu}
-V metodě největšího spádu předpokládáme, že $f \in C^1(\R^n)$.\\
-\textbf{Volba směru $d_k$:}
-\begin{itemize}
-    \item Chceme, aby $f(x_{k+1}) < f(x_k)$, a proto za směr $d_k$ budeme volit směr poklesu, tj. prvek z $\D(f; x_k)$.
-    \item Konkrétně volme $d_k = -\nabla f(x_k)$.
-    \item Jestliže $\nabla f(x_k) \not= 0$, pak 
-    \[
-        \langle d_k, \nabla f(x)\rangle = \langle -\nabla f(x_k), \nabla f(x_k)\rangle = - \| \nabla f(x_k)\|^2 < 0,
-    \] tj. $d_k \in \D_0(f; x_k) \subseteq \D(f;x_k)$.
-    \item Směr $d_k = -\nabla f (x_k)$ je směr největšího poklesu v bodě $x_k$.
-\end{itemize}
-\textbf{Volba délky kroku $\alpha_k$:}
-\begin{itemize}
-    \item Buď pevná volba kroku $\alpha_k = \alpha$ pro každé $k \in \N_0$. Příliš velké $\alpha$ může zkazit konvergenci.
-    \item Nebo například $\alpha_k \in \argmin_{\alpha \geq 0} f(x_k - \alpha \nabla f(x_k))$.
-\end{itemize}
-Příklad špatně zvoleného $\alpha$.
-
-Mějme $f(x) = \frac{1}{2} \| x\|^2, \alpha = 11, x_0 = \begin{bmatrix}1 \\ 1\end{bmatrix}$. 
-Pak $\nabla f(x) = \frac{1}{2}2 x = x$.
+Odpověď je přímo v zadání.
+\begin{flalign*}
+    x_1& \dots \text{množství výrobku } A& \\
+    x_2& \dots \text{množství výrobku } B&
+\end{flalign*}
 \begin{align*}
-    x_1 &= x_0 + \alpha (-x_0) = -10 x_0 \\
-    x_2 &= x_1 - \alpha x_1 = -10x_1 = (-10)^2 x_0 \\
-    &\, \vdots \\
-    x_k &= (-10)^k x_0 \dots \text{tedy očividně nekonverguje.}
+    \text{maximalisujte } 6x_1 + 10x_2 \\
+    \text{za podmínek } 2x_1 + 4x_2 &\leq 10,\\
+    3x_1 + 4x_2 &\leq 12,\\
+    x_1, x_2 &\geq 0.
 \end{align*}
-\textbf{Volba kritéria zastaveni:}
+
+\begin{multicols}{2}
+    \begin{tikzpicture}[scale=1]
+        \fill[blue!20,opacity=0.5]
+            (0,0) --
+            (0,2.5) --
+            (2,1.5) -- %
+            (4,0) --
+            (0,0);
+        \node[black] at (1.5,0.5) {\large $M$};
+
+        \draw[->] (0,0) -- (6,0) node[right] {$x_1$};
+        \draw[->] (0,0) -- (0,4) node[above] {$x_2$};
+
+        \foreach \x in {0,1,2,3,4,5} \draw (\x,0) -- (\x,-0.1) node[below] {\x};
+        \foreach \y in {1,2,3} \draw (0,\y) -- (-0.1,\y) node[left] {\y};
+
+        % 2x1 + 4x2 = 10  => x2 = (10 - 2x1)/4
+        \draw[thick,blue] (0,2.5) -- (5,0);
+
+        % 3x1 + 4x2 = 12 => x2 = (12 - 3x1)/4
+        \draw[thick,red] (4,0) -- (0,3);
+
+        \draw[step=1cm,gray!40,very thin] (0,0) grid (6,4);
+
+        \begin{scope}[shift={(3,3.8)}, scale=0.5]
+            \draw[black] (0,0.4) rectangle (6,-0.8);
+            \draw[thick,blue] (0.5,0) -- (1,0);
+            \node[right] at (1,0) {\footnotesize $2x_1 + 4x_2 = 10$};
+
+            \draw[thick,red] (0.5,-0.5) -- (1,-0.5);
+            \node[right] at (1,-0.5) {\footnotesize $3x_1 + 4x_2 = 12$};
+        \end{scope}
+    \end{tikzpicture}
+
+\columnbreak
+
+    Graficky lze nalézt, že maximum se nabývá v bodě $(2, \frac{3}{2})^T$. Maximum je $f(2, \frac{3}{2}) = 27$.
+\end{multicols}
+Pokračování příkladu.
+
+Obchodník chce od firmy koupit veškerý materiál ze skladu. Jaké ceny za materiál $X$ a $Y$ by měl firmě nabídnout, aby
+zaplatil co nejmenší částku a firmě se přesto vyplatilo materiál prodat namísto výroby výrobků?
+
+\newpage
+Tato otázka vede na úlohu:
+\begin{flalign*}
+    y_1& \dots \text{cena za jednotkové množství materiálu } X& \\
+    y_2& \dots \text{cena za jednotkové množství materiálu } Y&
+\end{flalign*}
+\begin{align*}
+    \text{minimalisujte } 10y_1 + 12y_2 \\
+    \text{za podmínek } 2y_1 + 3y_2 &> 6, \\
+    4y_1 + 4y_2 &> 10,\\
+    y_1, y_2 &\geq 0.
+\end{align*}
+Pozorování. Tyto dvě úlohy jsou navzájem duální.
+
+\subsection{Zápis úlohy lineárního programování}
+Je dána úloha
+\begin{align*}
+    \text{minimalisujte } x_1 - x_2 \\
+    \text{za podmínek } 2x_1 - 3x_2 &= 5, \\
+    -2 \leq x_2 &\leq 3, \\
+    x_1 &\leq 0.
+\end{align*}
+Zapišme úlohu v kanonickém tvaru.\\
+Pomocné substituce: $y_1 = -x_1$, $x_2 = y_2 - y_3$, $y_2, y_3 \geq 0$.
+\begin{align*}
+    \text{minimalisujte } -y_1-y_2+y_3 \\
+    \text{za podmínek } -2y_1 - 3y_2 + 3y_3 &\geq 5, \\
+    2y_1 + 3y_2 - 3y_3 &\geq -5, \\
+    -y_2 + y_3 &\geq -3, \\
+    y_2 - y_3 &\geq -2,\\
+    y_1, y_2, y_3 &\geq 0.
+\end{align*}
+
+Zapišme úlohu ve standardním tvaru.
+\begin{align*}
+    \text{minimalisujte } -y_1-y_2+y_3 \\
+    \text{za podmínek } -2y_1 - 3y_2 + 3y_3 & = 5, \\
+    y_2 - y_3 - y_4 &= -2, \\
+    y_2 - y_3 + y_5 &= 3, \\
+    y_1, y_2, y_3, y_4, y_5 &\geq 0.
+\end{align*}
+
+\subsection{Basický přípustný bod}\label{BPB}
+Bod $x \in M$ se nazve basický přípustný bod (BPB) úlohy lineárního programování, pokud existuje $m$-prvková množina
+$B \subseteq \bc{1, \dots, n}$ taková, že
+\begin{enumerate}[(a)]
+    \item $A_B$ je regulární,
+    \item $x_j = 0$ pro každé $j \in \N$.
+\end{enumerate}
+Množina $B$ z definice BPB se nazývá přípustná báse.
+
+\subsection{Příklad BPB}
+Nechť
+$A =
+    \begin{bmatrix}
+        1 & 2 & 3 \\
+        0 & 2 & 3
+    \end{bmatrix}
+$ a $b =
+    \begin{bmatrix}
+        5 \\
+        3
+    \end{bmatrix}
+$. Jaké jsou BPB?
 \begin{itemize}
-    \item $\|\nabla f(x_k)\| < \varepsilon$.
-    \item Další možnosti jsou $\| x_{k+1} - x_k\| < \varepsilon$, $|f(x_{k+1} - f(x))| < \varepsilon$, \dots
-    \item Možná je i kombinace více kritérií.
+    \item $B = \bc{1,2} \dots A_B =
+    \begin{bmatrix}
+        1 & 2 \\
+        0 & 2
+    \end{bmatrix}$. Evidentně invertibilní. \\
+    $x =
+    \begin{bmatrix}
+    x_1 \\
+    x_2 \\
+    x_3
+    \end{bmatrix} \dots \underbrace{Ax}_{A_B x_B +  A_N\underbrace{x_N}_{=0}}=b$. Tedy
+    $\left[
+        \begin{array}{cc|c}
+        1 & 2 & 5 \\
+        0 & 2 & 3
+        \end{array}
+    \right]
+    \rightarrow x = \frac{1}{2}
+    \begin{bmatrix}
+        1 \\
+        3 \\
+        0
+    \end{bmatrix} \in M$ je BPB.
+    \item $B = \bc{1,3} \dots A_B =
+    \begin{bmatrix}
+        1 & 3 \\
+        0 & 3
+    \end{bmatrix}$. Evidentně invertibilní. \\
+    Tedy
+    $\left[
+        \begin{array}{cc|c}
+        1 & 3 & 5 \\
+        0 & 3 & 3
+        \end{array}
+    \right]
+    \rightarrow x =
+    \begin{bmatrix}
+        2 \\
+        0 \\
+        1
+    \end{bmatrix} \in M$ je BPB.
+    \item $B = \bc{2,3} \dots A_B =
+    \begin{bmatrix}
+        2 & 3 \\
+        2 & 3
+    \end{bmatrix}$. Evidentně není regulární. Žádný bod nemůže být BPB.
 \end{itemize}
 
-\textbf{Algoritmus}
-\begin{enumerate}
-    \item Zvolme $x_0 \in \R^n, \varepsilon > 0$. Položme $k = 0$.
-    \item Je-li $\| \nabla f(x_k)\| < \varepsilon$, pak algoritmus končí a $x_k$ je hledaná aproximace. V opačném 
-    případě přejdeme na další krok.
-    \item Položíme $d_k = -\nabla f(x_k)$.
-    \item Nalezneme $\alpha_k \in \argmin_{\alpha \geq 0} f(x_k - \alpha \nabla f(x_k))$.
-    \item Položíme $x_{k+1} = x_k - \alpha_k \nabla f(x_k)$. Zvýšíme hodnotu $k$ o 1 a jdeme na krok (b).
-\end{enumerate}
+\subsection{Tvrzení o charakterisaci BPB}\label{charBPB}
+Nechť $x \in M$. Pak $x$ je BPB právě tehdy, když $\bc{a_j \mid j \in J(x)}$ je lineárně nezávislá množina.
 
-\subsection{Podmíněná optimalisace - Metoda projekce gradientu}
-Modifikuje metodu největšího spádu.\\
-Předpokládejme $f \in C^1 (\R^n)$ a $C \subseteq \R^n$ je neprázdná, uzavřená a konvexní.\\
-Nulovost gradientu již není vhodným kritériem pro zastavení.
+Důkaz.\\
+\enquote{$\Rightarrow$}: $x$ je BPB $\implies$ existuje $B \subseteq \bc{1, \dots, n}$ $m$-prvková tak, že
+$\bc{a_j \mid j \in B}$ je lineárně nezávislá. Navíc $J(x) \subseteq B$, protože $J(x)$ obsahuje ty indexy, které
+odpovídají kladným komponentám a všechny komponenty indexované mimo indexy z $B$ jsou nulové.
 
-\textbf{Algoritmus}
+Tedy $\bc{a_j \mid j \in J(x)}$ je lineárně nezávislá.
+
+\enquote{$\Leftarrow$}: Je-li $|J(x) = m|$, pak jasné ($B = J(x)$).\\
+Ať $|J(x)| < m$. Z předpokladu víme $\rank(A) = m$. Pak lze $J(x)$ doplnit do $m$-prvkové množiny
+$B \subseteq \bc{1,\dots, n}$ tak, že $\bc{a_j \mid j \in B}$ je lineárně nezávislá. $\implies x$ je BPB. $\qed$
+
+\subsection{Tvrzení, že dva různé PBP musí mít různé množiny \texorpdfstring{$B$}{B}} \label{ruzneBPB}
+Pro každou $m$-prvkovou množinu $B \subseteq \bc{1, \dots, n}$ takovou, že $A_B$ je regulární, existuje nejvýše jedno
+$x \in M$ splňující $x_j = 0$ pro každé $j \in N$.
+
+Důkaz. Sporem.
+
+Ať $x, y \in M$ jsou různé a splňují $x_j = y_j = 0$ pro každé $j \in N$.
+
+\[
+    \begin{rcases}
+        b = Ax = \sum_{j = 1}^{n} x_j a_j = \sum_{j \in B}x_j a_j = A_B x_B \\
+        b = Ay = A_B y_B
+    \end{rcases} A_B x_B = A_B y_B
+\]
+A protože $A$ je dle předpokladu regulární, tak dostaneme:
+\[
+    x_B = y_B \implies x = y
+\]
+Což je ale spor, protože $x$ a $y$ mají být různé. $\qed$
+
+Horní hranice počtu BPB úlohy LP je tedy $\binom{n}{m}$.
+
+\subsection{Příklad na degenerované BPB}
+Nechť
+\[
+    A =
+    \begin{bmatrix}
+    1 & 0 & 1 & 1 \\
+    1 & 1 & 0 & 1
+    \end{bmatrix} \quad \text{ a } \quad b =
+    \begin{bmatrix}
+        1 \\
+        1
+    \end{bmatrix}.
+\]
+Určete všechny basické přípustné body.
+
+\begin{itemize}
+    \item $B = \bc{1,2}$. Tedy $A_B =
+        \begin{bmatrix}
+            1 & 0 \\
+            1 & 1
+        \end{bmatrix}$ je určitě regulární.\\
+        Pak očividně $\begin{bmatrix}1, 0, 0, 0\end{bmatrix}^T$ je BPB s přípustnou básí $B$.
+    \item $B = \bc{1,3}$. Tedy $A_B =
+        \begin{bmatrix}
+            1 & 1 \\
+            1 & 0
+        \end{bmatrix}$ je určitě regulární.\\
+        Pak $\begin{bmatrix}1, 0, 0, 0\end{bmatrix}^T$ je BPB s přípustnou básí $B$.
+    \item $B = \bc{1,4}$. $A_B =
+        \begin{bmatrix}
+            1 & 1 \\
+            1 & 1
+        \end{bmatrix}$ je singulární, tedy není přípustnou básí BPB.
+    \item $B = \bc{2,3}$. Tedy $A_B =
+        \begin{bmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{bmatrix}$ je určitě regulární.\\
+        Pak $\begin{bmatrix}0, 1, 1, 0\end{bmatrix}^T$ je BPB s přípustnou básí $B$.
+    \item $B = \bc{2,4}$. Tedy $A_B =
+        \begin{bmatrix}
+            0 & 1 \\
+            1 & 1
+        \end{bmatrix}$ je určitě regulární.\\
+        Pak $\begin{bmatrix}0, 0, 0, 1\end{bmatrix}^T$ je BPB s přípustnou básí $B$.
+    \item $B = \bc{3,4}$. Tedy $A_B =
+        \begin{bmatrix}
+            1 & 1 \\
+            0 & 1
+        \end{bmatrix}$ je určitě regulární.\\
+        Pak $\begin{bmatrix}0, 0, 0, 1\end{bmatrix}^T$ je BPB s přípustnou básí $B$.
+\end{itemize}
+
+\subsection{Příklad na souvislost BPB a krajních bodů}
+Nechť
+\[
+    A =
+    \begin{bmatrix}
+    1 & 2 & 3 \\
+    0 & 2 & 3
+    \end{bmatrix} \quad \text{ a } \quad b =
+    \begin{bmatrix}
+        5 \\
+        3
+    \end{bmatrix}.
+\]
+$M = \bc{x \in \R^3_+ \mid Ax = b}$.
+
+Již víme, že $x =
+\begin{bmatrix}
+2 \\
+0 \\
+1
+\end{bmatrix}$ a $y =
+\begin{bmatrix}
+    2 \\
+    \frac{3}{2} \\
+    0
+\end{bmatrix}$ jsou BPB.
+
+\[
+    Ax = b \dots
+    \left[
+        \begin{array}{ccc|c}
+        1 & 2 & 3 & 5 \\
+        0 & 2 & 3 & 3
+        \end{array}
+    \right] \sim
+    \left[
+        \begin{array}{ccc|c}
+        1 & 0 & 0 & 2 \\
+        0 & 2 & 3 & 3
+        \end{array}
+    \right]
+\]
+Tedy řešení soustavy $z =
+\begin{bmatrix}
+2 \\
+\frac{1}{2}(3-3t) \\
+t
+\end{bmatrix}, t \in \R$. Kdy je $z \in \R^3_+$?
+
+Právě tehdy, když $t \geq 0$ a $1\geq t$, tedy $t \in [0,1]$.
+
+\[
+    z \in [x, y] \iff z = tx + (1-t)y =
+    \begin{bmatrix}
+        2 \\
+        \frac{3}{2} \\
+        0
+    \end{bmatrix} + t
+    \begin{bmatrix}
+        \phantom{-}0 \\
+        -\frac{3}{2} \\
+        \phantom{-}1
+    \end{bmatrix} =
+    \begin{bmatrix}
+        2 \\
+        \frac{3}{2} (1-t) \\
+        t
+    \end{bmatrix}, t \in [0,1].
+\]
+Tedy $M = [x, y]$.
+
+\subsection{Věta o souvislosti BPB a krajních bodů}
 \begin{enumerate}[(a)]
-    \item Zvolme $x_0 \in C$ a $\varepsilon > 0$. Položmě $k = 0$.
-    \item Vypočteme $d_k = -\nabla f(x_k)$.
-    \item Nalezneme $\alpha_k \in \argmin_{\alpha \geq 0} f(x_k - \alpha \nabla f(x_k))$.
-    \item Položíme $x_{k+1} = P_C (x_k - \alpha_k \nabla f(x_k))$.
-    \item Je-li $|f(x_{k+1}) - f(x_k)| < \varepsilon$, pak algoritmus končí a $x_k$ je hledaná aproximace. V opačném 
-    případě zvýšíme hodnotu $k$ o 1 a jdeme na krok (b).
+    \item Nechť $x \in M$. Pak $x$ je BPB úlohy LP právě tehdy, když $x$ je krajní bod množiny $M$.
+    \item $M$ je neprázdná právě tehdy, když existuje BPB úlohy LP.
 \end{enumerate}
 
-\subsection{Podmíněná optimalisace - Metoda penalisačních funkcí}
-Nechť $f, g_1, \dots, g_m \in C^1(\R^n)$ a je dána úloha
+Důkaz (a).
+
+\enquote{$\Rightarrow$}: Sporem.
+
+Existují dva různé body $y, z \in M$ tak, že $x = \frac{y+z}{2}$. Ať $B$ je přípustná báse BPB $x$.
+
+Pak $y_j = z_j = 0$ pro každé $j \in N$. Navíc $A_B$ je regulární dle \hyperref[BPB]{definice BPB}. Ale dle této stejné
+definice platí, že $y$ a $z$ jsou BPB s přípustnou básí $B$. Ale dle \hyperref[ruzneBPB]{tvrzení} nemohou mít dva různé
+BPB stejnou přípustnou bási. $\implies y = z$, což je spor.
+
+\enquote{$\Leftarrow$}: Sporem.
+
+Ať $x$ není BPB. Pak z \hyperref[charBPB]{charakterisace BPB} plyne, že $\bc{a_j \mid j \in J(x)}$ je lineárně závislá
+množina.
+
+$\rightarrow$ existují $d_j \in \R, j \in J(x)$, ne všechny nulové tak, že
+\[
+    \sum_{j\in J(x)} d_j a_j = 0.
+\]
+Definujme $d_j = 0$ pro každé $j \in \bc{1, \dots, n} \setminus J(x)$.
+
+Pak $A d = 0$. Odtud $A(x\pm \alpha d) = b \pm \alpha \underbrace{A d}_{=0} = b$ pro všechna $\alpha \in \R$.
+
+Pro dostatečně malé $\alpha > 0$ je $x \pm \alpha d \geq 0$. Pro takové $\alpha$ je $x \pm \alpha d \in M$. Pak
+$x + \alpha d \not = x - \alpha d$ a navíc evidentně platí $x = \frac{(x+\alpha d) + (x - \alpha d)}{2}$. To je spor s
+tvrzením, že máme krajní bod. $\qed$
+
+Důkaz (b). Vynecháme.
+
+\subsection{Základní věta lineárního programování}
+\begin{enumerate}[(a)]
+    \item Úloha LP má řešení právě tehdy, když $M$ je neprázdná a $\langle x, c\rangle$ je zdola omezená na $M$.
+    \item Má-li LP řešení, pak existuje řešení úlohy LP, které je BPB.
+\end{enumerate}
+Důkaz (a).\\
+\enquote{$\Rightarrow$}: Když máme řešení, pak určitě leží v $M$ a je určitě zdola omezená, protože to je právě to ono
+řešení.
+
+\enquote{$\Leftarrow$}: \href{https://cs.wikipedia.org/wiki/Weierstrassova_v%C4%9Bta}{Weierstrassova věta}. $\qed$
+
+Důkaz (b). \\ Ať $\hat x \in \argmax_{x \in M} \langle x,c\rangle$. \\
+Protože $M$ je kompaktní a konvexní, tak víme $\hat x \in \conv(\ext(M))$.
+
+$\ext(M) \dots$ konečná množina, tj. $\ext(M) = \bc{e_1, \dots, e_k}$.
+\[
+    \underset{\text{obal}}{\overset{\text{konvexní}}{\implies}} \hat x = \sum_{i=1}^{l} \lambda_i e_i \text{ pro nějaké }
+    \lambda_1, \dots, \lambda_l \geq 0 \text{ a } \sum \lambda_i = 1.
+\]
+Alespoň jeden krajní bod musí být mezi $e_i$. 
+Ať $e_N \in \ext(M)$ splňuje $\langle e_N, c\rangle = \min_{i \in \bc{1, \dots, l}} \langle e_i, c\rangle$.
+
+\[
+    \langle \hat x, c\rangle = \sum_{i=1}^{l} \lambda_i \langle e_i, c\rangle \geq \left(\sum_{i=1}^{l} \lambda_i\right)
+    \langle e_N, c\rangle = \langle e_N, c\rangle \implies e_N \in \argmax_{x \in M} \langle x, c\rangle. \qed
+\]
+
+\subsection{Příklad na hledání duální úlohy}
+Mějme úlohu
+\begin{align*}
+    \text{minimalisujte } x_1 + 2x_2 \\
+    \text{za podmínek } x_1 + x_2 &\geq 1 \dots -x_1 -x_2 + 1 \leq 0, \\
+    x_1, x_2 &\geq 0.
+\end{align*}
+\begin{enumerate}[(a)]
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \geq 0$ je přímé omezení.
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \in \R$ je přímé omezení.
+\end{enumerate}
+(a) $L(x_1, x_2, \mu) = x_1 + 2x_2 + \mu(-x_1 -x_2 + 1)$
+\[
+    \varphi(\mu) = \inf_{(x_1, x_2) \in \R_+^2} L(x_1, x_2, \mu) = \inf_{(x_1, x_2) \in \R_+^2} (1-\mu)x_1 + 
+    (2-\mu)x_2 + \mu
+\]
+\[
+    \varphi(\mu) = \underbrace{\left[\inf_{x_1 \in \R_+} (1-\mu)x_1\right]}_{=
+    \begin{cases}
+        0 &\text{ pro } 1 \geq \mu, \\
+        - \infty &\text{ pro } 1 < \mu.
+    \end{cases}} + \underbrace{\left[\inf_{x_2 \in \R_+} (2-\mu)x_2\right]}_{=
+    \begin{cases}
+        0 &\text{ pro } 2 \geq \mu, \\
+        - \infty &\text{ pro } 2 < \mu.
+    \end{cases}} + \mu
+\]
+\[
+    \implies \varphi(\mu) =
+    \begin{cases}
+        \mu &\text{ pro } \mu \in [0,1], \\
+        -\infty &\text{ pro } \mu \not\in [0,1].
+    \end{cases}
+\]
+A tedy duální úloha je
+\begin{align*}
+    \text{maximalisujte }& \mu \\
+    \text{za podmínek }& \mu \in [0,1].
+\end{align*}
+
+(b) $L(x_1, x_2, \mu_1, \mu_2, \mu_3) = x_1 + 2x_2 + \mu_1(-x_1 -x_2 + 1) + \mu_2(-x_1) + \mu_3(-x_2)$
+\[
+    \varphi(\mu) = \inf_{(x_1, x_2) \in \R^2} L(x_1, x_2, \mu_1, \mu_2, \mu_3) = \inf_{(x_1, x_2) \in \R^2} 
+    (1-\mu_1 - \mu_2)x_1 + (2-\mu_1-\mu_3)x_2 + \mu_1
+\]
+\[
+    \varphi(\mu) = \underbrace{\left[\inf_{x_1 \in \R}(1-\mu_1-\mu_2)x_1\right]}_{=
+    \begin{cases}
+        0 & \text{ pro } 1-\mu_1-\mu_2 = 0, \\
+        -\infty & \text{ pro } 1-\mu_1-\mu_2 \not= 0.
+    \end{cases}} + \underbrace{\left[\inf_{x_2 \in \R}(2 - \mu_1 - \mu_3)x_2\right]}_{
+    \begin{cases}
+        0 & \text{ pro } 2-\mu_1-\mu_3 = 0, \\
+        -\infty & \text{ pro } 2-\mu_1-\mu_3 \not= 0.
+    \end{cases}} + \mu_1
+\]
+\[
+    \varphi(\mu_1, \mu_2, \mu_3) = 
+    \begin{cases}
+        \mu_1 &\text{ pro } D_\varphi = \bc{(\mu_1, \mu_2, \mu_3) \in \R^3_+ \quad \middle| \quad 1-\mu_1-\mu_2 = 0, 
+         2-\mu_1-\mu_3 = 0}, \\
+        - \infty & \text{ jinak.}
+    \end{cases}
+\]
+A tedy duální úloha je
+\begin{align*}
+    \text{maximalisujte } \mu_1 \\
+    \text{za podmínek } 1 - \mu_1 - \mu_2 &= 0, \\
+    2 - \mu_1 - \mu_3 &= 0, \\
+    \mu_1, \mu_2, \mu_3 &\geq 0.
+\end{align*}
+
+\subsection{Příklad na hledání duální úlohy}
+Mějme úlohu
+\optAs{min}{x_1^2 + x_2^2}{
+    -x_1 -x_2 + 4 &\leq 0, \\
+    x_1, x_2 &\geq 0.
+} 
+\begin{enumerate}[(a)]
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \geq 0$ je přímé omezení.
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \in \R$ je přímé omezení.
+\end{enumerate}
+% TODO: dodělat příklad
+
+\subsection{Tvrzení o množině všech řešení úlohy LP}
+Množina všech řešení úlohy LP je konvexní polyedrická množina.
+
+\subsection{Příkad na Simplexovu metodu}
+Je dána úloha
+\optAs{min}{-x_1 - 3x_2}{
+    2x_1 + 3x_2 + x_3 &= 6, \\
+    -x_1 + x_2 + x_4 &= 1, \\
+    x_1, x_2, x_3, x_4 &\geq 0.
+}
+\begin{equation*}
+    \begin{array}{c}
+        \\
+        z \\
+        x_3 \\
+        x_4 \\
+    \end{array}
+    \begin{bmatrix}
+        \begin{array}{cccc|c}
+            x_1 & x_2 & x_3 & x_4 & b \\ \hline
+            -1 & -3 & 0 & 0 & 0 \\ \hline
+            \phantom{-}2 & \phantom{-}3 & 1 & 0 & 6  \\
+            -1 & \phantom{-}1 & 0 & 1 & 1
+        \end{array}
+    \end{bmatrix}
+    \text{; BPB je }
+    \begin{bmatrix}
+        0 \\
+        0 \\
+        6 \\
+        1
+    \end{bmatrix}.
+\end{equation*}
+Vyměníme $x_2$ a $x_4$ v BPB.\\
+$x_2 = 1 + x_1 - x_4$\\
+$\rightarrow z = -x_1 - 3(1+x_1-x_4) = -4x_1 + 3x_4 - 3$\\
+$\rightarrow x_3 = 6 - 2x_1 - 3(1+x_1-x_4) = 3-5x_1+3x_4$
+
+\begin{equation*}
+    \begin{array}{c}
+        \\
+        z \\
+        x_3 \\
+        x_2 \\
+    \end{array}
+    \begin{bmatrix}
+        \begin{array}{cccc|c}
+            x_1 & x_2 & x_3 & x_4 & b \\ \hline
+            -4 & 0 & 0 & \phantom{-}3 & -3 \\ \hline
+            -5 & 0 & 0 & \phantom{-}3 & \phantom{-}3  \\
+            \phantom{-}1 & 0 & 0 & -1 & \phantom{-}1
+        \end{array}
+    \end{bmatrix}
+    \text{; BPB je }
+    \begin{bmatrix}
+        0 \\
+        1 \\
+        3 \\
+        0
+    \end{bmatrix}.
+\end{equation*}
+%TODO dodělat
+
+\subsection{Příklad na Simplexovu metodu}
+\[
+\begin{aligned}
+\text{minimalisujte}\quad &2x_2 - x_4\\
+\text{za podmínek}\quad&
+  \begin{alignedat}{2}
+    x_1 + 3x_2 - x_4 &=&\;2,\\
+    x_2 + x_3 + 2x_4 &=&\;3,\\
+    x_1,x_2,x_3,x_4&\ge&\;0.
+   \end{alignedat}
+\end{aligned}
+\]
+
+\subsection{Příklad na Simplexovu metodu}
+\[
+\begin{aligned}
+\text{minimalisujte}\quad &4x_3 - 6x_4\\
+\text{za podmínek}\quad&
+  \begin{alignedat}{2}
+    x_2 - 6x_3 + 2x_4 &=&\;6,\\
+    x_1 + 2x_3 - x_4  &=&\;5,\\
+    x_1,x_2,x_3,x_4&\ge&\;0.
+   \end{alignedat}
+\end{aligned}
+\]
+
+\subsection{Tvrzení o vztahu přípustné množiny a hodnoty cílové funkce}
+Přípustná množina $M$ úlohy LP je neprázdná právě tehdy, když v bodě minima 
+$\begin{bmatrix} \hat x \\ \hat y \end{bmatrix} \in \Omega$ úlohy $F_1$ tak, že $g(\hat x, \hat y) = 0$.
+V tomto případě je $\hat y = 0$.
+
+Důkaz.
+
+\enquote{$\Rightarrow$}: Ať $\hat x \in M$. Pak $v = \begin{bmatrix} \hat x \\ 0 \end{bmatrix}$ leží v $\Omega$ a 
+$g(v) = 0$ (tj. $v$ je řešení úlohy $(F_1)$ splňující $g(v) = 0$). A to jsme přesně chtěli dokázat. $\qed$
+
+\enquote{$\Leftarrow$}: Ať $\begin{bmatrix} \hat x \\ \hat y \end{bmatrix}$ je řešení úlohy ($F_1$), splňující 
+$g(\hat x, \hat y) = 0$. Pak $\hat y = 0$, a tedy $b = A \hat x + \hat y = A \hat x$. \\ A protože $\hat x \geq 0$, tak 
+$\hat x \in M$. $\qed$
+
+\subsection{Příklad dvoufázové Simplexové metody}
+Je dána úloha
+\optAs{min}{x_2}{%
+    &x_1 = 1, \\
+    x_1 - &x_2 = 2, \\
+    x_1, &x_2 \geq 0.
+}
+Sloupeček pravých stran je větší roven nule, takže můžeme použít dvoufázovou Simplexovu metodu.
+
+1. fáze:
+\begin{alignat*}{3}
+    \text{minimalisujte} &&  y_1 + y_2  &&      \\
+    \text{za podmínek } &\quad&  x_1 + y_1  && {}= 1, \\
+                        &\quad&  x_1 - x_2 + y_2 && {}= 2, \\
+                        &\quad&  x_1, x_2, y_1, y_2 && {}\geq 0.
+\end{alignat*}
+%TODO dodělat a vyřešit situaci s optAs - přednáška 10
+
+\subsection{Tvrzení o primární a duální úloze}
+Nechť $A \in \M_{m,n}(\R)$, $c \in \R^n$ a $b \in \R^m$. Duální úloha k úloze
 \[
 \left.\begin{aligned}
-    &\text{minimalisujte}&& f(x) \\
-    &\text{za podmínky}  && g_1(x) \leq 0, \\
-    & && \quad \quad \vdots \\
-    & && g_m(x) \leq 0. 
+    &\text{minimalizujte}&& \langle x, c \rangle \\
+    &\text{za podmínky}  && Ax \geq b, \\
+    &                    && x \geq 0.
 \end{aligned}
-\right\} (U)
+\right\} (P)
 \]
-\begin{itemize}
-    \item Chceme nahradit $(U)$ úlohami nepodmíněné optimalisace.
-    \item $p(x) = \sum_{i=1}^{m} \left[\max \bc{0, g_i(x)}\right]^2 \dots$ penalisační funkce. 
-\end{itemize}
-Penalisační funkce zařídí, že čím dál budeme od přípustné množiny $C$, tím více budeme takové body penalisovat.
+je
+\[
+\left.\begin{aligned}
+    &\text{maximalisujte}&& \langle y,b \rangle \\
+    &\text{za podmínky}  && A^Ty \geq c, \\
+    &                    && y \geq 0.
+\end{aligned}
+\right\} (D)
+\]
+Důkaz. 
+\[
+    L(x, y) = \langle x, c\rangle + \langle y, b- Ax\rangle = \langle x, c\rangle + \langle y, b\rangle - 
+    \underbrace{\langle y, Ax\rangle}_{\langle A^Ty, x\rangle} = \langle x, c-A^Ty\rangle + \langle y, b\rangle
+\]
+\[
+    \inf_{x\geq 0} L(x, y) = \langle y, b\rangle + \inf_{x\geq 0} \langle x, c-A^Ty\rangle =
+    \begin{cases}
+        \langle y, b\rangle & \text{je-li } c-A^Ty \geq 0, \\
+        - \infty & \text{jinak.}
+    \end{cases}
+\]
+Tedy duální úloha k $(P)$ je 
+\[
+\begin{aligned}
+    &\text{maximalisujte}&& \langle y,b \rangle \\
+    &\text{za podmínky}  && c-A^T y \geq 0, \rightarrow A^T y \leq c \\
+    &                    && y \geq 0.
+\end{aligned}
+\]
+$\qed$
 
-\textbf{Algoritmus}
+\subsection{Hledání duální úlohy k duální úloze}
+Mějme
+\[
+\left.\begin{aligned}
+    &\text{maximalisujte}&& \langle y,b \rangle \\
+    &\text{za podmínky}  && A^Ty \geq c, \\
+    &                    && y \geq 0.
+\end{aligned}
+\right\} (D)
+\]
+Přepíšeme:
+\[
+\begin{array}{r@{\quad}l@{\qquad}c@{\qquad}r@{\quad}l}
+\text{minimalisujte}& -\langle y, b \rangle&           &\text{minimalisujte}& \langle y, -b \rangle \\
+\text{za podmínky}  & A^T y \leq c,        & \text{tj.}&\text{za podmínky}  & (-A^T) y \geq -c, \\
+                    & y \geq 0.            &           &                    & y \geq 0.
+\end{array}
+\]
+Duální úloha po tom je:
+\[
+    \begin{array}{r@{\quad}l@{\qquad}c@{\qquad}r@{\quad}l}
+        \text{maximalisujte}& \langle x,-c \rangle&           & \text{minimalisujte}& \langle x,c \rangle \\
+        \text{za podmínky}  &(A^T)^Tx \leq -b,    & \text{tj.}&\text{za podmínky}   & Ax \geq b, \\
+                            & x \geq 0.           &           &                     & x \geq 0.
+    \end{array}
+\]
+
+\subsection{Věta o silné dualitě pro LP}
+Úloha $(P)$ má řešení právě tehdy, když má řešení úloha $(D)$. V takovém případě jsou hodnoty obou úloh stejné.
+
+Nechť $\hat f < \infty$ a cílová funkce $f : \R^n \rightarrow \R$ je konvexní. Předpokládejme, že platí alespoň jedna z 
+následujících podmínek
 \begin{enumerate}[(a)]
-    \item Zvolme $\varepsilon > 0, c_0 > 0$ a $\alpha > 1$. Položmě $k = 0$.
-    \item Nalezněme bod minima $x_k$ funkce $f(x) + c_k p(x)$ na $\R^n$.
-    \item Je-li $c_k p(x) < \varepsilon$, pak algoritmus končí a $x_k$ je hledaná aproximace. V opačném 
-    případě zvýšíme hodnotu $k$ o 1 a jdeme na krok (b).
+    \item Komponenty $g_1, \dots, g_k$ zobrazení $g$ splňují \hyperref[slaterPodm]{Slaterovu podmínku} regularity.
+    \item Zobrazení $g$ je \hyperref[sec:afin]{afinní} a $\Omega$ je konvexní polyedrická množina.  
 \end{enumerate}
+Potom $\hat f = \hat \varphi$. Je-li navíc $\hat f \in \R$, pak existuje řešení úlohy $(D)$.
+
+Důkaz vynecháme.
+
+\subsection{Simplexová metoda a řešení duální úlohy}\label{simplDual}
+Do úlohy $(P)$ zaveďme doplňkové proměnné $y = (y_1, \dots, y_m)^T$. Tím dostaneme úlohu
+\[
+\left.\begin{aligned}
+    &\text{minimalizujte}&& \langle x, c \rangle \\
+    &\text{za podmínky}  && Ax -y \geq b, \\
+    &                    && x,y \geq 0.
+\end{aligned}
+\right\} (\widetilde{P})
+\]
+Je-li výsledná simplexová tabulka
+\[
+    \begin{array}{cccc cc|c}
+        \widetilde{c}_1 & \cdots & \widetilde{c}_n & \widetilde{c}_{n+1} & \cdots & \widetilde{c}_{n+m} & \cdots \\ \hline
+        \vdots      & \cdots & \vdots      & \vdots          & \cdots & \vdots          & \vdots \\
+    \end{array}
+\]
+kde $\widetilde{c_1}, \dots, \widetilde{c}_{m+n} \geq 0$ a sloupce na lévé straně odpovídají postupně proměnným 
+$x_1, \dots, x_n, y_1, \dots, y_m$. Pak $\hat y = \left(\widetilde{c}_{n+1},\dots, \widetilde{c}_{m+n}\right)^T$ je řešením 
+úlohy $(D)$.
+
+\subsection{Příklad řešení duální úlohy}
+Je dána dvojice vzájemně duálních úloh
+\[
+    \begin{array}{r@{\quad}l@{\qquad}c@{\qquad}r@{\quad}l}
+        \text{minimalisujte}& \langle x,c \rangle&           & \text{maximalisujte}& \langle y,b \rangle \\
+        \text{za podmínky}  & Ax \geq b,         & \text{tj.}&\text{za podmínky}   & A^Ty \leq c, \\
+                            & x \geq 0.          &           &                     & y \geq 0.
+    \end{array}
+\]
+kde $A = 
+\begin{bmatrix}
+    0 & 4 & 1 \\
+    1 & 1 & 0
+\end{bmatrix}$, $b = 
+\begin{bmatrix}
+    2 \\ 1
+\end{bmatrix}$, $c = 
+\begin{bmatrix}
+    1 \\ 2 \\ 4
+\end{bmatrix}$.
+
+Zaměřme se na primární úlohu.
+Tedy doplníme doplňkové proměnné dle \hyperref[simplDual]{předchozí poznámky}.
+\optAs{min}{\left\langle 
+\begin{bmatrix}
+    x_1 \\ x_2 \\ x_3
+\end{bmatrix}, 
+\begin{bmatrix}
+    1 \\ 2 \\ 4
+\end{bmatrix}\right\rangle}{%
+\begin{bmatrix}
+    0 & 4 & 1 & -1 & \phantom{-}0 \\
+    1 & 1 & 0 & \phantom{-}0 & -1
+\end{bmatrix}
+\begin{bmatrix}
+    x_1 \\ x_2 \\ x_3 \\ y_1 \\ y_2
+\end{bmatrix} \geq 
+\begin{bmatrix}
+    2 \\ 1
+\end{bmatrix} \\
+x_1, \dots, y_2 \geq 0
+}
+Simplexová tabulka:
+\[
+    \begin{array}{c|rrrrr|r}
+           &x_1 & x_2 & x_3 & y_1 & y_2 &  \\
+           & 1 & 2 & 4 & 0 & 0 & 0 \\ \hline
+        x_3& 0 & 4 & 1 &-1 & 0 & 2 \\
+        x_1& 1 & 1 & 0 & 0 &-1 & 1 \\
+           & 0 &-15& 0 & 4 & 1 & -9\\ \hline
+        x_3& 0 & 4 & 1 &-1 & 0 & 2 \\
+        x_1& 1 & 1 & 0 & 0 &-1 & 1
+    \end{array}
+\]
+Zafixujme si sloupec $x_2$, protože má v sobě záporný koeficient. Teď vhodně vybrat řádek $\rightarrow$ vezmeme pravou 
+stranou a podělíme ji koeficientem, tedy $\frac{2}{4}=\frac{1}{2}$ a $\frac{1}{1}=1$. Vybereme menší podíl.
+\[
+    \begin{array}{c|rrrrr|r}
+           &x_1 & x_2 & x_3 & y_1 & y_2 &  \\
+           & 0 & 0 & \frac{15}{4} & \frac{1}{4} & 1 & -9 + \frac{15}{2}\\ \hline
+        x_2& 0 & 1 & \frac{1}{4} &-\frac{1}{4} & 0 & \frac{1}{2} \\
+        x_1& 1 & 0 & -\frac{1}{4} & \frac{1}{4} &-1 & \frac{1}{2} \\
+    \end{array}
+\]
+Protože v levé části prvního řádku není žádný záporný koeficient, algoritmus končí.
+
+Úloha má řešení $\left(\frac{1}{2}, \frac{1}{2}, 0, 0, 0 \right)^T$. Tedy řešení původní primární úlohy je 
+$\left(\frac{1}{2}, \frac{1}{2}, 0\right)^T$. A když dosadíme, tak zjistíme, že toto je řešení i duální úlohy.
+
+\subsection{Hledání duální úlohy}
+V $\R^n$ jsou daný množiny bodů $A = \bc{a_1, \dots, a_k}$ a $B = \bc{b_1, \dots, b_l}$. Ať $w \in \R^n$ a 
+$\lambda \in \R$. K úloze
+\optAs{min}{h(w,\lambda) = \frac{1}{2}\| w\|^2}{%
+    \langle a_i, w\rangle + \lambda \geq 1 & \text{ pro všechna } i = 1, \dots, k, \\
+    \langle b_j, w\rangle + \lambda \leq -1 & \text{ pro všechna } j = 1, \dots, l.
+}
+Zkonstruujte úlohu duální (přímé omezení je $w \in \R^n$, $\lambda \in \R$).
+\[
+    L(w, \lambda, y, z) = \frac{1}{2} \sum_{i=1}^{k}y_i \left[1-\langle a_i, w\rangle - \lambda\right] +
+    \sum_{j=1}^{l}z_j \left[1+ \langle b_j, w\rangle + \lambda\right]
+\]
+\[
+    \inf_{w \in \R^n, \lambda \in \R} L(w, \lambda, y, z) = ?
+\]
+Pro fixní $y \in \R^k, z \in \R^l$ je $(w, \lambda) \mapsto L(w, \lambda, y, z)$ konvexní funkce.
+\[
+    \underbrace{\nabla_w L(w, \lambda, y, z)}_{= \begin{bmatrix} \partial w_1 L \\ \vdots \\ \partial w_u L\end{bmatrix}} 
+    = w - \sum_{i=1}^{k}a_iy_i + \sum_{i=1}^{l}b_i z_i = 0
+\]
+\[
+    \implies w = \sum_{i=1}^{k} a_i y_i - \sum_{i=1}^{l}b_i z_i \implies \sum_{i=1}^{k}y_i = \sum_{i=1}^{l}z_i
+\]
+A tedy máme:
+\begin{align}
+    \varphi(y, z) &= \frac{1}{2} \left\langle \sum_{i=1}^{k}a_i y_i - \sum_{i=1}^{l}b_i z_i, 
+    \sum_{j=1}^{k}a_j y_j - \sum_{j=1}^{l}b_j z_j \right\rangle \\
+    &+ \sum_{i=1}^{k}y_i + \sum_{i=1}^{l}z_i - \sum_{i=1}^{k}y_i 
+    \left\langle a_i, \sum_{j=1}^{k}a_j y_j - \sum_{j=1}^{l}b_jk_j\right\rangle\\
+    &+ \sum_{i=1}^{l}z_i \left\langle b_i, \sum_{j=1}^{k}a_j y_i - \sum_{j=1}^{l}b_j z_j\right\rangle
+\end{align}
+Což upravíme:
+\begin{align}
+    \varphi(y, z) &= \frac{1}{2} \left[
+       \sum_{i=1}^{k} \sum_{j=1}^{l} z_i y_j \langle a_i, a_j \rangle
+     - \sum_{i=1}^{k} \sum_{j=1}^{l} y_i z_j \langle a_i, b_j \rangle
+     - \sum_{i=1}^{l} \sum_{j=1}^{k} z_i y_j \langle b_i, a_j \rangle
+     + \sum_{i=1}^{k} \sum_{j=1}^{l} z_i y_j \langle b_i, b_j \rangle
+    \right] \\
+    &+ \sum_{i=1}^{k} y_i + \sum_{i=1}^{l} z_i
+     - \sum_{i=1}^{k} \sum_{j=1}^{k} y_i y_j \langle a_i, a_j \rangle
+     + \sum_{i=1}^{k} \sum_{j=1}^{l} y_i y_j \langle a_i, b_j \rangle \\
+    &+ \sum_{i=1}^{k} \sum_{j=1}^{l} z_i y_j \langle b_j, a_j \rangle
+     - \sum_{i=1}^{l} \sum_{j=1}^{l} z_i z_j \langle b_i, b_j \rangle
+\end{align}
+\begin{multicols}{2}
+    A tedy:
+    \begin{align}
+        \varphi(y, z) &= -\frac{1}{2}\sum_{i=1}^{k}\sum_{j=1}^{k}y_i y_j \langle a_i, a_j\rangle \\
+        &+ \sum_{i=1}^{k}\sum_{j=1}^{l}y_i z_j \langle a_i, b_j\rangle \\
+        &- \frac{1}{2}\sum_{i=1}^{l}\sum_{j=1}^{l}y_i z_j \langle b_i, b_j\rangle \\
+        &+ \sum_{i=1}^{k}y_i + \sum_{i=1}^{l}z_i
+    \end{align}
+    
+    Hledaná duální úloha je:
+    \begin{align*}
+        \text{maximalisujte } \varphi(y, z) \\
+        \text{za podmínek } \sum_{i=1}^{k}y_i - \sum_{j=1}^{l}z_j = 0& \\
+        y, z \geq 0& 
+    \end{align*}
+\end{multicols}
+
+

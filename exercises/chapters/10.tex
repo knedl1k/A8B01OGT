@@ -1,381 +1,80 @@
-\section{Úvod do strategických her}
-
-\subsection{Příklad Vězňovo dilemma}
-Hra je daná tabulkou:
+\section{Kvadratické programování}
+Úlohy kvadratického programování jsou optimalisační úlohy, ve kterých je
+\begin{enumerate}[(a)]
+    \item cílová funkce $f$ kvadratická, tj.
+    \[
+        f(x) = \langle Qx, x\rangle + \langle x,c\rangle + d,
+    \]
+    kde $Q \in \M_n (\R)$, $c \in \R^n$, $d \in \R$ (budeme předpokládat, že $Q$ je symetrická a $d=0$);
+    \item přípustná množina je konvexní polyedrická množina.
+\end{enumerate}
+Úloha kvadratického programování není obecně konvexní!
+\begin{itemize}
+    \item Pokud ale minimalisujeme kvadratickou funkci $f$, ve které je $Q$ positivně semidefitní matice, pak se jedná o 
+    konvexní úlohu.
+\end{itemize}
+Dále už budeme uvažovat jen úlohu kvadratického programování ve tvaru
 \[
-\begin{array}{|c| |c|c|}
-    \hline
-    & P & Z \\ \hline \hline
-    P & -5;-5 & 0;-10 \\ \hline
-    Z & -10;0 & -1;-1 \\ \hline
-\end{array}
+\left.\begin{aligned}
+    &\text{minimalisujte}&& \frac{1}{2}\langle Qx, x \rangle + \langle x,c\rangle \\
+    &\text{za podmínky}  && Ax \leq b, 
+\end{aligned}
+\right\} (QP)
 \]
-$N = \bc{1,2}$.\\
-$S_1 = S_2 = \bc{P, Z}$.
+kde $Q \in \M_n(\R)$ je positivně \underline{definitní}, $A \in \M_{m,n}(\R)$, $b \in \R^m$ a $c \in \R^n$.
 
-Funkce úžitku:
+Poznámka. $\frac{1}{2}$ v zápisu se nám zde zrovna hodí. Samozřejmě lze schovat přímo do matice $Q$, proto v původní 
+definici není vidět.
+
+Cílová funkce v $(QP)$ je ryze konvexní. Úloha tak má nejvýše jedno řešení. KKT podmínky
 \begin{align*}
-    u_1(P, P) &= -5\phantom{0} = u_2(P, P) \\
-    u_1(P, Z) &= \phantom{-}0\phantom{0} = u_2(Z, P) \\
-    u_1(Z, P) &= -10 = u_2(P, Z) \\
-    u_1(Z, Z) &= -1\phantom{0} = u_2(Z, Z)
+    Qx + c + A^T \mu = 0 \\
+    \langle Ax - b, \mu\rangle = 0 \\
+    \mu \geq 0
 \end{align*}
+jsou nutné a postačující.
 
-\subsection{Příklad Panna nebo orel}
-Hra je daná tabulkou:
+\subsection{Tvrzení o duální úloze kvadratického programování}
+Duální úloha k úloze $(QP)$ je
 \[
-\begin{array}{|c| |c|c|}
-    \hline
-    & P & O \\ \hline \hline
-    P & 10;-10 & -10;10 \\ \hline
-    O & -10;10 & 10;-10 \\ \hline
-\end{array}
+\left.\begin{aligned}
+    &\text{maximalisujte}&& -\frac{1}{2}\langle By, y \rangle - \langle y,v\rangle - \frac{1}{2}\langle Q^{-1}c, c\rangle \\
+    &\text{za podmínky}  && y \geq 0, 
+\end{aligned}
+\right\} (DQP)
 \]
-První hráč dostane body, pokud se budou oba hráči shodovat. Druhý hráč dostane body, pokud budou odlišné.
-
-\subsection{Příklad Manželský spor}
-Hra je daná tabulkou:
-\[
-\begin{array}{|c| |c|c|}
-    \hline
-    & D & H \\ \hline \hline
-    D & 2;3 & -1;-1 \\ \hline
-    H & 0;0 & 3;2 \\ \hline
-\end{array}
-\]
-Hokej a Divadlo. Čísla jsou radosti.
-
-\subsection{Příklad Kámen-nůžky-papír}
-Hra je daná tabulkou:
-\[
-\begin{array}{|c| |c|c|c|}
-    \hline
-    & K & N & P \\ \hline \hline
-    K & 0;0 & 1;-1 & -1;1 \\ \hline
-    N & -1;1 & 0;0 & 1;-1 \\ \hline
-    P & 1;-1 & -1;1 & 0;0 \\ \hline
-\end{array}
-\]
-\newpage
-\subsection{Nashovo equilibrium}\label{nash}
-Nechť $G = (N, (S_i)^n_{i=1}, (u_i)^n_{i=1})$ je strategická hra. Strategický profil $\hat \sigma = 
-(\hat \sigma_1, \dots, \hat \sigma_n) \in S$ se nazve Nashovo equilibrium hry $G$, jestliže pro každé $i \in N$ a každé
-$\sigma_i \in S_i$ je 
-\[
-    u_i(\hat \sigma_1, \dots, \hat \sigma_n) \geq u_i (\hat\sigma_1, \dots, \hat\sigma_{i-1}, \sigma_i, 
-    \hat \sigma_{i+1}, \dots, \hat \sigma_n)
-\]
-Nashovo equilibrium nám říká, že hráč, pouze změnou své strategie, si nemůže polepšit. Nevede k 
-\enquote{maximalisaci zisku}, ale k rovnováze.\\
-Zároveň N.e. nemusí být určeno jednoznačně, dokonce ani nemusí existovat.\\
-Speciálně pokud $N = \bc{1,2}$.
-\begin{itemize}
-    \item $u_1(\sigma_1, \hat \sigma_2) \leq u_1(\hat \sigma_1, \hat \sigma_2)$ $\forall \sigma_1 \in S_1$,
-    \item $u_2(\hat \sigma_1, \sigma_2) \leq u_2(\hat \sigma_1, \hat \sigma_2)$ $\forall \sigma_2 \in S_2$.
-\end{itemize}
-
-\subsection{Vězňovo dilemma a Nashovo equilibrium}
-\[
-\begin{array}{|c| |c|c|}
-    \hline
-    & P & Z \\ \hline \hline
-    P & -5;-5 & 0;-10 \\ \hline
-    Z & -10;0 & -1;-1 \\ \hline
-\end{array}
-\]
-\begin{enumerate}[(a)]
-    \item Strategický profil $(P, P)$: 
-    \begin{align*}
-        u_1(Z, P) \leq u_1(P, P) \checkmark \\
-        u_1(P, P) \leq u_1(P, P) \checkmark \\
-        u_2(P, Z) \leq u_2(P, P) \checkmark \\
-        u_2(P, P) \leq u_2(P, P) \checkmark
-    \end{align*}
-    $\implies (P, P)$ je N. e.
-    \item Strategický profil $(P, Z)$: Zde není N. e., neboť 
-    \[
-        u_2(P, Z) < u_2 (P, P).
-    \]
-    \item Strategický profil $(P, Z)$: Zde není N. e., neboť 
-    \[
-        u_1(Z, P) < u_1 (P, P).
-    \]
-    \item Strategický profil $(Z, Z)$: Zde není N. e., neboť 
-    \[
-        u_1(Z, Z) < u_1 (P, Z).
-    \]
-\end{enumerate}
-
-\subsection{Panna nebo orel a Nashovo equilibrium}
-\[
-\begin{array}{|c| |c|c|}
-    \hline
-    & P & O \\ \hline \hline
-    P & 10;-10 & -10;10 \\ \hline
-    O & -10;10 & 10;-10 \\ \hline
-\end{array}
-\]
-Zde N.e. neexistuje.
-
-\subsection{Manželský spor a Nashovo equilibrium}
-\[
-\begin{array}{|c| |c|c|}
-    \hline
-    & D & H \\ \hline \hline
-    D & 2;3 & -1;-1 \\ \hline
-    H & 0;0 & 3;2 \\ \hline
-\end{array}
-\]
-Strategické profily $(D, D)$ a $(H,H)$ jsou jediná N.e. v této hře.
-\newpage
-\subsection{Tvrzení o Nashově equilibriu}\label{tvrNash}
-Nechť $G = (N, (S_i)^n_{i=1}, (u_i)^n_{i=1})$ je strategická hra a $\hat \sigma \in S$. Pak následující tvrzení jsou 
-ekvivalentní:
-\begin{enumerate}[(a)]
-    \item $\hat \sigma$ je Nashovo equilibrium.
-    \item Pro každé $i \in N$ je
-    \[
-        \hat \sigma_i \in \argmax_{\sigma_i \in S_i} u_i (\hat \sigma_i, \dots, \hat \sigma_{i-1}, \sigma_i, 
-        \hat \sigma_{i+1}, \dots, \hat \sigma_n).
-    \]
-\end{enumerate}
-Důkaz plyne přímo z definice Nashova equilibria.
-
-\subsection{Příklad Cournotův model oligopolu a Nashovo equilibrium}
-Ať
-\begin{itemize}
-    \item $N = \bc{1,2}$ (tj. uvažujeme model duopolu) a $S_1 = S_2 = [0, \infty)$.
-    \item $C_1(q_1) = cq_1$ a $C_2(q_2) = cq_2$, kde $c>0$.
-    \item $P(q_1 + q_2) = a- b(q_1 + q_2)$, kde $a>c$ a $b>0$.
-    \item $u_1(q_1, q_2) = [a-b(q_1 + q_2)]q_1 - cq_1$ a \\
-    $u_2(q_1, q_2) = [a-b(q_1 + q_2)]q_2 - cq_2$.
-\end{itemize}
-\begin{align}
-    \frac{\partial u_1}{\partial q_1} = 0 \dots -bq_1 + a-b(q_1 + q_2) -c = 0 \rightarrow -2bq_1 = -a + c + bq_2 \\
-    \frac{\partial u_2}{\partial q_2} = 0 \dots -bq_2 + a-b(q_1 + q_2) -c = 0 \rightarrow -2bq_2 = -a + c + bq_1
-\end{align}
-Dosadíme do (5):
-\[
-    -2bq_1 = -a + c + \frac{a-c}{2} - \frac{bq_1}{2} \implies \left(\frac{b}{2} - 2b\right)q_1 = -\frac{a-c}{2}
-\]
-\[
-    \implies q_1 = \frac{a-c}{3b} > 0
-\]
-Z (6):
-\[
-    q_2 = \frac{a-c}{2b} - \frac{1}{2}\left(\frac{a-c}{3b}\right) = \frac{3 (a-c) - (a-c)}{6b} = \frac{a-c}{3b} > 0
-\]
-Díky \hyperref[tvrNash]{tvrzení o Nashově equilibriu} jsme našli dvojici, která je Nashovým equilibriem: 
-$\left(\frac{a-c}{3b}, \frac{a-c}{3b}\right)$.
-\newpage
-\subsection{Hra dvou hráčů s nulovým součtem}
-Hra dvou hráčů s nulovým součtem je strategická hra
-\[
-    G = (\bc{1,2}, (S_1, S_2), (u_1, u_2))
-\]
-taková, že pro každé $(\sigma_1, \sigma_2) \in S_1 \times S_2$ je
-\[
-    u_1(\sigma_1, \sigma_2) + u_2(\sigma_1, \sigma_2) = 0.
-\]
-\begin{itemize}
-    \item Hráči mají zcela opačné zájmy.
-    \item Stačí zadat jen jednu funkci užitku, neboť $u_1 = -u_2$.
-    \item Je zbytečné uvádět množinu $\bc{1,2}$ všech hráčů.
-    \item Zjednodušené značení hry dvou hráčů:
-    \[G = (S_1, S_2, u) \text{, kde } u = u_1.\]
-\end{itemize}
-
-\subsection{Definice ceny hry}\label{cenaHry}
-Ať $G = (S_1, S_2, u)$ je hra dvou hráčů s nulovým součtem.
-\begin{enumerate}[(a)]
-    \item Dolní cena hry $G$ je číslo
-    \[\underline{v} \coloneqq \sup_{\sigma \in S_1} \inf_{\tau \in S_2} u(\sigma, \tau).\]
-    \item Horní cena hry $G$ je číslo
-    \[\overline{v} \coloneqq \inf_{\tau \in S_2} \sup_{\sigma \in S_1} u(\sigma, \tau).\]
-    \item Řekněme, že $v \in \R$ je \textbf{cena hry} $G$, jestliže $v = \underline{v} = \overline{v}$.
-\end{enumerate}
-Pozorování.
-\begin{itemize}
-    \item První hráč nemůže \enquote{získat} méně, než $\underline{v}$.
-    \item Druhý hráč nemůže \enquote{prohrát} více, než $\overline{v}$.
-    \item Platí $\underline{v} \leq \overline{v}$, neboť:
-    \[
-        \inf_{\tau \in S_2} u(\sigma, \tau) \leq u(\sigma, \tilde{\tau}) \quad \forall \sigma \in S_1, 
-        \forall \tilde{\tau} \in S_2
-    \]
-    Aplikujme supremum:
-    \[  
-        \sup_{\sigma \in S_1} \inf_{\tau \in S_2} u(\sigma, \tau) \leq \sup_{\sigma \in S_1} u(\sigma, \tilde{\tau}) 
-        \quad \forall \tilde{\tau} \in S_2
-    \]
-    Levá strana je dolní odhad pravé. A infímum pravé je největší dolní mez.
-    \[
-        \underbrace{\sup_{\sigma \in S_1} \inf_{\tau \in S_2} u(\sigma, \tau)}_{\underline{v}} \leq 
-        \underbrace{\inf_{\tau \in S_2} \sup_{\sigma \in S_1} u(\sigma, \tilde{\tau})}_{\overline{v}}
-    \]
-\end{itemize}
-
-\subsection{Definice optimální strategie}\label{optimalStrat}
-Ať $G = (S_1, S_2, u)$ je hra dvou hráčů s nulovým součtem a $v$ je její cena.
-Řekněme, že
-\begin{enumerate}[(a)]
-    \item $\hat \sigma \in S_1$ je optimální strategie \textbf{prvního} hráče, jestliže
-    \[v = \inf_{\tau \in S_2} u(\hat \sigma, \tau),\]
-    \item $\hat \tau \in S_2$ je optimální strategie \textbf{druhého} hráče, jestliže
-    \[v = \sup_{\sigma \in S_1} u(\sigma, \hat \tau).\]
-\end{enumerate}
-
-\subsection{Příklad na optimální strategii}
-Hra $G$ je dána tabulkou:
-\[
-\begin{array}{|c| |c|c|}
-    \hline
-    & C & D \\ \hline \hline
-    A & 1;-1 & 2;-2 \\ \hline
-    B & 3;-3 & 4;-4 \\ \hline
-\end{array}
-\]
-A protože $G$ je hra dvou hráčů s nulovým součtem, stačí zadat tabulku:
-\[
-\begin{array}{|c| |c|c|}
-    \hline
-    & C & D \\ \hline \hline
-    A & 1 & 2 \\ \hline
-    B & 3 & 4 \\ \hline
-\end{array}
-\]
-Tedy $G = (S_1, S_2, u)$, kde $S_1 = \bc{A, B}$, $S_2 = \bc{C, D}$ a
-\begin{align*}
-    u(A,C) = 1, \\
-    u(A,D) = 2, \\
-    u(B,C) = 3, \\
-    u(B,D) = 4.
-\end{align*}
-Určeme dolní cenu hry $G$:
-\begin{align*}
-    \inf_{\tau \in S_2} u(A, \tau) = 1, \\
-    \inf_{\tau \in S_2} u(B, \tau) = 3. \\
-\end{align*}
-\[
-    \underline{v} = \sup_{\sigma \in S_1} \inf_{\tau \in S_2} u(\sigma, \tau) = 3
-\]
-Obdobně horní cena hry $G$:
-\[
-    \overline{v} = \inf_{\tau \in S_2} \sup_{\sigma \in S_1} u(\sigma, \tau) = 3
-\]
-A proto je cena hry $v = 3$. Optimální strategie prvního hráče je pouze $B$. Optimální strategie druhého hráče je pouze 
-$C$.
-Shodou náhod je $(B,C)$ \hyperref[nash]{Nashovým equilibriem}.
-
-\subsection{Optimální strategie Panna nebo orel}
-$G$ je hra dvou hráčů s nulovým součtem, a proto stačí zadat tabulku:
-\[
-\begin{array}{|c| |c|c|}
-    \hline
-    & P & O \\ \hline \hline
-    P & \phantom{-}10 & -10 \\ \hline
-    O & -10 & \phantom{-}10 \\ \hline
-\end{array}
-\]
-Určeme dolní cenu hry $G$:
-\[
-    \underline{v} = \sup_{\sigma \in S_1} \inf_{\tau \in S_2} u(\sigma, \tau) = -10
-\]
-Obdobně horní cena hry $G$:
-\[
-    \overline{v} = \inf_{\tau \in S_2} \sup_{\sigma \in S_1} u(\sigma, \tau) = 10
-\]
-Optimální strategie pro prvního i druhého hráče neexistuje, protože horní a dolní cena hry jsou rozdílné.
-
-\subsection{Optimální strategie pouze pro jednoho hráče}
-Uvažme hru $G=(S_1, S_2, u)$ dvou hráčů s nulovým součtem, kde $S_1 = S_2 = (0,1)$ a $u(\sigma, \tau) = \sigma \tau$.
-
-Určeme dolní cenu hry $G$:
-\[
-    \underline{v} = \sup_{\sigma \in S_1} \inf_{\tau \in S_2} \sigma \tau = \sup_{\sigma \in S_1} 0 = 0
-\]
-Horní cena hry $G$:
-\[
-    \overline{v} = \inf_{\tau \in S_2} \sup_{\sigma \in S_1} \sigma \tau = \inf_{\tau \in S_2} \tau = 0
-\]
-A proto je cena hry $v = 0$. Optimální strategie prvního hráče je každá strategie z $S_1$. Optimální strategie druhého 
-hráče neexistuje.
-
-\subsection{Tvrzení o existenci optimální strategie}
-Ať $G = (S_1, S_2, u)$ je hra dvou hráčů s nulovým součtem taková, že $S_1$ a $S_2$ jsou konečné. Jestliže existuje cena
-hry $G$, pak nutně existuje optimální strategie prvního a také druhého hráče.
+kde $B = AQ^{-1}A^T$ a $v = AQ^{-1}c + b$.
 
 Důkaz.
-
-Díky předpokladu, že $S_1$ a $S_2$ jsou konečné množiny, můžeme při výpočtech dolní, respektive horní, ceny hry nahradit
-$\sup$ za $\max$, respetive $\inf$ za $\min$. A protože budeme hledat $\max$, respetive $\min$, na konečné množině 
-strategií, pak nutně musí $\max$, respektive $\min$, existovat. \\ A to tedy budou optimální strategie. $\qed$
-
-\subsection{Sedlový bod typu maxmin}\label{sedlmax}
-Nechť $f: M \times N \rightarrow \R$. Řekněme, že $(\hat x, \hat y) \in M \times N$ je \textbf{sedlový bod} funkce f, 
-jestliže pro každé $x \in M$ a každé $y \in N$ je 
-\[ 
-    f(x, \hat y) \leq f(\hat x, \hat y) \leq f(\hat x, y).
-\]
-\newpage
-\subsection{Vztah Nashova equilibria a sedlového bodu}\label{sedl}
-Ať $G = (S_1, S_2, u)$ je hra dvou hráčů s nulovým součtem a $(\hat \sigma, \hat \tau) \in S_1 \times S_2$. Potom 
-$(\hat \sigma, \hat \tau)$ je \hyperref[nash]{Nashovo equilibrium} hry $G$ právě tehdy, když $(\hat \sigma, \hat \tau)$
-je \hyperref[sedlmax]{sedlový bod} funkce $u$.
-
-Důkaz.
-
-$(\hat \sigma, \hat \tau)$ je N. e., tj. 
 \begin{align*}
-    u(\sigma, \hat \tau) &\leq u(\hat \sigma, \hat \tau) \quad \forall \sigma \in S_1 \\
-    -u(\hat \sigma, \tau) &\leq -u(\hat \sigma, \hat \tau) \quad \forall \tau \in S_2 \\
-    &\,\, \Big\Updownarrow \\
-    u(\sigma, \hat \tau) \leq u (\hat \sigma&, \hat \tau) \leq u(\hat \sigma, \tau) \quad \forall \sigma \in S_1, 
-    \tau \in S_2
+    L(x,y) &= \frac{1}{2}\langle Qx, x\rangle + \langle x, c\rangle + \langle y, Ax-b\rangle\\
+    &= \frac{1}{2}\langle Qx, x\rangle + \langle x, c\rangle + \left\langle A^Ty, x\right\rangle - \langle y,b\rangle
 \end{align*}
-Což je přesně \hyperref[sedlmax]{sedlový bod} funkce $u$. $\qed$
-
-\subsection{Věta o Nashově equilibriu a optimálních strategiích}\label{nashOpt}
-Nechť $G = (S_1, S_2, u)$ je hra dvou hráčů s nulovým součtem.
-\begin{enumerate}[(a)]
-    \item Je-li $(\hat \sigma, \hat \tau) \in S_1 \times S_2$ \hyperref[nash]{Nashovo equilibrium} hry $G$, pak 
-    $v = u(\hat \sigma, \hat \tau)$ je cena hry $G$, $\hat \sigma$ je \hyperref[optimalStrat]{optimální strategie} 
-    prvního hráče a $\hat \tau$ je optimální strategie druhého hráče.
-    \item Jestliže $v$ je cena hry $G$, $\hat \sigma$ je optimální strategie prvního hráče a $\hat \tau$ je 
-    \hyperref[optimalStrat]{optimální strategie} druhého hráče, pak 
-    $v = u(\hat \sigma, \hat \tau)$ a $(\hat \sigma, \hat \tau)$ je \hyperref[nash]{Nashovo equilibrium}.
-\end{enumerate}
-Důkaz (a).
-
-$(\hat \sigma, \hat \tau)$ je N. e. $\implies$ 
-$\underbrace{u(\sigma, \hat \tau) \leq u(\hat \sigma, \hat \tau) \leq u(\hat\sigma, \tau) \quad \forall \sigma \in S_1, 
-\forall \tau \in S_2}_{(*)}$ $\dots$ N. e. je \hyperref[sedl]{sedlový bod} funkce $u$.
+Ať $y \geq 0$. Pak funkce $x \mapsto L(x, y)$ je určitě (ryze) konvexní díky předpokladu na $Q$. Tedy $\hat x$ je bodem
+minima funkce $x \mapsto L(x, y) \iff \nabla_x L(x, y) = 0$.
 \[
-    (*) \implies \overline{v} = \inf_{\tau \in S_2} \sup_{\sigma \in S_1} u(\sigma, \tau) \leq 
-    \sup_{\sigma \in S_1} u(\sigma, \hat \tau) \leq u(\hat \sigma, \hat \tau) \leq 
-    \inf_{\tau \in S_2} u(\hat\sigma, \tau) \leq
-    \sup_{\sigma \in S_1} \inf_{\tau \in S_2} u(\sigma, \tau) = \underline{v}
+    \varphi(y) = \inf_{x \in \R^n} L(x, y) = \min_{x \in \R^n} L(x, y) = L(\hat x, y)
 \]
-Tedy $\overline{v} \leq \underline{v}$. Navíc již víme, že $\underline{v} \leq \overline{v}$. 
-Proto $\underline{v} = \overline{v}$.
+\begin{align*}
+    \nabla_x L(x, y) = Q \hat x + c + A^Ty \overset{!}{=} 0 \\
+    \text{Tedy: } \hat x = -Q^{-1}(c + A^Ty)
+\end{align*}
+Dosaďme:
+\begin{align*}
+    \varphi(y) &= \frac{1}{2}\left\langle QQ^{-1}(c + A^Ty), Q^{-1}(c + A^Ty)\right\rangle - 
+    \left\langle Q^{-1}(c + A^Ty), c+A^Ty\right\rangle - \langle y,b\rangle \\
+    &= -\frac{1}{2}\left[\left\langle c, Q^{-1}c\right\rangle + 2\left\langle c, Q^{-1}A^Ty\right\rangle
+    + \left\langle A^Ty, Q^{-1}A^Ty\right\rangle\right] - \langle y, b\rangle \\
+    &= -\frac{1}{2}\left\langle y, AQ^{-1}A^Ty\right\rangle - \left\langle y, AQ^{-1}c+b\right\rangle
+    -\frac{1}{2}\left\langle c, Q^{-1}c\right\rangle \\
+    &= -\frac{1}{2}\left\langle AQ^{-1}A^Ty, y\right\rangle - \left\langle y, AQ^{-1}c+b\right\rangle
+    -\frac{1}{2}\left\langle Q^{-1}c, c\right\rangle
+\end{align*}
+Což je přesně duální úloha $(DQP)$. $\qed$
 
-Odtud $v = \underline{v} = \overline{v} = u(\hat \sigma, \hat \tau)$, $\hat \sigma$ je optimální strategie 1. hráče a 
-$\hat \tau$ je optimální strategie 2. hráče. $\qed$
+Poznámka. Úlohy kvadratického programování nejsou vzájemně duální.
 
-Důkaz (b).
+\subsection{Věta o silné dualitě pro kvadratické programování}
+Úloha $(QP)$ má řešení právě tehdy, když $(DQP)$ má řešení. Má-li $(QP)$ řešení, pak se hodnoty obou úloh rovnají.
 
-Z předpokladu plyne: 
-\[  
-    \sup_{\sigma \in S_1} u(\sigma, \hat \tau) = v = \inf_{\tau \in S_2} u(\hat \sigma, \tau)
-\]
-Proto:
-\[
-    u(\sigma, \hat \tau) \leq v \leq u(\sigma, \hat \tau) \quad \forall \sigma \in S_1, \tau \in S_2
-\]
-A z toho nutně plyne $v = u(\hat \sigma, \hat \tau)$ když dosadíme $\sigma = \hat \sigma$ a $\tau = \hat \tau$. 
-
-Tedy platí 
-\[
-    u(\sigma, \hat \tau) \leq u(\hat \sigma, \hat \tau) \leq u(\hat\sigma, \tau) \quad \forall \sigma \in S_1, 
-    \forall \tau \in S_2 \implies (\hat \sigma, \hat \tau) \text{ je N. e. } \qed
-\]
+Důkaz vynecháme.

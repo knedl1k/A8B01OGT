@@ -1,536 +1,779 @@
-\section{Konvexní funkce}\label{defKonv}
-
-Nechť $f : D \subseteq \R^n \rightarrow \R$ a $C \subseteq D$ je neprázdná konvexní množina. \\
-Řekněme, že $f$ je
-\begin{enumerate}[(a)]
-    \item konvexní na $C$, jestliže pro každé $x, y \in C$ a každé $\lambda \in [0,1]$ je 
-    \[
-        f(\lambda x + (1-\lambda) y) \leq \lambda f(x) + (1-\lambda)f(y).
-    \]
-    \item ryze konvexní na $C$, jestliže pro každé dva různé body $x, y \in C$ a $\lambda \in (0,1)$ je
-    \[
-        f(\lambda x + (1-\lambda) y) < \lambda f(x) + (1-\lambda)f(y).
-    \]
-    \item konkávní (resp. ryze konkávní) na $C$, jestliže $(-f)$ je konvexní (resp. ryze konvexní) na $C$.
-\end{enumerate}
+\section{Metoda nejmenších čtverců}
 
 \begin{multicols}{2}
-    \begin{tikzpicture}[scale=2]
-        \draw[->] (-2,0) -- (2,0);
-        \draw[->] (0,-0.5) -- (0,3);
+    \begin{tikzpicture}
+        \draw[->] (-2,0) -- (2,0) node[right] {\(x\)};
+        \draw[->] (0,-2) -- (0,2) node[above] {\(y\)};
         
-        \draw[thick, blue, domain=-1.5:1.5, smooth] plot (\x, {(\x)^2 + 0.5});
-        
-        \node at (1.2,2.3) [below right]{\small \textcolor{blue}{$f(x)$}};
+        \draw[blue, thick] (-1.5,-1.5) -- (1.5,1.5) node[right] {\(L = \bc{Ax \mid x \in \R^n}\)};
     
-        \draw[black!40!yellow, thick] (-1, 1.5) -- (0.5, 0.75);
-    
-        \draw[black!40!green, dashed] (-1,1.5) -- (-1, 0) node[below]{\small $x$};
-        \fill[black!40!green] (-1, 1.5) circle(1pt) node[left]{\small $(x, f(x))$};
-    
-        \draw[black!40!red, dashed] (0.5,0.75) -- (0.5, 0) node[below]{\small $y$};
-        \fill[black!40!red] (0.5, 0.75) circle(1pt) node[right]{\small $(y, f(y))$};
-    
-        \draw[yellow!40!red, dashed] (-0.25, 1/16 + 0.5) -- (-0.25, -0.05) node[below]{\small $C$};
-        \fill[yellow!40!red] (-0.25, 1/16 + 0.5) circle(1pt) node[below left]{\small $B$};
-        % \draw[yellow!40!red, <-] (-0.25 - 0.1, 1/16 + 0.5 + 0.03) -- (-0.75, 0.7) node[left]{\small $B$};
-    
-        \draw[yellow!40!red, dashed] (-0.25, 1/16 + 0.5) -- (-0.25, 1/16 + 1 + 1/16);
-        \fill[yellow!40!red] (-0.25, 1/16 + 1 + 1/16) circle(1pt) node[below left]{\small $A$};
-        % \draw[yellow!40!red, <-] (-0.25, 1/16 + 1 + 1/16 + 0.05) -- (-0.75, 1.7) node[left]{\small $A$};
-    
+        \filldraw[red, thick] (-1, 2) circle (2pt) node[above] {$b$};
+        \filldraw[red, thick] (0.5, 0.5) circle (2pt) node[right] {$P_L (b)$};
+        \draw[red, dashed] (-1, 2) -- (0.5, 0.5);
     \end{tikzpicture}
 
 \columnbreak
-
-    \textcolor{yellow!40!red}{$A$} $= (\lambda x + (1-\lambda)y, \lambda f(x) + (1-\lambda)f(y))$\\
-    \textcolor{yellow!40!red}{$B$} $= (\lambda x + (1-\lambda)y, f(\lambda x + (1-\lambda)y))$\\
-    \textcolor{yellow!40!red}{$C$} $= \lambda x + (1-\lambda)y$
-
-    Pozorování: \textcolor{black!40!yellow}{úsečka} vždy leží nad \textcolor{blue}{funkcí}.
+    Pokud $b \in L$, řešíme úlohu $Ax = b$. \\Pokud $b \not\in L$, řešíme $Ax = P_L (b)$.
+    \[
+        \argmin_{x \in \R^n} \| Ax - b\| = \argmin_{x \in \R^n} \| Ax - b\|^2
+    \]
 \end{multicols}
-
-\subsection{Příklad konvexní funkce}
-Je afinní zobrazení $f : \R^n \rightarrow \R^n$ (tj. $f(x) = \langle x,a \rangle + b, b\in \R$) konvexní?
-
-Důkaz.\\
-Ať  $x, y \in \R^n, \lambda \in [0,1]$.
-\begin{align*}
-    f(\lambda x + (1-\lambda) y) &= \langle \lambda x + (1-\lambda) y, a\rangle + b\\
-    &= \lambda \langle x, a\rangle + (1-\lambda) \langle y, a\rangle + \lambda b + (1-\lambda)b\\
-    &= \lambda f(x) + (1-\lambda) f(y) \implies f \text{ je konvexní i konkávní.} \qed
-\end{align*}
-
-\subsection{Příklad konvexní funkce}
-Je funkce $f(x) = \| x\|$ konvexní?
-
-Důkaz.\\
-Ať Ať  $x, y \in \R^n, \lambda \in [0,1]$.
-
-\[
-    f(\lambda x + (1-\lambda) y) = \| \lambda x + (1-\lambda)y\| \stackrel{\text{odhad}}{\leq} \| \lambda x\| + 
-    \| (1-\lambda) y\| = \lambda \| x\| + (1-\lambda) \| y\|
-\]
-\[
-    = \lambda f(x) + (1-\lambda) f(y) \implies f \text{ je konvexní.} \qed
-\]
-
-\subsection{Dolní úrovňová množina}
-Dolní úrovňování množina funkce $f : D \subseteq \R^n \rightarrow \R^n$ hladiny $\alpha \in \R$ je množina
-\[
-    \lev_{\leq} (f; \alpha) \coloneq \bc{x \in D \mid f(x) \leq \alpha}.
-\]
-Je-li $f$ konvexní na $C \subseteq \R^n$, pak $\lev_{\leq} (\restr{f}{C}; \alpha)$ je konvexní pro $\forall \alpha \in \R$.
-
-
-\begin{tikzpicture}[domain=-0.3:7, samples=100]
-    \draw[->] (-2.5,0) -- (7,0) node[right] {$x$};
-    \draw[->] (0,-0.5) -- (0,3.5) node[above] {$y$};
-
-    % Segment I: x in [-2.3, -2]
-    \fill[green!30, opacity=0.5]
-    plot[domain=-2.3:-2, samples=50] (\x, {sin((\x+2) r)+1.5})
-    -- (-2,0) -- (-2.3,0) -- cycle;
-    
-    % % Segment II: x in [-2, pi-2]
-    % \fill[green!30, opacity=0.5]
-    % (-2,1.5) -- ({pi-2},1.5) -- ({pi-2},0) -- (-2,0) -- cycle;
-    
-    % Segment III: x in [pi-2, 2*pi-2]
-    \fill[green!30, opacity=0.5]
-    plot[domain={pi-2}:{2*pi-2}, samples=50] (\x, {sin((\x+2) r)+1.5})
-    -- ({2*pi-2},0) -- ({pi-2},0) -- cycle;
-    
-    % % Segment IV: x in [2*pi-2, 5]
-    % \fill[green!30, opacity=0.5]
-    % ({2*pi-2},1.5) -- (5,1.5) -- (5,0) -- ({2*pi-2},0) -- cycle;
-    
-    \draw[blue, thick] plot ({\x-2}, {sin(\x r) + 1.5});
-
-    \draw[purple, thick, dashed] (-2.5, 1.5) -- (7, 1.5) node[right]{$\alpha$};
-
-    \draw[black!40!green, dashed] (-2.3, 1.2) -- (-2.3, 0) node[below]{$a$};
-    \draw[black!40!green, dashed] (5, 2.1) -- (5, 0) node[below]{$b$};
-\end{tikzpicture}
-
 Důkaz.
 
-Ať $x, y \in \lev_{\leq}(\restr{f}{C}; \alpha), \lambda \in [0,1]$.\\
-Cíl: $\lambda x + (1-y)\lambda \stackrel{?}{\in} \lev_{\leq} (\restr{f}{C}; y)$.
+Chceme ukázat, že $\hat x \in \underset{x \in \R^n}{\argmin} \| Ax - b^2\| \iff A^T A \hat x = A^T b$.
+
+\enquote{$\Rightarrow$}: Ať $A \hat x = P_L (b) \stackrel{\hyperref[varNer]{(2)}}{=} b - P_{L^\perp} (b) \quad / \cdot A^T$
 \[
-    f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda) f(y) \leq \lambda \alpha + (1-\lambda) \alpha = \alpha. \qed
-\]
-
-Poznámka.
-
-Opačná implikace neplatí. Tedy pomocí dolní úrovňové množiny \textbf{nelze} určit, jestli původní funkce je konvexní.
-
-Například $f = x^3$ není konvexní funkce na intervalu $x = [-2, 2]$, ale když zvolíme $\alpha = 8$, tak dolní úrovňová 
-množina bude konvexní. % TODO nákres
-
-\subsection{Použití dolní úrovňové množiny}
-Je množina $M = \bc{x \in \R^2 \mid \| x\| \leq 1, \left\langle x, 
-\begin{pmatrix}
-    2 \\
-    1
-\end{pmatrix}
-\right\rangle \leq 1}$ konvexní?
-
-Důkaz.
-
-Rozdělme si množinu $M$ na dvě podmnožiny $M_1$ a $M_2$, kde:
-
-$M_1 = \bc{x \in \R^2 \mid \| x\| \leq 1} = \lev_{\leq} (\| x\|, 1) \rightarrow$ konvexní, protože norma je konvexní funkce.
-
-$M_2 = \bc{x \in \R^2 \mid \left\langle x, 
-\begin{pmatrix}
-    2 \\
-    1
-\end{pmatrix}
-\right\rangle \leq 1} = \lev_{\leq} \left(\left\langle x, 
-\begin{pmatrix}
-    2 \\
-    1
-\end{pmatrix}
-\right\rangle, 1\right) \rightarrow$ konvexní, protože skalární součin je konvexní.
-
-To nám ale dává průnik dvou konvexních množin, tedy $M = M_1 \cap M_2$ je také konvexní. $\qed$
-
-% TODO nákres
-\newpage
-\subsection{Součet a součin zachovávají konvexitu}\label{ssKonv}
-Mějme funkce $f, g$, které jsou konvexní na $C$, $\alpha \geq 0$. Pak:
-\begin{enumerate}[(a)]
-    \item $f+g$ je konvexní na $C$
-    \item $\alpha f$ je konvexní na $C$
-\end{enumerate}
-
-Důkaz.
-
-(a) Ať $\lambda \in [0,1], x, y \in C$.
-\[
-    (f+g)(\lambda x + (1-\lambda)y) = \underbrace{f(\lambda x + (1-\lambda)y)}_{\leq \lambda f(x) + (1-\lambda)f(y)} + 
-    \underbrace{g(\lambda x + (1-\lambda)y)}_{\leq \lambda g(x) + (1-\lambda)g(y)}
+    A^T A \hat x = A^T  b - \underbrace{A^T P_{L^\perp} (b)}_{\stackrel{?}{=0}}
 \]
 \[
-    \leq \lambda f(x) + (1-\lambda)f(y) + \lambda g(x) + (1-\lambda)g(y) = \lambda (f+g)(x) + (1-\lambda)(f+g)(y). \qed
+    \rightarrow \| A^T P_{L^\perp} (b)\|^2 = \langle A^T P_{L^\perp} (b), A^T P_{L^\perp} (b)\rangle = 
+    \langle \underbrace{P_{L^\perp} (b)}_{\in L^\perp}, \underbrace{(A^T)^T (A^T P_{L^\perp} (b))}_{\in L}\rangle = 0. \qed
 \]
 
-(b) Ať $\lambda \in [0,1], x, y \in C, \alpha \geq 0$. % TODO dodělat důkaz
-
-
-\subsection{Příklad ověření konvexity}
-Je funkce $f(x) = e^x - 3 \ln x + 2x$ konvexní?
-
-Rozeberme si jednotlivé části funkce.
-\begin{itemize}
-    \item $e^x$ $\dots$ exponenciála je z grafu očividně konvexní.
-    \item $-3 \ln x$ $\dots$ logaritmus je konkávní, ale díky \enquote{$\minus$} se celý výraz stane konvexní. Násobení 
-    konstatou konvexitu neovlivní, viz důkaz \hyperref[ssKonv]{(b)}.
-    \item $2x$ $\dots$ lineární funkce je konvexní.
-\end{itemize}
-Protože všechny komponenty funkce $f$ jsou konvexní, pak je i funkce $f$ nutně konvexní.
-
-\subsection{Skládání zachovává konvexitu}
-Skládání konvexních funkcí není obecně konvexní funkce. Například: $f(x) = x^2$ a $g(x) = x^2 -1$ jsou konvexní, ale
+\enquote{$\Leftarrow$}: Ať $A^T A \hat x = A^T b$.\\
+Ať $x \in \R^n$.
 \[
-    (f \circ g)(x) = (f(g(x))) = (x^2 - 1)^2 \text{ z grafu očividně není konvexní.}
-\]
-
-1. Mějme tedy tvrzení.
-
-Nechť $f$ je konvexní na $K \subseteq \R^m$, $C \subseteq \R^n$ je neprázdná konvexní a $g : \R^n \rightarrow \R^m$ je 
-afinní. Jestliže $g(C) \subseteq K$ (tedy $g$ \enquote{obtiskne} množinu $C$ do $K$), pak $f \circ g$ je konvexní na $C$. \label{skladFun}
-
-Důkaz.\\
-Ať $x, y \in C$, $\lambda \in [0,1]$.\\
-Pak 
-\[
-    f(g(\lambda x + (1-\lambda)y)) \stackrel{g \text{ je \hyperref[sec:afin]{afinní}}}{=} f(\lambda \overbrace{g(x)}^{\in K} 
-    + (1-\lambda) \overbrace{g(y)}^{\in K})
-    \stackrel{f \text{ je \hyperref[defKonv]{konvexní}}}{\leq} \lambda f((g(x))) + (1-\lambda) f(g(y))
-\]
-A to přesně dle \hyperref[defKonv]{definice konvexní} funkce dává, že $f \circ g$ je konvexní funkce. $\qed$
-
-2. Mějme ještě druhé tvrzení.
-
-Jestliže $f$ je konvexní a \textbf{neklesající} na intervalu $I$, $g$ je konvexní na $C \subseteq \R^n$ a $g(C) \subseteq I$, pak 
-$f \circ g$ je konvexní na $C$.
-
-Důkaz.\\
-Ať $x, y \in C$, $\lambda \in [0,1]$.\\
-Pak
-\[
-    f(\underbrace{g(\lambda x + (1-\lambda)y)}_{\substack{\leq \lambda g(x) + (1-\lambda)g(y) \\ \text{odhad, díky konvexitě }g }}) 
-    \underset{g \text{ je konvexní}}{\overset{f \text{ je neklesající}}{\leq}} f(\lambda g(x) + (1- \lambda) g(y)) 
-    \overset{f \text{ je \hyperref[defKonv]{konvexní}}}{\leq} \lambda f(g(x)) + (1-\lambda) f(g(y))
-\]
-A to přesně dle \hyperref[defKonv]{definice konvexní} funkce dává, že $f \circ g$ je konvexní funkce. $\qed$
-
-\subsection{Věta o extrémech konvexních funkcí}
-Nechť $f$ je konvexní na $C \subseteq \R^n$. Potom platí:
-\begin{enumerate}[(a)]
-    \item Každý bod lokálního minima $f$ na $C$ je bodem minima $f$ na $C$.
-    \item Množina $\argmin_{x \in C} f(x)$ je konvexní. Je-li navíc $f$ ryze konvexní na $C$, pak existuje nejvýše jeden
-    bod minima funkce $f$ na $C$. 
-\end{enumerate}
-
-Důkaz (a).\\
-Sporem. Ať $\hat x \in C$ je bod lokálního minima $f$ na $C$ a ať existuje $\hat y \in C$ tak, že $f(\hat y) < f(\hat x)$.
-$\lambda \in [0,1)$.\\
-Pak
-\[
-    f(\lambda \hat x + (1-\lambda) \hat y) \overset{f \text{ je \hyperref[defKonv]{konvexní}}}{\leq}
-    \lambda f(\hat x) + (1-\lambda) \overbrace{f(\hat y)}^{< f(\hat x)} \underset{\text{odhad}}{<} 
-    \lambda f(\hat x) + (1-\lambda) f(\hat x) = f(\hat x)
-\]
-Což je ale spor s naším předpokladem, protože kdykoliv si vezmu bod na úsečce mezi $\hat x$ a $\hat y$, tak je v něm 
-hodnota ostře menší než funkční hodnota v bodě $f(\hat x)$. $\qed$
-
-Důkaz (b).\\
-Ať $\hat x, \hat y \in \argmin_{x \in C} f(x)$, $\lambda \in [0,1]$.\\
-Pak
-\[
-    f(\lambda \hat x + (1-\lambda) \hat y) \overset{f \text{ je \hyperref[defKonv]{konvexní}}}\leq \lambda f(\hat x) + 
-    (1-\lambda) \overbrace{f(\hat y)}^{= f(\hat x)} = f(\hat x)
-\]
-$\implies \lambda \hat x + (1-\lambda) \hat y \in \argmin_{x \in C} f(x)$. $\qed$
-
-Ať $f$ je navíc ryze konvexní na $C$.\\
-Cíl: $\argmin_{x \in C} f(x)$ má nejvýše jeden prvek.
-
-Důkaz.\\
-Sporem. Ať $\hat x, \hat y \in \argmin_{x \in C} f(x)$, $\hat x \not=\hat y$. $\lambda \in (0,1)$.\\
-Pak
-\[
-    f(\lambda \hat x  + (1-\lambda) \hat y) \overset{f \text{ je ryze konv.}}{<} \lambda f(\hat x) + (1-\lambda) 
-    \underbrace{f(\hat y)}_{= f(\hat x)} = f(\hat x)
-\]
-Což je ale spor, protože mám nějakou funkční hodnotu bodu úsečky mezi $\hat x$ a $\hat y$ ostře menší jak funkční 
-hodnotu bodu $\hat x$. To ale nemůže nastat, protože jako body minima funkce $f$ na $C$ musí mít stejnou hodnotu. Body
-$\hat x$ a $\hat y$ musí tedy nutně být stejné body. $\qed$
-
-\subsection{Věta o konvexitě a první derivaci}\label{konvDeriv} % TODO graf
-Nechť $\Omega \subseteq \R^n$ je otevřená, $C \subseteq \Omega$ neprázdná konvexní a $f \in C^{1} (\Omega)$. Potom platí:
-\begin{enumerate}[(a)]
-    \item $f$ je konvexní na $C$ právě tehdy, když pro každé $x, y \in C$ je
-    \[
-        f(x) + \langle \nabla f(x), y-x\rangle \leq f(y).
-    \]
-    \item $f$ je ryze konvexní na $C$ právě tehdy, když pro každé dva různé body $x, y \in C$ je 
-    \[
-        f(x) + \langle \nabla f(x), y-x\rangle < f(y).
-    \]
-\end{enumerate}
-Důkaz (b) vynecháme.
-
-Důkaz (a).
-
-\enquote{$\Rightarrow$}: Ať $x, y \in C$, $\lambda \in (0,1]$.
-\[
-    f(x + \lambda (y-x)) = f(\lambda y + (1-\lambda)x) \overset{f \text{ je \hyperref[defKonv]{konvexní}}}{\leq} 
-    \lambda f(x) + (1 - \lambda)f(x) = f(x) + \lambda [f(y) - f(x)]
+    0 = \langle \underbrace{x, A^T A \hat x - A^T b}_{A^T (A \hat x - b)}\rangle = 
+    \langle \underbrace{(A^T)^T x}_L, A \hat x - b\rangle \implies A \hat x - b \in L^\perp
 \]
 \[
-    \Rightarrow \underbrace {\frac {f(x + \lambda (y-x)) - f(x)}{\lambda}}_{\substack{{ = \langle \nabla f(x), 
-    y-x\rangle \text{ pro } \lambda \rightarrow 0_+}\\{\text{z definice směrové derivace}}}} \leq f(y) - f(x). \qed
-\]
-\enquote{$\Leftarrow$}: Ať $x, y \in C$, $\lambda \in [0,1]$.
-
-$z \coloneq \lambda x + (1-\lambda) y \in C$\\
-Z předpokladu:
-\begin{align}
-    & f(z) + \langle \nabla f(z), x - z\rangle \leq f(x) \quad / \cdot \lambda \\
-    & f(z) + \langle \nabla f(z), y - z\rangle \leq f(y) \quad / \cdot (- \lambda)
-\end{align}
-
-Pronásobením a sečtením dostaneme:
-\[
-    f(z) + \lambda \langle \nabla f(z), \underbrace{\lambda x + (1-\lambda)y}_{z} - z\rangle \leq \lambda f(x) + 
-    (1-\lambda)f(y)
-\]
-\[
-    \Rightarrow f(z) \leq \lambda f(x) + (1-\lambda)f(y)
-\]
-Což ale po dosazení za $z$ je přesně ta nerovnost, která říká, že $f$ je konvexní. $\qed$
-
-\subsection{Věta o konvexitě a druhé derivaci}\label{konvDDeriv}
-Nechť $\Omega \subseteq \R^n$ je otevřená, $C \subseteq \Omega$ neprázdná konvexní a $f \in C^{2} (\Omega)$. Potom platí:
-\begin{enumerate}[(a)]
-    \item Jestliže pro každé $x \in C$ je $\nabla^2 f(x)$ positivně semidefinitní matice, pak $f$ je konvexní na C.
-    \item Jestliže $f$ je konvexní na $C$ a $C$ je otevřená, potom $\nabla^2 f(x)$ je positivně semidefinitní matice pro 
-    každé $x \in C$.
-    \item Jestliže pro každé $x \in C$ je $\nabla^2 f(x)$ positivně definitní matice, pak $f$ je ryze konvexní na $C$. 
-\end{enumerate}
-
-\newpage
-Důkaz (a).
-
-Ať $x, y \in C$.
-
-Taylorův polynom: existuje $\xi \in \bc{\lambda x + (1-\lambda)y \mid \lambda \in (0,1)} \subseteq C$ tak, že
-\[
-    f(y) = f(x) + \langle \nabla f(x), y-x\rangle + \underbrace{\frac{1}{2} \left\langle \nabla^2 f(\xi) (y-x), 
-    y-x\right\rangle}_{\geq 0}
-\]
-\[
-    \Rightarrow f(y) \geq f(x) + \langle \nabla f(x), y-x\rangle
-\]
-Což je přesné znění \hyperref[konvDeriv]{věty o konvexitě a první derivaci}. Tedy $f$ je nutně konvexní na $C$. 
-\\
-Důkaz (b).
-
-Cíl: $\langle \nabla^2 f(x)y, y\rangle \geq 0$, $\forall y \in \R^n$
-
-Ať $x \in C, y \in \R^n$.
-
-Pak
-$C$ otevřená $\Rightarrow$ existuje $\delta > 0$ tak, že $x + \alpha y \in C$ $\forall \alpha \in (0, \delta]$.
-
-Taylorův polynom: 
-\[
-    f(x+ \alpha y) = f(x) + \alpha \langle \nabla f(x), y\rangle + \frac{1}{2}\alpha^2 \langle \nabla^2 f(x)y, y\rangle
-    + \alpha^2 \| y\|^2 \omega(\alpha y),
-\]
-kde $w$ má nulovou limitu v $0$.
-
-Použijme fakt, že $f$ je konvexní:
-\[
-    f(x+\alpha y) \geq f(x) + \langle \nabla f(x), \alpha y\rangle
+    \rightarrow b = \underbrace{A \hat x}_{\in L} + \underbrace{(b-A \hat x)}_{L^\perp} 
+    \stackrel{\hyperref[ortoRoz]{(c)}}{\implies} A \hat x = P_L (b). \qed
 \]
 
-Když tedy dosadíme:
-\[
-    f(x) + \alpha \langle \nabla f(x), y\rangle + \frac{1}{2}\alpha^2 \langle \nabla^2 f(x)y, y\rangle
-    + \alpha^2 \| y\|^2 \omega(\alpha y) \geq f(x) + \langle \nabla f(x), \alpha y\rangle
-\]
-Upravíme a podělíme výrazem $\frac{1}{2}\alpha^2$ ($\alpha > 0$).
-\[
-   \langle \nabla^2 f(x)y, y\rangle + \underbrace{2 \| y\|^2 \omega(\alpha y)}_{\rightarrow 0 \text{ pro } 
-   \alpha \rightarrow 0_+} \geq 0
-\]
-V limitě $\alpha \rightarrow 0_+$ tedy máme $\langle \nabla^2 f(x)y, y\rangle \geq 0$, což je přesně to, co jsme chtěli.
-$\qed$
-
-Poznámka. Nutnost otevřenosti $C$ je velmi důležitá!
-
-Důkaz (c). Podobně jako (a).
-
-\subsection{Příklad ověření konvexnosti pomocí derivace}
-$f(x, y) = x^2 - y^2$ je konvexní na $\R \times \bc{0}$. ($\rightarrow$ množina $\R \times \bc{0}$ není 
-otevřená, jedná se o přímku)
-
-$\nabla^2 f(x, y) = 
+\subsection{Příklad výpočtu metody nejmenších čtverců}
+$
+A=
 \begin{bmatrix}
-    2 & 0 \\
-    0 & -2
-\end{bmatrix}$ je indefinitní, tedy funkce $f(x, y)$ není konvexní.
+    1 & 0 \\
+    0 & 1 \\
+    1 & 1
+\end{bmatrix},
+b=
+\begin{bmatrix}
+    1 \\
+    1 \\
+    1 
+\end{bmatrix}$.
 
-\subsection{Příklad ověření konvexnosti pomocí derivace}
-$f(x, y) = x^2 + xy + y^2$ je ryze konvexní.
+$A^T A \hat x = A^T b$
 
-$\nabla^2 f(x, y) = 
+$A^T A = 
+\begin{bmatrix}
+    1 & 0 & 1 \\
+    0 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 \\
+    0 & 1 \\
+    1 & 1
+\end{bmatrix}
+=
 \begin{bmatrix}
     2 & 1 \\
-    1 & 2
-\end{bmatrix}$ $\rightarrow$ $2>0$, $\det \nabla^2 f(x,y) = 4-1>0$ $\implies$ dle Sylvesterova kritéria je 
-$\nabla^2 f(x,y)$ positivně definitní.
+    1 & 2 
+\end{bmatrix} 
+\rightarrow \det = 3 \implies \text{existuje inverze.}$
 
-A podle bodu (c) \hyperref[konvDDeriv]{věty o konvexitě a druhé derivaci} můžeme říct, že funkce $f$ je ryze konvexní.
-\newpage
-\subsection{Příklad ověření konvexnosti funkce s parametrem}
-Mějme funkci $f(x) = \langle Ax, x\rangle$, kde
+$(A^T A)^{-1} = \frac{1}{3}
+\begin{bmatrix}
+    \phantom{-}2 & -1 \\
+    -1 & \phantom{-}2 
+\end{bmatrix} \implies \hat x = (A^T A)^{-1}A^T b = \frac{1}{3}
+\begin{bmatrix}
+    \phantom{-}2 & -1 \\
+    -1 & \phantom{-}2 
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0 & 1 \\
+    0 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    1 \\
+    1 \\
+    1 
+\end{bmatrix}\\ 
+= \frac{1}{3}
+\begin{bmatrix}
+    \phantom{-}2 & -1 \\
+    -1 & \phantom{-}2 
+\end{bmatrix}
+\begin{bmatrix}
+    2 \\
+    2 
+\end{bmatrix} = \frac{1}{3}
+\begin{bmatrix}
+    2 \\
+    2 
+\end{bmatrix}$.
+
+\subsection{Příklad výpočtu metody nejmenších čtverců}
+V rovině jsou dány body $(0, -\frac{1}{2})^T, (1, \frac{1}{3})^T$ a $(2, \frac{2}{3})^T$. Pomocí metody nejmenších 
+čtverců proložme těmito body přímku o rovnici $y = kx + q$, kde $k ,q \in \R$.
+
 \[
-A = \begin{bmatrix}
-    2 & 2 & 3 \\
-    1 & 3 & 1 \\
-    1 & 2 & \alpha
-\end{bmatrix}, \alpha \in \R \text{ je parametr.}
-\]
-Pro jaké $\alpha$ je funkce $f$ konvexní?
-\[
-    \nabla^2 f(x) = \overbrace{A + A^T}^{\text{ze symetrie}} = 
+\begin{rcases*}
+    0k + q = -\frac{1}{2} \\
+    1k + q = \frac{1}{3} \\
+    2k + q = \frac{2}{3}
+\end{rcases*} 
+A = 
+\begin{bmatrix}
+    0 & 1 \\
+    1 & 1 \\
+    2 & 1
+\end{bmatrix},
+b = 
+\begingroup
+    \renewcommand*{\arraystretch}{1.5}
     \begin{bmatrix}
-        4 & 3 & 4 \\
-        3 & 6 & 3 \\
-        4 & 3 & 2 \alpha
+        -\frac{1}{2} \\
+        \phantom{-}\frac{1}{3} \\
+        \phantom{-}\frac{2}{3}
     \end{bmatrix}
-\]
-\[
-    \det \nabla^2 f(x) = 
-    \begin{vmatrix}
-        4 & 3 & 4 \\
-        3 & 6 & 3 \\
-        4 & 3 & 2 \alpha
-    \end{vmatrix} \underset{R_3 - R_1}{=}
-    \begin{vmatrix}
-        4 & 3 & 4 \\
-        3 & 6 & 3 \\
-        0 & 0 & 2 \alpha - 4
-    \end{vmatrix} = (2 \alpha - 4)
-    \begin{vmatrix}
-        4 & 3 \\
-        3 & 6
-    \end{vmatrix} = 3 (2 \alpha - 4)
-    \begin{vmatrix}
-        4 & 3 \\
-        1 & 2 
-    \end{vmatrix} = 30 (\alpha - 2)
-\]
-Tedy aby $f$ byla konvexní funkce: $30 (\alpha - 2) \geq 0 \iff \alpha \geq 2$.
-
-Musíme vyšetřit menší minory matice.
-
-Vyškrtněme 3. řádek a 3. sloupec:
-\[
-    \begin{vmatrix}
-        4 & 3 \\
-        3 & 6
-    \end{vmatrix} = 15 > 0
-\]
-Vyškrtněme 2. řádek a 2. sloupec:
-\[
-    \begin{vmatrix}
-        4 & 4 \\
-        4 & 2 \alpha
-    \end{vmatrix} = 8
-    \begin{vmatrix}
-        1 & 1 \\
-        2 & \alpha
-    \end{vmatrix} = 8 (\alpha -2) \geq 0 \iff \alpha \geq 2 \dots \text{tuto podmínku již vyžadujeme.}
-\]
-Vyškrtněme 1. řádek a 1. sloupec:
-\[
-    \begin{vmatrix}
-        6 & 3 \\
-        3 & 2 \alpha
-    \end{vmatrix} = 3
-    \begin{vmatrix}
-        2 & 1 \\
-        3 & 2\alpha
-    \end{vmatrix} = 3 (4\alpha -3) \geq 0 \iff \alpha \geq \frac{3}{4} \dots \text{vyžadujeme již silnější podmínku.}
-\]
-A teď zbylé minoru po vyškrtání dvou řádků a sloupců:
-\[
-    4 \geq 0, \quad 6 \geq 0, \quad 2 \alpha \geq 0 \iff \alpha \geq 0 \dots \text{vyžadujeme již silnější podmínku.}
+\endgroup
 \]
 
-$\implies$ Pokud $\alpha \geq 2$, pak je funkce $f$ konvexní. Při $\alpha > 2$ je ryze konvexní.
+$A^T A = 
+\begin{bmatrix}
+    0 & 1 & 2 \\
+    1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    0 & 1 \\
+    1 & 1 \\
+    2 & 1 
+\end{bmatrix} =
+\begin{bmatrix}
+    5 & 3 \\
+    3 & 3
+\end{bmatrix}$
 
-\subsection{Příklad ověření konvexity množiny}
-Mějme množinu
+$(A^T A)^{-1} = \frac{1}{6}
+\begin{bmatrix}
+    \phantom{-}3 & -3 \\
+    -3 & \phantom{-}5
+\end{bmatrix}$
+
 \[
-    M = \bc{
+    \hat x = \frac{1}{6}
+    \begin{bmatrix}
+        \phantom{-}3 & -3 \\
+        -3 & \phantom{-}5
+    \end{bmatrix}
+    \begin{bmatrix}
+        0 & 1 & 2 \\
+        1 & 1 & 1
+    \end{bmatrix}
+    \begingroup
+        \renewcommand*{\arraystretch}{1.5}
         \begin{bmatrix}
-            x \\
-            y
-        \end{bmatrix} \in \R^2 \, \middle| \, x + 2e^{-x+y^2} \leq 4, \, -x^2 + 3xy - 3y^2 \geq -1
-    }.
-\] 
-Je $M$ konvexní?
-
-\begin{flalign*}
-    \text{Označme:} \quad &g_1(x, y) = x + 2 e^{-x+y^2} \dots M_1 = \bc{
+            -\frac{1}{2} \\
+            \phantom{-}\frac{1}{3} \\
+            \phantom{-}\frac{2}{3}
+        \end{bmatrix}
+    \endgroup = \frac{1}{6}
+    \begin{bmatrix}
+        \phantom{-}3 & -3 \\
+        -3 & \phantom{-}5
+    \end{bmatrix}
+    \begingroup
+        \renewcommand*{\arraystretch}{1.5}
         \begin{bmatrix}
-            x \\
-            y
-        \end{bmatrix} \, \middle| \, g_1 (x, y) \leq 4}& \\
-        &g_2(x, y) = x^2 -3xy + 3y^2 \dots M_2 = \bc{
-            \begin{bmatrix}
-                x \\
-                y
-            \end{bmatrix} \, \middle| \, g_2 (x, y) \leq 1}
-\end{flalign*}
-$M = M_1 \cap M_2 \implies$ ukážeme konvexnost $M_1$ a $M_2$, protože průnik zachovává konvexitu.\\
-$\implies g_1$ a $g_2$ musí být konvexní.
+            \frac{5}{3} \\
+            \frac{1}{2}
+        \end{bmatrix}
+    \endgroup = \frac{1}{6}
+    \begingroup
+        \renewcommand*{\arraystretch}{1.5}
+        \begin{bmatrix}
+            \phantom{-}\frac{7}{2} \\
+            -\frac{5}{2}
+        \end{bmatrix}
+    \endgroup = \frac{1}{12}
+    \begin{bmatrix}
+        \phantom{-}7 \\
+        -5
+    \end{bmatrix}.
+\]
 
+\subsection{Věta o oddělitelnosti bodu a konvexní množiny} \label{oddel}
+\begin{multicols}{2}
+    \begin{tikzpicture}  
+        \draw[blue, thick] (-0.5,-0.5) -- (2.5,2.5) node[below]{$M$};
+
+        \filldraw[red, thick] (2.05, -0.75) circle (2pt) node[right] {$x$};
+        \filldraw[red, thick] (0.75, 0.75) circle (1pt) node[right] {$P_L (x)$};
+        \draw[->][black!60!green, thick] (0.75, 0.75) -- (2.05, -0.75)node[below left]{$v$};
+        \draw[black, thick] (0, 1.45) circle (1);
+        \node at (0, 1.5) {$C$};
+    \end{tikzpicture}
+
+\columnbreak
+    \hspace*{-2cm}
+    $C \in \R^n$ je neprázdná uzavřená konvexní množina.
+    \\
+    \hspace*{-2cm}
+    $x \in \R^n \setminus C \implies \text{existuje } v \in \R^n \setminus \bc{0}$ a $\alpha \in \R$ tak, že
+    \\
+    $\langle y, v\rangle \leq \alpha < \langle x, v\rangle, \quad \forall y \in C.$
+\end{multicols}
+Důkaz.\\
+$v = x - P_L (x) \not=0$
+
+\[
+    \langle v, y\rangle = \langle v, P_L(x)\rangle \leq 0, \quad \forall y \in C.
+\]
+\[
+    \langle y, v\rangle \leq \langle v, P_L (x)\rangle, \quad \forall y \in C.
+\]
+Položme $\alpha = \langle v, P_L (x)\rangle$.
+\[
+    \langle y, v\rangle \leq \alpha, \quad \forall y \in C.
+\]
+\[
+    \langle x, v\rangle - \underbrace{\overbrace{\langle v, P_L (x)\rangle}^{\alpha}}_{\langle P_L(x), v\rangle} = 
+    \langle \underbrace{x - P_L (x)}_{v}, v\rangle = \| v\|^2 > 0. \implies \alpha < \langle x, v\rangle. \qed
+\]
+
+\textbf{Důsledek:} Každá uzavřená konvexní množina v $\R^n$ je průnikem všech poloprostorů, které ji obsahují.
+
+Důkaz sporem.
+
+Ať neplatí: tj. existuje $C \in \R^n$ uzavřená konvexní množina tak, že není průnikem $P$ všech poloprostorů 
+obsahujících $C$.
+
+Pak $x \in P$ tak, že $x \not\in C$. Z věty o oddělitelnosti bodu a konvexní množiny existuje poloprostor $M$ takový,
+že $C \subseteq M$ a $x \not= M$. Ale to je ve sporu s tím, že $x \in P. \qed$
+
+\subsection{Příklad na použití věty o oddělitelnosti nadrovinou}
+Nechť $A = 
+\begin{bmatrix}
+    1 & 1 \\
+    2 & -1    
+\end{bmatrix}$ a $b\in \R^2$. Označme
+\begin{align*}
+    C &= \bc{Ax \middle| x \in \R^2_+} = \bc{\alpha 
+    \begin{bmatrix}
+        1\\
+        2    
+    \end{bmatrix} + \beta
+    \begin{bmatrix}
+        \phantom{-}1\\
+        -1
+    \end{bmatrix} \mid \alpha, \beta \geq 0} \\
+    K &= \bc{y \in \R^2 \mid A^T y \leq 0} \\
+    &= \left\{y \in \R^2 \,\middle|\, \left\langle 
+    \begin{bmatrix}
+        1 \\
+        2    
+    \end{bmatrix}, y\right\rangle \leq 0,
+    \left\langle 
+    \begin{bmatrix}
+        \phantom{-} 1 \\
+        -1
+    \end{bmatrix},y \right\rangle \leq 0\right\}.
+\end{align*}
+
+\begin{tikzpicture}[scale=2] % TODO: dodělat vektor b, který je mezi K a C
+    \draw[->] (0,-2) -- (0,2) node[above] {\(y\)};
+    \fill[green, opacity=0.3, pattern=north west lines] (0,0) -- (1,2) -- (1,-2) -- cycle;
+    \fill[green, opacity=0.3, pattern=north west lines] (1,0) rectangle (2,2);
+    \fill[green, opacity=0.3, pattern=north west lines] (1,0) rectangle (2,-2);
+
+    \draw[black!40!yellow, semithick] (-0.5/4, 0.25/4) -- (-0.25/4, 0.75/4);
+    \draw[black!40!yellow, semithick] (0.25/4, 0.5/4) -- (-0.25/4-0.005, 0.75/4);
+
+    \draw[black!40!yellow, semithick] (-0.5/4, -0.25/4) -- (-0.25/4, -0.75/4);
+    \draw[black!40!yellow, semithick] (0.25/4, -0.5/4) -- (-0.25/4-0.005, -0.75/4);
+
+    \draw[black!30!blue, thick] (-2,-1) -- (0,0) node[above] {};
+    \draw[black!30!blue, thick] (-2,1) -- (0,0) node[below] {};
+    \fill[blue, opacity=0.3, pattern=north east lines] (0,0) -- (-2,1) -- (-2,-1) -- cycle;
+    
+    \draw[->][black!40!green, thick] (0,0) -- (1,2) node[above] {};
+    \draw[->][black!40!green, thick] (0,0) -- (1,-2) node[below] {};
+
+    \draw[black!40!green, thick] (1.2,1.8) node{$C$}; 
+    \draw[black!30!blue, thick] (-1.8,0.7) node{$K$}; 
+
+    \draw[->] (-2,0) -- (2,0) node[right] {\(x\)};
+    
+\end{tikzpicture}
+
+Vždy nastane jeden z případů:
+\begin{enumerate}[(a)]
+    \item $b \in C$
+    \item $b \not\in C$ - existuje nenulový vektor $y \in K$ svírající s $b$ úhel $\varphi \in [0, \frac{\pi}{2})$.
+\end{enumerate}
+
+\subsection{Lemma neprázdné uzavřené konvexní}
+Jestliže $A \in \mathbb{M}_{m,n}(\R)$, pak $\bc{Ax \mid x \in \R_+^n}$ je neprázdná uzavřená konvexní množina.
+
+Důkaz.
 \begin{itemize}
-    \item $g_1$:
-        \begin{itemize}
-            \item $x$ je afinní funkce $\rightarrow$ konvexní.
-            \item součet zachovává konvexitu.
-            \item násobení zachovává konvexitu.
-            \item exponenciála je konvexní funkce (dokonce striktně rostoucí).
-            \item vnitřní funkce ($-x + y^2$) je také konvexní.
-        \end{itemize} 
-        $\implies g_1$ je konvexní funkce $\implies M_1$ je konvexní množina.
-    \item $g_2$: 
-        \begin{itemize}
-            \item kvadrát je konvexní.
-            \item je ale člen \enquote{$xy$} konvexní? Musíme se podívat na Hessovu matici.
-        \end{itemize}
+    \item neprázdná - vždy obsahuje alespoň $0$,
+    \item konvexní - lineární zobrazení (matice) zachovává konvexitu,
+    \item uzavřenost dokazovat nebudeme.
 \end{itemize}
-\[  
-    \nabla^2 g_2(x, y) = 
-    \begin{bmatrix}
-        \phantom{-}2 & -3 \\
-        -3 & \phantom{-}6
-    \end{bmatrix}
+
+\subsection{Farkasovo lemma}\label{farkas}
+Výslovnost [farkášovo].
+
+Je-li $A \in \mathbb{M}_{m,n}(\R)$ a $b \in \R^m$, pak platí právě jedno z následujících tvrzení:
+\begin{enumerate}[(a)]
+    \item Existuje $x \in \R^n$ tak, že $Ax = b$ a $x \geq 0$.
+    \item Existuje $y \in \R^m$ tak, že $A^Ty \leq 0$ a $\langle y, b\rangle > 0$.
+\end{enumerate}
+
+Důkaz.
+
+\enquote{$(a) \implies \lnot (b)$}:\\
+Ať $x \in \R^n_+$ a $y \in \R^m$ tak, že $Ax = b$ a $A^T y \leq 0$.
+\[
+    \langle y, b\rangle \stackrel{b= Ax}{=} \langle y, Ax\rangle = \langle \underbrace{A^Ty}_{\leq 0}, \underbrace{x}_{\geq 0}\rangle \leq 0. \qed 
+\]
+
+\enquote{$\lnot (a) \implies (b)$}:\\
+Ať $C = \bc{Ax \mid x \in \R^n_+} \implies b \not\in C$, $C \dots$ uzavřená neprázdná konvexní množina.
+
+$\stackrel{\text{\hyperref[oddel]{oddělitelnost}}}{\implies}$ existuje $y \in \R^m \setminus \bc{0}, \alpha \in \R$ tak, 
+že: $\langle Ax, y\rangle \leq \alpha < \langle b, y\rangle, \quad \forall x \in \R^n_+$.
+
+Začněme s $\alpha < \langle b, y\rangle$. Chceme, aby $\langle b, y\rangle$ byl kladný. Pak nám $y$ bude svírat ostrý 
+úhel s $b$. 
+
+Protože v $0 \in C$, je $0 \leq \alpha < \langle b,y \rangle$ (za $Ax$ dosadíme $0$, takže budeme mít $\langle 0, y\rangle$).
+
+Teď musíme dokázat, že $y$ skutečně řeší zadanou soustavu nerovnic.
+
+Víme tedy, že:
+\begin{align*}
+    \langle Ax, y\rangle \leq \alpha,  &\quad \forall x \in \R^n_+ \\
+    \langle x, A^T y\rangle \leq \alpha, &\quad \forall x \in \R^n_+
+\end{align*}
+Odtuď $\langle x, A^T y\rangle \leq 0, \quad \forall x \in \R^n_+$, neboť:
+
+Ať $\tilde x \in \R^n_+$ je takový, že $\langle \tilde x, A^T y\rangle > 0$.\\
+Pak $\langle \underbrace{\lambda \tilde x}_{\lambda > 0, \text{ tedy } \lambda \tilde x \in \R^n_+}, A^T y\rangle = 
+\lambda \underbrace{\langle \tilde x, A^T y\rangle}_{> 0} \rightarrow + \infty$, pro $\lambda \rightarrow + \infty$.
+Což je spor s $\langle x, A^T y\rangle \leq \alpha, \forall x \in \R^n_+$.
+
+Ať $e_1=
+\begin{bmatrix}
+    1 \\
+    0 \\
+    \vdots \\
+    0
+\end{bmatrix}, \dots, e_n = 
+\begin{bmatrix}
+    0 \\
+    \vdots \\
+    1
+\end{bmatrix}$. Pak $(A^T y)_i \leq 0, \quad \forall i \in \bc{1, \dots, n}$, neboť $(A^T y)_i = \langle e_i, A^T y\rangle. \qed$
+
+\subsection{Krajní body konvexní množiny}
+
+\begin{multicols*}{2}
+    \begin{tikzpicture}
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (5,0);
+        \coordinate (C) at (2.5,4);
+    
+        \draw[thick] (A) -- (B) -- (C) -- cycle;
+    
+        \coordinate (D) at (3, 2);
+        \coordinate (E) at (2, 3);
+    
+        \draw[thick] (D) -- (E);
+    
+        \draw (2.9, 1.9) -- (3.1,2.1);
+        \draw (1.9, 2.9) -- (2.1,3.1);
+    
+        \coordinate (M) at ($(D)!0.5!(E)$);
+        \fill[black] (M) circle (2pt);
+    
+        \fill[black!40!green] (B) circle(2pt);
+    \end{tikzpicture}
+
+\columnbreak
+    Mějme konvexní množinu. Když sestrojíme libovolnou nedegenerativní (tzn. netriviální = není to pouze bod) úsečku,
+    vždy nalezneme bod, který bude ležet přesně uprostřed této úsečky.
+
+    Co když ale vezmeme například \textcolor{black!40!green}{zelený bod} vyznačený na nákresu? V takovém případě nejsme
+    schopni sestroji nedegenerativní úsečku, na jejímž středu by ležel tento bod.
+\end{multicols*}
+Definujme: Krajní bod $x \in C$ konvexní množiny $C \subseteq \R^n$ je takový bod, pro který neexistují dva 
+\underline{různé} body $y, z$ tak, že
+\[
+    x = \frac{1}{2}y + \frac{1}{2}z \text{.}
+\]
+
+$\text{ext}(C) \dots$ množina všech krajních (extremálních) bodů
+
+\subsection{Kreinova-Milmanova věta}
+Jestliže $C \subseteq \R^n$ je kompaktní (tj. omezená a uzavřená) konvexní množina, pak $C = \text{conv}(\text{ext}(C))$.\\
+Důkaz vynecháme.
+
+Kompaktnost je důležitá.
+\begin{itemize}
+    \item Interval $(0,1)$ není uzavřený a ext$((0,1)) = \emptyset$.
+    \item Množina $\R_+^2$ není omezená a ext$(\R_+^2) = \bc{0}$.
+\end{itemize}
+
+\subsection{Výpočet gradientu skalárního součinu}
+Nalezněte $\nabla f(x)$ a $\nabla^2 f(x)$, jestliže
+\begin{enumerate} [(a)]
+    \item $f(x) = \langle x, c\rangle$, kde $c \in \R^n$;
+    \item $f(x) = \langle Ax, x\rangle$, kde $A \in \M_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f(x)$ za dodatečného
+    předpokladu, že $A$ je symetrická matice.
+\end{enumerate}
+
+(a) 
+\[ 
+    \frac{\partial f}{\partial x_k} = \frac{\partial}{\partial x_k} \sum_{i=1}^{n} x_i c_i \overset{\text{limita}}{=} 
+    \sum_{i=1}^{n} c_i \frac{\partial x_i}{\partial x_k} = \sum_{i=1}^{n}c_i \delta_{ik} \overset{\text{rozvoj}}{=} c_k
+\]
+$\implies \nabla f(x) = 
+\begin{bmatrix}
+    c_1 \\
+    \vdots \\
+    c_k    
+\end{bmatrix} = c$; $\implies \nabla^2 f(x) = 0$, kde $\delta_{ik} = 
+\begin{cases}
+    1, \text{ pokud } i = k, \\
+    0, \text{ pokud } i \not= k.
+\end{cases}$
+
+(b)
+\[ 
+    \frac{\partial f}{\partial x_k} = \frac{\partial}{\partial x_k} \sum_{i=1}^{n} 
+    \underbrace{\left[\sum_{j=1}^{n} a_{ij}x_j\right]}_{(Ax)_i}x_i = \sum_{i,j=1}^{n} a_{ij} 
+    \underbrace{\left( \frac{\partial x_i}{\partial x_k}x_j + x_i \frac{\partial x_j}{\partial x_k}\right)}_{\text{derivace součinu}}
+    = \sum_{i,j=1}^{n} a_{ij} (\delta_{ik} x_j + x_i \delta_{jk})
 \]
 \[
-    \begin{rcases*}
-        \det \nabla^2 g_2(x, y) = 12 - 9 = 3 > 0 \\
-        2 \geq 0
-    \end{rcases*} g_2 \text{ je (ryze) konvexní funkce } \implies M_2 \text{ je konvexní množina.}
+    = \sum_{i,j=1}^{n} a_{ij}\delta_{ik}x_j + a_{ij}\delta_{jk}x_i = \underbrace{\sum_{j=1}^{n}a_{kj} x_j}_{(Ax)_k} + 
+    \underbrace{\sum_{i=1}^{n}a_{ik}x_i}_{(A^Tx)_k}
 \]
-Protože $M_1$ i $M_2$ jsou konvexní množiny, pak nutně i $M_1 \cap M_2 = M$ je konvexní množina.
+$\implies \nabla f(x) = Ax + A^Tx$ (Speciálně: $\nabla f(x) = 2Ax$ pro $A = A^T$)
+\[
+    \frac{\partial^2 f}{\partial x_k x_l} = \sum_{j=1}^{n} a_{kj} \delta_{jl} + \sum_{i=1}^{n}a_{ik} \delta_{il} = 
+    a_{kl} + a_{lk}
+\]
+$\implies \nabla^2 f(x) = A + A^T$
+
+\newpage
+\subsection{Ověření konvexnosti množiny}
+\begin{multicols}{2}
+    Je množina $M = \bc{
+    \begin{bmatrix}
+        x \\
+        y
+    \end{bmatrix} \in \R^2 \, \middle| \, |x| + |y| \leq 1}$ \\ konvexní?
+
+\columnbreak
+    \begin{tikzpicture}
+        \filldraw[fill=blue!30, draw=black] (-1,0) -- (0,-1) -- (1,0) -- (0,1) -- cycle node[above]{$M$};
+        \draw[->] (-1.5,0) -- (1.5,0) node[right] {$x$};
+        \draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
+    \end{tikzpicture}
+\end{multicols}
+1. způsob - dle definice
+\[
+    \lambda 
+    \begin{bmatrix}
+        x\\
+        y     
+    \end{bmatrix} + (1-\lambda)
+    \begin{bmatrix}
+        a\\
+        b
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        \lambda x  + (1-\lambda) a \\
+        \lambda y + (1-\lambda) b
+    \end{bmatrix} \overset{?}{\in} M, \lambda \in [0,1].
+\]
+\[
+    |\lambda x + (1-\lambda)a| + |\lambda y + (1-\lambda)b| \leq 
+    \underbrace{\lambda |x| + (1-\lambda)|a| + \lambda |y| + (1-\lambda)|b|}_{\lambda
+    \underbrace{(|x|+|y|)}_{\leq1} + (1-\lambda)\underbrace{(|a|+|b|)}_{\leq 1}} \leq \lambda + 1 - \lambda = 1 \qed
+\]
+$M$ je konvexní.
+
+2. způsob - úvaha nad vlastnostmi
+
+$|x|$ je konvexní, $|y|$ je konvexní. Součet zachovává konvexitu, tedy i $|x| + |y|$ je konvexní.
+
+\subsection{Práce s maticemi}
+Je dána matice $A \in \M_{m,n} (\R)$. Ať $L = \bc{Ax \mid x \in \R^n}$. 
+
+Ukažte, že $A$ má lineárně nezávislé sloupce $\iff$ $A^T A$ je invertibilní.
+
+Pomocný důkaz.\\
+Ukažme, že: $\ker(A) = \ker(A^T A)$\\
+Chci: $\ker(A) \subseteq \ker(A^TA)$
+\begin{flalign*}
+    x \in \ker(A) \Rightarrow  Ax &= 0 \quad / \cdot A^T& \\
+    A^TA &= 0 \Rightarrow x \in \ker(A^TA) \qed
+\end{flalign*}
+Chci: $\ker(A^TA) \subseteq \ker(A)$
+\begin{flalign*}
+    x \in \ker(A^TA) \Rightarrow  A^TAx = 0 \Rightarrow 0 &= \langle A^T A x, x\rangle& \\
+    &= \langle Ax , Ax\rangle &\\
+    &= \| Ax\|^2 \Rightarrow Ax = 0 \Rightarrow x \in \ker(A) \qed
+\end{flalign*}
+Konec pomocného důkazu.
+
+$A$ má lineárně nezávislé sloupce $\iff \bc{0} = \ker(A) = \ker(A^TA) \iff A^TA$ je invertibilní (protože $A^TA$ je 
+čtvercová a $A^TA$ je prosté).
+
+\newpage
+\subsection{Proložení bodů pomocí MNČ}
+Jsou dány body $a = 
+\begin{bmatrix}
+    -2 \\
+    -1
+\end{bmatrix}, b=
+\begin{bmatrix}
+    -1 \\
+    -2
+\end{bmatrix}, c=
+\begin{bmatrix}
+    0 \\
+    0
+\end{bmatrix}, d=
+\begin{bmatrix}
+    1 \\
+    2
+\end{bmatrix}$. Metodou nejmenších čtverců proložte těmito body graf
+\begin{enumerate}[(a)]
+    \item afinní funkce $f(x) = \alpha x + \beta$, kde $\alpha, \beta \in \R$;
+    \item funkce $f(x) = \alpha x^2 + \beta x + \gamma$, kde $\alpha, \beta, \gamma \in \R$.
+\end{enumerate}
+(a) 
+\begin{flalign*}
+    &\begin{aligned}
+        -2\alpha + \beta &= -1 \\
+        - \alpha + \beta &= -2 \\
+        0 \alpha + \beta &= 0 \\
+          \alpha + \beta &= 2
+    \end{aligned}
+    \iff 
+    \begin{aligned}
+        A 
+        \begin{bmatrix}
+            \alpha \\
+            \beta    
+        \end{bmatrix} = b, \text{ kde } A = 
+        \begin{bmatrix}
+            -2 & 1 \\
+            -1 & 1 \\
+            \phantom{-}0 & 1 \\
+            \phantom{-}1 & 1
+        \end{bmatrix}\text{, } b=
+        \begin{bmatrix}
+            -1 \\
+            -2 \\
+            \phantom{-}0 \\
+            \phantom{-}2
+        \end{bmatrix}.
+    \end{aligned}
+\end{flalign*}
+$A^T A 
+\begin{bmatrix}
+    \alpha \\
+    \beta
+\end{bmatrix} = A^T b$. $A$ má lineárně nezávislé sloupce $\Rightarrow$ $(A^T A)^{-1}$ existuje.\\
+Pak: $
+\begin{bmatrix}
+    \alpha \\
+    \beta    
+\end{bmatrix} = (A^TA)^{-1} A^Tb$.
+
+$A^T A = 
+\begin{bmatrix}
+    -2 & -1 & 0 & 1 \\
+    \phantom{-}1 & \phantom{-}1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    -2 & 1 \\
+    -1 & 1 \\
+    \phantom{-}0 & 1 \\
+    \phantom{-}1 & 1 
+\end{bmatrix} = 
+\begin{bmatrix}
+    \phantom{-}6 & -2 \\
+    -2 & \phantom{-}4
+\end{bmatrix} \Rightarrow (A^T A)^{-1} = \frac{1}{20}
+\begin{bmatrix}
+    4 & 2 \\
+    2 & 6
+\end{bmatrix}$.
+
+$\begin{bmatrix}
+    \alpha \\
+    \beta
+\end{bmatrix} = \frac{1}{10}
+\begin{bmatrix}
+    2 & 1 \\
+    1 & 3
+\end{bmatrix}
+\begin{bmatrix}
+    -2 & -1 & 0 & 1 \\
+    \phantom{-}1 & \phantom{-}1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    -1 \\
+    -2 \\
+    \phantom{-}0 \\
+    \phantom{-}2
+\end{bmatrix} = \frac{1}{10}
+\begin{bmatrix}
+    2 & 1 \\
+    1 & 3
+\end{bmatrix}
+\begin{bmatrix}
+    \phantom{-}6 \\
+    -1
+\end{bmatrix} = \frac{1}{10}
+\begin{bmatrix}
+    11 \\
+    3
+\end{bmatrix}$
+$\Rightarrow \alpha = \frac{11}{10}$; $\beta = \frac{3}{10}$.
+
+(b)
+\begin{flalign*}
+    &\begin{aligned}
+        4\alpha           - 2\beta           + \gamma &= -1 \\
+        \phantom{0}\alpha - \phantom{0}\beta + \gamma &= -2 \\
+        0\alpha           + 0\beta           + \gamma &= 0 \\
+        \phantom{0}\alpha + \phantom{0}\beta + \gamma &= 2
+    \end{aligned}
+    \iff 
+    \begin{aligned}
+        A 
+        \begin{bmatrix}
+            \alpha \\
+            \beta    
+        \end{bmatrix} = b, \text{ kde } A = 
+        \begin{bmatrix}
+            4 & -2 & 1 \\
+            1 & -1 & 1\\
+            0 & \phantom{-}0 & 1\\
+            1 & \phantom{-}1 & 1
+        \end{bmatrix}\text{, } b=
+        \begin{bmatrix}
+            -1 \\
+            -2 \\
+            \phantom{-}0 \\
+            \phantom{-}2
+        \end{bmatrix}.
+    \end{aligned}
+\end{flalign*}
+$A$ má lineárně nezávislé sloupce $\Rightarrow$ $A^TA$ je invertibilní.
+
+$A^T A = 
+\begin{bmatrix}
+    \phantom{-}4 & \phantom{-}1 & 0 & 1\\
+    -2           & -1           & 0 & 1 \\
+    \phantom{-}1 & \phantom{-}1 & 1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    4 & -2 & 1 \\
+    1 & -1 & 1\\
+    0 & \phantom{-}0 & 1\\
+    1 & \phantom{-}1 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+    \phantom{-}18 & -8           & \phantom{-}6 \\
+    -8            & \phantom{-}6 & -2 \\
+    \phantom{-}6  & -2           & \phantom{-}4
+\end{bmatrix} \Rightarrow (A^T A)^{-1} = \frac{1}{20}
+\begin{bmatrix}
+    \phantom{-}5 &  \phantom{-}5 & -5\\
+    \phantom{-}5 &  \phantom{-}9 & -3\\
+    -5           & -3            &  \phantom{-}11
+\end{bmatrix}$.
+
+$\begin{bmatrix}
+    \alpha \\
+    \beta \\
+    \gamma
+\end{bmatrix} = \frac{1}{20}
+\begin{bmatrix}
+    \phantom{-}5 &  \phantom{-}5 & -5\\
+    \phantom{-}5 &  \phantom{-}9 & -3\\
+    -5           & -3            &  \phantom{-}11
+\end{bmatrix}
+\begin{bmatrix}
+    4 \\
+    2 \\
+    1
+\end{bmatrix} = \frac{1}{20} 
+\begin{bmatrix}
+    \phantom{-}25\\
+    \phantom{-}35\\
+    -15
+\end{bmatrix} = \frac{1}{4}
+\begin{bmatrix}
+    \phantom{-}5\\
+    \phantom{-}7\\
+    -3
+\end{bmatrix}$ $\Rightarrow \alpha = \frac{5}{4}$; $\beta = \frac{7}{4}$; $\gamma = \frac{-3}{4}$.
+
+\newpage
+\subsection{Formulace úlohy MNČ}
+Ať závislost výstupního signálu $(y_n)_{n=0}^\infty$ systému na vstupním signálu $(x_n)_{n=0}^\infty$ je dána konvolucí
+posloupnosti $(x_n)_{n=0}^\infty$ s posloupností $(h_n)_{n=0}^\infty$ ($(h_n)_{n=0}^\infty$ popisuje odezvu systému
+na jednotkový impuls), tj.  $y_n = \sum_{i=0}^{n}h_i x_{n-i}$. Předpokládejte dále, že $h_n = 0$ pro všechna $n \geq 4$.
+Měřením byla zjištěna hodnota koeficientů $y_0, \dots, y_{20}$ výstupního signálu, když na vstupu byl signál s počátečními
+koeficienty $x_0, \dots, x_{20}$. Formulujte úlohu nejmenších čtverců pro nalezení koeficientů $h_0, h_1, h_2, h_3$.
+
+\begin{multicols}{2}
+    \begin{tikzpicture}
+        \node[draw, rectangle, minimum width=2cm, minimum height=1cm] (box) 
+            {\(\left( h_n \right)_{n=0}^{\infty}\)};
+    
+        \draw[->] (-2,0) node[left] {\(\left( x_n \right)_{n=0}^{\infty}\)}
+            -- (box.west);
+    
+        \draw[->] (box.east) -- (2,0) node[right] {\(\left( y_n \right)_{n=0}^{\infty}\)};
+    \end{tikzpicture}
+
+    $y_k = \sum_{l=0}^k h_l x_{k-l} = h_0 x_k + \dots + h_k x_0$
+
+    předpokládejme: $h_l = 0 \, \forall l \geq 4$. 
+\columnbreak
+
+    \begin{align*}
+        y_0 &= h_0 x_0 \\
+        y_1 &= h_1 x_0 + h_0 x_1 \\
+        y_2 &= h_2 x_0 + h_1 x_1 + h_0 x_2 \\
+        y_3 &= h_3 x_0 + h_2 x_1 + h_1 x_2 + h_0 x_3 \\
+        y_4 &= h_3 x_1 + h_2 x_2 + h_3 x_3 + h_0 x_4 \\
+        & \vdots \\
+        y_{20} &= h_3 x_{17} + h_2 x_{18} + h_1 x_{19} + h_0 x_{20}
+    \end{align*}
+\end{multicols}
+Minimalisujme $f(x) = \| Ax + b\|^2$, kde
+\[
+    A = 
+    \begin{bmatrix}
+        x_0 & 0 & 0 & 0 \\
+        x_1 & x_0 & 0 & 0 \\
+        x_2 & x_1 & x_0 & 0 \\
+        x_3 & x_2 & x_1 & x_0 \\
+        \vdots & \vdots & \vdots & \vdots \\
+        x_{20} & x_{19} & x_{18} & x_{17}
+    \end{bmatrix}\text{; } b = 
+    \begin{bmatrix}
+        y_0 \\
+        y_1 \\
+        \vdots \\
+        y_{20}
+    \end{bmatrix}.
+\]

@@ -1,139 +1,166 @@
-\section{Smíšené strategie}
-\subsection{Definice konečné hry}\label{konecna}
-Nechť $G = (N, (S_i)_{i=1}^n, (u_i)_{i=1}^n)$ je strategická hra. Řekněme, že $G$ je konečná, jestliže pro každé 
-$i \in N$ je $S_i$ konečná množina.
+\section{Numerické metody optimalisace}
 
-\subsection{Definice smíšeného rozšíření}\label{smisRoz}
-Nechť $G = (N, (S_i)_{i=1}^n, (u_i)_{i=1}^n)$ je konečná strategická hra $N = \bc{1, \dots, n}$ a pro každé $i \in N$ je
-$S_i = \bc{\sigma_1^i, \dots, \sigma_{m_i}^i}$. Smíšené rozšíření $G$ je strategická hra 
-$\overline{G} = (N, (\Delta S_i)_{i=1}^n, (U_i)_{i=1}^n)$, kde pro každé $i \in N$ je
-\begin{itemize}
-    \item $\Delta S_i = \bc{x \in \R_+^{m_i} \middle| \sum_{j=1}^{m_i}x_j = 1}$ množina všech smíšených strategií 
-    (loterií) nad $S_i$,
-    \item $U_i : \Delta S_1 \times \dots \times S_n \rightarrow \R$ je dána předpisem
-    \[
-        U_i (p^1, \dots, p^n) = \sum_{j_1 = 1}^{m_1} \dots \sum_{j_n=1}^{m_n} u_i(\sigma_{j_1}^1, \dots, \sigma_{j_n}^n)
-        p_{j_1}^1 \dots p_{j_n}^n.
-    \]
-\end{itemize}
-Pozorování.
-\begin{itemize}
-    \item Prvek $\sigma_k^i$ ztotožňujeme s prvkem $\R_+^{m_i}$, který má na $k$-té posici jedničku a všude jinde nuly.
-    \item Prvky z $\Delta S_i$, které mají na jedné posici jedničku a na ostatních nulu, nazýváme 
-    \textbf{čisté strategie}.
-\end{itemize}
-
-\subsection{Příklad Panna nebo orel}
-
-\begin{multicols}{2}
-    Hra je daná tabulkou:
-    \[
-    \begin{array}{|c| |c|c|}
-        \hline
-        & P & O \\ \hline \hline
-        P & \phantom{-}10 & -10 \\ \hline
-        O & -10 & \phantom{-}10 \\ \hline
-    \end{array}
-    \]
-
-    $S_1 = S_2 = \bc{P, O}$
-
-    $u_1 (P, P) = - u_2(P,P) = 10$\\
-    $u_1 (P, O) = - u_2(P,O) = -10$\\
-    $u_1 (O, P) = - u_2(O,P) = 10$\\
-    $u_1 (O, O) = - u_2(O,O) = -10$\\
-    $\sigma_1 = \tau_1 = P,\, \sigma_2 = \tau_2 = O$
-
-\end{multicols}
-$\Delta S_1 = \Delta S_2 = \bc{x \in \R_+^2 \middle| x_1 + x_2 = 1}$
-
-\[  
-    U_1(p,q) = \sum_{i=1}^{2} \sum_{j=1}^{2} u_1 (\sigma_i, \tau_i)p_i q_j = 
-    10p_1q_1 + (-10)p_2q_1 + (-10)p_2q_2 + 10p_2q_2
-\]
-Zřejmě $U_2(p,q) = -U_1(p,q)$. $\implies \overline{G} = (\Delta S_1, \Delta S_2, U)$, kde $U = U_1$, tedy jedná se o hru
-dvou hráčů s nulovým součtem.
-
-Najděme optimální strategie.
-
-Položme $p_1 = x,\, q_1 = y$. Pak $x, y \in [0,1]$, $p_2 = 1-x, \, q_2 = 1-y$.
+\subsection{Newtonova metoda v jednorozměrné optimalisaci}
+Je dána rovnice $g(x) = 0$, kde $g \in C^1(\R)$. Nechť $x_0 \in \R$. Položme
 \[
-    \widetilde{U}(x,y) = 10xy - 10x(1-y) - 10(1-x)y + 10(1-x)(1-y) = 40xy -20x - 20y + 10 = 10(4xy - 2x - 2y + 1)
+    x_{k-1} = x_k - \frac{g(x_k)}{g'(x_k)}\text{, } k \in \N_0.
 \]
-Místo $\overline{G}$ uvažme hru $\Gamma = \left([0,1], [0,1], \widetilde{U}\right)$.
 
-Hledejme Nashovo equilibrium hry $\Gamma$.
+\begin{tikzpicture}[scale=1,>=latex]
+    \draw[->] (-0.5,0) -- (4,0) node[right] {};
+    \draw[->] (0,-1.5) -- (0,3) node[above] {};
 
-Použijeme \hyperref[cenaHry]{definici ceny hry}:
+    \draw[domain=-0.5:4,samples=200,very thick]
+        plot(\x,{0.5*(\x-1)^2 - 0.5});
+
+    \draw[dashed,domain=-0.5:4]
+        plot(\x,{0.5*(\x-1.5) - 0.375});
+
+    \draw[] (1.5, 0.05) -- (1.5, -0.05);
+
+    \draw[densely dotted]
+        (1.5,0) -- (1.5,{0.5*(1.5-1)^2 - 0.5});
+
+    \draw[] (2.25, 0.05) -- (2.25, -0.05);
+
+    \node[above] at (1.5,0) {$x_0$};
+    \node[below] at (2.25,0) {$x_1$};
+    \node[above] at (2.6,1.4) {$g(x)$};
+    \node[right] at (3,0.8) {$y = g'(x_0)\,(x - x_0) + g(x_0)$};
+
+\end{tikzpicture}
+\begin{itemize}
+    \item Předpokládejme, že $g'(x_k) \not=0$ pro každé $k \in \N_0$.
+    \item Pokud $x_0$ je dostatečně blízko řešení $\hat x$ rovnice $g(x)$, pak $x_k \rightarrow \hat x$.
+\end{itemize}
+Je dána funkce $f \in C^2(\R)$. Hledejme stacionární body funkce $f$, tj. řešme rovnici $f'(x) = 0$. Z Newtonovy metody 
+pro řešení rovnic plyne, že
+\[
+    x_{k+1} = x_k - \frac{f'(x_k)}{f''(x_k)}
+\]
+\textbf{Algoritmus}
+\begin{enumerate}[(a)]
+    \item Zvolíme $\varepsilon > 0$ a $x_0 \in \R$. Položíme $k = 0$.
+    \item Vypočítáme $f'(x_k)$ a $f''(x_k)$.
+    \item Je-li $|f'(x_k)| < \varepsilon$, pak algoritmus končí a $x_k$ je hledaná aproximace stacionárního bodu. V 
+    opačném případě přejdeme na další krok.
+    \item Položíme
+    \[
+        x_{k+1} = x_k - \frac{f'(x_k)}{f''(x_k)}
+    \]
+    (nutno ověřit, že $f''(x_k) \not= 0$) hodnotu $k$ zvýšíme o 1 a jdeme na krok (b).
+\end{enumerate}
+% \subsection{Příklad použití Newtonovy metody}
+% Je dána funkce $f(x) = x^4 - 4x^2 + 2$.
+% \begin{center}
+%     \begin{tikzpicture}
+%         \begin{axis}[
+%             domain=-2:2,
+%             samples=100,
+%             axis lines=middle,
+%             xlabel={$x$},
+%             ylabel={$f(x)$},
+%             width=10cm,
+%             height=8cm,
+%             enlargelimits=true,
+%         ]
+%         \addplot[
+%             blue,
+%             thick
+%         ] {x^4 - 4*x^2 + 2};
+%         \end{axis}
+%     \end{tikzpicture}
+% \end{center}
+
+\subsection{Omezení na minimalisační úlohy}
+Chceme nalézt alespoň přibližně bod minima (alespoň lokálního) funkce $f: \R^n \rightarrow \R$.\\
+\textbf{Postup:}
+\begin{itemize}
+    \item Zvolíme $x_0$ a konstruujeme posloupnost, jejíž členy jsou dány \[ x_{k+1} = x_k + \alpha_k d_k,\] kde 
+    $\alpha_k \geq 0$ je \underline{délka} $k$-tého kroku a $d_k \in \R^n$ je \underline{směr} $k$-tého kroku.
+    \item Vhodnou volbou délky kroku a směru se snažíme dosáhnout toho, aby $f(x_{k+1}) < f(x_k)$.
+\end{itemize}
+
+\subsection{Nepodmíněná optimalisace - Metoda největšího spádu}
+V metodě největšího spádu předpokládáme, že $f \in C^1(\R^n)$.\\
+\textbf{Volba směru $d_k$:}
+\begin{itemize}
+    \item Chceme, aby $f(x_{k+1}) < f(x_k)$, a proto za směr $d_k$ budeme volit směr poklesu, tj. prvek z $\D(f; x_k)$.
+    \item Konkrétně volme $d_k = -\nabla f(x_k)$.
+    \item Jestliže $\nabla f(x_k) \not= 0$, pak 
+    \[
+        \langle d_k, \nabla f(x)\rangle = \langle -\nabla f(x_k), \nabla f(x_k)\rangle = - \| \nabla f(x_k)\|^2 < 0,
+    \] tj. $d_k \in \D_0(f; x_k) \subseteq \D(f;x_k)$.
+    \item Směr $d_k = -\nabla f (x_k)$ je směr největšího poklesu v bodě $x_k$.
+\end{itemize}
+\textbf{Volba délky kroku $\alpha_k$:}
+\begin{itemize}
+    \item Buď pevná volba kroku $\alpha_k = \alpha$ pro každé $k \in \N_0$. Příliš velké $\alpha$ může zkazit konvergenci.
+    \item Nebo například $\alpha_k \in \argmin_{\alpha \geq 0} f(x_k - \alpha \nabla f(x_k))$.
+\end{itemize}
+Příklad špatně zvoleného $\alpha$.
+
+Mějme $f(x) = \frac{1}{2} \| x\|^2, \alpha = 11, x_0 = \begin{bmatrix}1 \\ 1\end{bmatrix}$. 
+Pak $\nabla f(x) = \frac{1}{2}2 x = x$.
 \begin{align*}
-    \underline{v} = \max_{x \in [0,1]} \min_{y \in [0,1]} \widetilde{U}(x,y) \\
-    \overline{v}  = \min_{y \in [0,1]} \max_{x \in [0,1]} \widetilde{U}(x,y)
+    x_1 &= x_0 + \alpha (-x_0) = -10 x_0 \\
+    x_2 &= x_1 - \alpha x_1 = -10x_1 = (-10)^2 x_0 \\
+    &\, \vdots \\
+    x_k &= (-10)^k x_0 \dots \text{tedy očividně nekonverguje.}
 \end{align*}
-Spočtěme 
-\begin{align*}
-    \min_{y \in [0,1]} \widetilde{U}(x,y) &= \min_{y \in [0,1]} 10(4xy - 2x - 2y + 1) \\
-    &= 10 \min_{y \in [0,1]} (4x-2)y -2x + 1=
-    \begin{cases}
-        10(-2x + 1) & x \geq \frac{1}{2} \\
-        10(2x - 1)  & x < \frac{1}{2}
-    \end{cases}
-\end{align*}
-\begin{multicols}{2}
-    \begin{tikzpicture}
-        \begin{axis}[
-            axis lines=middle, 
-            xmin=0, xmax=1.1,
-            ymin=-10, ymax=1,
-            xlabel={$x$}, ylabel={$y$},
-            samples=200,
-            domain=0:1,
-            thick
-        ]
-            \addplot[blue, domain=0:0.5] {10 * (2 * x - 1)};
-            \addplot[red, domain=0.5:1] {10 * (-2 * x + 1)};
+\textbf{Volba kritéria zastaveni:}
+\begin{itemize}
+    \item $\|\nabla f(x_k)\| < \varepsilon$.
+    \item Další možnosti jsou $\| x_{k+1} - x_k\| < \varepsilon$, $|f(x_{k+1} - f(x))| < \varepsilon$, \dots
+    \item Možná je i kombinace více kritérií.
+\end{itemize}
 
-            \node[fill=red, circle, inner sep=1pt] at (0.5, 0) {};
-            \node at (0.5, 0.5) {0.5};
-        \end{axis}
-    \end{tikzpicture}
+\textbf{Algoritmus}
+\begin{enumerate}
+    \item Zvolme $x_0 \in \R^n, \varepsilon > 0$. Položme $k = 0$.
+    \item Je-li $\| \nabla f(x_k)\| < \varepsilon$, pak algoritmus končí a $x_k$ je hledaná aproximace. V opačném 
+    případě přejdeme na další krok.
+    \item Položíme $d_k = -\nabla f(x_k)$.
+    \item Nalezneme $\alpha_k \in \argmin_{\alpha \geq 0} f(x_k - \alpha \nabla f(x_k))$.
+    \item Položíme $x_{k+1} = x_k - \alpha_k \nabla f(x_k)$. Zvýšíme hodnotu $k$ o 1 a jdeme na krok (b).
+\end{enumerate}
 
-    $\implies \underline{v} = 0$
-\end{multicols}
-\begin{align*}
-    \max_{x \in [0,1]} \widetilde{U}(x,y) &= \max_{x \in [0,1]} 10(4xy - 2x - 2y + 1) \\
-    &= 10 \max_{x \in [0,1]} (4y-2)x -2y + 1 =
-    \begin{cases}
-        10(2y - 1) & y \geq \frac{1}{2} \\
-        10(-2y + 1)  & y < \frac{1}{2}
-    \end{cases}
-\end{align*}
-\begin{multicols}{2}
-    \begin{tikzpicture}
-        \begin{axis}[
-            axis lines=middle, 
-            xmin=0, xmax=1.1,
-            ymin=-1, ymax=10,
-            xlabel={$x$}, ylabel={$y$},
-            samples=200,
-            domain=0:1,
-            thick
-        ]
-            \addplot[blue, domain=0:0.5] {10 * (-2 * x + 1)};
-            \addplot[red, domain=0.5:1] {10 * (2 * x - 1)};
+\subsection{Podmíněná optimalisace - Metoda projekce gradientu}
+Modifikuje metodu největšího spádu.\\
+Předpokládejme $f \in C^1 (\R^n)$ a $C \subseteq \R^n$ je neprázdná, uzavřená a konvexní.\\
+Nulovost gradientu již není vhodným kritériem pro zastavení.
 
-            \node[fill=red, circle, inner sep=1pt] at (0.5, 0) {};
-            \node at (0.5, -0.5) {0.5};
-        \end{axis}
-    \end{tikzpicture}
+\textbf{Algoritmus}
+\begin{enumerate}[(a)]
+    \item Zvolme $x_0 \in C$ a $\varepsilon > 0$. Položmě $k = 0$.
+    \item Vypočteme $d_k = -\nabla f(x_k)$.
+    \item Nalezneme $\alpha_k \in \argmin_{\alpha \geq 0} f(x_k - \alpha \nabla f(x_k))$.
+    \item Položíme $x_{k+1} = P_C (x_k - \alpha_k \nabla f(x_k))$.
+    \item Je-li $|f(x_{k+1}) - f(x_k)| < \varepsilon$, pak algoritmus končí a $x_k$ je hledaná aproximace. V opačném 
+    případě zvýšíme hodnotu $k$ o 1 a jdeme na krok (b).
+\end{enumerate}
 
-    $\implies \overline{v} = 0$
-\end{multicols}
-Tedy $\underline{v} = \overline{v} = v = 0$. Z grafu vyčteme, že optimální strategie 1. hráče je $x=\frac{1}{2}$ a 
-optimální strategie 2. hráče je $y = \frac{1}{2}$ pro hru $\Gamma$.\\
-\hyperref[nash]{Nashovo equilibrium} hry $\overline{G} = 
-\left(\frac{1}{2}\begin{bmatrix}1 \\ 1\end{bmatrix}, \frac{1}{2}\begin{bmatrix}1 \\ 1\end{bmatrix}\right)$.
+\subsection{Podmíněná optimalisace - Metoda penalisačních funkcí}
+Nechť $f, g_1, \dots, g_m \in C^1(\R^n)$ a je dána úloha
+\[
+\left.\begin{aligned}
+    &\text{minimalisujte}&& f(x) \\
+    &\text{za podmínky}  && g_1(x) \leq 0, \\
+    & && \quad \quad \vdots \\
+    & && g_m(x) \leq 0. 
+\end{aligned}
+\right\} (U)
+\]
+\begin{itemize}
+    \item Chceme nahradit $(U)$ úlohami nepodmíněné optimalisace.
+    \item $p(x) = \sum_{i=1}^{m} \left[\max \bc{0, g_i(x)}\right]^2 \dots$ penalisační funkce. 
+\end{itemize}
+Penalisační funkce zařídí, že čím dál budeme od přípustné množiny $C$, tím více budeme takové body penalisovat.
 
-\subsection{Nashova věta}\label{nashV}
-Smíšené rozšíření konečné strategické hry má nejméně jedno \hyperref[nash]{Nashovo equilibrium}.
-
-Důkaz vynecháme.
+\textbf{Algoritmus}
+\begin{enumerate}[(a)]
+    \item Zvolme $\varepsilon > 0, c_0 > 0$ a $\alpha > 1$. Položmě $k = 0$.
+    \item Nalezněme bod minima $x_k$ funkce $f(x) + c_k p(x)$ na $\R^n$.
+    \item Je-li $c_k p(x) < \varepsilon$, pak algoritmus končí a $x_k$ je hledaná aproximace. V opačném 
+    případě zvýšíme hodnotu $k$ o 1 a jdeme na krok (b).
+\end{enumerate}
