@@ -1,7 +1,6 @@
 \section{Úvod do matematické optimalisace}
 
 \subsection{Důkaz souvislosti minima a maxima}
-
 Tvrzení. Pro $f: D \rightarrow \R, M \subseteq D, \hat{x} \in M$ platí:
 
 \begin{enumerate}[(1)]
@@ -10,15 +9,13 @@ Tvrzení. Pro $f: D \rightarrow \R, M \subseteq D, \hat{x} \in M$ platí:
     - \underset{x \in M}{\max} (-f(x))$.
 \end{enumerate}
 Důkaz.
-
 \begin{enumerate}[(1)]
+    \item $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, tj. $f(\hat{x}) \leq f(x), 
+    \forall x \in M \underset{\cdot (-1)}{\iff}
+    -f(\hat{x}) \geq -f(x), \forall x \in M$,\\tj. $\hat{x} \in \underset{x \in M}{\argmax} (-f(x)). \qed$
 
-\item $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, tj. $f(\hat{x}) \leq f(x), \forall x \in M \underset{\cdot (-1)}{\iff}
--f(\hat{x}) \geq -f(x), \forall x \in M$,\\tj. $\hat{x} \in \underset{x \in M}{\argmax} (-f(x)). \qed$
-
-
-\item Ať $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, pak $\underset{x \in M}{\min} f(x) = f(\hat{x}) =
-- (- f(\hat{x})) \overset{(1)}{=} - \underset{x \in M}{\max} (-f(x)). \qed$
+    \item Ať $\hat{x} \in \underset{x \in M}{\argmin} f(x)$, pak $\underset{x \in M}{\min} f(x) = f(\hat{x}) =
+    - (- f(\hat{x})) \overset{(1)}{=} - \underset{x \in M}{\max} (-f(x)). \qed$
 \end{enumerate}
 
 \subsection{Hledání přípustných množin}
@@ -67,19 +64,16 @@ Udělejme průnik definičního oboru funkce a podmínek: $(x \in (0, \infty)) \
 \end{multicols}
 
 \subsection{Maximalisační úloha}
-Banka nabízí dva investiční produkty. Očekávaný měsíční výnos prvního investičního produktu (v tis. Kč) při investici $x$
-(v tis. Kč) je $\frac{2x}{4x+25}$ a očekávaný měsíční výnos druhého invetičního produktu (v tis. Kč) při investici $x$
-(v tis. Kč) je $\frac{x}{x+50}$. Jakým způsobem má investor rozdělit částku $c = 100000$ Kč mezi uvedené dva produkty tak,
-aby celkový očekávaný měsíční výnos byl co největší?
-
+Banka nabízí dva investiční produkty. Očekávaný měsíční výnos prvního investičního produktu (v tis. Kč) při investici 
+$x$ (v tis. Kč) je $\frac{2x}{4x+25}$ a očekávaný měsíční výnos druhého invetičního produktu (v tis. Kč) při investici 
+$x$ (v tis. Kč) je $\frac{x}{x+50}$. Jakým způsobem má investor rozdělit částku $c = 100000$ Kč mezi uvedené dva 
+produkty tak, aby celkový očekávaný měsíční výnos byl co největší?
 \optAs{max}{\frac{x}{x+50} + \frac{2y}{4y + 25}}{%
     x+y &= 100,\\
     x,y &\geq 0.
 }
-
 Vyjádřeme si jednu proměnnou v závislosti na druhé, například $x = 100 - y$. Následně dosadíme do úlohy a vyšetříme
 stacionární body pomocí první derivace.
-
 \[
     \frac{\dif}{\dif y} \left(\frac{100-y}{150-y} + \frac{2y}{4y + 25}\right)= \frac{-50}{(150-y)^2} + \frac{50}{(4y + 25)^2}
     \stackrel{!}{=}0
@@ -313,41 +307,32 @@ Cíl: $|| [\lambda x + (1-\alpha)y] - a || < r$. Dle \hyperref[sec:konvex]{defin
 \subsection{Je průnik množin konvexní?}
 Úvaha pro 2 množiny ve $\R^2$:
 
-\begin{multicols}{2}
-    Mějme jednu modrou ($y \geq 0$) a druhou červenou ($x \geq 0$) \hyperref[sec:konvex]{konvexní} množinu. Jejich 
-    průnik je pak nezáporný ortant, tedy \\
-    $\R_+^n = \bc{(x_1, \dots, x_n)^T \in \R^n \mid x_1 \geq 0, \dots, x_n \geq 0}$.
+\begin{wrapfigure}{r}{0.25\textwidth}
+    \vspace{-6em}
+    \hspace*{-2em}
+    \begin{tikzpicture}[remember picture]
+        % y > 0 ("/")
+        \fill[pattern=north east lines, pattern color=blue, opacity=0.6] (-2,0) rectangle (2,2);
 
-    Visuálně je průnik nekonvexní.
+        % x > 0 ("\")
+        \fill[pattern=north west lines, pattern color=red, opacity=0.6] (0,-2) rectangle (2,2);
 
-    Důkaz.
+        \draw[thick,->] (-2.2,0) -- (2.2,0) node[anchor=north] {\(x\)};
+        \draw[thick,->] (0,-2.2) -- (0,2.2) node[anchor=east] {\(y\)};
+        \node[anchor=north east] at (0,0) {\(0\)};
+    \end{tikzpicture}
+\end{wrapfigure}
 
-    Nechť ${x,y \in \bigcap\limits_{i \in I} \M_{i}, \forall i \in I \implies [x, y] \in \M_i, \forall i \in I
-    \implies [x,y] \subseteq \bigcap\limits_{i \in I} \M_{i}.}$
-    $\qed$
+Mějme jednu modrou ($y \geq 0$) a druhou červenou ($x \geq 0$) \hyperref[sec:konvex]{konvexní} \\ množinu. Jejich průnik 
+je pak nezáporný ortant, tedy \\
+$\R_+^n = \bc{(x_1, \dots, x_n)^T \in \R^n \mid x_1 \geq 0, \dots, x_n \geq 0}$.
 
-\columnbreak
+Visuálně je průnik nekonvexní.
 
-    \begin{center}
-        \begin{tikzpicture}
-            % y > 0 ("/")
-            \fill[pattern=north east lines, pattern color=blue, opacity=0.6] (-2,0) rectangle (2,2);
+Důkaz.
 
-            % x > 0 ("\")
-            \fill[pattern=north west lines, pattern color=red, opacity=0.6] (0,-2) rectangle (2,2);
-
-            \draw[thick,->] (-2.2,0) -- (2.2,0) node[anchor=north] {\(x\)};
-            \draw[thick,->] (0,-2.2) -- (0,2.2) node[anchor=east] {\(y\)};
-
-            % \foreach \x in {-4,-3,-2,-1,1,2,3,4}
-            %     \draw[dashed, gray] (\x,-4) -- (\x,4);
-            % \foreach \y in {-4,-3,-2,-1,1,2,3,4}
-            %     \draw[dashed, gray] (-4,\y) -- (4,\y);
-
-            \node[anchor=north east] at (0,0) {\(0\)};
-        \end{tikzpicture}
-    \end{center}
-\end{multicols}
+Nechť ${x,y \in \bigcap\limits_{i \in I} \M_{i}, \forall i \in I \implies [x, y] \in \M_i, \forall i \in I
+\implies [x,y] \subseteq \bigcap\limits_{i \in I} \M_{i}.}$
 
 \subsection{Důkaz, že rozdíl a sjednocení nezachovává konvexitu}
 Mějme $[0,1] \setminus (0,1) = \bc{0,1} = \bc{0} \cup \bc{1}$.
