@@ -2,7 +2,7 @@
 
 \subsection{Věta o nejlepší aproximaci}
 Je-li $C \subseteq \R^n$ neprázdná uzavřená konvexní množina, pak pro každé $x \in \R^n$ existuje právě jeden bod 
-$\hat y \in C$ tak, že $\dist (x; C) = ||x-\hat y||$.
+$\hat y \in C$ tak, že $\dist (x; C) = \|x-\hat y\|$.
 
 Důkaz.
 
@@ -18,51 +18,52 @@ Cíl: Existuje bod minima\\
             \fill[pattern=north east lines] (0,0) circle (2);
         \end{scope}
         
-        \draw (0,0) circle (2) node [text=black] {$M$};
+        \draw (0,0) circle (2) node [text=black] {$C$};
         \draw (3,0) circle (2);
     
         \filldraw[black] (1, 0) circle (2pt) node[left] {$z$};
-        \filldraw[black] (2, 0) circle (2pt) node[right] {$y$};
+        \filldraw[black] (2, 0) circle (2pt) node[right] {$\hat y$};
         \filldraw[black] (3, 0) circle (2pt) node[right] {$x$};
     
-        \draw[->, thick] (1,-2.5) -- (1.5,-1) node[midway, above, sloped] {$C_z \not= \emptyset$}; % TODO upravit sipku
+        \draw[->, thick] (1,-2.5) -- (1.5,-1) node[midway, above, sloped] {$C_z \not= \emptyset$};
     \end{tikzpicture}
 
     \begin{adjustwidth}{-2em}{0pt}
-        $M$ je obecná konvexní množina.
+        $C$ je obecná neprázdná uzavřená konvexní množina.
 
-        $R = ||x-z||$,
+        $R = \|x-z\|$, $z \in C$ je libovolné,
 
-        $Cz = M \cap B (x, R) = M \cap \bc{a \in \R^n \mid \|z-a\| \leq R}$.\\
-        $\uparrow$\\
+        $C_z = C \cap B (x, R) = C \cap \bc{a \in \R^n \mid \|z-a\| \leq R}$.\\
+        \hspace*{0.4em}$\uparrow$\\
         $\underbrace{\text{uzavřená, omezená}}_\text{kompaktní}$, neprázdná
 
-        Tedy $a \mapsto ||x-a||$ je spojitá.
+        Tedy $a \mapsto \|x-a\|$ je spojitá.
 
         $\Rightarrow$ Spojitost na kompaktní množině znamená, že $f$ nabývá na $C_z$ minima dle 
         \href{https://cs.wikipedia.org/wiki/Weierstrassova_v%C4%9Bta}{Weierstrassovy věty}.
     \end{adjustwidth}
 \end{multicols}
-Ať $y$ je bod minima. Všechny body v $M$ mají od $x$ vzdálenost $\geq ||x-y||. \qed$
+Ať $\hat y$ je bod minima. Všechny body v $C$ mají od $x$ vzdálenost $\geq \|x- \hat y\|. \qed$
 
 (b) Jednoznačnost.\\
-Cíl: Pokud $a,b \in \R^n : ||x-a|| = ||x-b|| = \overbrace{\dist(x,M)}^\delta$, pak $a=b$.\\
-Lemma, rovnoběžníkové pravidlo: $u,v \in \R^n \Rightarrow ||u+v||^2 + ||u-v||^2 = 2\left(||u||^2 + ||v||^2\right)$.\\
+Cíl: Pokud $a,b \in \R^n : \|x-a\| = \|x-b\| = \overbrace{\dist(x,C)}^\delta$, pak $a=b$.\\
+Lemma, rovnoběžníkové pravidlo: $u,v \in \R^n \Rightarrow \|u+v\|^2 + \|u-v\|^2 = 2\left(\|u\|^2 + \|v\|^2\right)$.\\
 Důkaz lemma: 
 \[
-    ||u+v||^2 + ||u-v||^2 = \langle u+v, u+v \rangle + \langle u-v, u-v \rangle = ||u||^2 + 2 \langle u, v \rangle + 
-    ||v||^2 + ||u||^2 - 2 \langle u, v \rangle + ||v||^2
+    \|u+v\|^2 + \|u-v\|^2 = \langle u+v, u+v \rangle + \langle u-v, u-v \rangle = \|u\|^2 + 2 \langle u, v \rangle + 
+    \|v\|^2 + \|u\|^2 - 2 \langle u, v \rangle + \|v\|^2
 \] 
 \[
-    = 2\left( ||u||^2 + ||v||^2 \right) \text{.} \qed
+    = 2\left( \|u\|^2 + \|v\|^2 \right) \text{.} \qed
 \]
 Důkaz jednoznačnosti:\\
 Ať $y = \frac{1}{2}a + \frac{1}{2}b$. \\
-Pak $\delta^2 \leq ||x-y||^2 = ||x-\frac{1}{2}a - \frac{1}{2}b||^2 = ||\frac{1}{2}(x-a) + \frac{1}{2}(x-b)||^2 = 
-\frac{1}{4}||\underbrace{(x-a)}_{u} + \underbrace{(x-b)}_{v}||^2 \\ 
-\stackrel{\text{lemma}}{=} \frac{1}{4} \left[ 2 \left(\underbrace{||x-a||^2}_{\delta^2} + \underbrace{||x-b||^2}_{\delta^2}\right) 
-- \underbrace{||(x-a) + (x-b)||^2}_{b-a}\right] = \delta^2 - \frac{1}{4} ||b-a||^2 \Rightarrow \delta^2 \leq \delta^2 - 
-\underbrace{\frac{1}{4} ||b-a||^2}_{\leq 0 \Rightarrow a=b} \text{.}$
+Pak $\delta^2 \leq \|x-y\|^2 = \left\|x-\frac{1}{2}a - \frac{1}{2}b\right\|^2 = \left\|\frac{1}{2}(x-a) + 
+\frac{1}{2}(x-b)\right\|^2 = \frac{1}{4}\|\underbrace{(x-a)}_{u} + \underbrace{(x-b)}_{v}\|^2 \\ 
+\stackrel{\text{lemma}}{=} \frac{1}{4} \left[ 2 \left(\underbrace{\|x-a\|^2}_{\delta^2} + 
+\underbrace{\|x-b\|^2}_{\delta^2}\right) - \underbrace{\|(x-a) + (x-b)\|^2}_{b-a}\right] = \delta^2 - 
+\frac{1}{4} \|b-a\|^2 \Rightarrow \delta^2 \leq \delta^2 - \underbrace{\frac{1}{4} \|b-a\|^2}_{\leq 0 \Rightarrow a=b} 
+\text{.}$
 
 \subsection{Projekce bodu a variační nerovnost}\label{varNer}
 Nechť $C \subseteq \R^n$ je neprázdná uzavřená konvexní množina, $x \in \R^n$ a $y \in C$. Pak následující tvrzení jsou
@@ -78,13 +79,13 @@ $(1) \Rightarrow (2)$:\\
 Ať $v_\lambda = y + \lambda(z-y)$, $\lambda \in (0,1]$.\\
 Pak
 \[
-    ||x-y||^2 \leq ||x-v_\lambda||^2 = ||x-y-\lambda(z-y)||^2 = \langle (x-y) - \lambda(z-y), (x-y) - \lambda(z-y)\rangle 
+    \|x-y\|^2 \leq \|x-v_\lambda\|^2 = \|x-y-\lambda(z-y)\|^2 = \langle (x-y) - \lambda(z-y), (x-y) - \lambda(z-y)\rangle 
 \]
 \[
-    ||x-y||^2 \leq ||x-y||^2 - 2 \lambda \langle x-y, z-y\rangle + \lambda^2 ||z-y||^2
+    \|x-y\|^2 \leq \|x-y\|^2 - 2 \lambda \langle x-y, z-y\rangle + \lambda^2 \|z-y\|^2
 \]
 \[
-    \Rightarrow \langle x-y, z-y\rangle \leq \frac{\lambda}{2} ||z-y||^2 \rightarrow 0 \text{ pro } \lambda \rightarrow 0^+
+    \Rightarrow \langle x-y, z-y\rangle \leq \frac{\lambda}{2} \|z-y\|^2 \rightarrow 0 \text{ pro } \lambda \rightarrow 0^+
 \]
 \[
     \Rightarrow \langle x-y, z-y\rangle \leq 0 \text{.} \qed
@@ -94,19 +95,53 @@ $(2) \Rightarrow (1)$:\\
 Ať $z \in C$.\\
 Pak
 \[
-    0 \geq \langle x-y, z-y \rangle = \langle x-y, (z-x)+(x-y) \rangle = \langle x-y, z-y \rangle + ||x-y||^2  
+    0 \geq \langle x-y, z-y \rangle = \langle x-y, (z-x)+(x-y) \rangle = \langle x-y, z-y \rangle + \|x-y\|^2  
 \]
 \[
-    \langle x-y, z-y \rangle + ||x-y||^2 \geq  ||x-y||^2 - \underbrace{|\langle x-y, z-y\rangle|}_{\text{odhad shora}} \geq \star
+    \langle x-y, z-y \rangle + \|x-y\|^2 \geq  \|x-y\|^2 - \underbrace{|\langle x-y, z-y\rangle|}_{\text{odhad shora}} \geq \star
 \]
 \[
-    \star = ||x-y||^2 - ||x-y|| \cdot ||z-x||.
+    \star = \|x-y\|^2 - \|x-y\| \cdot \|z-x\|.
 \]
-Je-li $x \not= y$, pak vydělíme: $||z-x|| \geq ||x-y||$.\\
+Je-li $x \not= y$, pak vydělíme: $\|z-x\| \geq \|x-y\|$.\\
 Je-li $x=y$, pak $y \in C : x \in C \dots$ triviální. $\qed$ 
 
-\subsection{Koule?} %TODO: co se tady počítá?
+\subsection{Projekce na jednotkovou kouli}
+Mějme jednotkovou kouli $C = B(0; 1)$. Hledáme projekci libovolného $x \in \R^n$ bodu na takovou kouli.
 
+Případ, kdy $x \in C$, je triviální, to platí $P_C(x) = x$.
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \begin{tikzpicture}[scale=1.5]
+        \coordinate (x) at (1.5, 1);
+            
+        \draw[->, thick] (-1.5,0) -- (1.5,0);
+        \draw[->, thick] (0,-1.5) -- (0,1.5);
+        \node at (0, 0) [below left]{$0$};
+            
+        \draw[name path=circle, blue, thick] (0,0) circle (1);
+            
+        \draw[name path=segment, dashed] (0,0) -- (x);
+            
+        \node at (x) [right] {$x$};
+            
+        \path[name intersections={of=circle and segment, by={intersection}}];
+        \node at (intersection) [above] {$\frac{x}{\| x\|}$};
+        \fill[red] (intersection) circle (1pt);
+        \fill[black] (x) circle (1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Vyšetřeme teď případ kdy $x \in \R^n$ splňuje $\| x\| > 1$ a $z \in C$ libovolný.
+\begin{align*}
+    \left\langle x - \frac{x}{\|x\|}, z - \frac{x}{\|x\|}\right\rangle &= 
+    \langle x, z\rangle - \frac{1}{\|x\|}\|x\|^2 - \frac{1}{\|x\|}\langle x,z\rangle + \frac{1}{\|x\|^2}\|x\|^2 \\
+    &= \langle x, z\rangle - \|x\| - \frac{1}{\|x\|}\langle x,z\rangle + 1 \\
+    &= \langle x, z\rangle (1-\frac{1}{\|x\|}) - \|x\| + 1
+\end{align*}
+\[
+    \underset{\text{C.S.}}{\leq} \|x\|\|z\|\left(1-\frac{1}{\|x\|}\right) - \|x\| + 
+    1 \leq \|x\|\left(1-\frac{1}{\|x\|}\right) - \|x\| + 1 = 0.
+\]
 
 \subsection{Věta o ortogonálním rozkladu} \label{ortoRoz}
 
