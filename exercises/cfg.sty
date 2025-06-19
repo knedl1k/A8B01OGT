@@ -16,6 +16,8 @@
 \usepackage{utfsym}              % symbols like ✗
 %\usepackage{marvosym}            % more symbols (e.g., checkboxes)
 \usepackage{bbold}
+\usepackage{optidef}
+\usepackage{etoolbox}    % Pro snadnější definici příkazů
 
 % ---------- TIKZ & GRAPHICS ----------
 \usepackage{tikz}                % core TikZ
@@ -123,3 +125,36 @@
 }
 \ExplSyntaxOff
 
+
+% ---------- CUSTOM ENVIRONMENT FOR OPTIMIZATION PROBLEMS ------
+%
+% Usage:
+% \OptUloha[<label>]{<min/max>}{<vars>}{<function to optimize>}{<subject to>}
+%
+% Argumenty:
+% #1 [optional]:  Label for numbering and references.
+%                 If not entered, the equation will not be numbered.
+% #2 {mandatory}: String "min" or "max".
+% #3 {optional}:  Variables, through which optimization is performed (e.g.. w, \xi).
+% #4 {mandatory}: Mathematical expression for a function.
+% #5 {mandatory}: Restrictive conditions. Separate multiple conditions using \\.
+%---------------------------------------------------------------
+\newcommand{\Opt}[5][]{%
+  \ifstrempty{#1}
+    {\begin{equation*}}
+    {\begin{equation}\label{#1}}
+  \begin{aligned}
+    & \ifstrempty{#3}{\ifstrequal{#2}{min}{\text{minimalisujte}}{\text{maximalisujte}}}
+    {\underset{#3}{\ifstrequal{#2}{min}{\text{minimalisujte}}{\text{maximalisujte}}}}
+      & & #4 \\
+    & \text{za podmínek}
+      % we use ‘{r @{} l}’ for alignment
+      % to two columns (right and left) without a space between them.
+      & & \begin{array}[t]{r @{} l}
+            #5
+          \end{array}
+  \end{aligned}
+  \ifstrempty{#1}
+    {\end{equation*}}
+    {\end{equation}}
+}
