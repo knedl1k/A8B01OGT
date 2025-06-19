@@ -1,2 +1,137 @@
-\section{Bonus}
+\section{Řešená vzorová písemka}
 
+\subsection{Konvexní funkce}
+Je dána funkce
+\[
+    f(x_1, x_2, x_3) = e^{x_3} + x_1^2 - 2 \alpha x_1x_2 + x_2^4,
+\]
+kde $\alpha \in \R$ je parametr.
+\begin{enumerate}[(a)]
+    \item Pro jaké hodnoty parametru $\alpha$ je $f$ konvexní?
+    \item Ukažte, že pro $\alpha = 0$ je množina
+    \[
+        M = \bc{(x_1, x_2, x_3)^T \in \R^3 \mid f(x_1, x_2, x_3) \leq 1, x_1 \geq 0, x_2 \geq 0}
+    \]
+    konvexní.
+\end{enumerate}
+
+(a) Určíme definitnost Hessiánu funkce. Pokud bude positivně (semi)definitní, funkce bude (ne)ryze konvexní.
+\begin{align*}
+    f^\prime (x_1, x_2, x_3) &= \left(2x_1 - 2\alpha x_2, -2\alpha x_1 + 4 x_2^3, e^{x_3}\right) \\
+    f^{\prime \prime}(x_1, x_2, x_3) &= 
+    \begin{bmatrix}
+        \phantom{-}2 & -2\alpha & 0 \\
+        -2\alpha & \phantom{-}12x_2^2 & 0 \\
+        \phantom{-}0 & \phantom{-}0 & e^{x_3}    
+    \end{bmatrix}
+\end{align*}
+Použijme Sylvesterova kritéria k určení definitnosti.\\
+$\begin{vmatrix}2\end{vmatrix} = 2 \geq 0$\\
+$\begin{vmatrix}
+    \phantom{-}2 & -2\alpha \\
+    -2\alpha & \phantom{-}12x_2^2
+\end{vmatrix} = 24x_2^2 - 4\alpha^2 \geq 0 \iff 6x_2^2 \geq \alpha^2$ \dots což lze zajistit jen tehdy, když $\alpha=0$,
+protože nemůžeme omezit hodnoty $x_2$.
+
+A proto funkce $f$ bude konvexní právě tehdy, když $\alpha = 0$.
+
+(b) Z předchozího bodu víme, že funkce $f$ je konvexní právě tehdy, když $\alpha = 0$. \\ Podmínka 
+$f(x_1, x_2, x_3) \leq 1$ je pouhá dolní úrovňová množina. A ta je určitě konvexní, protože je původní funkce $f$ 
+konvexní za těchto podmínek. 
+
+Zbylé podmínky $x_1 \geq 0$ a $x_2 \geq 0$ jsou rozhodně konvexní. 
+
+A protože průnik zachovává konvexitu, tak průnik těchto 3 podmínek je stále konvexní. Množina $M$ je tedy konvenxí.
+
+\subsection{Metoda nejmenších čtverců}
+Nechť
+\[
+    A = 
+    \begin{bmatrix}
+    -1 & \phantom{-}0 \\
+    \phantom{-}2 & -2 \\
+    \phantom{-}0 & \phantom{-}1    
+    \end{bmatrix} \: \text{ a } \: b =
+    \begin{bmatrix}
+        1 \\ 2  \\ 0
+    \end{bmatrix}.
+\]
+Nalezněte všechny body minima funkce $f(x) = \|Ax - b\|^2$ na $\R^2$.
+
+Pokusíme se použít $(A^T A)^{-1} A^T A x = (A^T A)^{-1} A^T b$.
+\begin{align*}
+    A^T A = 
+    \begin{bmatrix}
+        -1 & \phantom{-}2 & 0 \\
+        \phantom{-}0 & -2 & 1    
+    \end{bmatrix}
+    \begin{bmatrix}
+        -1 & \phantom{-}0 \\
+        \phantom{-}2 & -2 \\
+        \phantom{-}0 & \phantom{-}1   
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        5 & -4 \\
+        -4 & 5    
+    \end{bmatrix} \\
+    \det(A^T A) = 
+    \begin{vmatrix}
+        5 & -4 \\
+        -4 & 5  
+    \end{vmatrix} = 25 - 16 = 9 > 0 \dots \text{ existuje inverze.}
+\end{align*}
+\[
+    (A^T A)^{-1} = \frac{1}{9}
+    \begin{bmatrix}
+        5 & 4 \\
+        4 & 5    
+    \end{bmatrix}
+\]
+\begin{align*}
+    \hat x = (A^T A)^{-1} A^T b = \frac{1}{9}
+    \begin{bmatrix}
+        5 & 4 \\
+        4 & 5    
+    \end{bmatrix}
+    \begin{bmatrix}
+        -1 & \phantom{-}2 & 0 \\
+        \phantom{-}0 & -2 & 1    
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 \\ 2  \\ 0
+    \end{bmatrix} = \frac{1}{9}
+    \begin{bmatrix}
+        5 & 4 \\
+        4 & 5    
+    \end{bmatrix}
+    \begin{bmatrix}
+        \phantom{-}3 \\ -4 
+    \end{bmatrix} = \frac{1}{9}
+    \begin{bmatrix}
+        -1 \\ -8
+    \end{bmatrix}
+\end{align*}
+
+\subsection{KKT podmínky}
+Je dána úloha
+\Opt{min}{}{-2x_1 + x_2}{
+    x_1 - x_2 \: &\leq 0, \\
+    x_1^2 + x_2^2 \: &\leq 8.
+}
+\begin{enumerate}[(a)]
+    \item Napište KKT podmínky pro tuto úlohu.
+    \item Ověřte, že KKT podmínky jsou splněny v bodě $\begin{bmatrix}2 \\ 2\end{bmatrix}$.
+    \item Využitím KKT podmínek zdůvodněte, proč $\begin{bmatrix}2 \\ 2\end{bmatrix}$ je řešení zadané úlohy.
+\end{enumerate}
+
+\subsection{Smíšené rozšíření maticové hry}
+Nechť $\Gamma(A)$ je smíšené rozšíření maticové hry s maticí hry
+\[
+    A = 
+    \begin{bmatrix}
+        \phantom{-}2 & 0 & 3 \\
+        -1 & 1 & 2 \\
+        \phantom{-}1 & 3 & 0
+    \end{bmatrix}.
+\]
+Pomocí úlohy lineárního programování nalezněte cenu hry $\Gamma(A)$ a optimální strategii prvního hráče.

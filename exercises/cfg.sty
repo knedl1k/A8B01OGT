@@ -129,7 +129,7 @@
 % ---------- CUSTOM ENVIRONMENT FOR OPTIMIZATION PROBLEMS ------
 %
 % Usage:
-% \OptUloha[<label>]{<min/max>}{<vars>}{<function to optimize>}{<subject to>}
+% \Opt[<label>]{<min/max>}{<vars>}{<function to optimize>}{<subject to>}
 %
 % Argumenty:
 % #1 [optional]:  Label for numbering and references.
@@ -140,9 +140,7 @@
 % #5 {mandatory}: Restrictive conditions. Separate multiple conditions using \\.
 %---------------------------------------------------------------
 \newcommand{\Opt}[5][]{%
-  \ifstrempty{#1}
-    {\begin{equation*}}
-    {\begin{equation}\label{#1}}
+  \ifstrempty{#1}{\begin{equation*}}{\begin{equation}\label{#1}}
   \begin{aligned}
     & \ifstrempty{#3}{\ifstrequal{#2}{min}{\text{minimalisujte}}{\text{maximalisujte}}}
     {\underset{#3}{\ifstrequal{#2}{min}{\text{minimalisujte}}{\text{maximalisujte}}}}
@@ -150,11 +148,12 @@
     & \text{za podmínek}
       % we use ‘{r @{} l}’ for alignment
       % to two columns (right and left) without a space between them.
-      & & \begin{array}[t]{r @{} l}
+      & & {
+        \renewcommand{\arraystretch}{1.25}
+        \begin{array}[t]{r @{} l}
             #5
-          \end{array}
+        \end{array}
+          }
   \end{aligned}
-  \ifstrempty{#1}
-    {\end{equation*}}
-    {\end{equation}}
+  \ifstrempty{#1}{\end{equation*}}{\end{equation}}
 }

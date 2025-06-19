@@ -65,60 +65,59 @@ Ať  $x, y \in \R^n, \lambda \in [0,1]$.
 Je funkce $f(x) = \| x\|$ konvexní?
 
 Důkaz.\\
-Ať Ať  $x, y \in \R^n, \lambda \in [0,1]$.
-
-\[
-    f(\lambda x + (1-\lambda) y) = \| \lambda x + (1-\lambda)y\| \stackrel{\text{odhad}}{\leq} \| \lambda x\| + 
-    \| (1-\lambda) y\| = \lambda \| x\| + (1-\lambda) \| y\|
-\]
-\[
-    = \lambda f(x) + (1-\lambda) f(y) \implies f \text{ je konvexní.} \qed
-\]
+Ať $x, y \in \R^n, \lambda \in [0,1]$.
+\begin{align*}
+    f(\lambda x + (1-\lambda) y) &= \| \lambda x + (1-\lambda)y\| \stackrel{\text{odhad}}{\leq} \| \lambda x\| + 
+    \| (1-\lambda) y\| = \lambda \| x\| + (1-\lambda) \| y\| \\
+    &= \lambda f(x) + (1-\lambda) f(y) \implies f \text{ je konvexní.} \qed
+\end{align*}
 
 \subsection{Dolní úrovňová množina}
-Dolní úrovňování množina funkce $f : D \subseteq \R^n \rightarrow \R^n$ hladiny $\alpha \in \R$ je množina
+Dolní úrovňová množina funkce $f : D \subseteq \R^n \rightarrow \R^n$ hladiny $\alpha \in \R$ je množina
 \[
     \lev_{\leq} (f; \alpha) \coloneq \bc{x \in D \mid f(x) \leq \alpha}.
 \]
-Je-li $f$ konvexní na $C \subseteq \R^n$, pak $\lev_{\leq} (\restr{f}{C}; \alpha)$ je konvexní pro $\forall \alpha \in \R$.
+Je-li $f$ konvexní na $C \subseteq \R^n$, pak $\lev_{\leq} (\restr{f}{C}; \alpha)$ je konvexní pro 
+$\forall \alpha \in \R$.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[domain=-0.3:7, samples=100]
+        \draw[->] (-2.5,0) -- (7,0) node[right] {$x$};
+        \draw[->] (0,-0.5) -- (0,3.5) node[above] {$y$};
 
+        % Segment I: x in [-2.3, -2]
+        \fill[green!30, opacity=0.5]
+        plot[domain=-2.3:-2, samples=50] (\x, {sin((\x+2) r)+1.5})
+        -- (-2,0) -- (-2.3,0) -- cycle;
+        
+        % % Segment II: x in [-2, pi-2]
+        % \fill[green!30, opacity=0.5]
+        % (-2,1.5) -- ({pi-2},1.5) -- ({pi-2},0) -- (-2,0) -- cycle;
+        
+        % Segment III: x in [pi-2, 2*pi-2]
+        \fill[green!30, opacity=0.5]
+        plot[domain={pi-2}:{2*pi-2}, samples=50] (\x, {sin((\x+2) r)+1.5})
+        -- ({2*pi-2},0) -- ({pi-2},0) -- cycle;
+        
+        % % Segment IV: x in [2*pi-2, 5]
+        % \fill[green!30, opacity=0.5]
+        % ({2*pi-2},1.5) -- (5,1.5) -- (5,0) -- ({2*pi-2},0) -- cycle;
+        
+        \draw[blue, thick] plot ({\x-2}, {sin(\x r) + 1.5});
 
-\begin{tikzpicture}[domain=-0.3:7, samples=100]
-    \draw[->] (-2.5,0) -- (7,0) node[right] {$x$};
-    \draw[->] (0,-0.5) -- (0,3.5) node[above] {$y$};
+        \draw[purple, thick, dashed] (-2.5, 1.5) -- (7, 1.5) node[right]{$\alpha$};
 
-    % Segment I: x in [-2.3, -2]
-    \fill[green!30, opacity=0.5]
-    plot[domain=-2.3:-2, samples=50] (\x, {sin((\x+2) r)+1.5})
-    -- (-2,0) -- (-2.3,0) -- cycle;
-    
-    % % Segment II: x in [-2, pi-2]
-    % \fill[green!30, opacity=0.5]
-    % (-2,1.5) -- ({pi-2},1.5) -- ({pi-2},0) -- (-2,0) -- cycle;
-    
-    % Segment III: x in [pi-2, 2*pi-2]
-    \fill[green!30, opacity=0.5]
-    plot[domain={pi-2}:{2*pi-2}, samples=50] (\x, {sin((\x+2) r)+1.5})
-    -- ({2*pi-2},0) -- ({pi-2},0) -- cycle;
-    
-    % % Segment IV: x in [2*pi-2, 5]
-    % \fill[green!30, opacity=0.5]
-    % ({2*pi-2},1.5) -- (5,1.5) -- (5,0) -- ({2*pi-2},0) -- cycle;
-    
-    \draw[blue, thick] plot ({\x-2}, {sin(\x r) + 1.5});
-
-    \draw[purple, thick, dashed] (-2.5, 1.5) -- (7, 1.5) node[right]{$\alpha$};
-
-    \draw[black!40!green, dashed] (-2.3, 1.2) -- (-2.3, 0) node[below]{$a$};
-    \draw[black!40!green, dashed] (5, 2.1) -- (5, 0) node[below]{$b$};
-\end{tikzpicture}
-
+        \draw[black!40!green, dashed] (-2.3, 1.2) -- (-2.3, 0) node[below]{$a$};
+        \draw[black!40!green, dashed] (5, 2.1) -- (5, 0) node[below]{$b$};
+    \end{tikzpicture}
+\end{figure}
 Důkaz.
 
 Ať $x, y \in \lev_{\leq}(\restr{f}{C}; \alpha), \lambda \in [0,1]$.\\
 Cíl: $\lambda x + (1-y)\lambda \stackrel{?}{\in} \lev_{\leq} (\restr{f}{C}; y)$.
 \[
-    f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda) f(y) \leq \lambda \alpha + (1-\lambda) \alpha = \alpha. \qed
+    f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda) f(y) \leq \lambda \alpha + (1-\lambda) \alpha = \alpha. 
+    \qed
 \]
 
 Poznámka.
@@ -140,7 +139,8 @@ Důkaz.
 
 Rozdělme si množinu $M$ na dvě podmnožiny $M_1$ a $M_2$, kde:
 
-$M_1 = \bc{x \in \R^2 \mid \| x\| \leq 1} = \lev_{\leq} (\| x\|, 1) \rightarrow$ konvexní, protože norma je konvexní funkce.
+$M_1 = \bc{x \in \R^2 \mid \| x\| \leq 1} = \lev_{\leq} (\| x\|, 1) \rightarrow$ konvexní, protože norma je konvexní 
+funkce.
 
 $M_2 = \bc{x \in \R^2 \mid \left\langle x, 
 \begin{pmatrix}
@@ -200,13 +200,15 @@ Skládání konvexních funkcí není obecně konvexní funkce. Například: $f(
 1. Mějme tedy tvrzení.
 
 Nechť $f$ je konvexní na $K \subseteq \R^m$, $C \subseteq \R^n$ je neprázdná konvexní a $g : \R^n \rightarrow \R^m$ je 
-afinní. Jestliže $g(C) \subseteq K$ (tedy $g$ \enquote{obtiskne} množinu $C$ do $K$), pak $f \circ g$ je konvexní na $C$. \label{skladFun}
+afinní. Jestliže $g(C) \subseteq K$ (tedy $g$ \enquote{obtiskne} množinu $C$ do $K$), pak $f \circ g$ je konvexní na 
+$C$. \label{skladFun}
 
 Důkaz.\\
 Ať $x, y \in C$, $\lambda \in [0,1]$.\\
 Pak 
 \[
-    f(g(\lambda x + (1-\lambda)y)) \stackrel{g \text{ je \hyperref[sec:afin]{afinní}}}{=} f(\lambda \overbrace{g(x)}^{\in K} 
+    f(g(\lambda x + (1-\lambda)y)) 
+    \stackrel{g \text{ je \hyperref[sec:afin]{afinní}}}{=} f(\lambda \overbrace{g(x)}^{\in K} 
     + (1-\lambda) \overbrace{g(y)}^{\in K})
     \stackrel{f \text{ je \hyperref[defKonv]{konvexní}}}{\leq} \lambda f((g(x))) + (1-\lambda) f(g(y))
 \]
@@ -214,16 +216,16 @@ A to přesně dle \hyperref[defKonv]{definice konvexní} funkce dává, že $f \
 
 2. Mějme ještě druhé tvrzení.
 
-Jestliže $f$ je konvexní a \textbf{neklesající} na intervalu $I$, $g$ je konvexní na $C \subseteq \R^n$ a $g(C) \subseteq I$, pak 
-$f \circ g$ je konvexní na $C$.
+Jestliže $f$ je konvexní a \textbf{neklesající} na intervalu $I$, $g$ je konvexní na $C \subseteq \R^n$ a 
+$g(C) \subseteq I$, pak $f \circ g$ je konvexní na $C$.
 
 Důkaz.\\
 Ať $x, y \in C$, $\lambda \in [0,1]$.\\
 Pak
 \[
-    f(\underbrace{g(\lambda x + (1-\lambda)y)}_{\substack{\leq \lambda g(x) + (1-\lambda)g(y) \\ \text{odhad, díky konvexitě }g }}) 
-    \underset{g \text{ je konvexní}}{\overset{f \text{ je neklesající}}{\leq}} f(\lambda g(x) + (1- \lambda) g(y)) 
-    \overset{f \text{ je \hyperref[defKonv]{konvexní}}}{\leq} \lambda f(g(x)) + (1-\lambda) f(g(y))
+    f(\underbrace{g(\lambda x + (1-\lambda)y)}_{\substack{\leq \lambda g(x) + (1-\lambda)g(y) \\ \text{odhad, díky 
+    konvexitě }g }}) \underset{g \text{ je konvexní}}{\overset{f \text{ je neklesající}}{\leq}} f(\lambda g(x) + 
+    (1- \lambda) g(y)) \overset{f \text{ je \hyperref[defKonv]{konvexní}}}{\leq} \lambda f(g(x)) + (1-\lambda) f(g(y))
 \]
 A to přesně dle \hyperref[defKonv]{definice konvexní} funkce dává, že $f \circ g$ je konvexní funkce. $\qed$
 
@@ -236,8 +238,8 @@ Nechť $f$ je konvexní na $C \subseteq \R^n$. Potom platí:
 \end{enumerate}
 
 Důkaz (a).\\
-Sporem. Ať $\hat x \in C$ je bod lokálního minima $f$ na $C$ a ať existuje $\hat y \in C$ tak, že $f(\hat y) < f(\hat x)$.
-$\lambda \in [0,1)$.\\
+Sporem. Ať $\hat x \in C$ je bod lokálního minima $f$ na $C$ a ať existuje $\hat y \in C$ tak, že 
+$f(\hat y) < f(\hat x)$. $\lambda \in [0,1)$.\\
 Pak
 \[
     f(\lambda \hat x + (1-\lambda) \hat y) \overset{f \text{ je \hyperref[defKonv]{konvexní}}}{\leq}
@@ -271,7 +273,8 @@ hodnotu bodu $\hat x$. To ale nemůže nastat, protože jako body minima funkce 
 $\hat x$ a $\hat y$ musí tedy nutně být stejné body. $\qed$
 
 \subsection{Věta o konvexitě a první derivaci}\label{konvDeriv} % TODO graf
-Nechť $\Omega \subseteq \R^n$ je otevřená, $C \subseteq \Omega$ neprázdná konvexní a $f \in C^{1} (\Omega)$. Potom platí:
+Nechť $\Omega \subseteq \R^n$ je otevřená, $C \subseteq \Omega$ neprázdná konvexní a $f \in C^{1} (\Omega)$. Potom 
+platí:
 \begin{enumerate}[(a)]
     \item $f$ je konvexní na $C$ právě tehdy, když pro každé $x, y \in C$ je
     \[

@@ -111,7 +111,6 @@ $(A^T A)^{-1} = \frac{1}{3}
 \subsection{Příklad výpočtu metody nejmenších čtverců}
 V rovině jsou dány body $(0, -\frac{1}{2})^T, (1, \frac{1}{3})^T$ a $(2, \frac{2}{3})^T$. Pomocí metody nejmenších 
 čtverců proložme těmito body přímku o rovnici $y = kx + q$, kde $k ,q \in \R$.
-
 \[
 \begin{rcases*}
     0k + q = -\frac{1}{2} \\
@@ -221,7 +220,6 @@ $(A^T A)^{-1} = \frac{1}{6}
 \end{multicols}
 Důkaz.\\
 $v = x - P_L (x) \not=0$
-
 \[
     \langle v, y\rangle = \langle v, P_L(x)\rangle \leq 0, \quad \forall y \in C.
 \]
@@ -317,7 +315,7 @@ Důkaz.
     \item konvexní - lineární zobrazení (matice) zachovává konvexitu,
     \item uzavřenost dokazovat nebudeme.
 \end{itemize}
-
+\newpage
 \subsection{Farkasovo lemma}\label{farkas}
 Výslovnost [farkášovo].
 
@@ -332,7 +330,8 @@ Důkaz.
 \enquote{$(a) \implies \lnot (b)$}:\\
 Ať $x \in \R^n_+$ a $y \in \R^m$ tak, že $Ax = b$ a $A^T y \leq 0$.
 \[
-    \langle y, b\rangle \stackrel{b= Ax}{=} \langle y, Ax\rangle = \langle \underbrace{A^Ty}_{\leq 0}, \underbrace{x}_{\geq 0}\rangle \leq 0. \qed 
+    \langle y, b\rangle \stackrel{b= Ax}{=} \langle y, Ax\rangle = \langle \underbrace{A^Ty}_{\leq 0}, 
+    \underbrace{x}_{\geq 0}\rangle \leq 0. \qed 
 \]
 
 \enquote{$\lnot (a) \implies (b)$}:\\
@@ -344,7 +343,8 @@ $\stackrel{\text{\hyperref[oddel]{oddělitelnost}}}{\implies}$ existuje $y \in \
 Začněme s $\alpha < \langle b, y\rangle$. Chceme, aby $\langle b, y\rangle$ byl kladný. Pak nám $y$ bude svírat ostrý 
 úhel s $b$. 
 
-Protože v $0 \in C$, je $0 \leq \alpha < \langle b,y \rangle$ (za $Ax$ dosadíme $0$, takže budeme mít $\langle 0, y\rangle$).
+Protože v $0 \in C$, je $0 \leq \alpha < \langle b,y \rangle$ (za $Ax$ dosadíme $0$, takže budeme mít 
+$\langle 0, y\rangle$).
 
 Teď musíme dokázat, že $y$ skutečně řeší zadanou soustavu nerovnic.
 
@@ -371,7 +371,8 @@ Ať $e_1=
     0 \\
     \vdots \\
     1
-\end{bmatrix}$. Pak $(A^T y)_i \leq 0, \quad \forall i \in \bc{1, \dots, n}$, neboť $(A^T y)_i = \langle e_i, A^T y\rangle. \qed$
+\end{bmatrix}$. Pak $(A^T y)_i \leq 0, \quad \forall i \in \bc{1, \dots, n}$, neboť $(A^T y)_i = 
+\langle e_i, A^T y\rangle. \qed$
 
 \subsection{Krajní body konvexní množiny}
 
@@ -413,7 +414,8 @@ Definujme: Krajní bod $x \in C$ konvexní množiny $C \subseteq \R^n$ je takov�
 $\text{ext}(C) \dots$ množina všech krajních (extremálních) bodů
 
 \subsection{Kreinova-Milmanova věta}
-Jestliže $C \subseteq \R^n$ je kompaktní (tj. omezená a uzavřená) konvexní množina, pak $C = \text{conv}(\text{ext}(C))$.\\
+Jestliže $C \subseteq \R^n$ je kompaktní (tj. omezená a uzavřená) konvexní množina, pak 
+$C = \text{conv}(\text{ext}(C))$.\\
 Důkaz vynecháme.
 
 Kompaktnost je důležitá.
@@ -426,8 +428,8 @@ Kompaktnost je důležitá.
 Nalezněte $\nabla f(x)$ a $\nabla^2 f(x)$, jestliže
 \begin{enumerate} [(a)]
     \item $f(x) = \langle x, c\rangle$, kde $c \in \R^n$;
-    \item $f(x) = \langle Ax, x\rangle$, kde $A \in \M_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f(x)$ za dodatečného
-    předpokladu, že $A$ je symetrická matice.
+    \item $f(x) = \langle Ax, x\rangle$, kde $A \in \M_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f(x)$ za 
+    dodatečného předpokladu, že $A$ je symetrická matice.
 \end{enumerate}
 
 (a) 
@@ -450,7 +452,8 @@ $\implies \nabla f(x) =
 \[ 
     \frac{\partial f}{\partial x_k} = \frac{\partial}{\partial x_k} \sum_{i=1}^{n} 
     \underbrace{\left[\sum_{j=1}^{n} a_{ij}x_j\right]}_{(Ax)_i}x_i = \sum_{i,j=1}^{n} a_{ij} 
-    \underbrace{\left( \frac{\partial x_i}{\partial x_k}x_j + x_i \frac{\partial x_j}{\partial x_k}\right)}_{\text{derivace součinu}}
+    \underbrace{\left( \frac{\partial x_i}{\partial x_k}x_j + x_i 
+    \frac{\partial x_j}{\partial x_k}\right)}_{\text{derivace součinu}}
     = \sum_{i,j=1}^{n} a_{ij} (\delta_{ik} x_j + x_i \delta_{jk})
 \]
 \[
