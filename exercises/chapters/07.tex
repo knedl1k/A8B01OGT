@@ -51,11 +51,10 @@ Tedy stačí dokázat, že
 
 \subsection{Dualita - motivační příklad}
 Je dána úloha
-\begin{align*}
-    \text{minimalisujte } 2x+3y \\
-    \text{za podmínek } 1-x-y &\leq 0, \\ 
-    x,y &\in [0,2].
-\end{align*}
+\Opt{min}{}{2x+3y}{
+    1-x-y \: &\leq 0,\\
+    x,y \: &\in [0,2].
+}
 
 Označme $f(x,y) = 2x + 3y$,
 $
@@ -168,12 +167,11 @@ Sporem. Ať $M \not= \emptyset$. Volme $x \in M, \mu \in N$.
 \]
 
 \subsection{Ukázkový příklad na slabou dualitu}
-Je dána úloha 
-\begin{align*}
-    \text{minimalisujte } &-x^2 \\
-    \text{za podmínek } &2x - 1 \leq 0, \\
-    &x \in [0,1].
-\end{align*}
+Je dána úloha
+\Opt{min}{}{-x^2}{
+    2x - 1 \: &\leq 0, \\
+    x \: &\in [0,1].
+}
 Tedy:
 \[
     L(x, \mu) = -x^2 + \mu(2x-1) = (-x^2 + 2x\mu) - \mu

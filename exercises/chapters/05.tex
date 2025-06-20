@@ -294,7 +294,7 @@ Důkaz (a).
 \enquote{$\Rightarrow$}: Ať $x, y \in C$, $\lambda \in (0,1]$.
 \[
     f(x + \lambda (y-x)) = f(\lambda y + (1-\lambda)x) \overset{f \text{ je \hyperref[defKonv]{konvexní}}}{\leq}
-    \lambda f(x) + (1 - \lambda)f(x) = f(x) + \lambda [f(y) - f(x)]
+    \lambda f(y) + (1 - \lambda)f(x) = f(x) + \lambda [f(y) - f(x)]
 \]
 \[
     \Rightarrow \underbrace {\frac {f(x + \lambda (y-x)) - f(x)}{\lambda}}_{\substack{{ = \langle \nabla f(x),
@@ -304,11 +304,10 @@ Důkaz (a).
 
 $z \coloneq \lambda x + (1-\lambda) y \in C$\\
 Z předpokladu:
-\begin{align}
+\begin{align*}
     & f(z) + \langle \nabla f(z), x - z\rangle \leq f(x) \quad / \cdot \lambda \\
     & f(z) + \langle \nabla f(z), y - z\rangle \leq f(y) \quad / \cdot (- \lambda)
-\end{align}
-
+\end{align*}
 Pronásobením a sečtením dostaneme:
 \[
     f(z) + \lambda \langle \nabla f(z), \underbrace{\lambda x + (1-\lambda)y}_{z} - z\rangle \leq \lambda f(x) +
@@ -363,7 +362,6 @@ Použijme fakt, že $f$ je konvexní:
 \[
     f(x+\alpha y) \geq f(x) + \langle \nabla f(x), \alpha y\rangle
 \]
-
 Když tedy dosadíme:
 \[
     f(x) + \alpha \langle \nabla f(x), y\rangle + \frac{1}{2}\alpha^2 \langle \nabla^2 f(x)y, y\rangle
@@ -387,7 +385,7 @@ otevřená, jedná se o přímku)
 
 $\nabla^2 f(x, y) =
 \begin{bmatrix}
-    2 & 0 \\
+    2 & \phantom{-}0 \\
     0 & -2
 \end{bmatrix}$ je indefinitní, tedy funkce $f(x, y)$ není konvexní.
 

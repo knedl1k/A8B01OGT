@@ -25,12 +25,11 @@ Odpověď je přímo v zadání.
     x_1& \dots \text{množství výrobku } A& \\
     x_2& \dots \text{množství výrobku } B&
 \end{flalign*}
-\begin{align*}
-    \text{maximalisujte } 6x_1 + 10x_2 \\
-    \text{za podmínek } 2x_1 + 4x_2 &\leq 10,\\
-    3x_1 + 4x_2 &\leq 12,\\
-    x_1, x_2 &\geq 0.
-\end{align*}
+\Opt{max}{}{6x_1 + 10x_2}{
+    2x_1 + 4x_2 \: &\leq 10,\\
+    3x_1 + 4x_2 \: &\leq 12,\\
+    x_1, x_2 \: &\geq 0.
+}
 
 \begin{multicols}{2}
     \begin{tikzpicture}[scale=1]
@@ -81,41 +80,36 @@ Tato otázka vede na úlohu:
     y_1& \dots \text{cena za jednotkové množství materiálu } X& \\
     y_2& \dots \text{cena za jednotkové množství materiálu } Y&
 \end{flalign*}
-\begin{align*}
-    \text{minimalisujte } 10y_1 + 12y_2 \\
-    \text{za podmínek } 2y_1 + 3y_2 &> 6, \\
-    4y_1 + 4y_2 &> 10,\\
-    y_1, y_2 &\geq 0.
-\end{align*}
+\Opt{min}{}{10y_1 + 12y_2}{
+    2y_1 + 3y_2 \: &> 6, \\
+    4y_1 + 4y_2 \: &> 10,\\
+    y_1, y_2 \: &\geq 0.
+}
 Pozorování. Tyto dvě úlohy jsou navzájem duální.
 
 \subsection{Zápis úlohy lineárního programování}
 Je dána úloha
-\begin{align*}
-    \text{minimalisujte } x_1 - x_2 \\
-    \text{za podmínek } 2x_1 - 3x_2 &= 5, \\
-    -2 \leq x_2 &\leq 3, \\
-    x_1 &\leq 0.
-\end{align*}
+\Opt{min}{}{x_1 - x_2}{
+    2x_1 - 3x_2 \: &= 5, \\
+    -2 \leq x_2 \: &\leq 3, \\
+    x_1 \: &\leq 0.
+}
 Zapišme úlohu v kanonickém tvaru.\\
 Pomocné substituce: $y_1 = -x_1$, $x_2 = y_2 - y_3$, $y_2, y_3 \geq 0$.
-\begin{align*}
-    \text{minimalisujte } -y_1-y_2+y_3 \\
-    \text{za podmínek } -2y_1 - 3y_2 + 3y_3 &\geq 5, \\
-    2y_1 + 3y_2 - 3y_3 &\geq -5, \\
-    -y_2 + y_3 &\geq -3, \\
-    y_2 - y_3 &\geq -2,\\
-    y_1, y_2, y_3 &\geq 0.
-\end{align*}
-
+\Opt{min}{}{-y_1-y_2+y_3}{
+    -2y_1 - 3y_2 + 3y_3 \: &\geq 5, \\
+    2y_1 + 3y_2 - 3y_3 \: &\geq -5, \\
+    -y_2 + y_3 \: &\geq -3, \\
+    y_2 - y_3 \: &\geq -2,\\
+    y_1, y_2, y_3 \: &\geq 0.
+}
 Zapišme úlohu ve standardním tvaru.
-\begin{align*}
-    \text{minimalisujte } -y_1-y_2+y_3 \\
-    \text{za podmínek } -2y_1 - 3y_2 + 3y_3 & = 5, \\
-    y_2 - y_3 - y_4 &= -2, \\
-    y_2 - y_3 + y_5 &= 3, \\
-    y_1, y_2, y_3, y_4, y_5 &\geq 0.
-\end{align*}
+\Opt{min}{}{-y_1-y_2+y_3}{
+    -2y_1 - 3y_2 + 3y_3 \: &= 5, \\
+    y_2 - y_3 - y_4 \: &= -2, \\
+    y_2 - y_3 + y_5 \: &= 3, \\
+    y_1, y_2, y_3, y_4, y_5 \: &\geq 0.
+}
 
 \subsection{Basický přípustný bod}\label{BPB}
 Bod $x \in M$ se nazve basický přípustný bod (BPB) úlohy lineárního programování, pokud existuje $m$-prvková množina
@@ -293,17 +287,12 @@ Nechť
 $M = \bc{x \in \R^3_+ \mid Ax = b}$.
 
 Již víme, že $x =
-\begin{bmatrix}
-2 \\
-0 \\
-1
+\begin{bmatrix} 
+    2 \\ 0 \\ 1 
 \end{bmatrix}$ a $y =
 \begin{bmatrix}
-    2 \\
-    \frac{3}{2} \\
-    0
+    2 \\ \frac{3}{2} \\ 0
 \end{bmatrix}$ jsou BPB.
-
 \[
     Ax = b \dots
     \left[
@@ -321,13 +310,10 @@ Již víme, že $x =
 \]
 Tedy řešení soustavy $z =
 \begin{bmatrix}
-2 \\
-\frac{1}{2}(3-3t) \\
-t
+    2 \\ \frac{1}{2}(3-3t) \\ t
 \end{bmatrix}, t \in \R$. Kdy je $z \in \R^3_+$?
 
 Právě tehdy, když $t \geq 0$ a $1\geq t$, tedy $t \in [0,1]$.
-
 \[
     z \in [x, y] \iff z = tx + (1-t)y =
     \begin{bmatrix}
@@ -412,11 +398,10 @@ Ať $e_N \in \ext(M)$ splňuje $\langle e_N, c\rangle = \min_{i \in \bc{1, \dots
 
 \subsection{Příklad na hledání duální úlohy}
 Mějme úlohu
-\begin{align*}
-    \text{minimalisujte } x_1 + 2x_2 \\
-    \text{za podmínek } x_1 + x_2 &\geq 1 \dots -x_1 -x_2 + 1 \leq 0, \\
-    x_1, x_2 &\geq 0.
-\end{align*}
+\Opt{min}{}{x_1 + 2x_2}{
+    x_1 + x_2 \: &\geq 1 \dots -x_1 -x_2 + 1 \leq 0, \\
+    x_1, x_2 \: &\geq 0.
+}
 \begin{enumerate}[(a)]
     \item Najděte duální úlohu, jestliže $x_1, x_2 \geq 0$ je přímé omezení.
     \item Najděte duální úlohu, jestliže $x_1, x_2 \in \R$ je přímé omezení.
@@ -445,10 +430,9 @@ Mějme úlohu
     \end{cases}
 \]
 A tedy duální úloha je
-\begin{align*}
-    \text{maximalisujte }& \mu \\
-    \text{za podmínek }& \mu \in [0,1].
-\end{align*}
+\Opt{max}{}{\mu}{
+    \mu &\in [0,1].
+}
 
 (b) $L(x_1, x_2, \mu_1, \mu_2, \mu_3) = x_1 + 2x_2 + \mu_1(-x_1 -x_2 + 1) + \mu_2(-x_1) + \mu_3(-x_2)$
 \[
@@ -475,18 +459,17 @@ A tedy duální úloha je
     \end{cases}
 \]
 A tedy duální úloha je
-\begin{align*}
-    \text{maximalisujte } \mu_1 \\
-    \text{za podmínek } 1 - \mu_1 - \mu_2 &= 0, \\
-    2 - \mu_1 - \mu_3 &= 0, \\
-    \mu_1, \mu_2, \mu_3 &\geq 0.
-\end{align*}
+\Opt{max}{}{\mu_1}{
+    1 - \mu_1 - \mu_2 \: &= 0, \\
+    2 - \mu_1 - \mu_3 \: &= 0, \\
+    \mu_1, \mu_2, \mu_3 \: &\geq 0.
+}
 
 \subsection{Příklad na hledání duální úlohy}
 Mějme úlohu
-\optAs{min}{x_1^2 + x_2^2}{
-    -x_1 -x_2 + 4 &\leq 0, \\
-    x_1, x_2 &\geq 0.
+\Opt{min}{}{x_1^2 + x_2^2}{
+    -x_1 -x_2 + 4 \: &\leq 0, \\
+    x_1, x_2 \: &\geq 0.
 } 
 \begin{enumerate}[(a)]
     \item Najděte duální úlohu, jestliže $x_1, x_2 \geq 0$ je přímé omezení.
@@ -499,11 +482,12 @@ Množina všech řešení úlohy LP je konvexní polyedrická množina.
 
 \subsection{Příkad na Simplexovu metodu}
 Je dána úloha
-\optAs{min}{-x_1 - 3x_2}{
-    2x_1 + 3x_2 + x_3 &= 6, \\
-    -x_1 + x_2 + x_4 &= 1, \\
-    x_1, x_2, x_3, x_4 &\geq 0.
+\Opt{min}{}{-x_1 - 3x_2}{
+    2x_1 + 3x_2 + x_3 \: &= 6, \\
+    -x_1 + x_2 + x_4 \: &= 1, \\
+    x_1, x_2, x_3, x_4 \: &\geq 0.
 }
+
 \begin{equation*}
     \begin{array}{c}
         \\
@@ -555,33 +539,21 @@ $\rightarrow x_3 = 6 - 2x_1 - 3(1+x_1-x_4) = 3-5x_1+3x_4$
         0
     \end{bmatrix}.
 \end{equation*}
-%TODO dodělat
+% TODO: dodělat
 
 \subsection{Příklad na Simplexovu metodu}
-\[
-\begin{aligned}
-\text{minimalisujte}\quad &2x_2 - x_4\\
-\text{za podmínek}\quad&
-  \begin{alignedat}{2}
-    x_1 + 3x_2 - x_4 &=&\;2,\\
-    x_2 + x_3 + 2x_4 &=&\;3,\\
-    x_1,x_2,x_3,x_4&\ge&\;0.
-   \end{alignedat}
-\end{aligned}
-\]
+\Opt{min}{}{2x_2 - x_4}{
+    x_1 + 3x_2 - x_4 \: &=2,\\
+    x_2 + x_3 + 2x_4 \: &=3,\\
+    x_1,x_2,x_3,x_4 \: &\geq 0.
+}
 
 \subsection{Příklad na Simplexovu metodu}
-\[
-\begin{aligned}
-\text{minimalisujte}\quad &4x_3 - 6x_4\\
-\text{za podmínek}\quad&
-  \begin{alignedat}{2}
-    x_2 - 6x_3 + 2x_4 &=&\;6,\\
-    x_1 + 2x_3 - x_4  &=&\;5,\\
-    x_1,x_2,x_3,x_4&\ge&\;0.
-   \end{alignedat}
-\end{aligned}
-\]
+\Opt{min}{}{4x_3 - 6x_4}{
+    x_2 + 3x_2 - x_4 \: &= 2,\\
+    x_2 + x_3 + 2x_4 \: &= 3,\\
+    x_1, x_2, x_3, x_4 \: &\geq 0.
+}
 
 \subsection{Tvrzení o vztahu přípustné množiny a hodnoty cílové funkce}
 Přípustná množina $M$ úlohy LP je neprázdná právě tehdy, když v bodě minima 
@@ -599,40 +571,44 @@ $\hat x \in M$. $\qed$
 
 \subsection{Příklad dvoufázové Simplexové metody}
 Je dána úloha
-\optAs{min}{x_2}{%
-    &x_1 = 1, \\
-    x_1 - &x_2 = 2, \\
-    x_1, &x_2 \geq 0.
+\Opt{min}{}{x_2}{
+    x_1 \: &= 1, \\
+    x_1 - x_2 \: &= 2, \\
+    x_1, x_2 \: &\geq 0.
 }
 Sloupeček pravých stran je větší roven nule, takže můžeme použít dvoufázovou Simplexovu metodu.
 
 1. fáze:
-\begin{alignat*}{3}
-    \text{minimalisujte} &&  y_1 + y_2  &&      \\
-    \text{za podmínek } &\quad&  x_1 + y_1  && {}= 1, \\
-                        &\quad&  x_1 - x_2 + y_2 && {}= 2, \\
-                        &\quad&  x_1, x_2, y_1, y_2 && {}\geq 0.
-\end{alignat*}
-%TODO dodělat a vyřešit situaci s optAs - přednáška 10
+\Opt{min}{}{y_1 + y_2}{
+    x_1 + y_1 \: &= 1, \\
+    x_1 - x_2 + y_2 \: &= 2, \\
+    x_1, x_2, y_1, y_2 \: &\geq 0.
+}
+% TODO: dodělat a vyřešit situaci s optAs - přednáška 10
 
 \subsection{Tvrzení o primární a duální úloze}
 Nechť $A \in \M_{m,n}(\R)$, $c \in \R^n$ a $b \in \R^m$. Duální úloha k úloze
 \[
-\left.\begin{aligned}
-    &\text{minimalizujte}&& \langle x, c \rangle \\
-    &\text{za podmínky}  && Ax \geq b, \\
-    &                    && x \geq 0.
-\end{aligned}
-\right\} (P)
+    \left.
+    % \Opt{min}{}{\langle x, c \rangle}{
+    %     Ax \: &\geq b, \\
+    %     x \: &\geq 0.
+    % }
+    \begin{aligned}
+        &\text{minimalizujte}&& \langle x, c \rangle \\
+        &\text{za podmínky}  && Ax \geq b, \\
+        &                    && x \geq 0.
+    \end{aligned}
+    \right\} (P)
 \]
 je
 \[
-\left.\begin{aligned}
-    &\text{maximalisujte}&& \langle y,b \rangle \\
-    &\text{za podmínky}  && A^Ty \geq c, \\
-    &                    && y \geq 0.
-\end{aligned}
-\right\} (D)
+    \left.\begin{aligned}
+        &\text{maximalisujte}&& \langle y,b \rangle \\
+        &\text{za podmínky}  && A^Ty \geq c, \\
+        &                    && y \geq 0.
+    \end{aligned}
+    \right\} (D)
 \]
 Důkaz. 
 \[
@@ -646,33 +622,29 @@ Důkaz.
         - \infty & \text{jinak.}
     \end{cases}
 \]
-Tedy duální úloha k $(P)$ je 
-\[
-\begin{aligned}
-    &\text{maximalisujte}&& \langle y,b \rangle \\
-    &\text{za podmínky}  && c-A^T y \geq 0, \rightarrow A^T y \leq c \\
-    &                    && y \geq 0.
-\end{aligned}
-\]
-$\qed$
+Tedy duální úloha k $(P)$ je
+\Opt{max}{}{\langle y,b \rangle}{
+    c-A^T y \: &\geq 0, \rightarrow A^T y \leq c \\
+    y \: &\geq 0. \qed
+}
 
 \subsection{Hledání duální úlohy k duální úloze}
 Mějme
 \[
-\left.\begin{aligned}
-    &\text{maximalisujte}&& \langle y,b \rangle \\
-    &\text{za podmínky}  && A^Ty \geq c, \\
-    &                    && y \geq 0.
-\end{aligned}
-\right\} (D)
+    \left.\begin{aligned}
+        &\text{maximalisujte}&& \langle y,b \rangle \\
+        &\text{za podmínky}  && A^Ty \geq c, \\
+        &                    && y \geq 0.
+    \end{aligned}
+    \right\} (D)
 \]
 Přepíšeme:
 \[
-\begin{array}{r@{\quad}l@{\qquad}c@{\qquad}r@{\quad}l}
-\text{minimalisujte}& -\langle y, b \rangle&           &\text{minimalisujte}& \langle y, -b \rangle \\
-\text{za podmínky}  & A^T y \leq c,        & \text{tj.}&\text{za podmínky}  & (-A^T) y \geq -c, \\
-                    & y \geq 0.            &           &                    & y \geq 0.
-\end{array}
+    \begin{array}{r@{\quad}l@{\qquad}c@{\qquad}r@{\quad}l}
+    \text{minimalisujte}& -\langle y, b \rangle&           &\text{minimalisujte}& \langle y, -b \rangle \\
+    \text{za podmínky}  & A^T y \leq c,        & \text{tj.}&\text{za podmínky}  & (-A^T) y \geq -c, \\
+                        & y \geq 0.            &           &                    & y \geq 0.
+    \end{array}
 \]
 Duální úloha po tom je:
 \[
@@ -699,12 +671,12 @@ Důkaz vynecháme.
 \subsection{Simplexová metoda a řešení duální úlohy}\label{simplDual}
 Do úlohy $(P)$ zaveďme doplňkové proměnné $y = (y_1, \dots, y_m)^T$. Tím dostaneme úlohu
 \[
-\left.\begin{aligned}
-    &\text{minimalizujte}&& \langle x, c \rangle \\
-    &\text{za podmínky}  && Ax -y \geq b, \\
-    &                    && x,y \geq 0.
-\end{aligned}
-\right\} (\widetilde{P})
+    \left.\begin{aligned}
+        &\text{minimalizujte}&& \langle x, c \rangle \\
+        &\text{za podmínky}  && Ax -y \geq b, \\
+        &                    && x,y \geq 0.
+    \end{aligned}
+    \right\} (\widetilde{P})
 \]
 Je-li výsledná simplexová tabulka
 \[
@@ -847,5 +819,3 @@ Což upravíme:
         y, z \geq 0& 
     \end{align*}
 \end{multicols}
-
-
