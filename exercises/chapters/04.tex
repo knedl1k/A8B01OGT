@@ -220,12 +220,10 @@ $(A^T A)^{-1} = \frac{1}{6}
 \end{multicols}
 Důkaz.\\
 $v = x - P_L (x) \not=0$
-\[
-    \langle v, y\rangle = \langle v, P_L(x)\rangle \leq 0, \quad \forall y \in C.
-\]
-\[
-    \langle y, v\rangle \leq \langle v, P_L (x)\rangle, \quad \forall y \in C.
-\]
+\begin{align*}
+    \langle v, y\rangle - \langle v, P_L(x)\rangle \leq 0,& \quad \forall y \in C. \\
+    \langle y, v\rangle \leq \langle v, P_L (x)\rangle,& \quad \forall y \in C.
+\end{align*}
 Položme $\alpha = \langle v, P_L (x)\rangle$.
 \[
     \langle y, v\rangle \leq \alpha, \quad \forall y \in C.
@@ -234,7 +232,6 @@ Položme $\alpha = \langle v, P_L (x)\rangle$.
     \langle x, v\rangle - \underbrace{\overbrace{\langle v, P_L (x)\rangle}^{\alpha}}_{\langle P_L(x), v\rangle} = 
     \langle \underbrace{x - P_L (x)}_{v}, v\rangle = \| v\|^2 > 0. \implies \alpha < \langle x, v\rangle. \qed
 \]
-
 \textbf{Důsledek:} Každá uzavřená konvexní množina v $\R^n$ je průnikem všech poloprostorů, které ji obsahují.
 
 Důkaz sporem.
