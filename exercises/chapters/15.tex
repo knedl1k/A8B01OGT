@@ -124,6 +124,61 @@ Je dána úloha
     \item Využitím KKT podmínek zdůvodněte, proč $\begin{bmatrix}2 \\ 2\end{bmatrix}$ je řešení zadané úlohy.
 \end{enumerate}
 
+(a)
+\begin{align*}
+    f(x_1, x_2) &= -2x_1 + x_2 \\
+    g_1(x_1, x_2) &= x_1 - x_2 \\
+    g_2(x_1, x_2) &= x_1^2 + x_2^2 - 8
+\end{align*}
+\begin{align*}
+    \nabla f(x_1, x_2) &= (-2, 1) \\
+    \nabla g_1(x_1, x_2) &= (1, -1) \\
+    \nabla g_2(x_1, x_2) &= (2x_1, 2x_2)
+\end{align*}
+
+KKT podmínky jsou:
+\begin{align*}
+    -2 + \mu_1 + \mu_2 \cdot 2x_1 &= 0\\
+    1 - \mu_1 + \mu_2 \cdot 2x_2 &= 0\\
+    \mu_1(x_1 - x_2) &= 0\\
+    \mu_2(x_1^2 + x_2^2 - 8) &= 0\\
+    \mu_1, \mu_2 &\geq 0
+\end{align*}
+(b)
+Dosadíme do KKT podmínek a ověříme, že všechny podmínky jsou splněny.
+\begin{align*}
+    -2 + \mu_1 + 4\mu_2 &= 0 \quad (\text{I}) \\
+    1 - \mu_1 + 4\mu_2&= 0 \quad (\text{II})\\
+    \mu_1(0) &= 0 \quad ✓\\
+    \mu_2(0) &= 0 \quad ✓\\
+    \mu_1, \mu_2 &\geq 0
+\end{align*}
+Po odečtení (I)-(II) nám vyjde $\mu_1 = \frac{3}{2}$ a $\mu_2 = \frac{1}{8}$, což je v souladu s podmínkami.
+
+(c)
+Afinní podmínka regularity není splněna, ověříme Slaterovu.
+
+$g_1$ je afinní $\implies$ konvexní funkce. U $g_2$ musíme ověřit definitnost Hessiánu.
+\[
+    \nabla^2 g_2(x_1, x_2) = 
+    \begin{bmatrix}
+        2 & 0 \\
+        0 & 2
+    \end{bmatrix}
+\]
+Matice je symetrická, můžeme tedy ověřovat definitnost. Využijeme Sylvesterova pravidla.
+
+$\begin{vmatrix}
+    2
+\end{vmatrix} = 2 > 0$, $
+\begin{vmatrix}
+    2 & 0 \\
+    0 & 2    
+\end{vmatrix} = 4 > 0$. $g_2$ je (ryze) konvexní. Když se nám podaří nalézt $x \in \Omega$ takové, že $g_i(x) < 0$, pak 
+bude Slaterova podmínka splněna. Zvolme $x = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$, pak očividně $g_i(x) < 0$, Slaterova
+podmínka regularity je splněna. Dále $f(x_1, x_2)$ je afinní, tedy konvexní. $\implies$ Postačující KKT podmínky nám 
+zaručují, že když bod $\begin{bmatrix}2 \\ 2\end{bmatrix}$ je KKT bodem, pak je bodem minima funkce $f$.
+
 \subsection{Smíšené rozšíření maticové hry}
 Nechť $\Gamma(A)$ je smíšené rozšíření maticové hry s maticí hry
 \[

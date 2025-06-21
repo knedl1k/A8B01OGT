@@ -158,8 +158,8 @@ a existuje $x \in \Omega$ tak, že pro každé $i \in \bc{1, \dots, k}$ je $g_i(
 
 \subsection{Věta o postačujících KKT podmínkách}
 Nechť $\Omega \subseteq \R^n$ je otevřená množina, $f, g_1, \dots, g_k \in C^1(\Omega)$ jsou konvexní funkce na \\
-$C = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$. Jestliže $\hat x \in C$ je KKT bod, pak $\hat x$ je bod 
-minima funkce $f$ na $C$.
+$C = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$. Jestliže $\hat x \in C$ je KKT bod, pak $\hat x$ je 
+bod minima funkce $f$ na $C$.
 
 Důkaz. Ať $x \in C$. \\
 Cíl: $f(x) - f(\hat x) \geq 0$ ($= \hat x$ je minimum)
@@ -168,8 +168,8 @@ Charakterisace pomocí tečné nadroviny: $f(\hat x) + \langle \nabla f(\hat x),
 \hat x \in C$
 \[
     f(x) - f(\hat x) \underset{\substack{\text{$f$ je konvexní } \\ \text{na $C \subseteq \Omega$}} }{\geq} \langle 
-    \nabla f(\hat x), x - \hat x\rangle \underset{\text{stacionarity}}{\overset{\text{podmínka}}{=}} \langle - \sum_{i=1}^{k} \mu_i \nabla g_i(\hat x), 
-    x - \hat x\rangle
+    \nabla f(\hat x), x - \hat x\rangle \underset{\text{stacionarity}}{\overset{\text{podmínka}}{=}} 
+    \langle - \sum_{i=1}^{k} \mu_i \nabla g_i(\hat x), x - \hat x\rangle
 \]
 \[
     = \sum_{i=1}^{k} - \langle \nabla g_i(\hat x), x - \hat x \rangle \mu_i = \sum_{i=1}^{n} (g_i(\hat x) - g_i(x)) \mu_i 
