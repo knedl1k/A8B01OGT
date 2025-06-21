@@ -12,7 +12,7 @@ $\F(M; x) \not = \emptyset$.\\
 Je-li $x \in \Int(M)$, pak $\F(M; x) = \R^n$.\\
 Je-li $M$ konečná (neprázdná), pak $\F(M;x) = \bc{0}$ pro každé $x \in M$.
 
-\subsection{Přípustné směry poklesu}
+\subsection{Hledání přípustných směrů}
 Mějme
 \begin{enumerate}[(a)]
     \item Je-li $M = S(0; 1)$, pak $\F(M;x) = \bc{0}$ pro každé $x \in M$.
@@ -493,11 +493,10 @@ Je tedy očividné, že $\G$ závisí na popisu množiny.
 
 \subsection{Ukázka, že aproximací \texorpdfstring{$\F$}{F} lze zkazit prázdnost průniku}
 Mějme optimalisační úlohu
-\begin{align*}
-    \text{minimalisujte } x + y \\
-    \text{za podmínek } y - x^3 &\leq 0, \\
-     - y &\leq 0.
-\end{align*}
+\Opt{min}{}{x+y}{
+    y - x^3 \: &\leq 0, \\
+    - y \: &\leq 0.
+}
 Pak
 \begin{align*}
     \D_0(f; 0) &= \bc{d \in \R^n \mid \langle \nabla f(0), d\rangle < 0} \\
