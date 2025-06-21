@@ -85,10 +85,9 @@ Pro každé $\mu \geq 0$ pak platí:
     \varphi(\mu) = \min_{(x, y)^T \in \Omega}L(x, y, \mu) \leq \min_{(x, y)^T \in M}L(x, y, \mu) \leq \hat f
 \]
 \enquote{Optimální} dolní odhad $\hat f$ pomocí $\varphi$ vede na úlohu
-\begin{align*}
-    \text{maximalisujte } \varphi(\mu), \\
-    \text{za podmínek } \mu \geq 0.
-\end{align*}
+\Opt{max}{}{\varphi(\mu)}{
+    \mu \geq 0.
+}
 Kde
 \begin{align*}
     \varphi(\mu) &= \min_{(x, y)^T \in [0,2]^T} \left[(2-\mu)x + (3-\mu)y + \mu\right] \\

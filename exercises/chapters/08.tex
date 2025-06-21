@@ -55,6 +55,23 @@ Důkaz.
     A to jsou přesně KKT podmínky. $\qed$
 \end{itemize}
 
+\subsection{Terminologie KKT podmínek}
+\begin{itemize}
+    \item Podmínky
+    \begin{align*}
+        &(P1) \: \nabla f(\hat x) + \sum_{i=1}^{k}\mu_i \nabla g_i(\hat x) = 0, \\
+        &(P2) \: \mu_i g_i(\hat x) = 0, \\
+        &(P3) \: \mu_i \geq 0,
+    \end{align*}
+    se souhrně nazývají \bb{KKT podmínky}.
+    \item Podmínka (P1) se nazývá \bb{podmínka stacionarity}.
+    \item Podmínka (P2) se nazývá \bb{podmínka komplementarity}.
+    \item Koeficienty $\mu_1, \dots, mu_k \in \R$ splňující KKT podmínky se nazývají \bb{KKT multiplikátory} 
+    (Lagrangeovy multiplikátory) v bodě $\hat x$.
+    \item Bod $\hat x$ se nazve \bb{KKT bod}, existuje-li vektor $(\mu_1, \dots, \mu_k)^T$ KKT multiplikátorů v bodě 
+    $\hat x$.
+\end{itemize}
+
 \subsection{Příklad použití KKT podmínek}
 \Opt{min}{}{\underbrace{x + y}_{f(x,y)}}{
     \underbrace{x}_{g_1(x,y)} \: &\geq 0, \\
@@ -121,6 +138,21 @@ $\hat x = \begin{bmatrix}
     $\Rightarrow (0,0)$ není KKT bod i když je úloha konvexní a bod $(0,0)$ je očividně bodem minima.
 \end{multicols}
 
+\subsection{Afinní podmínka regularity}\label{afinniPodm}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $g_1, \dots, g_k \in C^1 (\Omega)$ a 
+\[
+    M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}.
+\]
+Řekněme, že $(g_i)_{i=1}^k$ splňuje afinní podmínku regularity, jestliže $g_1, \dots, g_k$ jsou afinní.
+
+\subsection{Slaterova podmínka regularity}\label{slaterPodm}
+Nechť $\Omega \subseteq \R^n$ je otevřená množina, $g_1, \dots, g_k \in C^1 (\Omega)$ a 
+\[
+    M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}.
+\]
+Řekněme, že $(g_i)_{i=1}^k$ splňuje Slaterovu podmínku regularity, jestliže $g_1, \dots, g_k$ jsou konvexní na $\Omega$
+a existuje $x \in \Omega$ tak, že pro každé $i \in \bc{1, \dots, k}$ je $g_i(x) < 0$.
+
 \subsection{Věta o postačujících KKT podmínkách}
 Nechť $\Omega \subseteq \R^n$ je otevřená množina, $f, g_1, \dots, g_k \in C^1(\Omega)$ jsou konvexní funkce na \\
 $C = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$. Jestliže $\hat x \in C$ je KKT bod, pak $\hat x$ je bod 
@@ -142,21 +174,6 @@ Charakterisace pomocí tečné nadroviny: $f(\hat x) + \langle \nabla f(\hat x),
     \underbrace{\mu_i}_{\substack{\text{podmínka}\\ \text{nezápornosti}}} \overbrace{g_i(x)}^{\leq 0 \, \forall x \in C}
     \geq 0. \qed
 \]
-
-\subsection{Afinní podmínka regularity}\label{afinniPodm}
-Nechť $\Omega \subseteq \R^n$ je otevřená množina, $g_1, \dots, g_k \in C^1 (\Omega)$ a 
-\[
-    M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}.
-\]
-Řekněme, že $(g_i)_{i=1}^k$ splňuje afinní podmínku regularity, jestliže $g_1, \dots, g_k$ jsou afinní.
-
-\subsection{Slaterova podmínka regularity}\label{slaterPodm}
-Nechť $\Omega \subseteq \R^n$ je otevřená množina, $g_1, \dots, g_k \in C^1 (\Omega)$ a 
-\[
-    M = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}.
-\]
-Řekněme, že $(g_i)_{i=1}^k$ splňuje Slaterovu podmínku regularity, jestliže $g_1, \dots, g_k$ jsou konvexní na $\Omega$
-a existuje $x \in \Omega$ tak, že pro každé $i \in \bc{1, \dots, k}$ je $g_i(x) < 0$.
 
 \subsection{Použití podmínek regularity k ověření KKT podmínek}
 \begin{multicols}{2}
