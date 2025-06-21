@@ -59,15 +59,15 @@ Důkaz.
 \begin{itemize}
     \item Podmínky
     \begin{align*}
-        &(P1) \: \nabla f(\hat x) + \sum_{i=1}^{k}\mu_i \nabla g_i(\hat x) = 0, \\
-        &(P2) \: \mu_i g_i(\hat x) = 0, \\
-        &(P3) \: \mu_i \geq 0,
+        &(\text{P}1) \: \nabla f(\hat x) + \sum_{i=1}^{k}\mu_i \nabla g_i(\hat x) = 0, \\
+        &(\text{P}2) \: \mu_i g_i(\hat x) = 0, \\
+        &(\text{P}3) \: \mu_i \geq 0,
     \end{align*}
     se souhrně nazývají \bb{KKT podmínky}.
     \item Podmínka (P1) se nazývá \bb{podmínka stacionarity}.
     \item Podmínka (P2) se nazývá \bb{podmínka komplementarity}.
-    \item Koeficienty $\mu_1, \dots, mu_k \in \R$ splňující KKT podmínky se nazývají \bb{KKT multiplikátory} 
-    (Lagrangeovy multiplikátory) v bodě $\hat x$.
+    \item Koeficienty $\mu_1, \dots, \mu_k \in \R$ splňující KKT podmínky se nazývají \bb{KKT multiplikátory} 
+    \\ (Lagrangeovy multiplikátory) v bodě $\hat x$.
     \item Bod $\hat x$ se nazve \bb{KKT bod}, existuje-li vektor $(\mu_1, \dots, \mu_k)^T$ KKT multiplikátorů v bodě 
     $\hat x$.
 \end{itemize}
@@ -113,19 +113,22 @@ $\hat x = \begin{bmatrix}
 }
 \begin{multicols}{2}
     Nákres.
+    \hspace{2em}
+    \begin{figure}[H]
+        \begin{tikzpicture}[scale=1]
+            \fill[blue!50, opacity=0.5] (0,1) circle (1);
+            \fill[red!50, opacity=0.5] (0,-1) circle (1);
+            
+            \draw[blue!50] (0,1) circle (1);
+            \draw[red!50] (0,-1) circle (1);
+            
+            \draw[->] (-1.5,0) -- (1.5,0) node[right] {$x$};
+            \draw[->] (0,-2.2) -- (0,2.2) node[above] {$y$};
 
-    \begin{tikzpicture}[scale=1.8]
-        \fill[blue!50, opacity=0.5] (0,1) circle (1);
-        \fill[red!50, opacity=0.5] (0,-1) circle (1);
-        
-        \draw[blue!50] (0,1) circle (1);
-        \draw[red!50] (0,-1) circle (1);
-        
-        \draw[->] (-1.5,0) -- (1.5,0) node[right] {$x$};
-        \draw[->] (0,-2.2) -- (0,2.2) node[above] {$y$};
+            \fill[green] (0,0) circle (2pt);
+        \end{tikzpicture}
+    \end{figure}
 
-        \fill[green] (0,0) circle (2pt);
-    \end{tikzpicture}
 \columnbreak
 
     \textcolor{green}{Přípustná} množina: $M = \bc{0} \rightarrow$ určitě konvexní množina.
@@ -158,7 +161,7 @@ Nechť $\Omega \subseteq \R^n$ je otevřená množina, $f, g_1, \dots, g_k \in C
 $C = \bc{x \in \Omega \mid g_1(x) \leq 0, \dots, g_k(x) \leq 0}$. Jestliže $\hat x \in C$ je KKT bod, pak $\hat x$ je bod 
 minima funkce $f$ na $C$.
 
-Důkaz. Ať $x \ in C$. \\
+Důkaz. Ať $x \in C$. \\
 Cíl: $f(x) - f(\hat x) \geq 0$ ($= \hat x$ je minimum)
 
 Charakterisace pomocí tečné nadroviny: $f(\hat x) + \langle \nabla f(\hat x), x - \hat x\rangle \leq f(x) \quad x, 
@@ -272,7 +275,7 @@ Ať $A \in \M_{m,n} (\R), \, D \in \M_{r,n}(\R), \, b\in \R^m$ a $\lambda > 0$. 
 \[
     \text{minimalisujte } f(x) = \| Ax - b\|^2 + \lambda \| Dx\|^2  \text{ na } \R^n.
 \]
-Jaké jsou nutnné a postačující podmínky optimality?
+Jaké jsou nutné a postačující podmínky optimality?
 \begin{align*}
     f(x) &= \langle Ax - b, Ax - b\rangle + \lambda \langle Dx, Dx\rangle \\
     &= \langle \underbrace{Ax, Ax}_{A^TAx, x}\rangle - 2\langle Ax, b\rangle + \| b\|^2 + \lambda \langle 
