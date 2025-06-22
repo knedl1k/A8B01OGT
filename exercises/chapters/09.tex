@@ -111,12 +111,33 @@ Zapišme úlohu ve standardním tvaru.
     y_1, y_2, y_3, y_4, y_5 \: &\geq 0.
 }
 
+\subsection{Terminologie lineárního programování}
+Je dána úloha
+\Opt{min}{}{\langle x,c\rangle}{
+    Ax \: &= b,\\
+    x \: &\geq 0,
+}
+kde $c\in \R^n$, $b \in \R^m$ a $A \in \M_{m,n}(\R)$ splňuje
+\[
+    \rank A = \rank (A, b) = m \leq n.
+\]
+Dále se v této sekci budeme držet následujícího značení:
+\begin{itemize}
+    \item Přípustná množina $M = \bc{x \in \R^n \mid Ax = b, x\geq 0}$.
+    \item $J(x) \coloneqq \bc{j \in \bc{1, \dots, n} \mid x_j > 0}$, kde $x = (x_1, \dots, x_n)^T \in \R^n$.
+    \item $a_1, \dots, a_n \in \R^m$ sloupce matice A.
+    \item Nechť $B \subseteq \bc{1, \dots, n}$ je neprázdná. Pak $A_B$ je matice tvořená sloupci matice $A$ s indexy v 
+    $B$ (v daném pořadí). Je-li $x = (x_1, \dots, x_n)^T$, pak $x_B$ je sloupec tvořený prvky $x_i, i \in B$, v daném 
+    pořadí.
+    \item $N \coloneqq \bc{1, \dots, n} \setminus B$.
+\end{itemize}
+
 \subsection{Basický přípustný bod}\label{BPB}
 Bod $x \in M$ se nazve basický přípustný bod (BPB) úlohy lineárního programování, pokud existuje $m$-prvková množina
 $B \subseteq \bc{1, \dots, n}$ taková, že
 \begin{enumerate}[(a)]
     \item $A_B$ je regulární,
-    \item $x_j = 0$ pro každé $j \in \N$.
+    \item $x_j = 0$ pro každé $j \in N$.
 \end{enumerate}
 Množina $B$ z definice BPB se nazývá přípustná báse.
 
@@ -196,7 +217,7 @@ Tedy $\bc{a_j \mid j \in J(x)}$ je lineárně nezávislá.
 Ať $|J(x)| < m$. Z předpokladu víme $\rank(A) = m$. Pak lze $J(x)$ doplnit do $m$-prvkové množiny
 $B \subseteq \bc{1,\dots, n}$ tak, že $\bc{a_j \mid j \in B}$ je lineárně nezávislá. $\implies x$ je BPB. $\qed$
 
-\subsection{Tvrzení, že dva různé PBP musí mít různé množiny \texorpdfstring{$B$}{B}} \label{ruzneBPB}
+\subsection{Tvrzení, že dva různé BPB musí mít různé množiny \texorpdfstring{$B$}{B}} \label{ruzneBPB}
 Pro každou $m$-prvkovou množinu $B \subseteq \bc{1, \dots, n}$ takovou, že $A_B$ je regulární, existuje nejvýše jedno
 $x \in M$ splňující $x_j = 0$ pro každé $j \in N$.
 
