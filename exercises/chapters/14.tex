@@ -312,22 +312,28 @@ Vybereme si jednu z těchto úloh, ideálně tu jednodušší. Tou bude druhá, 
     \ncbox[nodesep=0.2em]{A}{C}\ncbox[nodesep=0.3ex]{C}{B}
 \]
 \[
+{
+    \renewcommand{\arraystretch}{1.25}
     \begin{array}{cccccc|c}
         &\eta_1 & \eta_2 & \eta_3 & \eta_4 & \eta_5 & \\
         &0 & -\frac{2}{3} & \phantom{-}\frac{2}{3}& \phantom{-}\frac{1}{3} & 0 & \frac{1}{3} \\ \hline
         \eta_1 &1 & \phantom{-}\Rnode{C}{\frac{1}{3}} & \phantom{-}\frac{5}{3} & \phantom{-}\frac{1}{3} & 0 & \frac{1}{3} \\
         \eta_5 &0 & \phantom{-}\Rnode{A}{\frac{10}{3}} & -\frac{1}{3} & -\frac{2}{3} & 1 & \Rnode{B}{\frac{1}{3}} \\
     \end{array}
-    \psset{linewidth=1pt, linearc=0.1, linecolor=red, boxsize=0.5em}
-    \ncbox[nodesep=0.2em]{A}{C}\ncbox[nodesep=0.3ex]{A}{B}
+    \psset{linewidth=1pt, linearc=0.1, linecolor=red, boxsize=0.7em}
+    \ncbox[nodesep=0.2em]{A}{C}\ncbox[nodesep=0.4ex]{A}{B}
+}
 \]
 \[
+{
+    \renewcommand{\arraystretch}{1.25}
     \begin{array}{cccccc|c}
         &\eta_1 & \eta_2 & \eta_3 & \eta_4 & \eta_5 & \\
         &0 & 0 & \frac{2}{3} - \frac{2}{30}& \frac{1}{3}-\frac{4}{30} & \frac{2}{10} & \frac{1}{3}+\frac{2}{30} \\ \hline
-        \eta_1 &1  &0  & x & x & x & \frac{1}{3}-\frac{1}{30} \\
+        \eta_1 &1  &0  & \times & \times & \times & \frac{1}{3}-\frac{1}{30} \\
         \eta_2 &0  & 1  & -\frac{1}{10} & -\frac{2}{10} & \frac{3}{10} & \frac{1}{10}  \\
     \end{array}
+}
 \]
 A tedy: $\eta_1 = \frac{9}{30} = \frac{3}{10}$, $\eta_2 = \frac{1}{10}$, $\eta_3 = 0$.
 \[\xi_1 = \frac{6}{30} = \frac{1}{5}, \xi_2 = \frac{1}{5}\]

@@ -754,7 +754,7 @@ x_1, \dots, y_2 \geq 0
 }
 Simplexová tabulka:
 \[
-    \begin{array}{c|rrrrr|r}
+    \begin{array}{c ccccc|c}
            &x_1 & x_2 & x_3 & y_1 & y_2 &  \\
            & 1 & 2 & 4 & 0 & 0 & 0 \\ \hline
         x_3& 0 & 4 & 1 &-1 & 0 & 2 \\
@@ -767,12 +767,15 @@ Simplexová tabulka:
 Zafixujme si sloupec $x_2$, protože má v sobě záporný koeficient. Teď vhodně vybrat řádek $\rightarrow$ vezmeme pravou 
 stranou a podělíme ji koeficientem, tedy $\frac{2}{4}=\frac{1}{2}$ a $\frac{1}{1}=1$. Vybereme menší podíl.
 \[
-    \begin{array}{c|rrrrr|r}
+{   
+    \renewcommand{\arraystretch}{1.25}
+    \begin{array}{c ccccc|c}
            &x_1 & x_2 & x_3 & y_1 & y_2 &  \\
-           & 0 & 0 & \frac{15}{4} & \frac{1}{4} & 1 & -9 + \frac{15}{2}\\ \hline
-        x_2& 0 & 1 & \frac{1}{4} &-\frac{1}{4} & 0 & \frac{1}{2} \\
-        x_1& 1 & 0 & -\frac{1}{4} & \frac{1}{4} &-1 & \frac{1}{2} \\
+           & 0 & 0 & \phantom{-}\frac{15}{4} & \phantom{-}\frac{1}{4} & \phantom{-}1 & -9 + \frac{15}{2}\\ \hline
+        x_2& 0 & 1 & \phantom{-}\frac{1}{4} &-\frac{1}{4} & \phantom{-}0 & \frac{1}{2} \\
+        x_1& 1 & 0 & -\frac{1}{4} & \phantom{-}\frac{1}{4} &-1 & \frac{1}{2} \\
     \end{array}
+}
 \]
 Protože v levé části prvního řádku není žádný záporný koeficient, algoritmus končí.
 
