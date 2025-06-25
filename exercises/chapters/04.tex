@@ -245,19 +245,19 @@ Pak $x \in P$ tak, že $x \not\in C$. Z věty o oddělitelnosti bodu a konvexní
 \subsection{Příklad na použití věty o oddělitelnosti nadrovinou}
 Nechť $A = 
 \begin{bmatrix}
-    1 & 1 \\
+    1 & \phantom{-}1 \\
     2 & -1    
 \end{bmatrix}$ a $b\in \R^2$. Označme
 \begin{align*}
-    C &= \bc{Ax \middle| x \in \R^2_+} = \bc{\alpha 
+    C &= \bc{Ax \, \middle| \, x \in \R^2_+} = \bc{x_1 
     \begin{bmatrix}
         1\\
         2    
-    \end{bmatrix} + \beta
+    \end{bmatrix} + x_2
     \begin{bmatrix}
         \phantom{-}1\\
         -1
-    \end{bmatrix} \mid \alpha, \beta \geq 0} \\
+    \end{bmatrix} \, \middle| \, x_1, x_2 \geq 0} \\
     K &= \bc{y \in \R^2 \mid A^T y \leq 0} \\
     &= \left\{y \in \R^2 \,\middle|\, \left\langle 
     \begin{bmatrix}
@@ -271,7 +271,7 @@ Nechť $A =
     \end{bmatrix},y \right\rangle \leq 0\right\}.
 \end{align*}
 
-\begin{tikzpicture}[scale=2] % TODO: dodělat vektor b, který je mezi K a C
+\begin{tikzpicture}[scale=2]
     \draw[->] (0,-2) -- (0,2) node[above] {\(y\)};
     \fill[green, opacity=0.3, pattern=north west lines] (0,0) -- (1,2) -- (1,-2) -- cycle;
     \fill[green, opacity=0.3, pattern=north west lines] (1,0) rectangle (2,2);
@@ -294,7 +294,7 @@ Nechť $A =
     \draw[black!30!blue, thick] (-1.8,0.7) node{$K$}; 
 
     \draw[->] (-2,0) -- (2,0) node[right] {\(x\)};
-    
+
 \end{tikzpicture}
 
 Vždy nastane jeden z případů:

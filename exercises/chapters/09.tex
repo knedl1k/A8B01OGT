@@ -486,18 +486,6 @@ A tedy duální úloha je
     \mu_1, \mu_2, \mu_3 \: &\geq 0.
 }
 
-\subsection{Příklad na hledání duální úlohy}
-Mějme úlohu
-\Opt{min}{}{x_1^2 + x_2^2}{
-    -x_1 -x_2 + 4 \: &\leq 0, \\
-    x_1, x_2 \: &\geq 0.
-} 
-\begin{enumerate}[(a)]
-    \item Najděte duální úlohu, jestliže $x_1, x_2 \geq 0$ je přímé omezení.
-    \item Najděte duální úlohu, jestliže $x_1, x_2 \in \R$ je přímé omezení.
-\end{enumerate}
-% TODO: dodělat příklad
-
 \subsection{Tvrzení o množině všech řešení úlohy LP}
 Množina všech řešení úlohy LP je konvexní polyedrická množina.
 
@@ -561,20 +549,6 @@ $\rightarrow x_3 = 6 - 2x_1 - 3(1+x_1-x_4) = 3-5x_1+3x_4$
     \end{bmatrix}.
 \end{equation*}
 % TODO: dodělat
-
-\subsection{Příklad na Simplexovu metodu}
-\Opt{min}{}{2x_2 - x_4}{
-    x_1 + 3x_2 - x_4 \: &=2,\\
-    x_2 + x_3 + 2x_4 \: &=3,\\
-    x_1,x_2,x_3,x_4 \: &\geq 0.
-}
-
-\subsection{Příklad na Simplexovu metodu}
-\Opt{min}{}{4x_3 - 6x_4}{
-    x_2 + 3x_2 - x_4 \: &= 2,\\
-    x_2 + x_3 + 2x_4 \: &= 3,\\
-    x_1, x_2, x_3, x_4 \: &\geq 0.
-}
 
 \subsection{Tvrzení o vztahu přípustné množiny a hodnoty cílové funkce}
 Přípustná množina $M$ úlohy LP je neprázdná právě tehdy, když v bodě minima 
@@ -807,11 +781,11 @@ Pro fixní $y \in \R^k, z \in \R^l$ je $(w, \lambda) \mapsto L(w, \lambda, y, z)
 \]
 A tedy máme:
 \begin{align}
-    \varphi(y, z) &= \frac{1}{2} \left\langle \sum_{i=1}^{k}a_i y_i - \sum_{i=1}^{l}b_i z_i, 
-    \sum_{j=1}^{k}a_j y_j - \sum_{j=1}^{l}b_j z_j \right\rangle \\
-    &+ \sum_{i=1}^{k}y_i + \sum_{i=1}^{l}z_i - \sum_{i=1}^{k}y_i 
-    \left\langle a_i, \sum_{j=1}^{k}a_j y_j - \sum_{j=1}^{l}b_jk_j\right\rangle\\
-    &+ \sum_{i=1}^{l}z_i \left\langle b_i, \sum_{j=1}^{k}a_j y_i - \sum_{j=1}^{l}b_j z_j\right\rangle
+    \varphi(y, z) = \frac{1}{2} \left\langle \sum_{i=1}^{k}a_i y_i - \sum_{i=1}^{l}b_i z_i, 
+    \sum_{j=1}^{k}a_j y_j - \sum_{j=1}^{l}b_j z_j \right\rangle
+    + \sum_{i=1}^{k}y_i + \sum_{i=1}^{l}z_i  \\ - \sum_{i=1}^{k}y_i \left\langle a_i, \sum_{j=1}^{k}a_j y_j
+    - \sum_{j=1}^{l}b_jk_j\right\rangle + \sum_{i=1}^{l}z_i \left\langle b_i, \sum_{j=1}^{k}a_j y_i 
+    - \sum_{j=1}^{l}b_j z_j\right\rangle
 \end{align}
 Což upravíme:
 \begin{align}

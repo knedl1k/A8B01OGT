@@ -64,66 +64,65 @@ Ať $x \in X$ je dáno. Pak $y \in Y \mapsto \langle Ay, x\rangle$ je lineární
 
 Obdobně $\overline{V}(x)$. $\qed$
 
-\subsection{Grafické řešení hry \texorpdfstring{$\Gamma(A)$}{Γ(A)} s maticí \texorpdfstring{$2 \times n$}{2 x n}} %TODO: dodělat
-Je dána hra $\Gamma(A)$, kde $A = 
-\begin{bmatrix}
-    4 & 2 & 6 \\
-    1 & 5 & 0    
-\end{bmatrix}$.
-\begin{figure}[H]
-  \center
-  \begin{tikzpicture}
-      \begin{axis}[
-          axis lines=middle, 
-          xticklabels={},
-          xtick={1,...,3},
-          ytick={2,...,3},
-          extra x ticks={1,2,3},
-          extra x tick labels={$\frac{1}{3}$,$\frac{2}{3}$,$1$},
-          xmin=0, xmax=3.5,
-          ymin=0, ymax=3.5,
-          xlabel={$x$}, ylabel={$y$},
-          samples=200,
-          %domain=0:1,
-          thick
-      ]
-      \addplot[no marks] table {
-        x   y
-        0   0
-        1   2
-        2   3
-        3   2
-        };
-      \addplot[no marks,dashed] table {
-        x y
-        0 2
-        3 2
-        };
-      \addplot[no marks,dashed] table {
-        x y
-        0 3
-        2 3
-        };
-      \addplot[no marks,dashed] table {
-        x y
-        1 0
-        1 2
-        };
-      \addplot[no marks,dashed] table {
-        x y
-        2 0
-        2 3
-        };
-      \addplot[no marks,dashed] table {
-        x y
-        3 0
-        3 2
-        };
-    \end{axis}
-  \end{tikzpicture}
-\end{figure}
+% \subsection{Grafické řešení hry \texorpdfstring{$\Gamma(A)$}{Γ(A)} s maticí \texorpdfstring{$2 \times n$}{2 x n}} %TODO: chybi postup
+% Je dána hra $\Gamma(A)$, kde $A = 
+% \begin{bmatrix}
+%     4 & 2 & 6 \\
+%     1 & 5 & 0    
+% \end{bmatrix}$.
+% \begin{figure}[H]
+%   \center
+%   \begin{tikzpicture}
+%       \begin{axis}[
+%           axis lines=middle, 
+%           xticklabels={},
+%           xtick={1,...,3},
+%           ytick={2,...,3},
+%           extra x ticks={1,2,3},
+%           extra x tick labels={$\frac{1}{3}$,$\frac{2}{3}$,$1$},
+%           xmin=0, xmax=3.5,
+%           ymin=0, ymax=3.5,
+%           xlabel={$x$}, ylabel={$y$},
+%           samples=200,
+%           %domain=0:1,
+%           thick
+%       ]
+%       \addplot[no marks] table {
+%         x   y
+%         0   0
+%         1   2
+%         2   3
+%         3   2
+%         };
+%       \addplot[no marks,dashed] table {
+%         x y
+%         0 2
+%         3 2
+%         };
+%       \addplot[no marks,dashed] table {
+%         x y
+%         0 3
+%         2 3
+%         };
+%       \addplot[no marks,dashed] table {
+%         x y
+%         1 0
+%         1 2
+%         };
+%       \addplot[no marks,dashed] table {
+%         x y
+%         2 0
+%         2 3
+%         };
+%       \addplot[no marks,dashed] table {
+%         x y
+%         3 0
+%         3 2
+%         };
+%     \end{axis}
+%   \end{tikzpicture}
+% \end{figure}
 
-\newpage
 \subsection{Tvrzení o kladnosti komponent matice \texorpdfstring{$A$}{A}}
 Nechť $E \in \M_{m,n} (\R)$ je matice samých jedniček $\left(\text{tj. } E = 
 \begin{bmatrix}
@@ -301,44 +300,56 @@ Matice $A$ už má všechny komponenty kladné, tudíž nemusíme přičítat n�
     \]
 \end{multicols}
 Vybereme si jednu z těchto úloh, ideálně tu jednodušší. Tou bude druhá, tedy maximalisační, úloha.
-\[
-    \begin{array}{cccccc|c}
-        &\eta_1 & \eta_2 & \eta_3 & \eta_4 & \eta_5 & \\
-        &-1 & -1 & -1& 0 & 0 & 0 \\ \hline
-        \eta_4 &\phantom{-}\Rnode{C}{3}  & \phantom{-}1  & \phantom{-}5 & 1 & 0 & \Rnode{B}{1} \\
-        \eta_5 &\phantom{-}\Rnode{A}{2}  & \phantom{-}4  & \phantom{-}3 & 0 & 1 & 1  \\
-    \end{array}
-    \psset{linewidth=1pt, linearc=0.1, linecolor=red, boxsize=0.5em}
-    \ncbox[nodesep=0.2em]{A}{C}\ncbox[nodesep=0.3ex]{C}{B}
-\]
-\[
-{
-    \renewcommand{\arraystretch}{1.25}
-    \begin{array}{cccccc|c}
-        &\eta_1 & \eta_2 & \eta_3 & \eta_4 & \eta_5 & \\
-        &0 & -\frac{2}{3} & \phantom{-}\frac{2}{3}& \phantom{-}\frac{1}{3} & 0 & \frac{1}{3} \\ \hline
-        \eta_1 &1 & \phantom{-}\Rnode{C}{\frac{1}{3}} & \phantom{-}\frac{5}{3} & \phantom{-}\frac{1}{3} & 0 & \frac{1}{3} \\
-        \eta_5 &0 & \phantom{-}\Rnode{A}{\frac{10}{3}} & -\frac{1}{3} & -\frac{2}{3} & 1 & \Rnode{B}{\frac{1}{3}} \\
-    \end{array}
-    \psset{linewidth=1pt, linearc=0.1, linecolor=red, boxsize=0.7em}
-    \ncbox[nodesep=0.2em]{A}{C}\ncbox[nodesep=0.4ex]{A}{B}
-}
-\]
-\[
-{
-    \renewcommand{\arraystretch}{1.25}
-    \begin{array}{cccccc|c}
-        &\eta_1 & \eta_2 & \eta_3 & \eta_4 & \eta_5 & \\
-        &0 & 0 & \frac{2}{3} - \frac{2}{30}& \frac{1}{3}-\frac{4}{30} & \frac{2}{10} & \frac{1}{3}+\frac{2}{30} \\ \hline
-        \eta_1 &1  &0  & \times & \times & \times & \frac{1}{3}-\frac{1}{30} \\
-        \eta_2 &0  & 1  & -\frac{1}{10} & -\frac{2}{10} & \frac{3}{10} & \frac{1}{10}  \\
-    \end{array}
-}
-\]
-A tedy: $\eta_1 = \frac{9}{30} = \frac{3}{10}$, $\eta_2 = \frac{1}{10}$, $\eta_3 = 0$.
-\[\xi_1 = \frac{6}{30} = \frac{1}{5}, \xi_2 = \frac{1}{5}\]
-\begin{align*}
-    \implies \hat x &= \frac{1}{2}\begin{bmatrix} 1 \\ 1\end{bmatrix} \\
-    \hat y &= \frac{1}{4}\begin{bmatrix} 3 \\ 1 \\ 0\end{bmatrix}
-\end{align*}
+\begin{multicols}{2}
+    Inicializace:
+    \[
+        \begin{array}{cccccc|c}
+            &\eta_1 & \eta_2 & \eta_3 & \eta_4 & \eta_5 & \\
+            &-1 & -1 & -1& 0 & 0 & 0 \\ \hline
+            \eta_4 &\phantom{-}\Rnode{C}{3}  & \phantom{-}1  & \phantom{-}5 & 1 & 0 & \Rnode{B}{1} \\
+            \eta_5 &\phantom{-}\Rnode{A}{2}  & \phantom{-}4  & \phantom{-}3 & 0 & 1 & 1  \\
+        \end{array}
+        \psset{linewidth=1pt, linearc=0.1, linecolor=red, boxsize=0.5em}
+        \ncbox[nodesep=0.2em]{A}{C}\ncbox[nodesep=0.3ex]{C}{B}
+    \]
 
+    1. iterace:
+    \[
+    {
+        \renewcommand{\arraystretch}{1.25}
+        \begin{array}{cccccc|c}
+            &\eta_1 & \eta_2 & \eta_3 & \eta_4 & \eta_5 & \\
+            &0 & -\frac{2}{3} & \phantom{-}\frac{2}{3}& \phantom{-}\frac{1}{3} & 0 & \frac{1}{3} \\ \hline
+            \eta_1 &1 & \phantom{-}\Rnode{C}{\frac{1}{3}} & \phantom{-}\frac{5}{3} & \phantom{-}\frac{1}{3} & 0 & \frac{1}{3} \\
+            \eta_5 &0 & \phantom{-}\Rnode{A}{\frac{10}{3}} & -\frac{1}{3} & -\frac{2}{3} & 1 & \Rnode{B}{\frac{1}{3}} \\
+        \end{array}
+        \psset{linewidth=1pt, linearc=0.1, linecolor=red, boxsize=0.7em}
+        \ncbox[nodesep=0.2em]{A}{C}\ncbox[nodesep=0.4ex]{A}{B}
+    }
+    \]
+\end{multicols}
+
+\begin{multicols}{2}
+    2. iterace:
+    \[
+    {
+        \renewcommand{\arraystretch}{1.25}
+        \begin{array}{cccccc|c}
+            &\eta_1 & \eta_2 & \eta_3 & \eta_4 & \eta_5 & \\
+            &0 & 0 & \frac{2}{3} - \frac{2}{30}& \frac{1}{3}-\frac{4}{30} & \frac{2}{10} & \frac{1}{3}+\frac{2}{30} \\ \hline
+            \eta_1 &1  &0  & \times & \times & \times & \frac{1}{3}-\frac{1}{30} \\
+            \eta_2 &0  & 1  & -\frac{1}{10} & -\frac{2}{10} & \frac{3}{10} & \frac{1}{10}  \\
+        \end{array}
+    }
+    \]
+    A tedy: $\eta_1 = \frac{9}{30} = \frac{3}{10}$, $\eta_2 = \frac{1}{10}$, $\eta_3 = 0$.
+    \[\xi_1 = \frac{6}{30} = \frac{1}{5}, \xi_2 = \frac{1}{5}\]
+
+\columnbreak
+
+    \begin{align*}
+        \implies \hat x &= \frac{1}{2}\begin{bmatrix} 1 \\ 1\end{bmatrix} \\
+        \hat y &= \frac{1}{4}\begin{bmatrix} 3 \\ 1 \\ 0\end{bmatrix}
+    \end{align*}
+
+\end{multicols}

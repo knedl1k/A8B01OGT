@@ -92,7 +92,7 @@ Mějme jednu modrou ($y \geq 0$) a druhou červenou ($x \geq 0$) \hyperref[sec:k
 je pak nezáporný ortant, tedy \\
 $\R_+^n = \bc{(x_1, \dots, x_n)^T \in \R^n \mid x_1 \geq 0, \dots, x_n \geq 0}$.
 
-Visuálně je průnik nekonvexní.
+Visuálně je průnik konvexní.
 
 Důkaz.
 
@@ -223,7 +223,7 @@ $
     (1-\lambda)d
 \end{bmatrix}
 =
-\begin{bmatrix} % TODO: add overbrace?
+\begin{bmatrix}
     \lambda a + (1-\lambda)c \\
     \lambda b + (1-\lambda)d
 \end{bmatrix} \in C_1 \bigtimes C_2. \qed$
@@ -236,103 +236,6 @@ A důkaz bude obdobný pro $C_2$, zde zadefinujme afinní zobr. $g : \R^n \times
 \[ g(x,y) = y \text{.}\]
 Pak $g$ je afinní. Navíc $g(C_1 \bigtimes C_2) = C_2$. $\implies C_2$ je konvexní, protože afinní zobrazení zachovává
 konvexitu. $\qed$
-
-% \subsection{Práce s ortonormální bází a skalárním součinem}
-% Uvažme lineární prostor $\S^n = \bc{A \in \M_n (\R) \mid A^ T = T}$ reálných symetrických $n \times n$
-% matic se skalárním součinem $\langle A B \rangle _{\S_n} = Tr (AB)$.
-% \begin{enumerate}[(a)]
-%     \item Ukažte, že $
-%     \begin{bmatrix}
-%         \begin{pmatrix}
-%             1 & 0 \\
-%             0 & 0
-%         \end{pmatrix},
-%         & \frac{1}{\sqrt{2}}
-%         \begin{pmatrix}
-%             0 & 1 \\
-%             1 & 0
-%         \end{pmatrix},
-%         &
-%         \begin{pmatrix}
-%             0 & 0 \\
-%             0 & 1
-%         \end{pmatrix}
-%     \end{bmatrix}$
-%     je ortonormální báze na $\S^2$.
-%     \item Ukažte, že zobrazení
-%     \[ \varphi:
-%     \begin{bmatrix}
-%         a & b \\
-%         b & c
-%     \end{bmatrix} \in \S^2 \mapsto
-%     \begin{bmatrix}
-%         a \\
-%         \sqrt{2}b \\
-%         c
-%     \end{bmatrix} \in \R^3
-%     \]
-%     je isomorfismus lineárního prostoru $\S^2$ na $\R^3$ zachovávající skalární součin (tj. \\ $\langle A, B \rangle _{\S_2} = \langle \varphi(A), \varphi(B) \rangle$ pro všechna $A,B \in
-%     \S^2$, kde $\langle \dots \rangle$ je standardní skalární součin na $\R^3$)
-%     \item Zobecněte výsledky bodů (a) a (b) do prostoru $\S^2 na \R^2$ zachovávající skalární součin.
-%     \item Ať $\S^2_+$ je množina všech reálných symetrických $2 \times 2$ matic, které jsou navíc positivně
-%     semidefinitní. Ukažte, že jestliže $\varphi$ je zobrazení z bodu (b), pak
-%     \[\varphi(\S^2_+) = \bc{(x,y,z)^T \in \R^3 \mid x \geq 0, z \geq 0, 2xz - y^2 \geq 0} \text{.}\]
-% \end{enumerate}
-
-% \subsection{Bijekce mezi dvěma optimalisačními úlohami}
-% Je dána úloha
-% \begin{align*}
-%     \text{minimalisujte } & \langle X, A \rangle _{\S_2} \\
-%     \text{za podmínek }   & \langle X, \bb{1} \rangle _{\S_2} = 2, \\
-%                           & X \in \S_+^2,
-% \end{align*}
-% kde $A =
-%     \begin{bmatrix}
-%         3 & 1 \\
-%         1 & 1
-%     \end{bmatrix}
-% $ a $\bb{1} =
-%     \begin{bmatrix}
-%         1 & 0 \\
-%         0 & 1
-%     \end{bmatrix}
-% $. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že existuje bijekce mezi množinou všech jejich řešení a množinou všech řešení úlohy
-% \begin{align*}
-%     \text{minimalisujte } & 3x_1 + 2x_2 + x_3 \\
-%     \text{za podmínek }   & x_1 + x_3 = 2, \\
-%                           & x_1 x_3 - x_2^2 \geq 0,
-%                           & x_1, x_3 \geq 0.
-% \end{align*}
-
-% \subsection{Bijekce mezi dvěma optimalisačními úlohami}
-% Je dána úloha
-% \begin{align*}
-%     \text{minimalisujte } & \langle X, A \rangle _{\S_2} \\
-%     \text{za podmínek }   & \langle X, B \rangle _{\S_2} = 0, \\
-%                           & \langle X, \bb{1} \rangle _{\S_2} = 1, \\
-%                           & X \in \S_+^2,
-% \end{align*}
-% kde $A =
-%     \begin{bmatrix}
-%         2 & 0 \\
-%         0 & -1
-%     \end{bmatrix}
-% $, $B =
-%     \begin{bmatrix}
-%         0 & 1 \\
-%         1 & 0
-%     \end{bmatrix}
-% $ a $\bb{1} =
-%     \begin{bmatrix}
-%         1 & 0 \\
-%         0 & 1
-%     \end{bmatrix}
-% $. Ukažte\footnote{Nápověda: využijte výsledků 7. a 8. příkladu.}, že existuje bijekce mezi množinou všech jejich řešení a množinou všech řešení úlohy
-% \begin{align*}
-%     \text{minimalisujte } & 2x-y \\
-%     \text{za podmínek }   & x+y=1, \\
-%                           & x, y \geq 0.
-% \end{align*}
 
 \subsection{Určení definitnosti matic}
 Určete definitnost matice $A$, jestliže
@@ -353,12 +256,6 @@ Určete definitnost matice $A$, jestliže
         4 & 2 & 2 \\
         2 & 1 & 1 \\
         2 & 1 & 0
-    \end{bmatrix}$;
-    \item
-    $\begin{bmatrix}
-        3 & 2 & 1 \\
-        2 & 1 & 1 \\
-        1 & 1 & 0
     \end{bmatrix}$;
     \item
     $\begin{bmatrix}
@@ -458,14 +355,7 @@ $\begin{vmatrix}
 \end{vmatrix} = -1 < 0$. Aby matice $Q$ byla positivně semidefinitní, musely by i všechny vedlejší minory být $\geq 0$. 
 Protože jsme našli případ, kdy tomu tak není, matice $Q$ je indefinitní.
 
-% (d) % TODO: vyřešit definitnost
-% $\begin{bmatrix}
-%         3 & 2 & 1 \\
-%         2 & 1 & 1 \\
-%         1 & 1 & 0
-% \end{bmatrix}$
-
-(e)
+(d)
 $\begin{bmatrix}
     -1 & \phantom{-}0 & \phantom{-}1 \\
     \phantom{-}0 & -2 & \phantom{-}2 \\
@@ -515,7 +405,7 @@ $\begin{vmatrix}
 
 $\implies (-Q)$ je positivně semidefinitní $\iff Q$ je negativně semidefinitní.
 
-(f)
+(e)
 $\begin{bmatrix}
     1 & 2 & 0 \\
     2 & 5 & 1 \\
@@ -577,11 +467,3 @@ $B^T = \frac{1}{2} (A+A^T)^T = \frac{1}{2} (A^T + A) = \frac{1}{2} (A+A^T) = B. 
     - \langle x, Cx\rangle = - \langle Cx, x\rangle = 0.
 \]
 Matice $C$ tedy nijak nepřispívá do výsledku. Takže platí $\langle Ax, x\rangle = \langle Bx, x\rangle. \qed$
-
-% \subsection{Gradient vektorového součinu}
-% Nalezněte $\nabla f(x)$ a $\nabla^2 f(x)$, jestliže
-% \begin{enumerate}[(a)]
-%     \item $f(x) = \langle x,c \rangle$, kde $c \in \R^n$;
-%     \item $f(x) = \langle Ax, x \rangle$, kde $A \in \M_n (\R)$. Určete také $\nabla f(x)$ a $\nabla^2 f (x)$ za
-%     dodatečného předpokladu, že $A$ je symetrická matice.
-% \end{enumerate}
