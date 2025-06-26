@@ -395,99 +395,42 @@ Důkaz (b). Vynecháme.
     \item Úloha LP má řešení právě tehdy, když $M$ je neprázdná a $\langle x, c\rangle$ je zdola omezená na $M$.
     \item Má-li LP řešení, pak existuje řešení úlohy LP, které je BPB.
 \end{enumerate}
+Zde budeme dokazovat jen pro případ, že $M$ je kompaktní.
+
 Důkaz (a).\\
 \enquote{$\Rightarrow$}: Když máme řešení, pak určitě leží v $M$ a je určitě zdola omezená, protože to je právě to ono
 řešení.
 
 \enquote{$\Leftarrow$}: \href{https://cs.wikipedia.org/wiki/Weierstrassova_v%C4%9Bta}{Weierstrassova věta}. $\qed$
 
-Důkaz (b). \\ Ať $\hat x \in \argmax_{x \in M} \langle x,c\rangle$. \\
-Protože $M$ je kompaktní a konvexní, tak víme $\hat x \in \conv(\ext(M))$.
+Důkaz (b). LP má řešení $\overset{(a)}{\implies} M \not= \emptyset$.\\
+Cíl: Ukázat, že alespoň jedno řešení je krajní bod (=BPB).\\
+Ať $x \in M$. Ať $\ext(M) = \bc{e_1, \dots, e_k}$ je neprázdná (díky předpokladu) a konečná množina (díky 
+\hyperref[ruzneBPB]{Tvrzení o různých BPB}).
 
-$\ext(M) \dots$ konečná množina, tj. $\ext(M) = \bc{e_1, \dots, e_k}$.
-\[
-    \underset{\text{obal}}{\overset{\text{konvexní}}{\implies}} \hat x = \sum_{i=1}^{l} \lambda_i e_i \text{ pro nějaké }
-    \lambda_1, \dots, \lambda_l \geq 0 \text{ a } \sum \lambda_i = 1.
-\]
-Alespoň jeden krajní bod musí být mezi $e_i$. 
-Ať $e_N \in \ext(M)$ splňuje $\langle e_N, c\rangle = \min_{i \in \bc{1, \dots, l}} \langle e_i, c\rangle$.
+Pak existují $\lambda_1, \dots, \lambda_k \in [0,1]$ tak, že $\sum_{i=1}^{k}\lambda_i = 1$ a navíc $x = 
+\sum_{i=1}^{k} \lambda_i e_i$ dle \hyperref[KreinMilm]{Kreinovy-Milmanovy věty}.
 
-\[
-    \langle \hat x, c\rangle = \sum_{i=1}^{l} \lambda_i \langle e_i, c\rangle \geq \left(\sum_{i=1}^{l} \lambda_i\right)
-    \langle e_N, c\rangle = \langle e_N, c\rangle \implies e_N \in \argmax_{x \in M} \langle x, c\rangle. \qed
-\]
-
-\subsection{Příklad na hledání duální úlohy}
-Mějme úlohu
-\Opt{min}{}{x_1 + 2x_2}{
-    x_1 + x_2 \: &\geq 1 \dots -x_1 -x_2 + 1 \leq 0, \\
-    x_1, x_2 \: &\geq 0.
-}
-\begin{enumerate}[(a)]
-    \item Najděte duální úlohu, jestliže $x_1, x_2 \geq 0$ je přímé omezení.
-    \item Najděte duální úlohu, jestliže $x_1, x_2 \in \R$ je přímé omezení.
-\end{enumerate}
-(a) $L(x_1, x_2, \mu) = x_1 + 2x_2 + \mu(-x_1 -x_2 + 1)$
-\[
-    \varphi(\mu) = \inf_{(x_1, x_2) \in \R_+^2} L(x_1, x_2, \mu) = \inf_{(x_1, x_2) \in \R_+^2} (1-\mu)x_1 + 
-    (2-\mu)x_2 + \mu
-\]
-\[
-    \varphi(\mu) = \underbrace{\left[\inf_{x_1 \in \R_+} (1-\mu)x_1\right]}_{=
-    \begin{cases}
-        0 &\text{ pro } 1 \geq \mu, \\
-        - \infty &\text{ pro } 1 < \mu.
-    \end{cases}} + \underbrace{\left[\inf_{x_2 \in \R_+} (2-\mu)x_2\right]}_{=
-    \begin{cases}
-        0 &\text{ pro } 2 \geq \mu, \\
-        - \infty &\text{ pro } 2 < \mu.
-    \end{cases}} + \mu
-\]
-\[
-    \implies \varphi(\mu) =
-    \begin{cases}
-        \mu &\text{ pro } \mu \in [0,1], \\
-        -\infty &\text{ pro } \mu \not\in [0,1].
-    \end{cases}
-\]
-A tedy duální úloha je
-\Opt{max}{}{\mu}{
-    \mu &\in [0,1].
-}
-
-(b) $L(x_1, x_2, \mu_1, \mu_2, \mu_3) = x_1 + 2x_2 + \mu_1(-x_1 -x_2 + 1) + \mu_2(-x_1) + \mu_3(-x_2)$
-\[
-    \varphi(\mu) = \inf_{(x_1, x_2) \in \R^2} L(x_1, x_2, \mu_1, \mu_2, \mu_3) = \inf_{(x_1, x_2) \in \R^2} 
-    (1-\mu_1 - \mu_2)x_1 + (2-\mu_1-\mu_3)x_2 + \mu_1
-\]
-\[
-    \varphi(\mu) = \underbrace{\left[\inf_{x_1 \in \R}(1-\mu_1-\mu_2)x_1\right]}_{=
-    \begin{cases}
-        0 & \text{ pro } 1-\mu_1-\mu_2 = 0, \\
-        -\infty & \text{ pro } 1-\mu_1-\mu_2 \not= 0.
-    \end{cases}} + \underbrace{\left[\inf_{x_2 \in \R}(2 - \mu_1 - \mu_3)x_2\right]}_{
-    \begin{cases}
-        0 & \text{ pro } 2-\mu_1-\mu_3 = 0, \\
-        -\infty & \text{ pro } 2-\mu_1-\mu_3 \not= 0.
-    \end{cases}} + \mu_1
-\]
-\[
-    \varphi(\mu_1, \mu_2, \mu_3) = 
-    \begin{cases}
-        \mu_1 &\text{ pro } D_\varphi = \bc{(\mu_1, \mu_2, \mu_3) \in \R^3_+ \quad \middle| \quad 1-\mu_1-\mu_2 = 0, 
-         2-\mu_1-\mu_3 = 0}, \\
-        - \infty & \text{ jinak.}
-    \end{cases}
-\]
-A tedy duální úloha je
-\Opt{max}{}{\mu_1}{
-    1 - \mu_1 - \mu_2 \: &= 0, \\
-    2 - \mu_1 - \mu_3 \: &= 0, \\
-    \mu_1, \mu_2, \mu_3 \: &\geq 0.
-}
+Proto
+\begin{align*}
+    \langle x,c\rangle = \langle\sum_{i=1}^{k}\lambda_i e_i, c \rangle = \sum_{i=1}^{k}\lambda_i 
+    \underbrace{\langle e_i, c\rangle}_{\geq \min_{1 \leq i \leq k} \langle e_i,c \rangle} \geq 
+    \left(\min_{1 \leq i \leq k} \langle e_i, c\rangle\right) \underbrace{\sum_{i=1}^{k}\lambda_i}_{=1} = 
+    \min_{1 \leq i \leq k} \langle e_i, c\rangle
+\end{align*}
+$\implies$ existuje krajní bod, ve kterém nabývá $\langle x, c\rangle$ minima na $M$. $\qed$
 
 \subsection{Tvrzení o množině všech řešení úlohy LP}
 Množina všech řešení úlohy LP je konvexní polyedrická množina.
+
+Důkaz.\\
+Cíl: Množina všech řešení LP lze napsat jako průnik konečně mnoha poloprostorů.
+
+Mnžoian všech řešení je buď prázdná, pak je určitě konvexní polyedrická, nebo je neprázdná tvaru $M \cap H$, kde $H = 
+\bc{x \in \R^n \mid \langle x,c\rangle=\min_{y \in M}\langle y,c\rangle}$. A protože $H$ je dáno jako průnik 2 
+poloprostorů ($\langle x,c\rangle \leq \min_{y \in M}\langle y,c\rangle$ a $\langle x,c\rangle \geq 
+\min_{y \in M}\langle y,c\rangle$), navíc $M$ je dáno jako průnik konečně mnoha poloprostorů, tedy i průnik je konvexní
+polyedrická. $\qed$
 
 \subsection{Příkad na Simplexovu metodu}
 Je dána úloha
@@ -681,8 +624,8 @@ Je-li výsledná simplexová tabulka
     \end{array}
 \]
 kde $\widetilde{c_1}, \dots, \widetilde{c}_{m+n} \geq 0$ a sloupce na lévé straně odpovídají postupně proměnným 
-$x_1, \dots, x_n, y_1, \dots, y_m$. Pak $\hat y = \left(\widetilde{c}_{n+1},\dots, \widetilde{c}_{m+n}\right)^T$ je řešením 
-úlohy $(D)$.
+$x_1, \dots, x_n, y_1, \dots, y_m$. Pak $\hat y = \left(\widetilde{c}_{n+1},\dots, \widetilde{c}_{m+n}\right)^T$ je 
+řešením úlohy $(D)$.
 
 \subsection{Příklad řešení duální úlohy}
 Je dána dvojice vzájemně duálních úloh
@@ -756,7 +699,7 @@ Protože v levé části prvního řádku není žádný záporný koeficient, a
 Úloha má řešení $\left(\frac{1}{2}, \frac{1}{2}, 0, 0, 0 \right)^T$. Tedy řešení původní primární úlohy je 
 $\left(\frac{1}{2}, \frac{1}{2}, 0\right)^T$. A když dosadíme, tak zjistíme, že toto je řešení i duální úlohy.
 
-\subsection{Hledání duální úlohy}
+\subsection{Příklad na hledání duální úlohy}
 V $\R^n$ jsou daný množiny bodů $A = \bc{a_1, \dots, a_k}$ a $B = \bc{b_1, \dots, b_l}$. Ať $w \in \R^n$ a 
 $\lambda \in \R$. K úloze
 \optAs{min}{h(w,\lambda) = \frac{1}{2}\| w\|^2}{%
@@ -817,3 +760,72 @@ Což upravíme:
         y, z \geq 0& 
     \end{align*}
 \end{multicols}
+
+\subsection{Příklad na hledání duální úlohy}
+Mějme úlohu
+\Opt{min}{}{x_1 + 2x_2}{
+    x_1 + x_2 \: &\geq 1 \dots -x_1 -x_2 + 1 \leq 0, \\
+    x_1, x_2 \: &\geq 0.
+}
+\begin{enumerate}[(a)]
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \geq 0$ je přímé omezení.
+    \item Najděte duální úlohu, jestliže $x_1, x_2 \in \R$ je přímé omezení.
+\end{enumerate}
+(a) $L(x_1, x_2, \mu) = x_1 + 2x_2 + \mu(-x_1 -x_2 + 1)$
+\[
+    \varphi(\mu) = \inf_{(x_1, x_2) \in \R_+^2} L(x_1, x_2, \mu) = \inf_{(x_1, x_2) \in \R_+^2} (1-\mu)x_1 + 
+    (2-\mu)x_2 + \mu
+\]
+\[
+    \varphi(\mu) = \underbrace{\left[\inf_{x_1 \in \R_+} (1-\mu)x_1\right]}_{=
+    \begin{cases}
+        0 &\text{ pro } 1 \geq \mu, \\
+        - \infty &\text{ pro } 1 < \mu.
+    \end{cases}} + \underbrace{\left[\inf_{x_2 \in \R_+} (2-\mu)x_2\right]}_{=
+    \begin{cases}
+        0 &\text{ pro } 2 \geq \mu, \\
+        - \infty &\text{ pro } 2 < \mu.
+    \end{cases}} + \mu
+\]
+\[
+    \implies \varphi(\mu) =
+    \begin{cases}
+        \mu &\text{ pro } \mu \in [0,1], \\
+        -\infty &\text{ pro } \mu \not\in [0,1].
+    \end{cases}
+\]
+A tedy duální úloha je
+\Opt{max}{}{\mu}{
+    \mu &\in [0,1].
+}
+
+(b) $L(x_1, x_2, \mu_1, \mu_2, \mu_3) = x_1 + 2x_2 + \mu_1(-x_1 -x_2 + 1) + \mu_2(-x_1) + \mu_3(-x_2)$
+\[
+    \varphi(\mu) = \inf_{(x_1, x_2) \in \R^2} L(x_1, x_2, \mu_1, \mu_2, \mu_3) = \inf_{(x_1, x_2) \in \R^2} 
+    (1-\mu_1 - \mu_2)x_1 + (2-\mu_1-\mu_3)x_2 + \mu_1
+\]
+\[
+    \varphi(\mu) = \underbrace{\left[\inf_{x_1 \in \R}(1-\mu_1-\mu_2)x_1\right]}_{=
+    \begin{cases}
+        0 & \text{ pro } 1-\mu_1-\mu_2 = 0, \\
+        -\infty & \text{ pro } 1-\mu_1-\mu_2 \not= 0.
+    \end{cases}} + \underbrace{\left[\inf_{x_2 \in \R}(2 - \mu_1 - \mu_3)x_2\right]}_{
+    \begin{cases}
+        0 & \text{ pro } 2-\mu_1-\mu_3 = 0, \\
+        -\infty & \text{ pro } 2-\mu_1-\mu_3 \not= 0.
+    \end{cases}} + \mu_1
+\]
+\[
+    \varphi(\mu_1, \mu_2, \mu_3) = 
+    \begin{cases}
+        \mu_1 &\text{ pro } D_\varphi = \bc{(\mu_1, \mu_2, \mu_3) \in \R^3_+ \quad \middle| \quad 1-\mu_1-\mu_2 = 0, 
+         2-\mu_1-\mu_3 = 0}, \\
+        - \infty & \text{ jinak.}
+    \end{cases}
+\]
+A tedy duální úloha je
+\Opt{max}{}{\mu_1}{
+    1 - \mu_1 - \mu_2 \: &= 0, \\
+    2 - \mu_1 - \mu_3 \: &= 0, \\
+    \mu_1, \mu_2, \mu_3 \: &\geq 0.
+}
