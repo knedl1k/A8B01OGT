@@ -1,0 +1,66 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[czech]{babel}
+\usepackage[margin=0.85in]{geometry}
+
+\usepackage{cfg}
+
+\pgfplotsset{compat=newest}
+
+\makeatletter
+\renewcommand*\l@subsection{\@dottedtocline{2}{1.8em}{3.2 em}}
+\makeatother
+
+\begin{document}
+
+\section*{Termín 23. 6. 2025}
+
+\subsection*{Konvexnost funkce}
+Rozhodněte, zda funkce
+\[
+    f(x_1, x_2, x_3) = x_1^4 + x_2^2 + x_3^2 + x_1 x_3
+\]
+je konvexní.
+
+\subsection*{Lineární programování a simplexová metoda}
+Mějme úlohu lineárního programování
+\Opt{min}{}{x_1 - 3x_2}{
+    -x_1 + 2x_2 \: \leq 6, \\
+    x_1 + x_2 \: \leq 5, \\
+    x_1, x_2 \: \geq 0.
+}
+\begin{enumerate}[(a)]
+    \item Převeďte tuto úlohu do standardního tvaru.
+    \item Sestrojte první fázi simplexové metody. Proveďte jednu iteraci a rozhodněte, zdali algoritmus končí (v takovém 
+    případě s jakým výsledkem), nebo zda bude pokračovat.
+\end{enumerate}
+
+\subsection*{KKT podmínky}
+Mějme optimalizační úlohu
+\Opt{min}{}{\alpha x_1 + 3x_2}{
+    (x_1 + 2)^2 + x_2^2 \: &\leq 4, \\
+    x_1 + x_2 + 2 \: &\geq 0, \\
+    x_2 \: &\geq 0. 
+}
+\begin{enumerate}[(a)]
+    \item Určete KKT podmínky této úlohy.
+    \item Diskutujte, jestli jsou podmínky splněny v bodě $\begin{bmatrix}-2 \\ \phantom{-}0 \end{bmatrix}$. Jsou 
+    splněny nutné a postačující podmínky pro bod minima?
+    \item Určete všechny hodnoty parametru $\alpha$, pro která existují řešení úlohy.
+\end{enumerate}
+
+\subsection*{Maticová hra}
+Je dána hra dvou hráčů s nulovým součtem $G = ((\sigma_1, \sigma_2),(\tau_1, \tau_2, \tau_3), u)$ a maticí hry
+\[
+    \begin{bmatrix}
+        2 & 4 & 1 \\
+        3 & 1 & 6
+    \end{bmatrix}.
+\]
+\begin{enumerate}[(a)]
+    \item Nalezněte horní a dolní cenu hry.
+    \item Ověřte, jestli $(\sigma_1, \tau_2)$ je Nashovým equilibriem. Řádně zdůvodněte!
+    \item Vytvořte smíšené rozšíření zadané maticové hry.
+\end{enumerate} 
+
+
+\end{document}
