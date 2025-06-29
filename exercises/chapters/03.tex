@@ -215,9 +215,12 @@ Z \hyperref[varNer]{variační nerovnosti} tedy plyne, že $P_L$ je nutně line�
     \langle x - (x - P_L(x)), z - (x - P_L(x))\rangle = \langle \underbrace{P_L(x)}_{\in L}, z - (x - P_L(x))\rangle
 \]
 \[
-    = \underbrace{\langle P_L (x), z\rangle}_0 - \langle P_L (x), x-P_L(x)\rangle = \langle x - P_L (x), 0 - P_L(x)\rangle \leq 0. \qed
+    = \underbrace{\langle P_L (x), z\rangle}_0 - \langle P_L (x), x-P_L(x)\rangle = 
+    \langle x - P_L (x), \underbrace{0}_{\in L} - P_L(x)\rangle \leq 0. 
 \]
-% TODO: doplnit zdůvodnění
+\[
+    \implies P_{L^\perp} = x- P_L(x) \qed
+\]
 
 (c) Pro každé $x \in \R^n$ existují jednoznačně určené body $y \in L$ a $z \in L^\perp$ tak, že $x=y + z$. Navíc 
 $y = P_L(x)$ a $z=P_{L^ \perp} (x)$.

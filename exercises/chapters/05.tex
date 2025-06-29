@@ -125,7 +125,7 @@ Poznámka.
 Opačná implikace neplatí. Tedy pomocí dolní úrovňové množiny \textbf{nelze} určit, jestli původní funkce je konvexní.
 
 Například $f = x^3$ není konvexní funkce na intervalu $x = [-2, 2]$, ale když zvolíme $\alpha = 8$, tak dolní úrovňová
-množina bude konvexní. % TODO: nákres
+množina bude konvexní.
 
 \subsection{Použití dolní úrovňové množiny}
 Je množina $M = \bc{x \in \R^2 \mid \| x\| \leq 1, \left\langle x,
@@ -156,7 +156,6 @@ $M_2 = \bc{x \in \R^2 \mid \left\langle x,
 
 To nám ale dává průnik dvou konvexních množin, tedy $M = M_1 \cap M_2$ je také konvexní. $\qed$
 
-% TODO: nákres
 \newpage
 \subsection{Součet a součin zachovávají konvexitu}\label{ssKonv}
 Mějme funkce $f, g$, které jsou konvexní na $C$, $\alpha \geq 0$. Pak:
@@ -274,7 +273,7 @@ Což je ale spor, protože mám nějakou funkční hodnotu bodu úsečky mezi $\
 hodnotu bodu $\hat x$. To ale nemůže nastat, protože jako body minima funkce $f$ na $C$ musí mít stejnou hodnotu. Body
 $\hat x$ a $\hat y$ musí tedy nutně být stejné body. $\qed$
 
-\subsection{Věta o konvexitě a první derivaci}\label{konvDeriv} % TODO: graf
+\subsection{Věta o konvexitě a první derivaci}\label{konvDeriv}
 Nechť $\Omega \subseteq \R^n$ je otevřená, $C \subseteq \Omega$ neprázdná konvexní a $f \in C^{1} (\Omega)$. Potom
 platí:
 \begin{enumerate}[(a)]
@@ -287,6 +286,34 @@ platí:
         f(x) + \langle \nabla f(x), y-x\rangle < f(y).
     \]
 \end{enumerate}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=1]
+        \draw[->, thick] (-0.5, 0) -- (5, 0) node[below left] {$y$};
+        \draw[->, thick] (0, -0.5) -- (0, 4) node[below left] {$z$};
+
+        \draw[blue, thick, domain=0:4.5] plot (\x, {0.4*(\x-2)^2 + 1}) node[above  ] {$f(y)$};
+
+        % --- point of contact (x, f(x)) ---
+        \pgfmathsetmacro{\xval}{3.5}
+        \pgfmathsetmacro{\yval}{0.4*(\xval - 2)^2 + 1}
+        
+        \draw[dashed] (\xval, 0) node[below] {$x$} -- (\xval, \yval);
+        \draw[dashed] (0, \yval) node[left] {$f(x)$} -- (\xval, \yval);
+
+        % --- tangent ---
+        % Equation of a tangent: z - f(x) = f'(x)*(y - x)
+        \pgfmathsetmacro{\m}{0.8*(\xval - 2)} % tangent direction
+        \draw[orange, thick] 
+        ({\xval - 2.5}, {\yval - 2.5*\m}) -- ({\xval + 1.5}, {\yval + 1.5*\m});
+        
+        \node at (2.5, -0.7) [orange]{\large$z = f(x) + \langle \nabla f(x), y - x \rangle$};
+
+        \filldraw[red] (\xval, \yval) circle (1.5pt);
+    \end{tikzpicture}
+\end{figure}
+
+
 Důkaz (b) vynecháme.
 
 Důkaz (a).
@@ -327,7 +354,6 @@ Nechť $\Omega \subseteq \R^n$ je otevřená, $C \subseteq \Omega$ neprázdná k
     \item Jestliže pro každé $x \in C$ je $\nabla^2 f(x)$ positivně definitní matice, pak $f$ je ryze konvexní na $C$.
 \end{enumerate}
 
-\newpage
 Důkaz (a).
 
 Ať $x, y \in C$.
@@ -400,7 +426,7 @@ $\nabla^2 f(x, y) =
 $\nabla^2 f(x,y)$ positivně definitní.
 
 A podle bodu (c) \hyperref[konvDDeriv]{věty o konvexitě a druhé derivaci} můžeme říct, že funkce $f$ je ryze konvexní.
-\newpage
+
 \subsection{Příklad ověření konvexnosti funkce s parametrem}
 Mějme funkci $f(x) = \langle Ax, x\rangle$, kde
 \[
@@ -479,7 +505,7 @@ A teď zbylé minoru po vyškrtání dvou řádků a sloupců:
 \]
 
 $\implies$ Pokud $\alpha \geq 2$, pak je funkce $f$ konvexní. Při $\alpha > 2$ je ryze konvexní.
-
+\newpage
 \subsection{Příklad ověření konvexity množiny}
 Mějme množinu
 \[
