@@ -2,9 +2,11 @@
 \usepackage[czech]{babel}
 \usepackage[margin=0.85in]{geometry}
 
-\usepackage{cfg}
+\makeatletter
+\def\input@path{{../configs/}{./}}
+\makeatother
 
-\pgfplotsset{compat=newest}
+\usepackage{math}
 
 \makeatletter
 \renewcommand*\l@subsection{\@dottedtocline{2}{1.8em}{3.2 em}}
